@@ -1,21 +1,38 @@
 ---
+import { getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { SEASONS, url } from '../seasons';
+import { getEvents, url } from '../events';
+
+const events = await getEvents();
+// An event is linked only when it has a page (src/pages/<slug>/index.astro); otherwise its card is shown unlinked.
+const pages = Object.keys(import.meta.glob('./*/index.astro')).map((p) => p.split('/')[1]);
+// Optional card background: events/<Dir>/banner.{webp,jpg,png} (official season key art; source in its images/INDEX.md).
+const banners = import.meta.glob<{ default: ImageMetadata }>('../../events/*/banner.{webp,jpg,png}', { eager: true });
+const bannerOf = async (dir: string) => {
+  const hit = Object.entries(banners).find(([p]) => p.includes(`/events/${dir}/`));
+  return hit ? (await getImage({ src: hit[1].default, width: 1400, format: 'webp' })).src : '';
+};
+const cards = await Promise.all(events.map(async (e) => ({ ...e, banner: await bannerOf(e.dir), linked: pages.includes(e.slug) })));
 ---
-<Base title="Torchlight: Infinite — Seasons">
-  <header class="hero">
-    <div class="kicker">Torchlight: Infinite · team strategy base</div>
-    <h1>Seasons<small>seasonal mechanics, odds and strategy</small></h1>
-    <p class="lead">One map per season: confirmed rules, odds measured live, combos, and what changed during the event. Every number carries a tag saying where it came from.</p>
+<Base title="TLI Events — Torchlight: Infinite season strategy">
+  <header class="hero brand-hero">
+    <h1 class="wordmark">TLI <span>Events</span></h1>
+    <p class="tagline">Torchlight: Infinite season mechanics, decoded.</p>
+    <p class="lead">One page per season event: the rules that matter, what to pick and when — built from live runs, official cards and simulators. Community research; not affiliated with XD Games.</p>
   </header>
-  {SEASONS.map((s) => (
-    <a class="season-card" href={url(`${s.slug}/`)}>
-      <div class="code">{s.code} · {s.nameCn} · since {s.launched}</div>
-      <h2>{s.name}</h2>
-      <div><b>{s.mechanic}</b> — {s.summary}</div>
-    </a>
-  ))}
-  <footer>
-    Sources are listed in each season’s guide. Community research; not affiliated with XD Games.
-  </footer>
+  <section class="event-list" aria-label="Events">
+    {cards.map((e) => {
+      const body = <>
+        {e.banner && <img class="bg" src={e.banner} alt="" loading="eager" />}
+        <div class="txt">
+          <div class="code">{e.code} since {e.launched}</div>
+          <h2>{e.name}</h2>
+          <div><b>{e.mechanic}</b> — {e.summary}</div>
+        </div>
+      </>;
+      return e.linked
+        ? <a class="season-card" href={url(`${e.slug}/`)}>{body}</a>
+        : <div class="season-card soon">{body}</div>;
+    })}
+  </section>
 </Base>

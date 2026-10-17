@@ -1,0 +1,11 @@
+---
+// /ss14/<lang>/ — the play sheet in the other languages (texts in src/i18n/ss14-play.ts).
+import PlaySheet from '../../components/ss14/PlaySheet.astro';
+import { LANGS, type Lang } from '../../i18n/ss14-play';
+
+export function getStaticPaths() {
+  return LANGS.filter((l) => l.code !== 'en').map((l) => ({ params: { lang: l.code } }));
+}
+const lang = Astro.params.lang as Lang;
+---
+<PlaySheet lang={lang} />

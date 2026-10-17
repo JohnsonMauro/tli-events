@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v7
       - name: Update season data
         run: |
-          for script in SS*_*/scripts/update_data.py; do
+          for script in events/*/scripts/update_data.py; do
             python3 -I "$script"
           done
       - name: Commit if anything changed
@@ -34,7 +34,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A SS*_*/
+          git add -A events/
           git commit -m "chore(data): update season data"
           git push
 

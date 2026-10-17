@@ -1,10 +1,12 @@
-# Torchlight: Infinite — seasons
+# Torchlight: Infinite — events
 
-The team's strategy base for Torchlight: Infinite seasonal mechanics: confirmed rules, odds measured live, combos, and what changed during each event. Astro site, published on GitHub Pages.
+The team's strategy base for Torchlight: Infinite seasonal events: confirmed rules, odds measured live, combos, and what changed during each event. Astro site, published on GitHub Pages.
 
-| Season | Mechanic | Folder |
+| Event | Mechanic | Folder |
 |---|---|---|
-| SS14 Tartarus (塔罗斯的困兽) | Warden's Duty — a 16-cell prison | [SS14_Tartarus/](SS14_Tartarus/) |
+| SS14 Tartarus (塔罗斯的困兽) | Warden's Duty — a 16-cell prison | [events/SS14_Tartarus/](events/SS14_Tartarus/) |
+
+New event? Copy [`events/_template`](events/_template/) — see [events/README.md](events/README.md) for the method and the steps. The list reads each event's card from its guide's frontmatter; an event is linked once it has a page in `src/pages/<slug>/`.
 
 ## Run it
 
@@ -16,23 +18,20 @@ pnpm dev        # http://localhost:4321 with live reload (Astro 7: runs in the b
 pnpm build      # writes dist/
 pnpm preview    # serves dist/ (background; stop with `pnpm astro preview stop`)
 pnpm check      # type-check
-pnpm data       # refresh SS14 data (simulator + live telemetry)
+pnpm data       # run every events/*/scripts/update_data.py
 ```
 
 ## Structure
 
 ```
-src/                  site (layout, pages, map script)
-  pages/ss14/         map (index.astro), guide/changelog/images ([doc].astro), CSV
-SS14_Tartarus/        season source of truth: .md docs, data/, images/, scripts/
+events/               one self-contained folder per event (+ _template, README with the method)
+src/                  site: event list + one page per event (SS14 play sheet in 6 languages)
 .github/workflows/    build + deploy to Pages; data refresh every 6h
 ```
 
-The season's `.md` files are rendered by the site straight from their folder; links between them (`CHANGELOG.md`, …) are rewritten to site routes.
-
 ## Publishing
 
-`.github/workflows/deploy.yml`: push to `main` → build and deploy. Scheduled (6h) or manual → runs `update_data.py`, commits if anything changed, deploys.
-Needs GitHub Pages with source "GitHub Actions" (Settings → Pages). Pages on a private repo requires a paid plan.
+`.github/workflows/deploy.yml`: push to `main` → build and deploy. Scheduled (6h) or manual → runs the update scripts, commits if anything changed, deploys.
+Needs GitHub Pages with source "GitHub Actions" (Settings → Pages).
 
-Community research; not affiliated with XD Games. Sources are listed in each season's guide.
+Community research; not affiliated with XD Games. Sources are listed in each event's guide (in this repo).

@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "data": "python3 -I SS14_Tartarus/scripts/update_data.py"
+    "data": "for s in events/*/scripts/update_data.py; do python3 -I \"$s\" || exit 1; done"
   },
   "dependencies": {
     "astro": "7.4.0"
