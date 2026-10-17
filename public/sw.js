@@ -16,11 +16,15 @@ const scope = new URL(self.registration.scope).pathname; // e.g. /tli-events/
 self.addEventListener('install', () => self.skipWaiting());
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    const keep = new Set([ASSETS, PAGES]);
-    await Promise.all((await caches.keys()).filter((k) => k.startsWith('tli-') && !keep.has(k)).map((k) => caches.delete(k)));
-    await self.clients.claim();
-  })());
+  event.waitUntil(
+    (async () => {
+      const keep = new Set([ASSETS, PAGES]);
+      await Promise.all(
+        (await caches.keys()).filter((k) => k.startsWith('tli-') && !keep.has(k)).map((k) => caches.delete(k)),
+      );
+      await self.clients.claim();
+    })(),
+  );
 });
 
 self.addEventListener('fetch', (event) => {
@@ -55,7 +59,7 @@ async function networkFirst(req, event) {
   // Slow connection: answer from the last copy after a few seconds; the fetch still updates the cache.
   const timeout = new Promise((resolve) => setTimeout(resolve, NETWORK_TIMEOUT_MS)).then(() => cache.match(req));
   try {
-    return (await Promise.race([network, timeout.then((hit) => hit || network)]));
+    return await Promise.race([network, timeout.then((hit) => hit || network)]);
   } catch {
     return (await cache.match(req)) || Response.error();
   }

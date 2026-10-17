@@ -6,13 +6,25 @@ import { getEvents, eventUrl, url } from '../lib/events';
 
 const events = (await getEvents()).filter((e) => e.hasPage);
 ---
+
 <Base title="Page not found · TLI Events" description="This page doesn't exist." noindex>
   <header class="hero brand-hero">
     <h1 class="wordmark">404</h1>
     <p class="tagline">This cell is empty.</p>
-    <p class="lead">The page moved or never existed. Pick an event below, or go back to the <a href={url()}>event list</a>.</p>
+    <p class="lead">
+      The page moved or never existed. Pick an event below, or go back to the <a href={url()}>event list</a>.
+    </p>
   </header>
   <ul class="nf-list">
-    {events.map((e) => <li><a href={eventUrl(e)}><b>{e.code} {e.name}</b> — {e.mechanic}</a></li>)}
+    {events.map((e) => (
+      <li>
+        <a href={eventUrl(e)}>
+          <b>
+            {e.code} {e.name}
+          </b>{' '}
+          — {e.mechanic}
+        </a>
+      </li>
+    ))}
   </ul>
 </Base>

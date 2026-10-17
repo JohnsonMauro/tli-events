@@ -1,7 +1,12 @@
 import { getImage } from 'astro:assets';
 
 /** Attributes for an `<img>`: optimized WebP + srcset, and intrinsic width/height so the box is reserved before load. */
-export interface Img { src: string; srcset: string; width: number; height: number }
+export interface Img {
+  src: string;
+  srcset: string;
+  width: number;
+  height: number;
+}
 
 type Glob = Record<string, { default: ImageMetadata }>;
 
@@ -27,7 +32,9 @@ export async function fluid(meta: ImageMetadata, widths: number[]): Promise<Img>
 
 /** Index an `import.meta.glob(..., { eager: true })` of images by file name without extension. */
 export const byName = (files: Glob): Record<string, ImageMetadata> =>
-  Object.fromEntries(Object.entries(files).map(([path, mod]) => [(path.split('/').pop() ?? path).replace(/\.\w+$/, ''), mod.default]));
+  Object.fromEntries(
+    Object.entries(files).map(([path, mod]) => [(path.split('/').pop() ?? path).replace(/\.\w+$/, ''), mod.default]),
+  );
 
 /**
  * Art lookup at a few box sizes: `art(id, 'sm')` → a promise of the optimized image, or null when there is no such art

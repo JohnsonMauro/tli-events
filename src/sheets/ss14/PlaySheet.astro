@@ -16,45 +16,80 @@ import './play.css';
 // Play sheet for SS14 in one language: general patterns of the Warden's Duty, strong instrument pairs,
 // the instrument ranking (interactive pick, ./play.ts) and when to take each treasure/incident.
 // Pages: src/pages/ss14/index.astro (en) and src/pages/ss14/[lang].astro. Texts: ./i18n.ts.
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const t = DICT[lang];
 const event = await getEvent('ss14');
 const langs = eventLangs(event, lang);
 
 // Game art cut by events/SS14_Tartarus/scripts/game_art.py (sources in art/SOURCES.md), optimized per box size.
-const A = artSet(import.meta.glob<{ default: ImageMetadata }>('../../../events/SS14_Tartarus/art/*.webp', { eager: true }));
+const A = artSet(
+  import.meta.glob<{ default: ImageMetadata }>('../../../events/SS14_Tartarus/art/*.webp', { eager: true }),
+);
 
 // ---- instruments: sim value → tier (vs. a run with no instrument), grouped by tier ----
 type ToolId = keyof typeof t.tool;
 const base = data.baseNoTools;
-const TIERS = [['S', 2.6], ['A', 1.9], ['B', 1.5], ['C', 1.2], ['D', 1]] as const;
+const TIERS = [
+  ['S', 2.6],
+  ['A', 1.9],
+  ['B', 1.5],
+  ['C', 1.2],
+  ['D', 1],
+] as const;
 const tierOf = (v: number) => TIERS.find(([, min]) => v / base >= min)?.[0] ?? 'X';
 const tools = Object.entries(data.tools as Record<string, { name: string; value: number | null }>)
   .filter(([, x]) => x.value != null)
   .sort((a, b) => (b[1].value as number) - (a[1].value as number))
-  .map(([id, x]) => ({ id, name: x.name.replace(/:.*/, ''), tier: tierOf(x.value as number), art: A('tool-' + id, 'lg') }));
-const groups = [...TIERS.map(([tier, min]) => ({ tier, note: `≥${min.toFixed(1)}×` })), { tier: 'X', note: `<1× · ${t.tierWorse}` }]
+  .map(([id, x]) => ({
+    id,
+    name: x.name.replace(/:.*/, ''),
+    tier: tierOf(x.value as number),
+    art: A('tool-' + id, 'lg'),
+  }));
+const groups = [
+  ...TIERS.map(([tier, min]) => ({ tier, note: `≥${min.toFixed(1)}×` })),
+  { tier: 'X', note: `<1× · ${t.tierWorse}` },
+]
   .map((g) => ({ ...g, tools: tools.filter((x) => x.tier === g.tier) }))
   .filter((g) => g.tools.length);
 
 // ---- exceptions to "same rarity only" (instrument/card texts in data/tartarus_data.json and images/INDEX.md) ----
 const exceptions = [
-  ['tool-guillotine', 'Fanged Guillotine', t.exGuillotine], ['tool-maul', 'Elephant-Foot Maul', t.exMaul],
-  ['', 'Cage Fight', t.exCage], ['tool-crown', 'Iron Crown', t.exCrown], ['tool-skewer', 'Skewered Rat Heads', t.exSkewer],
+  ['tool-guillotine', 'Fanged Guillotine', t.exGuillotine],
+  ['tool-maul', 'Elephant-Foot Maul', t.exMaul],
+  ['', 'Cage Fight', t.exCage],
+  ['tool-crown', 'Iron Crown', t.exCrown],
+  ['tool-skewer', 'Skewered Rat Heads', t.exSkewer],
 ].map(([id, name, text]) => ({ name, text, art: id ? A(id) : null }));
 
 // ---- strong pairs that actually show up: sim pair value, both instruments offered in ≥3% of live offers ----
-const offers = (data.live as { toolOffers?: { n: number; counts: Record<string, number> } } | undefined)?.toolOffers ?? null;
+const offers =
+  (data.live as { toolOffers?: { n: number; counts: Record<string, number> } } | undefined)?.toolOffers ?? null;
 const offerRate = (id: string) => (offers && offers.n ? (offers.counts[id] ?? 0) / offers.n : null);
 const SHOWS_UP = 0.03;
 const short = (id: string) => (data.tools as Record<string, { name: string }>)[id]?.name.replace(/:.*/, '') ?? id;
 const builds = (data.pairs as [string, string, number][])
-  .slice().sort((x, y) => y[2] - x[2])
-  .filter(([a, b]) => [a, b].every((id) => { const r = offerRate(id); return r == null || r >= SHOWS_UP; }))
+  .slice()
+  .sort((x, y) => y[2] - x[2])
+  .filter(([a, b]) =>
+    [a, b].every((id) => {
+      const r = offerRate(id);
+      return r == null || r >= SHOWS_UP;
+    }),
+  )
   .slice(0, 6)
-  .map(([a, b, v]) => ({ v, x: v / base, nameA: short(a), nameB: short(b), artA: A('tool-' + a), artB: A('tool-' + b),
-    why: [t.tool[a as ToolId], t.tool[b as ToolId]].filter(Boolean) }));
+  .map(([a, b, v]) => ({
+    v,
+    x: v / base,
+    nameA: short(a),
+    nameB: short(b),
+    artA: A('tool-' + a),
+    artB: A('tool-' + b),
+    why: [t.tool[a as ToolId], t.tool[b as ToolId]].filter(Boolean),
+  }));
 
 // ---- incidents: no skip on any card seen (only Confirm) → the choice is stepping on a "!" cell ----
 // [id, card name, verdict, art id, source of the effect text]
@@ -72,151 +107,365 @@ const EVENTS = [
   ['execution', 'Execution Efficiency', 'depends', 'event-execution', 'vod'],
 ] as const;
 const SRC = { live: t.srcLive, vod: t.srcVod, sim: t.srcSim };
-const events = EVENTS.map(([id, name, v, artId, src]) => ({ id, name, v, art: artId ? A(artId) : null, pop: artId ? A(artId, 'md') : null, src: SRC[src], ...t.inc[id] }));
+const events = EVENTS.map(([id, name, v, artId, src]) => ({
+  id,
+  name,
+  v,
+  art: artId ? A(artId) : null,
+  pop: artId ? A(artId, 'md') : null,
+  src: SRC[src],
+  ...t.inc[id],
+}));
 
 // ---- Warden's Treasure: what the board looks like when each one wins ----
 const gifts = [
-  ['horn', 'Brass Horn of Strife', t.gHorn], ['ring', 'Three-Headed Thumb Ring', t.gRing],
-  ['wine', 'Crimson Vintage', t.gWine], ['brand', 'Brand of Original Sin', t.gBrand],
+  ['horn', 'Brass Horn of Strife', t.gHorn],
+  ['ring', 'Three-Headed Thumb Ring', t.gRing],
+  ['wine', 'Crimson Vintage', t.gWine],
+  ['brand', 'Brand of Original Sin', t.gBrand],
 ].map(([id, name, when]) => ({ name, when, art: A('gift-' + id) }));
 
 // Embedded for the client script; escape "<" so the JSON can never close the tag.
-const ui = { take: t.take, perRun: t.perRun, withHeld: t.withHeld, sim: t.sim, tookIt: t.tookIt, remove: t.remove, nothing: t.nothing,
-  pickHint: t.pickHint, xNone: t.xNone, offered: t.offered, card: t.card, withYou: t.withYou, partners: t.partners, tool: t.tool };
+const ui = {
+  take: t.take,
+  perRun: t.perRun,
+  withHeld: t.withHeld,
+  sim: t.sim,
+  tookIt: t.tookIt,
+  remove: t.remove,
+  nothing: t.nothing,
+  pickHint: t.pickHint,
+  xNone: t.xNone,
+  offered: t.offered,
+  card: t.card,
+  withYou: t.withYou,
+  partners: t.partners,
+  tool: t.tool,
+};
 const json = JSON.stringify({ tools: data.tools, pairs: data.pairs, base, offers, ui }).replace(/</g, '\\u003c');
-const ladder = [['act-consume', t.l1b, t.l1e, ''], ['incident', t.l2b, t.l2e, 'tall'], ['door', t.l3b, t.l3e, ''], ['act-replace', t.l4b, t.l4e, '']] as const;
+const ladder = [
+  ['act-consume', t.l1b, t.l1e, ''],
+  ['incident', t.l2b, t.l2e, 'tall'],
+  ['door', t.l3b, t.l3e, ''],
+  ['act-replace', t.l4b, t.l4e, ''],
+] as const;
 ---
-<Base title={`${t.title} · TLI Events`} description={t.desc} langs={langs} lang={hreflang(lang)} image={event.banner} wide>
-<EventInfo slot="nav" lang={lang} method={t.method} credits={credits as Credit[]} />
-<div class="sheet-top"><BackLink href={url()} label={t.back} /></div>
-<div class="play">
 
-  <section class="pane patterns" aria-labelledby="pat-h">
-    <h2 class="pane-h" id="pat-h">{t.howToWin}</h2>
-    <ol class="pat" style={`--step:${JSON.stringify(t.step)}`}>
-      <li>
-        <div class="pat-art"><Art img={A('act-consume', 'md')} /></div>
-        <div><b>{t.s1t}</b>
-          <p><Art img={A('fangs')} class="inl" />{" "}<Fragment set:html={rich(t.s1p)} /></p></div>
-      </li>
-      <li class="wide-li">
-        <div class="pat-head"><b>{t.s2t}</b></div>
-        <div class="who">
-          {[['mammoth', ['lion', 'wolf']], ['lion', ['wolf', 'rat']], ['wolf', ['rat']], ['rat', ['mammoth']]].map(([e, prey]) => (
-            <span class="row"><Art img={A(e as string)} alt={e as string} /><i>{t.eats}</i>{(prey as string[]).map((p) => <Art img={A(p)} alt={p} />)}</span>
-          ))}
-        </div>
-        <p set:html={rich(t.s2p)} />
-        <ul class="exc">
-          {exceptions.map((x) => <li>{x.art ? <Art img={x.art} /> : <span class="ph">?</span>}<span><b>{x.name}</b> <Fragment set:html={rich(x.text)} /></span></li>)}
-        </ul>
-      </li>
-      <li>
-        <div class="pat-art pair"><Art img={A('mammoth')} class="r4" /><Art img={A('lion')} class="r4" /></div>
-        <div><b>{t.s3t}</b><p set:html={rich(t.s3p)} /></div>
-      </li>
-      <li>
-        <div class="pat-art"><Art img={A('tool-rope', 'md')} /></div>
-        <div><b>{t.s4t}</b><p>{t.s4p}</p>
-          <ul class="rules-mini">
-            <li set:html={rich(t.s4coin)} /><li set:html={rich(t.s4rope)} /><li set:html={rich(t.s4saw)} />
-          </ul></div>
-      </li>
-      <li class="wide-li">
-        <div class="pat-head"><b>{t.s5t}</b><span class="meta">{t.s5sub}</span></div>
-        <ol class="ladder">
-          {ladder.map(([img, b, e, cls]) => <li><Art img={A(img)} class={cls || undefined} /><span><b>{b}</b><em>{e}</em></span></li>)}
-        </ol>
-        <p class="tip" set:html={rich(t.s5tip)} />
-      </li>
-      <li>
-        <div class="pat-art"><Art img={A('office', 'md')} /></div>
-        <div><b>{t.s6t}</b><p set:html={rich(t.s6p)} /></div>
-      </li>
-      <li>
-        <div class="pat-art"><Art img={A('tile-locked', 'md')} /></div>
-        <div><b>{t.s7t}</b><p set:html={rich(t.s7p)} /></div>
-      </li>
-    </ol>
-    <h2 class="pane-h builds-h">{t.pairsH}</h2>
-    <p class="meta">{fmt(t.pairsMeta, { base: base.toFixed(2) })}</p>
-    <ul class="builds">
-      {builds.map((b) => (
+<Base
+  title={`${t.title} · TLI Events`}
+  description={t.desc}
+  langs={langs}
+  lang={hreflang(lang)}
+  image={event.banner}
+  wide
+>
+  <EventInfo slot="nav" lang={lang} method={t.method} credits={credits as Credit[]} />
+  <div class="sheet-top">
+    <BackLink href={url()} label={t.back} />
+  </div>
+  <div class="play">
+    <section class="pane patterns" aria-labelledby="pat-h">
+      <h2 class="pane-h" id="pat-h">
+        {t.howToWin}
+      </h2>
+      <ol class="pat" style={`--step:${JSON.stringify(t.step)}`}>
         <li>
-          <span class="duo">{([[b.artA, b.nameA], [b.artB, b.nameB]] as const).map(([img, n]) => img ? <Art img={img} /> : <span class="noimg">{n}</span>)}</span>
-          <div><b>{b.nameA} + {b.nameB}</b> <span class="val">{b.v.toFixed(2)} · {b.x.toFixed(1)}×</span>
-            {b.why.map((w) => <p>{w}</p>)}</div>
+          <div class="pat-art">
+            <Art img={A('act-consume', 'md')} />
+          </div>
+          <div>
+            <b>{t.s1t}</b>
+            <p>
+              <Art img={A('fangs')} class="inl" /> <Fragment set:html={rich(t.s1p)} />
+            </p>
+          </div>
         </li>
-      ))}
-    </ul>
-    <p class="meta">{t.pairsNote}</p>
-  </section>
-
-  <section class="pane tools-pane" aria-labelledby="tool-h">
-    <h2 class="pane-h" id="tool-h">{t.pickH}</h2>
-    <div id="pickOut" class="pick-out"><p class="meta">{t.pickHint}</p></div>
-    <div class="held-row"><span class="meta">{t.holding}</span><span id="held"><span class="meta">{t.nothing}</span></span></div>
-    <div class="tools" id="tools">
-      {groups.map((g) => (
-        <section class="tier-group" aria-label={`Tier ${g.tier}`}>
-          <h3 class="tier-h"><span class={`tier t${g.tier}`}>{g.tier === 'X' ? '✕' : g.tier}</span><span class="rule"></span>
-            <button type="button" class="tier-info" data-tip="tiers" data-row={g.tier} aria-label={`${g.note} — ${t.tipBtn}`} aria-describedby="pop"><span class="meta">{g.note}</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" /><path d="M12 11v6M12 7.5v.5" /></svg></button></h3>
-          <div class="tool-grid">
-            {g.tools.map((x) => (
-              <button type="button" class="tool" data-tool={x.id} data-tier={x.tier} aria-describedby="pop">
-                <span class="pic">{x.art ? <Art img={x.art} /> : <span class="noart" aria-hidden="true">?</span>}</span>
-                <span class="nm">{x.name}</span>
-              </button>
+        <li class="wide-li">
+          <div class="pat-head">
+            <b>{t.s2t}</b>
+          </div>
+          <div class="who">
+            {[
+              ['mammoth', ['lion', 'wolf']],
+              ['lion', ['wolf', 'rat']],
+              ['wolf', ['rat']],
+              ['rat', ['mammoth']],
+            ].map(([e, prey]) => (
+              <span class="row">
+                <Art img={A(e as string)} alt={e as string} />
+                <i>{t.eats}</i>
+                {(prey as string[]).map((p) => (
+                  <Art img={A(p)} alt={p} />
+                ))}
+              </span>
             ))}
           </div>
-        </section>
-      ))}
-    </div>
-    <p class="meta">{fmt(t.tierMeta, { base: base.toFixed(2) })}</p>
-    <p class="sim-cta">{t.simCta}{" "}<a href={SIMULATOR_URL} target="_blank" rel="noopener noreferrer">Tartarus Simulator</a>{" "}<span class="meta">(CoffeeBns)</span></p>
-  </section>
-
-  <aside class="pane side" aria-label={`${t.treasureH} · ${t.incH} · ${t.startH}`}>
-    <h2 class="pane-h">{t.treasureH}</h2>
-    <ul class="list">
-      {gifts.map((g) => <li><Art img={g.art} class="ic" /><b>{g.name}</b><span>{g.when}</span></li>)}
-    </ul>
-    <h2 class="pane-h">{t.incH}{" "}<Art img={A('incident')} class="inl" /></h2>
-    <p class="meta">{t.incMeta}</p>
-    <ul class="list">
-      {events.map((e) => (
-        <li class={`v-${e.v}${e.art ? '' : ' noart'}`}>
-          <button type="button" class="ev" data-ev={e.id} aria-describedby="pop">
-            <Art img={e.art} class="ic" /><b>{e.name} <strong>{e.v === 'good' ? t.go : t.depends}</strong></b><span>{e.short}</span>
-          </button>
-          <template id={`ev-${e.id}`}>
-            <div class="tp-head">{e.pop ? <Art img={e.pop} /> : <span></span>}<div><b>{e.name}</b>
-              <div class={`tp-stats v-${e.v}`}><strong>{e.v === 'good' ? t.go : t.depends}</strong> · {t.src}: {e.src}</div></div></div>
-            <p class="tp-sub"><span>{t.does}</span><Fragment set:html={rich(e.does)} /></p>
-            <p class="tp-sub"><span>{t.good}</span>{e.good}</p>
-            <p class="tp-sub"><span>{t.bad}</span>{e.bad}</p>
-          </template>
+          <p set:html={rich(t.s2p)} />
+          <ul class="exc">
+            {exceptions.map((x) => (
+              <li>
+                {x.art ? <Art img={x.art} /> : <span class="ph">?</span>}
+                <span>
+                  <b>{x.name}</b> <Fragment set:html={rich(x.text)} />
+                </span>
+              </li>
+            ))}
+          </ul>
         </li>
+        <li>
+          <div class="pat-art pair">
+            <Art img={A('mammoth')} class="r4" />
+            <Art img={A('lion')} class="r4" />
+          </div>
+          <div>
+            <b>{t.s3t}</b>
+            <p set:html={rich(t.s3p)} />
+          </div>
+        </li>
+        <li>
+          <div class="pat-art">
+            <Art img={A('tool-rope', 'md')} />
+          </div>
+          <div>
+            <b>{t.s4t}</b>
+            <p>{t.s4p}</p>
+            <ul class="rules-mini">
+              <li set:html={rich(t.s4coin)} />
+              <li set:html={rich(t.s4rope)} />
+              <li set:html={rich(t.s4saw)} />
+            </ul>
+          </div>
+        </li>
+        <li class="wide-li">
+          <div class="pat-head">
+            <b>{t.s5t}</b>
+            <span class="meta">{t.s5sub}</span>
+          </div>
+          <ol class="ladder">
+            {ladder.map(([img, b, e, cls]) => (
+              <li>
+                <Art img={A(img)} class={cls || undefined} />
+                <span>
+                  <b>{b}</b>
+                  <em>{e}</em>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <p class="tip" set:html={rich(t.s5tip)} />
+        </li>
+        <li>
+          <div class="pat-art">
+            <Art img={A('office', 'md')} />
+          </div>
+          <div>
+            <b>{t.s6t}</b>
+            <p set:html={rich(t.s6p)} />
+          </div>
+        </li>
+        <li>
+          <div class="pat-art">
+            <Art img={A('tile-locked', 'md')} />
+          </div>
+          <div>
+            <b>{t.s7t}</b>
+            <p set:html={rich(t.s7p)} />
+          </div>
+        </li>
+      </ol>
+      <h2 class="pane-h builds-h">{t.pairsH}</h2>
+      <p class="meta">{fmt(t.pairsMeta, { base: base.toFixed(2) })}</p>
+      <ul class="builds">
+        {builds.map((b) => (
+          <li>
+            <span class="duo">
+              {(
+                [
+                  [b.artA, b.nameA],
+                  [b.artB, b.nameB],
+                ] as const
+              ).map(([img, n]) => (img ? <Art img={img} /> : <span class="noimg">{n}</span>))}
+            </span>
+            <div>
+              <b>
+                {b.nameA} + {b.nameB}
+              </b>{' '}
+              <span class="val">
+                {b.v.toFixed(2)} · {b.x.toFixed(1)}×
+              </span>
+              {b.why.map((w) => (
+                <p>{w}</p>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="meta">{t.pairsNote}</p>
+    </section>
+
+    <section class="pane tools-pane" aria-labelledby="tool-h">
+      <h2 class="pane-h" id="tool-h">
+        {t.pickH}
+      </h2>
+      <div id="pickOut" class="pick-out">
+        <p class="meta">{t.pickHint}</p>
+      </div>
+      <div class="held-row">
+        <span class="meta">{t.holding}</span>
+        <span id="held">
+          <span class="meta">{t.nothing}</span>
+        </span>
+      </div>
+      <div class="tools" id="tools">
+        {groups.map((g) => (
+          <section class="tier-group" aria-label={`Tier ${g.tier}`}>
+            <h3 class="tier-h">
+              <span class={`tier t${g.tier}`}>{g.tier === 'X' ? '✕' : g.tier}</span>
+              <span class="rule"></span>
+              <button
+                type="button"
+                class="tier-info"
+                data-tip="tiers"
+                data-row={g.tier}
+                aria-label={`${g.note} — ${t.tipBtn}`}
+                aria-describedby="pop"
+              >
+                <span class="meta">{g.note}</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9.5" />
+                  <path d="M12 11v6M12 7.5v.5" />
+                </svg>
+              </button>
+            </h3>
+            <div class="tool-grid">
+              {g.tools.map((x) => (
+                <button type="button" class="tool" data-tool={x.id} data-tier={x.tier} aria-describedby="pop">
+                  <span class="pic">
+                    {x.art ? (
+                      <Art img={x.art} />
+                    ) : (
+                      <span class="noart" aria-hidden="true">
+                        ?
+                      </span>
+                    )}
+                  </span>
+                  <span class="nm">{x.name}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+      <p class="meta">{fmt(t.tierMeta, { base: base.toFixed(2) })}</p>
+      <p class="sim-cta">
+        {t.simCta}{' '}
+        <a href={SIMULATOR_URL} target="_blank" rel="noopener noreferrer">
+          Tartarus Simulator
+        </a>{' '}
+        <span class="meta">(CoffeeBns)</span>
+      </p>
+    </section>
+
+    <aside class="pane side" aria-label={`${t.treasureH} · ${t.incH} · ${t.startH}`}>
+      <h2 class="pane-h">{t.treasureH}</h2>
+      <ul class="list">
+        {gifts.map((g) => (
+          <li>
+            <Art img={g.art} class="ic" />
+            <b>{g.name}</b>
+            <span>{g.when}</span>
+          </li>
+        ))}
+      </ul>
+      <h2 class="pane-h">
+        {t.incH} <Art img={A('incident')} class="inl" />
+      </h2>
+      <p class="meta">{t.incMeta}</p>
+      <ul class="list">
+        {events.map((e) => (
+          <li class={`v-${e.v}${e.art ? '' : ' noart'}`}>
+            <button type="button" class="ev" data-ev={e.id} aria-describedby="pop">
+              <Art img={e.art} class="ic" />
+              <b>
+                {e.name} <strong>{e.v === 'good' ? t.go : t.depends}</strong>
+              </b>
+              <span>{e.short}</span>
+            </button>
+            <template id={`ev-${e.id}`}>
+              <div class="tp-head">
+                {e.pop ? <Art img={e.pop} /> : <span></span>}
+                <div>
+                  <b>{e.name}</b>
+                  <div class={`tp-stats v-${e.v}`}>
+                    <strong>{e.v === 'good' ? t.go : t.depends}</strong> · {t.src}: {e.src}
+                  </div>
+                </div>
+              </div>
+              <p class="tp-sub">
+                <span>{t.does}</span>
+                <Fragment set:html={rich(e.does)} />
+              </p>
+              <p class="tp-sub">
+                <span>{t.good}</span>
+                {e.good}
+              </p>
+              <p class="tp-sub">
+                <span>{t.bad}</span>
+                {e.bad}
+              </p>
+            </template>
+          </li>
+        ))}
+      </ul>
+      <h2 class="pane-h">{t.startH}</h2>
+      <ul class="list">
+        <li class="noart">
+          <b>
+            Regular Sentence <strong>{t.regularTag}</strong>
+          </b>
+          <span>{t.regularP}</span>
+        </li>
+        <li>
+          <Art img={A('compass-3')} class="ic" />
+          <b>{t.compassB}</b>
+          <span>{t.compassP}</span>
+        </li>
+        <li>
+          <Art img={A('card-ironlaw')} class="ic" />
+          <b>Iron Law</b>
+          <span>{t.ironlawP}</span>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <template id="tip-tiers">
+    <b class="tip-h">{t.tipH}</b>
+    <p class="tip-p">
+      <Fragment set:html={rich(fmt(t.tipP, { base: base.toFixed(2), top: TIERS[0][1].toFixed(1) }))} />
+    </p>
+    <table class="tip-tiers">
+      {TIERS.map(([tier, min]) => (
+        <tr data-row={tier}>
+          <td>
+            <span class={`tier t${tier}`}>{tier}</span>
+          </td>
+          <td>≥{min.toFixed(1)}×</td>
+          <td>
+            ≥{(min * base).toFixed(2)} {t.perRun}
+          </td>
+        </tr>
       ))}
-    </ul>
-    <h2 class="pane-h">{t.startH}</h2>
-    <ul class="list">
-      <li class="noart"><b>Regular Sentence <strong>{t.regularTag}</strong></b><span>{t.regularP}</span></li>
-      <li><Art img={A('compass-3')} class="ic" /><b>{t.compassB}</b><span>{t.compassP}</span></li>
-      <li><Art img={A('card-ironlaw')} class="ic" /><b>Iron Law</b><span>{t.ironlawP}</span></li>
-    </ul>
-  </aside>
-</div>
-<template id="tip-tiers">
-  <b class="tip-h">{t.tipH}</b>
-  <p class="tip-p"><Fragment set:html={rich(fmt(t.tipP, { base: base.toFixed(2), top: TIERS[0][1].toFixed(1) }))} /></p>
-  <table class="tip-tiers">
-    {TIERS.map(([tier, min]) => <tr data-row={tier}><td><span class={`tier t${tier}`}>{tier}</span></td><td>≥{min.toFixed(1)}×</td><td>≥{(min * base).toFixed(2)} {t.perRun}</td></tr>)}
-    <tr data-row="X"><td><span class="tier tX">✕</span></td><td>&lt;1×</td><td>{t.tierWorse}</td></tr>
-  </table>
-  <p class="tp-sub">{fmt(t.tipNote, { pairs: t.pairsH })}</p>
-</template>
-<div class="tool-pop" id="pop" role="tooltip" hidden></div>
-<script type="application/json" id="play-data" set:html={json} />
+      <tr data-row="X">
+        <td>
+          <span class="tier tX">✕</span>
+        </td>
+        <td>&lt;1×</td>
+        <td>{t.tierWorse}</td>
+      </tr>
+    </table>
+    <p class="tp-sub">{fmt(t.tipNote, { pairs: t.pairsH })}</p>
+  </template>
+  <div class="tool-pop" id="pop" role="tooltip" hidden></div>
+  <script type="application/json" id="play-data" set:html={json} />
 </Base>
 <script src="./play.ts"></script>

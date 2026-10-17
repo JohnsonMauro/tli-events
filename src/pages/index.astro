@@ -7,29 +7,47 @@ import { fluid } from '../lib/images';
 const events = await getEvents();
 // An event is linked only when it has a page (src/pages/<slug>/index.astro); otherwise its card is shown unlinked.
 // Card background: events/<Dir>/banner.* (official season key art; source in its images/INDEX.md).
-const cards = await Promise.all(events.map(async (e) => ({ ...e, bg: e.banner ? await fluid(e.banner, [480, 800, 1200, 1600]) : null })));
+const cards = await Promise.all(
+  events.map(async (e) => ({ ...e, bg: e.banner ? await fluid(e.banner, [480, 800, 1200, 1600]) : null })),
+);
 // The card spans the content column: viewport minus the 16 px gutters, capped at main's 1180 px.
 const SIZES = '(max-width: 1212px) calc(100vw - 32px), 1180px';
 ---
+
 <Base title="TLI Events — Torchlight: Infinite season strategy" image={events.find((e) => e.banner)?.banner}>
   <header class="hero brand-hero">
-    <h1 class="wordmark">TLI <span>Events</span></h1>
+    <h1 class="wordmark">
+      TLI <span>Events</span>
+    </h1>
     <p class="tagline">Torchlight: Infinite season mechanics, decoded.</p>
-    <p class="lead">One page per season event: the rules that matter, what to pick and when — built from live runs, official cards and simulators. Community research; not affiliated with XD Games.</p>
+    <p class="lead">
+      One page per season event: the rules that matter, what to pick and when — built from live runs, official cards and
+      simulators. Community research; not affiliated with XD Games.
+    </p>
   </header>
   <section class="event-list" aria-label="Events">
     {cards.map((e, i) => {
-      const body = <>
-        <Art img={e.bg} class="bg" sizes={SIZES} eager={i === 0} />
-        <div class="txt">
-          <div class="code">{e.code} since {e.launched}</div>
-          <h2>{e.name}</h2>
-          <div><b>{e.mechanic}</b> — {e.summary}</div>
-        </div>
-      </>;
-      return e.hasPage
-        ? <a class="season-card" href={eventUrl(e)}>{body}</a>
-        : <div class="season-card soon">{body}</div>;
+      const body = (
+        <>
+          <Art img={e.bg} class="bg" sizes={SIZES} eager={i === 0} />
+          <div class="txt">
+            <div class="code">
+              {e.code} since {e.launched}
+            </div>
+            <h2>{e.name}</h2>
+            <div>
+              <b>{e.mechanic}</b> — {e.summary}
+            </div>
+          </div>
+        </>
+      );
+      return e.hasPage ? (
+        <a class="season-card" href={eventUrl(e)}>
+          {body}
+        </a>
+      ) : (
+        <div class="season-card soon">{body}</div>
+      );
     })}
   </section>
 </Base>

@@ -18,10 +18,14 @@ export const DEFAULT_LANG: Lang = 'en';
 export const hreflang = (code: Lang): string => LANGS.find((l) => l.code === code)?.hreflang ?? code;
 
 /** Fill {var} placeholders. */
-export const fmt = (s: string, vars: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m));
+export const fmt = (s: string, vars: Record<string, string | number>) =>
+  s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m));
 
 /** Escape, then turn **x** into an accent span and !!x!! into a warning span. Strings are ours, not user input. */
 export const rich = (s: string) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<span class="k">$1</span>')
     .replace(/!!(.+?)!!/g, '<span class="no">$1</span>');

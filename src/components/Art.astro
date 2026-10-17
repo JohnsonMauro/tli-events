@@ -12,6 +12,7 @@ interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'srcset' | 'width' |
 const { img: pending, eager = false, alt = '', ...rest } = Astro.props;
 const img = await pending;
 ---
+
 {img && (
   <img
     src={img.src}

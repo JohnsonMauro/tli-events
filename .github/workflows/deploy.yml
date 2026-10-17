@@ -5,7 +5,7 @@ on:
     branches: [main]
   schedule:
     # Every 6 hours: pull fresh simulator data + live telemetry during the season.
-    - cron: "17 */6 * * *"
+    - cron: '17 */6 * * *'
   workflow_dispatch:
 
 concurrency:

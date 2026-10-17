@@ -41,7 +41,9 @@ export default defineConfig({
       display: 'swap',
       fallbacks: ['Impact', 'sans-serif'],
       options: {
-        variants: [{ src: ['./src/assets/fonts/big-shoulders-stencil-display-latin.woff2'], weight: '100 900', style: 'normal' }],
+        variants: [
+          { src: ['./src/assets/fonts/big-shoulders-stencil-display-latin.woff2'], weight: '100 900', style: 'normal' },
+        ],
       },
     },
     {

@@ -1,14 +1,34 @@
 [
   { "name": "CoffeeBns", "platform": "youtube", "url": "https://www.youtube.com/@CoffeeBns", "role": "sim" },
-  { "name": "二零后游戏荒 (吉吉罗)", "platform": "bilibili", "url": "https://space.bilibili.com/39881994", "role": "sim" },
-  { "name": "Torchlight: Infinite", "platform": "youtube", "url": "https://www.youtube.com/@TorchlightInfinite", "role": "official" },
+  {
+    "name": "二零后游戏荒 (吉吉罗)",
+    "platform": "bilibili",
+    "url": "https://space.bilibili.com/39881994",
+    "role": "sim"
+  },
+  {
+    "name": "Torchlight: Infinite",
+    "platform": "youtube",
+    "url": "https://www.youtube.com/@TorchlightInfinite",
+    "role": "official"
+  },
   { "name": "DonTheCrown", "platform": "youtube", "url": "https://www.youtube.com/@DonTheCrown", "role": "video" },
   { "name": "Raxxanterax", "platform": "youtube", "url": "https://www.youtube.com/@Raxxanterax", "role": "video" },
   { "name": "Malagant", "platform": "youtube", "url": "https://www.youtube.com/@Malagant", "role": "video" },
-  { "name": "ZiggyD Gaming", "platform": "youtube", "url": "https://www.youtube.com/@ZiggyDGaming", "role": "interview" },
+  {
+    "name": "ZiggyD Gaming",
+    "platform": "youtube",
+    "url": "https://www.youtube.com/@ZiggyDGaming",
+    "role": "interview"
+  },
   { "name": "零尘0", "platform": "bilibili", "url": "https://space.bilibili.com/99823510", "role": "video" },
   { "name": "ksc小波", "platform": "bilibili", "url": "https://space.bilibili.com/630962", "role": "video" },
   { "name": "炖了一锅鱼", "platform": "bilibili", "url": "https://space.bilibili.com/27021867", "role": "video" },
-  { "name": "Chriskid0824", "platform": "bilibili", "url": "https://space.bilibili.com/3706972501183206", "role": "video" },
+  {
+    "name": "Chriskid0824",
+    "platform": "bilibili",
+    "url": "https://space.bilibili.com/3706972501183206",
+    "role": "video"
+  },
   { "name": "顽家萝卜毛", "platform": "bilibili", "url": "https://space.bilibili.com/483265975", "role": "video" }
 ]

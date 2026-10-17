@@ -1,6 +1,15 @@
 ---
 // "Back to the event list" link at the top of an event page's content (not in the nav: it got cut off on phones).
-interface Props { href: string; label: string }
+interface Props {
+  href: string;
+  label: string;
+}
 const { href, label } = Astro.props;
 ---
-<a class="back" href={href}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>{label}</a>
+
+<a class="back" href={href}>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M15 18l-6-6 6-6" />
+  </svg>
+  {label}
+</a>
