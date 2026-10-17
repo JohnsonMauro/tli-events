@@ -40,7 +40,8 @@ const TIERS = [
   ['D', 1],
 ] as const;
 const tierOf = (v: number) => TIERS.find(([, min]) => v / base >= min)?.[0] ?? 'X';
-const tools = Object.entries(data.tools as Record<string, { name: string; value: number | null }>)
+// A tool the simulator lists without a solo value (new, not simulated yet) has no `value` at all: kept off the grid.
+const tools = Object.entries(data.tools as Record<string, { name: string; value?: number | null }>)
   .filter(([, x]) => x.value != null)
   .sort((a, b) => (b[1].value as number) - (a[1].value as number))
   .map(([id, x]) => ({
