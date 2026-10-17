@@ -6,6 +6,11 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Fixed
+
+- SS14 play sheet, "Who eats whom": rows with three portraits no longer spill out of their card on phones around 412–600 px wide and in German on desktop; the portraits shrink a little instead.
+- The "Method & credits" dialog no longer picks up spacing meant for the "Who eats whom" grid.
+
 ## [1.0.0] - 2026-10-17
 
 First versioned release: the site as it stands when versioning started. Earlier steps (2026-10-16 → 2026-10-17) are in the git history.

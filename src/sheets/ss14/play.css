@@ -100,21 +100,26 @@ main.wide {
   object-fit: cover;
   border-radius: 6px;
 }
-.who .row {
+.eats-grid .row {
   display: flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
   background: var(--surface);
   border-radius: var(--radius);
   padding: 4px 6px;
 }
-.who img {
-  width: 44px;
-  height: 53px;
+/* Portraits give way when a column is tight (3 portraits + "eats" in German need ~200px at full size). */
+.eats-grid img {
+  flex: 0 1 44px;
+  min-width: 28px;
+  height: auto;
+  aspect-ratio: 44 / 53;
   object-fit: cover;
   border-radius: 4px;
 }
-.who i {
+.eats-grid i {
+  flex: none;
   font: 600 11px var(--mono);
   color: var(--ink2);
   font-style: normal;
@@ -159,7 +164,7 @@ main.wide {
 .r4 {
   filter: drop-shadow(0 0 5px #ff2a2a) drop-shadow(0 0 2px #ff2a2a);
 }
-.who {
+.eats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 6px;
