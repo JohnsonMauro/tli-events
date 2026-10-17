@@ -20,6 +20,10 @@ Season starting Oct 15, 2026 (19:00 PDT). Mechanic: the **Warden's Duty** (典�
 - Guide, CHANGELOG and `images/INDEX.md` are not published (removed from the site on 2026-10-17); `instrument_combos.csv` is still generated for the repo.
 - `pnpm check` requires TypeScript 6 (TS 7 not supported by `astro check` as of Oct 2026).
 
+## Engine (Rust, `engine/`)
+
+Our own simulator (not run by CI, not published): `cargo build --release`, then `./target/release/tartarus eval|tools`. Clean room — written from this folder's sources only; never port code from the community simulator (no license). Live odds come from `data/tartarus_data.json` at start. Rules no source settles are parameters (`--set key=value`, listed in `engine/README.md`): when a print settles one, change its default there and in `src/params.rs`, and run `cargo test --release`.
+
 ## Hard-won facts
 
 - The original CN simulator (吉吉罗 / 二零后游戏荒) **stopped on Oct 14**; the EN one (CoffeeBns) keeps updating with live reports. The CN sim's "推荐" is buggy.

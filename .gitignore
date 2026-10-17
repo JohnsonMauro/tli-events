@@ -9,5 +9,8 @@ dist/
 __pycache__/
 *.pyc
 
+# Rust build output from events/*/engine (cargo build)
+target/
+
 # OS files
 .DS_Store
