@@ -7,6 +7,7 @@ import { TOOL_TEXT } from './tool-text';
 type IncidentId =
   | 'trickster'
   | 'convict'
+  | 'archenemy'
   | 'appetite'
   | 'shared'
   | 'freedom'
@@ -132,6 +133,12 @@ const en = {
       does: 'Opens 1 random locked cell with a **Legendary or better** inmate inside (triggers nothing else).',
       good: 'Always — a free high inmate, food for your Legendary/Ultimate eaters.',
       bad: 'Nothing.',
+    },
+    archenemy: {
+      short: 'Opens 1 cell with an inmate the current one can consume.',
+      does: 'Opens 1 random locked cell; the inmate inside is **guaranteed to be a Consumable target** for the inmate in the current cell.',
+      good: 'Always — a sure meal on the board. Best when the current cell holds your strongest eater.',
+      bad: 'The meal follows the current inmate: on a low-rarity cell it is a low-rarity snack.',
     },
     appetite: {
       short: 'Lowest inmate: 5 tries at +1 tier, 50% each.',
@@ -301,6 +308,12 @@ const ptbr: Dict = {
       does: 'Abre 1 cela trancada aleatória com um inmate **Legendary ou melhor** (não dispara mais nada).',
       good: 'Sempre — um inmate alto de graça, comida para seus Legendary/Ultimate.',
       bad: 'Nada.',
+    },
+    archenemy: {
+      short: 'Abre 1 cela com um inmate que o atual pode consumir.',
+      does: 'Abre 1 cela trancada aleatória; o inmate lá dentro é **com certeza um alvo Consumable** para o inmate da cela atual.',
+      good: 'Sempre — uma refeição garantida no tabuleiro. Melhor quando a cela atual tem seu predador mais forte.',
+      bad: 'A refeição segue o inmate atual: numa cela de raridade baixa, vem um lanche de raridade baixa.',
     },
     appetite: {
       short: 'O mais fraco: 5 tentativas de +1 tier, 50% cada.',
@@ -499,6 +512,12 @@ const ko: Dict = {
       good: '항상 — 공짜 고급 죄수, Legendary/Ultimate 포식자의 먹이.',
       bad: '없음.',
     },
+    archenemy: {
+      short: '현재 죄수가 먹을 수 있는 죄수가 든 칸 1개를 엶.',
+      does: '무작위 잠긴 칸 1개를 열고, 안의 죄수는 현재 칸 죄수의 **Consumable 대상이 확정**입니다.',
+      good: '항상 — 보드에 확정된 먹이. 현재 칸에 가장 강한 포식자가 있을 때 가장 좋음.',
+      bad: '먹이는 현재 죄수를 따라감: 낮은 등급 칸이면 낮은 등급 먹이.',
+    },
     appetite: {
       short: '가장 약한 죄수: +1 티어 시도 5회, 각 50%.',
       does: '**가장 낮은 희귀도** 죄수 중 1명을 골라 **+1 티어를 5번 시도**, 각 50% (평균 +2.5).',
@@ -695,6 +714,12 @@ const ja: Dict = {
       good: '常に——無料の高ティア囚人、Legendary/Ultimate捕食者の餌。',
       bad: 'なし。',
     },
+    archenemy: {
+      short: '現在の囚人が捕食できる囚人入りのマスを1つ開ける。',
+      does: 'ランダムな施錠マスを1つ開け、中の囚人は現在のマスの囚人にとって**確実にConsumable対象**になる。',
+      good: '常に——盤面に確実な餌。現在のマスに一番強い捕食者がいるときが最良。',
+      bad: '餌は現在の囚人次第：低レアのマスなら低レアの餌。',
+    },
     appetite: {
       short: '最弱の囚人：+1ティアを5回、各50%。',
       does: '**最低レアリティ**の囚人からランダムに1体選び、**+1ティアを5回試行**、各50%（平均+2.5）。',
@@ -888,6 +913,12 @@ const zh: Dict = {
       does: '随机打开1个锁着的格子，里面是**Legendary或更高**的囚犯（不触发其他效果）。',
       good: '总是——白送一个高档囚犯，给你的Legendary/Ultimate当食物。',
       bad: '无。',
+    },
+    archenemy: {
+      short: '打开1格，里面的囚犯当前囚犯一定能吃。',
+      does: '随机打开1个锁着的格子，里面的囚犯**必定是当前格囚犯的Consumable目标**。',
+      good: '总是——棋盘上一份稳拿的食物。当前格是你最强的捕食者时最好。',
+      bad: '食物跟着当前囚犯走：在低稀有度的格子上，开出来的也是低稀有度。',
     },
     appetite: {
       short: '最弱的囚犯：5次+1档，每次50%。',
@@ -1088,6 +1119,12 @@ const ru: Dict = {
       good: 'Всегда — бесплатный сильный заключённый, еда для ваших Legendary/Ultimate.',
       bad: 'Ничего.',
     },
+    archenemy: {
+      short: 'Открывает 1 клетку с заключённым, которого текущий может съесть.',
+      does: 'Открывает 1 случайную запертую клетку; заключённый внутри **гарантированно Consumable-цель** для заключённого в текущей клетке.',
+      good: 'Всегда — гарантированная еда на поле. Лучше всего, когда в текущей клетке ваш сильнейший хищник.',
+      bad: 'Еда зависит от текущего заключённого: в клетке низкой редкости и еда низкой редкости.',
+    },
     appetite: {
       short: 'Самый слабый: 5 попыток +1 ранг, по 50%.',
       does: 'Выбирает 1 случайного заключённого с **самой низкой редкостью** и делает **5 попыток +1 ранг**, по 50% (в среднем +2,5).',
@@ -1287,6 +1324,12 @@ const de: Dict = {
       does: 'Öffnet 1 zufällige verschlossene Zelle mit einem Inmate **ab Legendary** (löst sonst nichts aus).',
       good: 'Immer — ein hoher Inmate gratis, Futter für deine Legendary/Ultimate-Fresser.',
       bad: 'Nichts.',
+    },
+    archenemy: {
+      short: 'Öffnet 1 Zelle mit einem Inmate, den der aktuelle fressen kann.',
+      does: 'Öffnet 1 zufällige verschlossene Zelle; der Inmate darin ist **garantiert ein Consumable-Ziel** für den Inmate in der aktuellen Zelle.',
+      good: 'Immer — sicheres Futter auf dem Board. Am besten, wenn in der aktuellen Zelle dein stärkster Fresser sitzt.',
+      bad: 'Das Futter richtet sich nach dem aktuellen Inmate: auf einer Zelle niedriger Seltenheit gibt es nur einen kleinen Happen.',
     },
     appetite: {
       short: 'Schwächster Inmate: 5 Versuche auf +1 Stufe, je 50 %.',

@@ -6,6 +6,11 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: the Archenemy incident (seen live, not in the simulator), with its card art and when to take it.
+- SS14 play sheet: game art for Iron Crown of the Prison King (it showed a "?").
+
 ## [1.0.3] - 2026-10-17
 
 ### Added

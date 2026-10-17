@@ -190,8 +190,9 @@ Typical run (optimal strategy, with rewards): ~21 doors, ~9 Replaces, ~5 consume
 | **Chain Reaction** | opens all doors along the path | Close call — floods the block but uses up doors |
 | **Execution** | executioner eliminates prisoners; gains tiers | Count: gain > losses? |
 | **Shared Fortune** [LIVE, not in the sim] | +1 tier to the current prisoner per prisoner with the same beast | Good with many of the same beast |
+| **Archenemy** [LIVE, not in the sim] | opens 1 random cell whose prisoner is guaranteed to be a Consumable target for the current prisoner | Accept (a sure meal; best on your strongest eater) |
 
-**No skip [LIVE + VOD]:** every incident card seen (8) has only *Confirm* — the decision columns above come from the simulator. In the game, decide before stepping on a "!" cell.
+**No skip [LIVE + VOD]:** every incident card seen (8, plus Archenemy on 2026-10-17) has only *Confirm* — the decision columns above come from the simulator. In the game, decide before stepping on a "!" cell.
 
 **Pre-run cards [LIVE]:** *Cage Fight* (eats prey of rarity ≤ its own, without re-rolling the beast — very strong for chains), *Iron Law* (30-day run), *Tyranny* (office triggers Instigate + Bestow 3× extra).
 

@@ -59,6 +59,7 @@ CROPS = [
     ("tool-scales", "35_vod_torture_set_scales_noose_pestle.jpg", (367, 270, 220, 165), "Warden's Scales"),
     ("tool-rope", "35_vod_torture_set_scales_noose_pestle.jpg", (847, 270, 220, 165), "Hangman's Noose"),
     ("tool-pestle", "74_live_objective_reward_scapegoat_pestle_fire.webp", (893, 260, 300, 260), "Iron Pestle (live; replaces the VOD crop)"),
+    ("tool-crown", "76_live_instrument_slot_iron_crown.webp", (60, 154, 100, 83), "Iron Crown of the Prison King (live, small print: low resolution)"),
     ("tool-whip", "73_live_instrument_offer_maiden_whip_shackles.webp", (893, 260, 300, 260), "Barbed Whip (live; replaces the VOD crop)"),
     ("tool-stake", "36_vod_torture_set_whip_stake_key.jpg", (847, 270, 220, 165), "Burning Stake"),
     ("tool-forged", "36_vod_torture_set_whip_stake_key.jpg", (1327, 270, 220, 165), "Forged Key"),
@@ -86,6 +87,7 @@ CROPS = [
     ("event-ratway", "62_live_incident_sewer_ratway.webp", (240, 128, 1118, 1118), "Sewer Ratway"),
     ("event-convict", "64_live_incident_high_risk_convict.webp", (240, 128, 1118, 1118), "High-Risk Convict (same art as Taste of Freedom)"),
     ("event-appetite", "68_live_incident_ravenous_appetite.webp", (240, 128, 1118, 1118), "Ravenous Appetite"),
+    ("event-archenemy", "75_live_incident_archenemy.webp", (240, 128, 1118, 1118), "Archenemy (not in the simulator)"),
     ("event-chain", "32_vod_incident_chain_reaction.jpg", (150, 100, 760, 760), "Chain Reaction"),
     ("event-execution", "33_vod_incident_execution_efficiency.jpg", (150, 100, 760, 760), "Execution Efficiency"),
     # run start (live client)

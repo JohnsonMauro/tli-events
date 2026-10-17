@@ -33,6 +33,7 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `tool-scales` | Warden's Scales | [35_vod_torture_set_scales_noose_pestle.jpg](../images/35_vod_torture_set_scales_noose_pestle.jpg) | 367,270 220×165 |
 | `tool-rope` | Hangman's Noose | [35_vod_torture_set_scales_noose_pestle.jpg](../images/35_vod_torture_set_scales_noose_pestle.jpg) | 847,270 220×165 |
 | `tool-pestle` | Iron Pestle (live; replaces the VOD crop) | [74_live_objective_reward_scapegoat_pestle_fire.webp](../images/74_live_objective_reward_scapegoat_pestle_fire.webp) | 893,260 300×260 |
+| `tool-crown` | Iron Crown of the Prison King (live, small print: low resolution) | [76_live_instrument_slot_iron_crown.webp](../images/76_live_instrument_slot_iron_crown.webp) | 60,154 100×83 |
 | `tool-whip` | Barbed Whip (live; replaces the VOD crop) | [73_live_instrument_offer_maiden_whip_shackles.webp](../images/73_live_instrument_offer_maiden_whip_shackles.webp) | 893,260 300×260 |
 | `tool-stake` | Burning Stake | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 847,270 220×165 |
 | `tool-forged` | Forged Key | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 1327,270 220×165 |
@@ -58,6 +59,7 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `event-ratway` | Sewer Ratway | [62_live_incident_sewer_ratway.webp](../images/62_live_incident_sewer_ratway.webp) | 240,128 1118×1118 |
 | `event-convict` | High-Risk Convict (same art as Taste of Freedom) | [64_live_incident_high_risk_convict.webp](../images/64_live_incident_high_risk_convict.webp) | 240,128 1118×1118 |
 | `event-appetite` | Ravenous Appetite | [68_live_incident_ravenous_appetite.webp](../images/68_live_incident_ravenous_appetite.webp) | 240,128 1118×1118 |
+| `event-archenemy` | Archenemy (not in the simulator) | [75_live_incident_archenemy.webp](../images/75_live_incident_archenemy.webp) | 240,128 1118×1118 |
 | `event-chain` | Chain Reaction | [32_vod_incident_chain_reaction.jpg](../images/32_vod_incident_chain_reaction.jpg) | 150,100 760×760 |
 | `event-execution` | Execution Efficiency | [33_vod_incident_execution_efficiency.jpg](../images/33_vod_incident_execution_efficiency.jpg) | 150,100 760×760 |
 | `compass-1` | Darkiron Shackles compass | [42_live_entry_mode_compass.webp](../images/42_live_entry_mode_compass.webp) | 1864,260 148×213 |

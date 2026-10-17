@@ -24,7 +24,7 @@ Season starting Oct 15, 2026 (19:00 PDT). Mechanic: the **Warden's Duty** (典�
 
 - The original CN simulator (吉吉罗 / 二零后游戏荒) **stopped on Oct 14**; the EN one (CoffeeBns) keeps updating with live reports. The CN sim's "推荐" is buggy.
 - The EN sim still uses the Replace odds from the old sample (52/32/9/6/1.5); the telemetry (n=696) gives ≈ door odds. Prefer the telemetry.
-- Iron Crown/Maul (best solos in the sim) had **0 offers in 110** live.
+- Iron Crown/Maul (best solos in the sim) had **0 offers in 110** live. The team saw the Iron Crown once on 2026-10-17 (`images/76`): rare, not absent.
 - Actual Rainbows per run (n=114): median 2. The sim (3.43) is optimistic.
 - The mechanic only appears 100% of the time from TM7 onward.
 
