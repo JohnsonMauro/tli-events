@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-17
+
 ### Added
 
 - SS14 play sheet: a **"!"** marks instruments whose sources disagree (card, simulator, our tests), so their tier may be off — Severed Iron Maiden, Barbed Collar, Agonizing Muzzle, Fanged Guillotine, Skewered Rat Heads, Iron Tongs, Blood-Stained Trap, Filthy Claws, Executioner's Blacklist and Avenger's Casket. Its info says we keep playing to pin them down, and a note under the ranking asks for card prints or numbers through a GitHub issue or the Reddit thread.
@@ -87,7 +89,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.0.3...v1.1.0
