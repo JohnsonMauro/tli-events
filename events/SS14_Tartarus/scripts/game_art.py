@@ -66,6 +66,7 @@ CROPS = [
     ("tool-skewer", "37_vod_torture_set_tongs_ratheads_guillotine.jpg", (847, 270, 220, 165), "Skewered Rat Heads: Colossal Rat"),
     ("tool-hook", "71_live_instrument_offer_fire_hook_axe.webp", (787, 170, 300, 260), "Sorting Hook"),
     ("tool-axe", "71_live_instrument_offer_fire_hook_axe.webp", (1440, 175, 300, 260), "Gaoler's Execution Axe"),
+    ("tool-collar", "72_live_instrument_offer_hook_collar_shackles.webp", (498, 135, 180, 150), "Maddened Beast's Barbed Collar"),
     ("tool-ironbox", "38_vod_squirming_iron_box_rat_nest.jpg", (87, 328, 74, 100), "Squirming Iron Box: Colossal Rat (small icon from the left Torture Instrument panel)"),
     ("tool-dogtag", "70_live_objective_reward_dogtag_guillotine_fire.webp", (236, 240, 300, 250), "Felon's Dog Tag"),
     ("tool-guillotine", "70_live_objective_reward_dogtag_guillotine_fire.webp", (873, 240, 300, 250), "Fanged Guillotine: Alpha Wolf (live; replaces the VOD crop)"),
