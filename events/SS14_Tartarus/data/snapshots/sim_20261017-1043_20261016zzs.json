@@ -1,0 +1,3853 @@
+{
+ "simVersion": "20261016zzs",
+ "live": {
+  "latest": "2026-10-16",
+  "boards": 38011,
+  "runs": 5873,
+  "doorTiers": {
+   "n": 7191,
+   "share": {
+    "Normal": 0.4176,
+    "Magic": 0.3591,
+    "Rare": 0.1139,
+    "Legendary": 0.0915,
+    "Supreme": 0.0179,
+    "Rainbow": 0
+   }
+  },
+  "doorBeasts": {
+   "n": 7191,
+   "share": {
+    "Mammoth": 0.2411,
+    "Lion": 0.2321,
+    "Wolf": 0.263,
+    "Rat": 0.2638
+   }
+  },
+  "replaceTiers": {
+   "n": 696,
+   "share": {
+    "Normal": 0.4224,
+    "Magic": 0.3333,
+    "Rare": 0.1451,
+    "Legendary": 0.0733,
+    "Supreme": 0.023,
+    "Rainbow": 0.0029
+   }
+  },
+  "keyRing": {
+   "n": 199,
+   "count": 125,
+   "share": 0.628140703517588,
+   "low": 0.5591583108022891,
+   "high": 0.6922694042226369,
+   "sim": 0.8
+  },
+  "eventDoorsDay1": {
+   "n": 10370,
+   "count": 664,
+   "share": 0.06403085824493732,
+   "low": 0.05947855434575847,
+   "high": 0.06890605488135755,
+   "sim": 0.05
+  },
+  "fewerDoorMornings": {
+   "n": 8592,
+   "count": 1449,
+   "share": 0.16864525139664804,
+   "low": 0.16087620242355757,
+   "high": 0.17671047437141738,
+   "sim": 0
+  },
+  "devours": {
+   "n": 155,
+   "meanBites": 1.1161290322580646,
+   "meanExtraTiers": 0.025806451612903226
+  },
+  "beastChangedAfterBite": {
+   "n": 141,
+   "count": 103,
+   "share": 0.7304964539007093,
+   "low": 0.6518644486997205,
+   "high": 0.7969016516471412,
+   "sim": null
+  },
+  "toolOffers": {
+   "n": 110,
+   "counts": {
+    "fire": 12,
+    "scales": 11,
+    "hook": 18,
+    "saw": 14,
+    "whip": 14,
+    "cage": 15,
+    "collar": 14,
+    "skewer": 2,
+    "coin": 12,
+    "forged": 14,
+    "rope": 8,
+    "shortchain": 14,
+    "stake": 16,
+    "muzzle": 9,
+    "revenge": 14,
+    "ironbox": 4,
+    "scapegoat": 19,
+    "pestle": 19,
+    "blacklist": 13,
+    "shackles": 11,
+    "dogtag": 13,
+    "keys": 18,
+    "ravenous": 14,
+    "tongs": 2,
+    "axe": 11,
+    "maiden": 13,
+    "guillotine": 2
+   }
+  }
+ },
+ "fetched": "2026-10-17",
+ "source": "https://blahdot3h.github.io/tartarus-simulator/",
+ "tiers": [
+  "Normal",
+  "Magic",
+  "Rare",
+  "Legendary",
+  "Supreme",
+  "Rainbow"
+ ],
+ "odds": {
+  "door": [
+   40,
+   38,
+   12,
+   8,
+   2
+  ],
+  "replace": [
+   52,
+   32,
+   9,
+   6,
+   1.5
+  ],
+  "beast": [
+   25,
+   25,
+   25,
+   25
+  ],
+  "eventChancePct": 5,
+  "doubleEatTier": 3
+ },
+ "params": {
+  "drillDays": 20,
+  "destinations": 3,
+  "patrolRange": 6,
+  "eventTwoDoors": false,
+  "fewerDoorsChance": 0,
+  "swapsPerDay": 1,
+  "reusableCells": true,
+  "chainStop": true,
+  "tierWeights": [
+   40,
+   38,
+   12,
+   8,
+   2
+  ],
+  "swapWeights": [
+   52,
+   32,
+   9,
+   6,
+   1.5
+  ],
+  "beastWeights": [
+   25,
+   25,
+   25,
+   25
+  ],
+  "doubleEatTier": 3,
+  "eventChance": 5,
+  "executionSameTier": false,
+  "executionRerolls": false,
+  "ivoryCount": 4,
+  "ivoryIncludesSwapped": true,
+  "preyRounds": 3,
+  "scratchStacksBase": true,
+  "nestDays": 2,
+  "nestTier": 2,
+  "rewards": true,
+  "startTools": 1
+ },
+ "tools": {
+  "revenge": {
+   "name": "Avenger's Casket",
+   "text": "After a consume, 30% chance to open a sealed cell holding a meal for the eater at its new rarity. That door triggers nothing else.",
+   "value": 1.614
+  },
+  "muzzle": {
+   "name": "Raging Beast's Agonizing Muzzle",
+   "text": "When 4 or fewer inmates are on the block after the meal, a consume gains +2 extra tiers.",
+   "value": 1.703
+  },
+  "saw": {
+   "name": "Rusty Saw",
+   "text": "After a consume, 25% chance of +1 extra tier.",
+   "value": 1.369
+  },
+  "keys": {
+   "name": "Lost Ring of Keys",
+   "text": "When a patrol opens a door, 80% chance to also open the cells on both sides. Those doors trigger nothing else.",
+   "value": 1.143
+  },
+  "rope": {
+   "name": "Hangman's Noose",
+   "text": "Replacement inmates are never Normal or Magic.",
+   "value": 2.229
+  },
+  "fire": {
+   "name": "Searing Branding Iron",
+   "text": "When a patrol opens a door, 35% chance to copy the inmate behind it into 1 random unopened cell, which opens holding the copy. That door triggers nothing else.",
+   "value": 0.989
+  },
+  "ironbox": {
+   "name": "Squirming Iron Box: Colossal Rat",
+   "text": "Each morning a sealed cell becomes a rat nest. It hatches a Rare Rat two days later.",
+   "value": 0.54
+  },
+  "skewer": {
+   "name": "Skewered Rat Heads: Colossal Rat",
+   "text": "Rats can consume Rats of the same rarity, and a Rat's consume gains +1 extra tier.",
+   "value": 1.571
+  },
+  "hook": {
+   "name": "Sorting Hook",
+   "text": "Cells that open never hold a Normal inmate.",
+   "value": 1.388
+  },
+  "pestle": {
+   "name": "Iron Pestle",
+   "text": "A replacement inmate keeps the beast of the one it replaced; only its rarity is re-rolled.",
+   "value": 0.972
+  },
+  "scales": {
+   "name": "Warden's Scales",
+   "text": "After a Replace, 80% chance to scout the highest-rarity inmate behind the locked doors: its door shows its beast and rarity.",
+   "value": 1.021
+  },
+  "tongs": {
+   "name": "Iron Tongs of Lust: Mammoth",
+   "text": "Each morning a random Mammoth on the block gets a Tusk mark.",
+   "value": 1.169
+  },
+  "guillotine": {
+   "name": "Fanged Guillotine: Alpha Wolf",
+   "text": "Wolves can also consume the beasts they eat at a lower rarity than their own.",
+   "value": 1.318
+  },
+  "axe": {
+   "name": "Gaoler's Execution Axe",
+   "text": "When a Replace brings in a higher rarity than it replaced, 2 random sealed cells open. Those doors trigger nothing else.",
+   "value": 0.937
+  },
+  "shackles": {
+   "name": "Long-Chained Shackles",
+   "text": "When a patrol walks 4 or more cells, 40% chance that 1 random inmate on the block rises a tier.",
+   "value": 1.818
+  },
+  "collar": {
+   "name": "Maddened Beast's Barbed Collar",
+   "text": "Each bite of a consume chain after the first: 80% chance of +1 extra tier.",
+   "value": 1.363
+  },
+  "forged": {
+   "name": "Forged Key",
+   "text": "Each morning offers 1 destination fewer. When a patrol opens a door, 50% chance to open 1 more random sealed cell. That door triggers nothing else.",
+   "value": 0.81
+  },
+  "dogtag": {
+   "name": "Felon's Dog Tag",
+   "text": "When a patrol opens a door, 25% chance that the inmate behind it rises a tier.",
+   "value": 1.251
+  },
+  "cage": {
+   "name": "Crowded Beastcage",
+   "text": "After an inmate is consumed, 40% chance its cell opens again at once with a new inmate. That door triggers nothing else.",
+   "value": 1.073
+  },
+  "blacklist": {
+   "name": "Executioner's Blacklist",
+   "text": "When a patrol opens a door and 5 or fewer cells are still locked, 2 random inmates rise a tier.",
+   "value": 1.716
+  },
+  "shortchain": {
+   "name": "Short-Chained Shackles",
+   "text": "When a patrol walks 3 cells or fewer, 50% chance that 1 random locked cell opens. That door triggers nothing else.",
+   "value": 1.018
+  },
+  "maiden": {
+   "name": "Severed Iron Maiden",
+   "text": "After a Replace, if as many inmates on the block are above the new inmate’s rarity as below it, it gains +3 tiers.",
+   "value": 2.035
+  },
+  "whip": {
+   "name": "Barbed Whip",
+   "text": "Each morning offers 1 destination fewer. Each bite of a consume has a 35% chance of +1 extra tier.",
+   "value": 1.233
+  },
+  "ravenous": {
+   "name": "Ferocious Beast's Ravenous Chains",
+   "text": "Each morning the highest-rarity inmate removes the inmates on both sides of it, with a 40% chance of +1 tier for each one removed.",
+   "value": 1.651
+  },
+  "scapegoat": {
+   "name": "Scapegoat's Guillotine",
+   "text": "When a Replace has 2 or more other inmates on the block, 2 random ones are removed and the new inmate comes in above the rarity it replaced.",
+   "value": 2.157
+  },
+  "stake": {
+   "name": "Burning Stake",
+   "text": "Each morning offers 1 destination fewer. Replacing an inmate below Legendary has a 40% chance to bring in a Legendary.",
+   "value": 1.351
+  },
+  "coin": {
+   "name": "Kin's Coin of Fate",
+   "text": "Each morning, when two or more inmates share a beast and rarity, 60% chance that one of them is removed and another like it gains +2 tiers.",
+   "value": 2.091
+  },
+  "crown": {
+   "name": "Iron Crown of the Prison King: Berserk Lion",
+   "text": "Lions can consume any inmate of the same rarity, and a Lion's consume gains +2 extra tiers.",
+   "value": 2.699
+  },
+  "maul": {
+   "name": "Elephant-Foot Maul: Mammoth",
+   "text": "Mammoths can consume the beasts they counter at a higher rarity too, and a Mammoth's consume takes it to 2 tiers above its meal.",
+   "value": 2.158
+  },
+  "claws": {
+   "name": "Filthy Claws: Alpha Wolf",
+   "text": "At the start of each day, Scratch Marks go on 1 random unopened cell: it shows the rarity inside, and a Wolf of that rarity can consume the inmate through the door for +3.",
+   "value": 2.191
+  },
+  "trap": {
+   "name": "Blood-Stained Trap: Berserk Lion",
+   "text": "With the warden on a Lion's cell, Hunt joins the day's choices: the Lion puts a Prey mark on one inmate it can consume, and each morning both rise a tier, for 3 mornings. A day has a Consume, a Replace or a Hunt."
+  }
+ },
+ "baseNoTools": 0.978,
+ "pairs": [
+  [
+   "rope",
+   "maiden",
+   15.45
+  ],
+  [
+   "maiden",
+   "scapegoat",
+   5.769
+  ],
+  [
+   "ironbox",
+   "skewer",
+   4.093
+  ],
+  [
+   "muzzle",
+   "crown",
+   4.087
+  ],
+  [
+   "crown",
+   "claws",
+   4.046
+  ],
+  [
+   "rope",
+   "coin",
+   3.971
+  ],
+  [
+   "keys",
+   "crown",
+   3.924
+  ],
+  [
+   "crown",
+   "trap",
+   3.916
+  ],
+  [
+   "ironbox",
+   "coin",
+   3.886
+  ],
+  [
+   "rope",
+   "crown",
+   3.83
+  ],
+  [
+   "rope",
+   "trap",
+   3.77
+  ],
+  [
+   "rope",
+   "maul",
+   3.64
+  ],
+  [
+   "maiden",
+   "stake",
+   3.627
+  ],
+  [
+   "rope",
+   "shackles",
+   3.565
+  ],
+  [
+   "muzzle",
+   "claws",
+   3.529
+  ],
+  [
+   "shackles",
+   "crown",
+   3.527
+  ],
+  [
+   "muzzle",
+   "rope",
+   3.482
+  ],
+  [
+   "maul",
+   "claws",
+   3.461
+  ],
+  [
+   "coin",
+   "crown",
+   3.38
+  ],
+  [
+   "revenge",
+   "crown",
+   3.37
+  ],
+  [
+   "claws",
+   "trap",
+   3.368
+  ],
+  [
+   "maiden",
+   "crown",
+   3.337
+  ],
+  [
+   "crown",
+   "maul",
+   3.299
+  ],
+  [
+   "coin",
+   "claws",
+   3.289
+  ],
+  [
+   "scapegoat",
+   "claws",
+   3.275
+  ],
+  [
+   "revenge",
+   "claws",
+   3.239
+  ],
+  [
+   "rope",
+   "claws",
+   3.216
+  ],
+  [
+   "shackles",
+   "claws",
+   3.193
+  ],
+  [
+   "skewer",
+   "crown",
+   3.171
+  ],
+  [
+   "fire",
+   "crown",
+   3.155
+  ],
+  [
+   "hook",
+   "claws",
+   3.145
+  ],
+  [
+   "keys",
+   "trap",
+   3.142
+  ],
+  [
+   "coin",
+   "trap",
+   3.136
+  ],
+  [
+   "axe",
+   "crown",
+   3.126
+  ],
+  [
+   "hook",
+   "crown",
+   3.124
+  ],
+  [
+   "muzzle",
+   "coin",
+   3.121
+  ],
+  [
+   "keys",
+   "coin",
+   3.102
+  ],
+  [
+   "forged",
+   "crown",
+   3.091
+  ],
+  [
+   "muzzle",
+   "maul",
+   3.073
+  ],
+  [
+   "maiden",
+   "claws",
+   3.072
+  ],
+  [
+   "blacklist",
+   "trap",
+   3.052
+  ],
+  [
+   "maiden",
+   "maul",
+   3.047
+  ],
+  [
+   "shackles",
+   "trap",
+   3.045
+  ],
+  [
+   "cage",
+   "crown",
+   3.043
+  ],
+  [
+   "stake",
+   "coin",
+   3.039
+  ],
+  [
+   "saw",
+   "crown",
+   3.028
+  ],
+  [
+   "shortchain",
+   "crown",
+   3.028
+  ],
+  [
+   "coin",
+   "maul",
+   3.023
+  ],
+  [
+   "dogtag",
+   "crown",
+   3.012
+  ],
+  [
+   "shackles",
+   "maul",
+   3
+  ],
+  [
+   "shackles",
+   "maiden",
+   2.995
+  ],
+  [
+   "collar",
+   "crown",
+   2.99
+  ],
+  [
+   "guillotine",
+   "crown",
+   2.98
+  ],
+  [
+   "shackles",
+   "scapegoat",
+   2.98
+  ],
+  [
+   "shackles",
+   "coin",
+   2.954
+  ],
+  [
+   "whip",
+   "crown",
+   2.951
+  ],
+  [
+   "ravenous",
+   "crown",
+   2.94
+  ],
+  [
+   "skewer",
+   "claws",
+   2.937
+  ],
+  [
+   "whip",
+   "claws",
+   2.898
+  ],
+  [
+   "maul",
+   "trap",
+   2.89
+  ],
+  [
+   "maiden",
+   "trap",
+   2.885
+  ],
+  [
+   "revenge",
+   "rope",
+   2.874
+  ],
+  [
+   "stake",
+   "maul",
+   2.874
+  ],
+  [
+   "saw",
+   "claws",
+   2.874
+  ],
+  [
+   "keys",
+   "blacklist",
+   2.873
+  ],
+  [
+   "scapegoat",
+   "crown",
+   2.871
+  ],
+  [
+   "rope",
+   "skewer",
+   2.865
+  ],
+  [
+   "ravenous",
+   "claws",
+   2.854
+  ],
+  [
+   "stake",
+   "crown",
+   2.852
+  ],
+  [
+   "blacklist",
+   "crown",
+   2.841
+  ],
+  [
+   "stake",
+   "trap",
+   2.822
+  ],
+  [
+   "keys",
+   "maul",
+   2.813
+  ],
+  [
+   "muzzle",
+   "scapegoat",
+   2.812
+  ],
+  [
+   "maiden",
+   "coin",
+   2.801
+  ],
+  [
+   "scales",
+   "crown",
+   2.797
+  ],
+  [
+   "muzzle",
+   "maiden",
+   2.772
+  ],
+  [
+   "maiden",
+   "ravenous",
+   2.77
+  ],
+  [
+   "hook",
+   "trap",
+   2.769
+  ],
+  [
+   "collar",
+   "claws",
+   2.761
+  ],
+  [
+   "keys",
+   "scapegoat",
+   2.76
+  ],
+  [
+   "revenge",
+   "maul",
+   2.752
+  ],
+  [
+   "scapegoat",
+   "maul",
+   2.752
+  ],
+  [
+   "rope",
+   "ravenous",
+   2.742
+  ],
+  [
+   "tongs",
+   "crown",
+   2.739
+  ],
+  [
+   "blacklist",
+   "claws",
+   2.724
+  ],
+  [
+   "skewer",
+   "maul",
+   2.707
+  ],
+  [
+   "saw",
+   "rope",
+   2.688
+  ],
+  [
+   "muzzle",
+   "shackles",
+   2.681
+  ],
+  [
+   "tongs",
+   "maiden",
+   2.677
+  ],
+  [
+   "skewer",
+   "trap",
+   2.677
+  ],
+  [
+   "muzzle",
+   "trap",
+   2.67
+  ],
+  [
+   "rope",
+   "collar",
+   2.658
+  ],
+  [
+   "guillotine",
+   "claws",
+   2.624
+  ],
+  [
+   "fire",
+   "coin",
+   2.617
+  ],
+  [
+   "pestle",
+   "crown",
+   2.6
+  ],
+  [
+   "dogtag",
+   "trap",
+   2.599
+  ],
+  [
+   "hook",
+   "maul",
+   2.595
+  ],
+  [
+   "hook",
+   "scapegoat",
+   2.594
+  ],
+  [
+   "scapegoat",
+   "trap",
+   2.571
+  ],
+  [
+   "guillotine",
+   "trap",
+   2.569
+  ],
+  [
+   "tongs",
+   "trap",
+   2.554
+  ],
+  [
+   "hook",
+   "coin",
+   2.549
+  ],
+  [
+   "rope",
+   "whip",
+   2.546
+  ],
+  [
+   "ravenous",
+   "maul",
+   2.531
+  ],
+  [
+   "fire",
+   "trap",
+   2.524
+  ],
+  [
+   "shortchain",
+   "trap",
+   2.522
+  ],
+  [
+   "keys",
+   "ravenous",
+   2.519
+  ],
+  [
+   "rope",
+   "blacklist",
+   2.519
+  ],
+  [
+   "muzzle",
+   "skewer",
+   2.517
+  ],
+  [
+   "muzzle",
+   "ravenous",
+   2.511
+  ],
+  [
+   "axe",
+   "trap",
+   2.507
+  ],
+  [
+   "axe",
+   "coin",
+   2.506
+  ],
+  [
+   "rope",
+   "guillotine",
+   2.503
+  ],
+  [
+   "guillotine",
+   "maul",
+   2.499
+  ],
+  [
+   "stake",
+   "claws",
+   2.496
+  ],
+  [
+   "rope",
+   "tongs",
+   2.475
+  ],
+  [
+   "revenge",
+   "coin",
+   2.474
+  ],
+  [
+   "ravenous",
+   "trap",
+   2.474
+  ],
+  [
+   "shackles",
+   "ravenous",
+   2.467
+  ],
+  [
+   "saw",
+   "maul",
+   2.465
+  ],
+  [
+   "dogtag",
+   "claws",
+   2.462
+  ],
+  [
+   "blacklist",
+   "maiden",
+   2.452
+  ],
+  [
+   "revenge",
+   "maiden",
+   2.45
+  ],
+  [
+   "hook",
+   "shackles",
+   2.45
+  ],
+  [
+   "saw",
+   "trap",
+   2.448
+  ],
+  [
+   "skewer",
+   "maiden",
+   2.446
+  ],
+  [
+   "blacklist",
+   "maul",
+   2.442
+  ],
+  [
+   "skewer",
+   "coin",
+   2.441
+  ],
+  [
+   "cage",
+   "trap",
+   2.44
+  ],
+  [
+   "revenge",
+   "shackles",
+   2.437
+  ],
+  [
+   "tongs",
+   "claws",
+   2.428
+  ],
+  [
+   "dogtag",
+   "maul",
+   2.422
+  ],
+  [
+   "rope",
+   "hook",
+   2.421
+  ],
+  [
+   "scapegoat",
+   "coin",
+   2.42
+  ],
+  [
+   "rope",
+   "scapegoat",
+   2.418
+  ],
+  [
+   "revenge",
+   "muzzle",
+   2.415
+  ],
+  [
+   "skewer",
+   "shackles",
+   2.412
+  ],
+  [
+   "collar",
+   "maul",
+   2.404
+  ],
+  [
+   "forged",
+   "coin",
+   2.398
+  ],
+  [
+   "forged",
+   "trap",
+   2.396
+  ],
+  [
+   "dogtag",
+   "coin",
+   2.391
+  ],
+  [
+   "revenge",
+   "trap",
+   2.382
+  ],
+  [
+   "rope",
+   "dogtag",
+   2.375
+  ],
+  [
+   "collar",
+   "trap",
+   2.37
+  ],
+  [
+   "dogtag",
+   "scapegoat",
+   2.362
+  ],
+  [
+   "cage",
+   "claws",
+   2.355
+  ],
+  [
+   "cage",
+   "maul",
+   2.354
+  ],
+  [
+   "scales",
+   "trap",
+   2.354
+  ],
+  [
+   "collar",
+   "coin",
+   2.35
+  ],
+  [
+   "ravenous",
+   "scapegoat",
+   2.344
+  ],
+  [
+   "shortchain",
+   "maul",
+   2.337
+  ],
+  [
+   "shortchain",
+   "coin",
+   2.336
+  ],
+  [
+   "fire",
+   "scapegoat",
+   2.335
+  ],
+  [
+   "guillotine",
+   "coin",
+   2.332
+  ],
+  [
+   "saw",
+   "coin",
+   2.328
+  ],
+  [
+   "fire",
+   "maul",
+   2.328
+  ],
+  [
+   "whip",
+   "maul",
+   2.325
+  ],
+  [
+   "ravenous",
+   "coin",
+   2.322
+  ],
+  [
+   "shackles",
+   "stake",
+   2.321
+  ],
+  [
+   "skewer",
+   "scapegoat",
+   2.314
+  ],
+  [
+   "pestle",
+   "trap",
+   2.303
+  ],
+  [
+   "axe",
+   "maul",
+   2.302
+  ],
+  [
+   "saw",
+   "maiden",
+   2.29
+  ],
+  [
+   "scales",
+   "scapegoat",
+   2.29
+  ],
+  [
+   "guillotine",
+   "maiden",
+   2.284
+  ],
+  [
+   "shackles",
+   "blacklist",
+   2.282
+  ],
+  [
+   "revenge",
+   "skewer",
+   2.276
+  ],
+  [
+   "cage",
+   "coin",
+   2.27
+  ],
+  [
+   "tongs",
+   "scapegoat",
+   2.268
+  ],
+  [
+   "shortchain",
+   "scapegoat",
+   2.267
+  ],
+  [
+   "ironbox",
+   "ravenous",
+   2.266
+  ],
+  [
+   "revenge",
+   "scapegoat",
+   2.265
+  ],
+  [
+   "rope",
+   "scales",
+   2.263
+  ],
+  [
+   "hook",
+   "maiden",
+   2.26
+  ],
+  [
+   "tongs",
+   "maul",
+   2.25
+  ],
+  [
+   "fire",
+   "blacklist",
+   2.246
+  ],
+  [
+   "collar",
+   "maiden",
+   2.244
+  ],
+  [
+   "forged",
+   "maul",
+   2.243
+  ],
+  [
+   "scales",
+   "maul",
+   2.238
+  ],
+  [
+   "guillotine",
+   "scapegoat",
+   2.237
+  ],
+  [
+   "rope",
+   "pestle",
+   2.227
+  ],
+  [
+   "saw",
+   "shackles",
+   2.226
+  ],
+  [
+   "saw",
+   "scapegoat",
+   2.219
+  ],
+  [
+   "dogtag",
+   "maiden",
+   2.212
+  ],
+  [
+   "rope",
+   "cage",
+   2.206
+  ],
+  [
+   "rope",
+   "stake",
+   2.205
+  ],
+  [
+   "whip",
+   "coin",
+   2.204
+  ],
+  [
+   "blacklist",
+   "coin",
+   2.197
+  ],
+  [
+   "tongs",
+   "coin",
+   2.194
+  ],
+  [
+   "scales",
+   "claws",
+   2.193
+  ],
+  [
+   "muzzle",
+   "guillotine",
+   2.189
+  ],
+  [
+   "cage",
+   "scapegoat",
+   2.187
+  ],
+  [
+   "keys",
+   "claws",
+   2.186
+  ],
+  [
+   "muzzle",
+   "blacklist",
+   2.183
+  ],
+  [
+   "revenge",
+   "collar",
+   2.178
+  ],
+  [
+   "revenge",
+   "keys",
+   2.177
+  ],
+  [
+   "ironbox",
+   "scapegoat",
+   2.175
+  ],
+  [
+   "blacklist",
+   "scapegoat",
+   2.173
+  ],
+  [
+   "collar",
+   "scapegoat",
+   2.17
+  ],
+  [
+   "guillotine",
+   "shackles",
+   2.168
+  ],
+  [
+   "shortchain",
+   "claws",
+   2.164
+  ],
+  [
+   "shackles",
+   "collar",
+   2.159
+  ],
+  [
+   "shackles",
+   "dogtag",
+   2.159
+  ],
+  [
+   "scales",
+   "coin",
+   2.154
+  ],
+  [
+   "fire",
+   "claws",
+   2.153
+  ],
+  [
+   "whip",
+   "trap",
+   2.153
+  ],
+  [
+   "pestle",
+   "scapegoat",
+   2.152
+  ],
+  [
+   "rope",
+   "shortchain",
+   2.147
+  ],
+  [
+   "tongs",
+   "shackles",
+   2.144
+  ],
+  [
+   "axe",
+   "blacklist",
+   2.136
+  ],
+  [
+   "rope",
+   "fire",
+   2.125
+  ],
+  [
+   "muzzle",
+   "hook",
+   2.123
+  ],
+  [
+   "maiden",
+   "whip",
+   2.115
+  ],
+  [
+   "pestle",
+   "maul",
+   2.105
+  ],
+  [
+   "axe",
+   "scapegoat",
+   2.098
+  ],
+  [
+   "pestle",
+   "claws",
+   2.096
+  ],
+  [
+   "keys",
+   "skewer",
+   2.094
+  ],
+  [
+   "pestle",
+   "coin",
+   2.094
+  ],
+  [
+   "muzzle",
+   "saw",
+   2.088
+  ],
+  [
+   "rope",
+   "axe",
+   2.086
+  ],
+  [
+   "scales",
+   "maiden",
+   2.082
+  ],
+  [
+   "keys",
+   "rope",
+   2.079
+  ],
+  [
+   "cage",
+   "maiden",
+   2.072
+  ],
+  [
+   "blacklist",
+   "shortchain",
+   2.072
+  ],
+  [
+   "revenge",
+   "saw",
+   2.057
+  ],
+  [
+   "revenge",
+   "ravenous",
+   2.047
+  ],
+  [
+   "hook",
+   "ravenous",
+   2.036
+  ],
+  [
+   "muzzle",
+   "stake",
+   2.035
+  ],
+  [
+   "skewer",
+   "ravenous",
+   2.03
+  ],
+  [
+   "pestle",
+   "maiden",
+   2.03
+  ],
+  [
+   "revenge",
+   "hook",
+   2.016
+  ],
+  [
+   "axe",
+   "ravenous",
+   2.01
+  ],
+  [
+   "axe",
+   "claws",
+   2.005
+  ],
+  [
+   "forged",
+   "claws",
+   2
+  ],
+  [
+   "skewer",
+   "hook",
+   1.997
+  ],
+  [
+   "forged",
+   "scapegoat",
+   1.992
+  ],
+  [
+   "muzzle",
+   "collar",
+   1.98
+  ],
+  [
+   "shackles",
+   "whip",
+   1.98
+  ],
+  [
+   "blacklist",
+   "stake",
+   1.98
+  ],
+  [
+   "ravenous",
+   "stake",
+   1.978
+  ],
+  [
+   "revenge",
+   "guillotine",
+   1.975
+  ],
+  [
+   "hook",
+   "blacklist",
+   1.971
+  ],
+  [
+   "muzzle",
+   "dogtag",
+   1.97
+  ],
+  [
+   "revenge",
+   "stake",
+   1.967
+  ],
+  [
+   "dogtag",
+   "blacklist",
+   1.967
+  ],
+  [
+   "skewer",
+   "stake",
+   1.955
+  ],
+  [
+   "fire",
+   "ravenous",
+   1.954
+  ],
+  [
+   "skewer",
+   "collar",
+   1.954
+  ],
+  [
+   "forged",
+   "blacklist",
+   1.941
+  ],
+  [
+   "dogtag",
+   "ravenous",
+   1.94
+  ],
+  [
+   "saw",
+   "skewer",
+   1.932
+  ],
+  [
+   "revenge",
+   "whip",
+   1.929
+  ],
+  [
+   "keys",
+   "hook",
+   1.926
+  ],
+  [
+   "keys",
+   "collar",
+   1.916
+  ],
+  [
+   "cage",
+   "blacklist",
+   1.91
+  ],
+  [
+   "guillotine",
+   "blacklist",
+   1.899
+  ],
+  [
+   "scales",
+   "shackles",
+   1.898
+  ],
+  [
+   "skewer",
+   "blacklist",
+   1.897
+  ],
+  [
+   "shortchain",
+   "maiden",
+   1.892
+  ],
+  [
+   "whip",
+   "scapegoat",
+   1.89
+  ],
+  [
+   "revenge",
+   "blacklist",
+   1.886
+  ],
+  [
+   "shackles",
+   "cage",
+   1.885
+  ],
+  [
+   "guillotine",
+   "ravenous",
+   1.881
+  ],
+  [
+   "saw",
+   "ravenous",
+   1.877
+  ],
+  [
+   "shortchain",
+   "ravenous",
+   1.872
+  ],
+  [
+   "revenge",
+   "dogtag",
+   1.87
+  ],
+  [
+   "rope",
+   "forged",
+   1.865
+  ],
+  [
+   "scapegoat",
+   "stake",
+   1.855
+  ],
+  [
+   "keys",
+   "shackles",
+   1.853
+  ],
+  [
+   "tongs",
+   "blacklist",
+   1.85
+  ],
+  [
+   "muzzle",
+   "whip",
+   1.849
+  ],
+  [
+   "collar",
+   "ravenous",
+   1.845
+  ],
+  [
+   "tongs",
+   "stake",
+   1.843
+  ],
+  [
+   "skewer",
+   "dogtag",
+   1.839
+  ],
+  [
+   "blacklist",
+   "ravenous",
+   1.836
+  ],
+  [
+   "hook",
+   "dogtag",
+   1.835
+  ],
+  [
+   "muzzle",
+   "tongs",
+   1.832
+  ],
+  [
+   "skewer",
+   "whip",
+   1.823
+  ],
+  [
+   "axe",
+   "maiden",
+   1.809
+  ],
+  [
+   "pestle",
+   "shackles",
+   1.808
+  ],
+  [
+   "collar",
+   "blacklist",
+   1.805
+  ],
+  [
+   "skewer",
+   "guillotine",
+   1.804
+  ],
+  [
+   "revenge",
+   "cage",
+   1.803
+  ],
+  [
+   "fire",
+   "skewer",
+   1.803
+  ],
+  [
+   "forged",
+   "ravenous",
+   1.803
+  ],
+  [
+   "saw",
+   "hook",
+   1.8
+  ],
+  [
+   "shackles",
+   "shortchain",
+   1.797
+  ],
+  [
+   "muzzle",
+   "scales",
+   1.794
+  ],
+  [
+   "revenge",
+   "axe",
+   1.79
+  ],
+  [
+   "fire",
+   "maiden",
+   1.785
+  ],
+  [
+   "saw",
+   "stake",
+   1.781
+  ],
+  [
+   "saw",
+   "keys",
+   1.769
+  ],
+  [
+   "fire",
+   "shackles",
+   1.765
+  ],
+  [
+   "tongs",
+   "ravenous",
+   1.76
+  ],
+  [
+   "revenge",
+   "shortchain",
+   1.758
+  ],
+  [
+   "hook",
+   "guillotine",
+   1.745
+  ],
+  [
+   "scales",
+   "blacklist",
+   1.74
+  ],
+  [
+   "hook",
+   "collar",
+   1.735
+  ],
+  [
+   "keys",
+   "whip",
+   1.734
+  ],
+  [
+   "cage",
+   "ravenous",
+   1.734
+  ],
+  [
+   "skewer",
+   "cage",
+   1.733
+  ],
+  [
+   "revenge",
+   "fire",
+   1.731
+  ],
+  [
+   "pestle",
+   "blacklist",
+   1.73
+  ],
+  [
+   "saw",
+   "blacklist",
+   1.724
+  ],
+  [
+   "guillotine",
+   "collar",
+   1.724
+  ],
+  [
+   "saw",
+   "guillotine",
+   1.717
+  ],
+  [
+   "ironbox",
+   "crown",
+   1.717
+  ],
+  [
+   "skewer",
+   "shortchain",
+   1.703
+  ],
+  [
+   "whip",
+   "ravenous",
+   1.702
+  ],
+  [
+   "scales",
+   "ravenous",
+   1.701
+  ],
+  [
+   "revenge",
+   "scales",
+   1.689
+  ],
+  [
+   "revenge",
+   "tongs",
+   1.683
+  ],
+  [
+   "guillotine",
+   "stake",
+   1.679
+  ],
+  [
+   "skewer",
+   "axe",
+   1.675
+  ],
+  [
+   "muzzle",
+   "pestle",
+   1.673
+  ],
+  [
+   "keys",
+   "guillotine",
+   1.663
+  ],
+  [
+   "skewer",
+   "tongs",
+   1.663
+  ],
+  [
+   "pestle",
+   "ravenous",
+   1.653
+  ],
+  [
+   "saw",
+   "collar",
+   1.652
+  ],
+  [
+   "revenge",
+   "forged",
+   1.649
+  ],
+  [
+   "axe",
+   "shackles",
+   1.649
+  ],
+  [
+   "saw",
+   "dogtag",
+   1.645
+  ],
+  [
+   "collar",
+   "dogtag",
+   1.634
+  ],
+  [
+   "hook",
+   "whip",
+   1.633
+  ],
+  [
+   "skewer",
+   "scales",
+   1.632
+  ],
+  [
+   "muzzle",
+   "cage",
+   1.63
+  ],
+  [
+   "guillotine",
+   "dogtag",
+   1.615
+  ],
+  [
+   "keys",
+   "maiden",
+   1.609
+  ],
+  [
+   "hook",
+   "stake",
+   1.607
+  ],
+  [
+   "guillotine",
+   "whip",
+   1.596
+  ],
+  [
+   "blacklist",
+   "whip",
+   1.591
+  ],
+  [
+   "skewer",
+   "forged",
+   1.59
+  ],
+  [
+   "revenge",
+   "pestle",
+   1.588
+  ],
+  [
+   "collar",
+   "stake",
+   1.571
+  ],
+  [
+   "saw",
+   "whip",
+   1.568
+  ],
+  [
+   "keys",
+   "tongs",
+   1.55
+  ],
+  [
+   "axe",
+   "collar",
+   1.55
+  ],
+  [
+   "muzzle",
+   "shortchain",
+   1.547
+  ],
+  [
+   "skewer",
+   "pestle",
+   1.542
+  ],
+  [
+   "dogtag",
+   "stake",
+   1.542
+  ],
+  [
+   "hook",
+   "tongs",
+   1.538
+  ],
+  [
+   "hook",
+   "shortchain",
+   1.531
+  ],
+  [
+   "collar",
+   "shortchain",
+   1.53
+  ],
+  [
+   "collar",
+   "cage",
+   1.528
+  ],
+  [
+   "collar",
+   "whip",
+   1.519
+  ],
+  [
+   "hook",
+   "cage",
+   1.51
+  ],
+  [
+   "saw",
+   "tongs",
+   1.508
+  ],
+  [
+   "tongs",
+   "guillotine",
+   1.503
+  ],
+  [
+   "fire",
+   "hook",
+   1.499
+  ],
+  [
+   "dogtag",
+   "whip",
+   1.498
+  ],
+  [
+   "saw",
+   "cage",
+   1.49
+  ],
+  [
+   "tongs",
+   "axe",
+   1.49
+  ],
+  [
+   "forged",
+   "maiden",
+   1.486
+  ],
+  [
+   "guillotine",
+   "cage",
+   1.48
+  ],
+  [
+   "saw",
+   "shortchain",
+   1.479
+  ],
+  [
+   "fire",
+   "collar",
+   1.478
+  ],
+  [
+   "saw",
+   "axe",
+   1.47
+  ],
+  [
+   "tongs",
+   "collar",
+   1.466
+  ],
+  [
+   "ironbox",
+   "trap",
+   1.463
+  ],
+  [
+   "hook",
+   "scales",
+   1.451
+  ],
+  [
+   "muzzle",
+   "axe",
+   1.45
+  ],
+  [
+   "saw",
+   "fire",
+   1.448
+  ],
+  [
+   "shackles",
+   "forged",
+   1.446
+  ],
+  [
+   "tongs",
+   "whip",
+   1.442
+  ],
+  [
+   "saw",
+   "scales",
+   1.441
+  ],
+  [
+   "muzzle",
+   "keys",
+   1.44
+  ],
+  [
+   "ironbox",
+   "maiden",
+   1.426
+  ],
+  [
+   "muzzle",
+   "fire",
+   1.412
+  ],
+  [
+   "guillotine",
+   "shortchain",
+   1.411
+  ],
+  [
+   "scales",
+   "collar",
+   1.41
+  ],
+  [
+   "whip",
+   "stake",
+   1.408
+  ],
+  [
+   "tongs",
+   "dogtag",
+   1.407
+  ],
+  [
+   "fire",
+   "guillotine",
+   1.406
+  ],
+  [
+   "collar",
+   "forged",
+   1.397
+  ],
+  [
+   "hook",
+   "axe",
+   1.388
+  ],
+  [
+   "hook",
+   "pestle",
+   1.385
+  ],
+  [
+   "axe",
+   "whip",
+   1.385
+  ],
+  [
+   "scales",
+   "stake",
+   1.379
+  ],
+  [
+   "shortchain",
+   "whip",
+   1.379
+  ],
+  [
+   "keys",
+   "stake",
+   1.373
+  ],
+  [
+   "cage",
+   "stake",
+   1.371
+  ],
+  [
+   "hook",
+   "forged",
+   1.368
+  ],
+  [
+   "cage",
+   "whip",
+   1.36
+  ],
+  [
+   "saw",
+   "pestle",
+   1.359
+  ],
+  [
+   "scales",
+   "guillotine",
+   1.358
+  ],
+  [
+   "ironbox",
+   "shackles",
+   1.355
+  ],
+  [
+   "pestle",
+   "stake",
+   1.354
+  ],
+  [
+   "pestle",
+   "collar",
+   1.347
+  ],
+  [
+   "shortchain",
+   "stake",
+   1.344
+  ],
+  [
+   "keys",
+   "dogtag",
+   1.342
+  ],
+  [
+   "fire",
+   "stake",
+   1.333
+  ],
+  [
+   "guillotine",
+   "axe",
+   1.331
+  ],
+  [
+   "dogtag",
+   "cage",
+   1.323
+  ],
+  [
+   "axe",
+   "stake",
+   1.322
+  ],
+  [
+   "fire",
+   "whip",
+   1.315
+  ],
+  [
+   "scales",
+   "dogtag",
+   1.312
+  ],
+  [
+   "saw",
+   "forged",
+   1.308
+  ],
+  [
+   "fire",
+   "tongs",
+   1.304
+  ],
+  [
+   "rope",
+   "ironbox",
+   1.301
+  ],
+  [
+   "pestle",
+   "guillotine",
+   1.298
+  ],
+  [
+   "scales",
+   "whip",
+   1.286
+  ],
+  [
+   "fire",
+   "dogtag",
+   1.285
+  ],
+  [
+   "tongs",
+   "cage",
+   1.282
+  ],
+  [
+   "keys",
+   "cage",
+   1.277
+  ],
+  [
+   "tongs",
+   "forged",
+   1.276
+  ],
+  [
+   "dogtag",
+   "shortchain",
+   1.271
+  ],
+  [
+   "tongs",
+   "shortchain",
+   1.265
+  ],
+  [
+   "pestle",
+   "dogtag",
+   1.248
+  ],
+  [
+   "guillotine",
+   "forged",
+   1.239
+  ],
+  [
+   "muzzle",
+   "forged",
+   1.224
+  ],
+  [
+   "pestle",
+   "whip",
+   1.217
+  ],
+  [
+   "scales",
+   "tongs",
+   1.21
+  ],
+  [
+   "pestle",
+   "tongs",
+   1.166
+  ],
+  [
+   "keys",
+   "shortchain",
+   1.165
+  ],
+  [
+   "axe",
+   "dogtag",
+   1.145
+  ],
+  [
+   "ironbox",
+   "maul",
+   1.141
+  ],
+  [
+   "keys",
+   "scales",
+   1.138
+  ],
+  [
+   "cage",
+   "shortchain",
+   1.133
+  ],
+  [
+   "ironbox",
+   "tongs",
+   1.129
+  ],
+  [
+   "keys",
+   "pestle",
+   1.124
+  ],
+  [
+   "scales",
+   "cage",
+   1.112
+  ],
+  [
+   "keys",
+   "fire",
+   1.11
+  ],
+  [
+   "fire",
+   "cage",
+   1.11
+  ],
+  [
+   "pestle",
+   "cage",
+   1.069
+  ],
+  [
+   "fire",
+   "scales",
+   1.053
+  ],
+  [
+   "ironbox",
+   "claws",
+   1.05
+  ],
+  [
+   "axe",
+   "cage",
+   1.037
+  ],
+  [
+   "forged",
+   "dogtag",
+   1.032
+  ],
+  [
+   "scales",
+   "shortchain",
+   1.031
+  ],
+  [
+   "fire",
+   "shortchain",
+   1.028
+  ],
+  [
+   "ironbox",
+   "stake",
+   1.025
+  ],
+  [
+   "ironbox",
+   "blacklist",
+   1.024
+  ],
+  [
+   "pestle",
+   "scales",
+   1.013
+  ],
+  [
+   "pestle",
+   "shortchain",
+   1.006
+  ],
+  [
+   "keys",
+   "axe",
+   1.003
+  ],
+  [
+   "revenge",
+   "ironbox",
+   0.971
+  ],
+  [
+   "fire",
+   "pestle",
+   0.969
+  ],
+  [
+   "axe",
+   "shortchain",
+   0.962
+  ],
+  [
+   "forged",
+   "whip",
+   0.959
+  ],
+  [
+   "keys",
+   "forged",
+   0.957
+  ],
+  [
+   "scales",
+   "axe",
+   0.947
+  ],
+  [
+   "fire",
+   "axe",
+   0.936
+  ],
+  [
+   "forged",
+   "cage",
+   0.935
+  ],
+  [
+   "pestle",
+   "axe",
+   0.934
+  ],
+  [
+   "ironbox",
+   "guillotine",
+   0.897
+  ],
+  [
+   "forged",
+   "stake",
+   0.885
+  ],
+  [
+   "forged",
+   "shortchain",
+   0.869
+  ],
+  [
+   "scales",
+   "forged",
+   0.831
+  ],
+  [
+   "pestle",
+   "forged",
+   0.808
+  ],
+  [
+   "fire",
+   "forged",
+   0.807
+  ],
+  [
+   "saw",
+   "ironbox",
+   0.805
+  ],
+  [
+   "muzzle",
+   "ironbox",
+   0.778
+  ],
+  [
+   "ironbox",
+   "collar",
+   0.762
+  ],
+  [
+   "axe",
+   "forged",
+   0.757
+  ],
+  [
+   "ironbox",
+   "hook",
+   0.747
+  ],
+  [
+   "keys",
+   "ironbox",
+   0.745
+  ],
+  [
+   "ironbox",
+   "dogtag",
+   0.679
+  ],
+  [
+   "ironbox",
+   "axe",
+   0.674
+  ],
+  [
+   "ironbox",
+   "whip",
+   0.651
+  ],
+  [
+   "ironbox",
+   "shortchain",
+   0.646
+  ],
+  [
+   "ironbox",
+   "cage",
+   0.615
+  ],
+  [
+   "fire",
+   "ironbox",
+   0.597
+  ],
+  [
+   "ironbox",
+   "scales",
+   0.59
+  ],
+  [
+   "ironbox",
+   "pestle",
+   0.541
+  ],
+  [
+   "ironbox",
+   "forged",
+   0.42
+  ]
+ ],
+ "events": {
+  "chain": {
+   "name": "Chain reaction"
+  },
+  "execution": {
+   "name": "Execution"
+  },
+  "trickster": {
+   "name": "Behind Closed Doors"
+  },
+  "appetite": {
+   "name": "Ravenous Appetite"
+  },
+  "convict": {
+   "name": "High-Risk Convict"
+  },
+  "crow": {
+   "name": "Crow Whispers"
+  },
+  "freedom": {
+   "name": "Taste of Freedom"
+  },
+  "usurp1": {
+   "name": "Usurpation I"
+  },
+  "usurp2": {
+   "name": "Usurpation II"
+  },
+  "usurp3": {
+   "name": "Usurpation III"
+  },
+  "usurp4": {
+   "name": "Usurpation IV"
+  },
+  "ratway": {
+   "name": "Sewer Ratway"
+  },
+  "hunt": {
+   "name": "\"Treasure\" Hunt"
+  }
+ },
+ "objectives": {
+  "king": {
+   "name": "King of the Caged",
+   "text": "At least 1 inmate's rarity reaches Supreme"
+  },
+  "walk": {
+   "name": "Prison Walk",
+   "text": "Move 18 tiles"
+  },
+  "consume": {
+   "name": "Survival of the Fittest",
+   "text": "Consume 4 times"
+  },
+  "incident": {
+   "name": "Undercurrents",
+   "text": "Trigger a Prison Incident 2 times"
+  },
+  "doors": {
+   "name": "Behind Cell Doors",
+   "text": "Open 10 cells"
+  },
+  "other": {
+   "name": "Another objective",
+   "text": "Not in the simulator yet, so no tool is assumed for it"
+  }
+ },
+ "startCards": {
+  "cagefight": {
+   "name": "Cage Fight",
+   "text": "Inmates can consume the beasts they counter (Mammoths: Lions and Wolves; Lions: Wolves and Rats; Wolves: Rats; Rats: Mammoths) at their own rarity or lower, and consuming never changes their beast"
+  },
+  "ironlaw": {
+   "name": "Iron Law",
+   "text": "The run lasts 30 days"
+  },
+  "tyranny": {
+   "name": "Tyranny",
+   "text": "Each stop at the Interrogation Room also triggers Instigate and Bestow 3 more times each, on top of your choice there"
+  },
+  "opulence": {
+   "name": "Opulence",
+   "text": "Each Warden’s Treasure gives 3 picks in a row (2 extra choices), and a Rainbow made by a pick brings 3 more"
+  }
+ },
+ "gifts": {
+  "wine": {
+   "name": "Crimson Vintage",
+   "text": "Every inmate below Legendary rises one tier.",
+   "value": 3.289
+  },
+  "ring": {
+   "name": "Three-Headed Thumb Ring",
+   "text": "Open up to 3 random sealed cells. They trigger nothing else.",
+   "value": 3.077
+  },
+  "horn": {
+   "name": "Brass Horn of Strife",
+   "text": "Every inmate with a target consumes one at random, in turn.",
+   "value": 2.933
+  },
+  "brand": {
+   "name": "Brand of Original Sin",
+   "text": "Up to 4 inmates with no meal change beast so they have a same-rarity target.",
+   "value": 2.895
+  }
+ },
+ "headline": {
+  "games": 100000,
+  "rainbowsPerRun": 3.4926,
+  "ci95": 0.0108,
+  "runsWithRainbow": 0.974,
+  "rainbowCounts": [
+   0.026,
+   0.0898,
+   0.1843,
+   0.2325,
+   0.2047,
+   0.2628
+  ],
+  "devoursPerRun": 5.51,
+  "bitesPerDevour": 1.358,
+  "chainStopsPerRun": 0,
+  "chainLengths": [
+   0.7088,
+   0.2346,
+   0.0473,
+   0.0082,
+   0.0012,
+   0
+  ],
+  "rainbowSources": {
+   "chain": 89778,
+   "singleDevour": 106654,
+   "other": 152832
+  },
+  "firstRainbowDay": 9.26,
+  "swapsPerRun": 9.01,
+  "executionsPerRun": 0.046,
+  "doorsPerRun": 20.69
+ },
+ "habits": [
+  {
+   "id": "full",
+   "label": "The full strategy",
+   "value": 0.98,
+   "ci": 0.0047
+  },
+  {
+   "id": "alwaysExec",
+   "label": "Always accepting Executions",
+   "value": 0.8319,
+   "ci": 0.0045
+  },
+  {
+   "id": "neverExec",
+   "label": "Never accepting Executions",
+   "value": 0.9528,
+   "ci": 0.0047
+  },
+  {
+   "id": "shortWalks",
+   "label": "Preferring short walks",
+   "value": 0.8279,
+   "ci": 0.0044
+  },
+  {
+   "id": "noSpread",
+   "label": "Ignoring the beast spread",
+   "value": 0.9795,
+   "ci": 0.0047
+  },
+  {
+   "id": "swapNormals",
+   "label": "Replacing Normals only",
+   "value": 0.9712,
+   "ci": 0.0047
+  },
+  {
+   "id": "swapRares",
+   "label": "Replacing Rares too",
+   "value": 0.98,
+   "ci": 0.0047
+  },
+  {
+   "id": "wait2",
+   "label": "Waiting for bigger chains (small threshold)",
+   "value": 0.9631,
+   "ci": 0.0047
+  },
+  {
+   "id": "wait5",
+   "label": "Waiting for bigger chains (large threshold)",
+   "value": 0.919,
+   "ci": 0.0047
+  },
+  {
+   "id": "acceptChain",
+   "label": "Accepting Chain reactions",
+   "value": 0.9802,
+   "ci": 0.0047
+  },
+  {
+   "id": "alwaysBestow",
+   "label": "Always choosing Bestow at the office",
+   "value": 0.7958,
+   "ci": 0.0043
+  },
+  {
+   "id": "alwaysInstigate",
+   "label": "Always choosing Instigate at the office",
+   "value": 0.9439,
+   "ci": 0.0048
+  },
+  {
+   "id": "neverSwap",
+   "label": "Never replacing",
+   "value": 0.8551,
+   "ci": 0.0045
+  },
+  {
+   "id": "simple",
+   "label": "A simple player",
+   "value": 0.4529
+  },
+  {
+   "id": "random",
+   "label": "Random moves",
+   "value": 0.0293
+  }
+ ],
+ "stairs": [
+  {
+   "key": "3:1",
+   "n": 71255,
+   "rainbow": 0.5191,
+   "bites": 1.351
+  },
+  {
+   "key": "3:0",
+   "n": 52261,
+   "rainbow": 0.2639,
+   "bites": 1.03
+  },
+  {
+   "key": "4:",
+   "n": 51371,
+   "rainbow": 1,
+   "bites": 1
+  },
+  {
+   "key": "2:11",
+   "n": 21640,
+   "rainbow": 0.3923,
+   "bites": 1.468
+  },
+  {
+   "key": "1:111",
+   "n": 17582,
+   "rainbow": 0.2736,
+   "bites": 1.475
+  },
+  {
+   "key": "2:10",
+   "n": 16757,
+   "rainbow": 0.2714,
+   "bites": 1.341
+  },
+  {
+   "key": "1:110",
+   "n": 15408,
+   "rainbow": 0.1249,
+   "bites": 1.34
+  },
+  {
+   "key": "3:2",
+   "n": 12325,
+   "rainbow": 0.739,
+   "bites": 1.582
+  },
+  {
+   "key": "1:010",
+   "n": 10555,
+   "rainbow": 0.0803,
+   "bites": 1.091
+  },
+  {
+   "key": "2:21",
+   "n": 10416,
+   "rainbow": 0.4574,
+   "bites": 1.77
+  },
+  {
+   "key": "2:20",
+   "n": 10000,
+   "rainbow": 0.2744,
+   "bites": 1.573
+  },
+  {
+   "key": "1:011",
+   "n": 9975,
+   "rainbow": 0.2532,
+   "bites": 1.25
+  },
+  {
+   "key": "1:101",
+   "n": 9362,
+   "rainbow": 0.231,
+   "bites": 1.376
+  },
+  {
+   "key": "1:000",
+   "n": 8929,
+   "rainbow": 0.0231,
+   "bites": 1.036
+  },
+  {
+   "key": "1:211",
+   "n": 8644,
+   "rainbow": 0.2727,
+   "bites": 1.71
+  },
+  {
+   "key": "1:100",
+   "n": 8473,
+   "rainbow": 0.0673,
+   "bites": 1.219
+  },
+  {
+   "key": "2:01",
+   "n": 7910,
+   "rainbow": 0.331,
+   "bites": 1.1
+  },
+  {
+   "key": "1:210",
+   "n": 7613,
+   "rainbow": 0.1044,
+   "bites": 1.558
+  },
+  {
+   "key": "1:120",
+   "n": 7247,
+   "rainbow": 0.1523,
+   "bites": 1.381
+  },
+  {
+   "key": "2:00",
+   "n": 7209,
+   "rainbow": 0.2661,
+   "bites": 1.044
+  },
+  {
+   "key": "1:121",
+   "n": 6915,
+   "rainbow": 0.2892,
+   "bites": 1.522
+  },
+  {
+   "key": "1:001",
+   "n": 6641,
+   "rainbow": 0.2182,
+   "bites": 1.191
+  },
+  {
+   "key": "0:1111",
+   "n": 5683,
+   "rainbow": 0.2363,
+   "bites": 1.537
+  },
+  {
+   "key": "1:201",
+   "n": 4530,
+   "rainbow": 0.2135,
+   "bites": 1.524
+  },
+  {
+   "key": "0:1110",
+   "n": 4487,
+   "rainbow": 0.1542,
+   "bites": 1.445
+  },
+  {
+   "key": "2:12",
+   "n": 4320,
+   "rainbow": 0.4694,
+   "bites": 1.562
+  },
+  {
+   "key": "1:020",
+   "n": 4296,
+   "rainbow": 0.1224,
+   "bites": 1.112
+  },
+  {
+   "key": "1:220",
+   "n": 3788,
+   "rainbow": 0.1587,
+   "bites": 1.662
+  },
+  {
+   "key": "0:2111",
+   "n": 3722,
+   "rainbow": 0.2101,
+   "bites": 1.682
+  },
+  {
+   "key": "0:1010",
+   "n": 3610,
+   "rainbow": 0.1867,
+   "bites": 1.391
+  },
+  {
+   "key": "0:2110",
+   "n": 3552,
+   "rainbow": 0.1132,
+   "bites": 1.637
+  },
+  {
+   "key": "1:021",
+   "n": 3539,
+   "rainbow": 0.2942,
+   "bites": 1.289
+  },
+  {
+   "key": "1:221",
+   "n": 3506,
+   "rainbow": 0.3177,
+   "bites": 1.8
+  },
+  {
+   "key": "1:200",
+   "n": 3459,
+   "rainbow": 0.0674,
+   "bites": 1.406
+  },
+  {
+   "key": "0:1011",
+   "n": 3242,
+   "rainbow": 0.2801,
+   "bites": 1.483
+  },
+  {
+   "key": "1:112",
+   "n": 3063,
+   "rainbow": 0.3581,
+   "bites": 1.554
+  },
+  {
+   "key": "0:1101",
+   "n": 2848,
+   "rainbow": 0.1524,
+   "bites": 1.362
+  },
+  {
+   "key": "0:1211",
+   "n": 2763,
+   "rainbow": 0.2168,
+   "bites": 1.607
+  },
+  {
+   "key": "2:30",
+   "n": 2660,
+   "rainbow": 0.2398,
+   "bites": 1.744
+  },
+  {
+   "key": "0:1100",
+   "n": 2516,
+   "rainbow": 0.0501,
+   "bites": 1.267
+  },
+  {
+   "key": "0:0111",
+   "n": 2485,
+   "rainbow": 0.3151,
+   "bites": 1.439
+  },
+  {
+   "key": "0:1000",
+   "n": 2340,
+   "rainbow": 0.0329,
+   "bites": 1.198
+  },
+  {
+   "key": "0:0110",
+   "n": 2280,
+   "rainbow": 0.2184,
+   "bites": 1.346
+  },
+  {
+   "key": "0:1210",
+   "n": 2230,
+   "rainbow": 0.1018,
+   "bites": 1.477
+  },
+  {
+   "key": "0:2010",
+   "n": 2188,
+   "rainbow": 0.1723,
+   "bites": 1.537
+  },
+  {
+   "key": "0:2011",
+   "n": 2048,
+   "rainbow": 0.2368,
+   "bites": 1.583
+  },
+  {
+   "key": "2:31",
+   "n": 2014,
+   "rainbow": 0.4791,
+   "bites": 2.038
+  },
+  {
+   "key": "0:1001",
+   "n": 1934,
+   "rainbow": 0.1287,
+   "bites": 1.282
+  },
+  {
+   "key": "1:102",
+   "n": 1913,
+   "rainbow": 0.3178,
+   "bites": 1.441
+  },
+  {
+   "key": "0:1121",
+   "n": 1893,
+   "rainbow": 0.3027,
+   "bites": 1.618
+  },
+  {
+   "key": "0:0000",
+   "n": 1891,
+   "rainbow": 0.0122,
+   "bites": 1.069
+  },
+  {
+   "key": "0:0010",
+   "n": 1884,
+   "rainbow": 0.2707,
+   "bites": 1.304
+  },
+  {
+   "key": "2:02",
+   "n": 1804,
+   "rainbow": 0.3808,
+   "bites": 1.155
+  },
+  {
+   "key": "1:012",
+   "n": 1751,
+   "rainbow": 0.3364,
+   "bites": 1.329
+  },
+  {
+   "key": "0:0011",
+   "n": 1702,
+   "rainbow": 0.3508,
+   "bites": 1.424
+  },
+  {
+   "key": "0:2211",
+   "n": 1682,
+   "rainbow": 0.2283,
+   "bites": 1.846
+  },
+  {
+   "key": "0:1120",
+   "n": 1677,
+   "rainbow": 0.201,
+   "bites": 1.524
+  },
+  {
+   "key": "2:22",
+   "n": 1637,
+   "rainbow": 0.5822,
+   "bites": 1.917
+  },
+  {
+   "key": "0:2101",
+   "n": 1610,
+   "rainbow": 0.1441,
+   "bites": 1.466
+  },
+  {
+   "key": "0:0100",
+   "n": 1583,
+   "rainbow": 0.0392,
+   "bites": 1.117
+  },
+  {
+   "key": "0:2210",
+   "n": 1539,
+   "rainbow": 0.0903,
+   "bites": 1.709
+  },
+  {
+   "key": "1:212",
+   "n": 1465,
+   "rainbow": 0.3338,
+   "bites": 1.811
+  },
+  {
+   "key": "0:0101",
+   "n": 1462,
+   "rainbow": 0.1382,
+   "bites": 1.163
+  },
+  {
+   "key": "1:002",
+   "n": 1441,
+   "rainbow": 0.3463,
+   "bites": 1.296
+  },
+  {
+   "key": "0:2100",
+   "n": 1336,
+   "rainbow": 0.0636,
+   "bites": 1.461
+  },
+  {
+   "key": "0:0001",
+   "n": 1307,
+   "rainbow": 0.1239,
+   "bites": 1.069
+  },
+  {
+   "key": "0:2120",
+   "n": 1294,
+   "rainbow": 0.17,
+   "bites": 1.701
+  },
+  {
+   "key": "1:130",
+   "n": 1290,
+   "rainbow": 0.1837,
+   "bites": 1.419
+  },
+  {
+   "key": "0:2001",
+   "n": 1282,
+   "rainbow": 0.1232,
+   "bites": 1.41
+  },
+  {
+   "key": "0:1201",
+   "n": 1278,
+   "rainbow": 0.1401,
+   "bites": 1.423
+  },
+  {
+   "key": "0:2000",
+   "n": 1162,
+   "rainbow": 0.0473,
+   "bites": 1.333
+  },
+  {
+   "key": "1:311",
+   "n": 1147,
+   "rainbow": 0.2572,
+   "bites": 1.949
+  },
+  {
+   "key": "0:1020",
+   "n": 1147,
+   "rainbow": 0.2459,
+   "bites": 1.452
+  },
+  {
+   "key": "1:310",
+   "n": 1137,
+   "rainbow": 0.0967,
+   "bites": 1.804
+  },
+  {
+   "key": "0:0211",
+   "n": 1134,
+   "rainbow": 0.3007,
+   "bites": 1.506
+  },
+  {
+   "key": "0:2121",
+   "n": 1068,
+   "rainbow": 0.3052,
+   "bites": 1.819
+  },
+  {
+   "key": "0:1220",
+   "n": 1017,
+   "rainbow": 0.1514,
+   "bites": 1.536
+  }
+ ],
+ "compare": {
+  "notools": {
+   "random": {
+    "games": 100000,
+    "rainbowsPerRun": 0.0293,
+    "ci95": 0.0011,
+    "runsWithRainbow": 0.0288,
+    "rainbowCounts": [
+     0.9712,
+     0.0284,
+     0.0004,
+     0,
+     0,
+     0
+    ],
+    "devoursPerRun": 2,
+    "bitesPerDevour": 1.297,
+    "chainStopsPerRun": 0,
+    "chainLengths": [
+     0.7565,
+     0.1971,
+     0.0395,
+     0.0064,
+     0.0004,
+     0
+    ],
+    "rainbowSources": {
+     "chain": 1295,
+     "singleDevour": 1277,
+     "other": 354
+    },
+    "firstRainbowDay": 12.99,
+    "swapsPerRun": 2.88,
+    "executionsPerRun": 0.022,
+    "doorsPerRun": 9.16
+   },
+   "simple": {
+    "games": 100000,
+    "rainbowsPerRun": 0.4529,
+    "ci95": 0.0035,
+    "runsWithRainbow": 0.4176,
+    "rainbowCounts": [
+     0.5824,
+     0.3832,
+     0.0335,
+     0.0009,
+     0,
+     0
+    ],
+    "devoursPerRun": 6.24,
+    "bitesPerDevour": 1.347,
+    "chainStopsPerRun": 0,
+    "chainLengths": [
+     0.7302,
+     0.2059,
+     0.052,
+     0.0108,
+     0.001,
+     0
+    ],
+    "rainbowSources": {
+     "chain": 21468,
+     "singleDevour": 21426,
+     "other": 2399
+    },
+    "firstRainbowDay": 14.89,
+    "swapsPerRun": 5.51,
+    "executionsPerRun": 0.084,
+    "doorsPerRun": 17.29
+   },
+   "tuned": {
+    "games": 100000,
+    "rainbowsPerRun": 0.98,
+    "ci95": 0.0047,
+    "runsWithRainbow": 0.7365,
+    "rainbowCounts": [
+     0.2635,
+     0.5231,
+     0.1871,
+     0.0236,
+     0.002,
+     0.0007
+    ],
+    "devoursPerRun": 4.45,
+    "bitesPerDevour": 1.365,
+    "chainStopsPerRun": 0,
+    "chainLengths": [
+     0.7236,
+     0.2057,
+     0.0547,
+     0.0135,
+     0.0025,
+     0
+    ],
+    "rainbowSources": {
+     "chain": 26946,
+     "singleDevour": 37152,
+     "other": 33905
+    },
+    "firstRainbowDay": 12.86,
+    "swapsPerRun": 9.65,
+    "executionsPerRun": 0.356,
+    "doorsPerRun": 16.05
+   }
+  },
+  "rewards": {
+   "random": {
+    "games": 100000,
+    "rainbowsPerRun": 0.2264,
+    "ci95": 0.0035,
+    "runsWithRainbow": 0.1718,
+    "rainbowCounts": [
+     0.8282,
+     0.13,
+     0.0314,
+     0.0083,
+     0.0018,
+     0.0003
+    ],
+    "devoursPerRun": 2.11,
+    "bitesPerDevour": 1.338,
+    "chainStopsPerRun": 0,
+    "chainLengths": [
+     0.7336,
+     0.2075,
+     0.0478,
+     0.0098,
+     0.0013,
+     0
+    ],
+    "rainbowSources": {
+     "chain": 9679,
+     "singleDevour": 6669,
+     "other": 6293
+    },
+    "firstRainbowDay": 11.46,
+    "swapsPerRun": 2.85,
+    "executionsPerRun": 0.021,
+    "doorsPerRun": 10.32
+   },
+   "simple": {
+    "games": 100000,
+    "rainbowsPerRun": 1.2511,
+    "ci95": 0.0079,
+    "runsWithRainbow": 0.6731,
+    "rainbowCounts": [
+     0.3269,
+     0.3355,
+     0.1906,
+     0.0875,
+     0.0367,
+     0.0228
+    ],
+    "devoursPerRun": 7.03,
+    "bitesPerDevour": 1.4,
+    "chainStopsPerRun": 0,
+    "chainLengths": [
+     0.6955,
+     0.227,
+     0.0617,
+     0.014,
+     0.0018,
+     0
+    ],
+    "rainbowSources": {
+     "chain": 60912,
+     "singleDevour": 45385,
+     "other": 18812
+    },
+    "firstRainbowDay": 12.56,
+    "swapsPerRun": 4.5,
+    "executionsPerRun": 0.073,
+    "doorsPerRun": 21.47
+   },
+   "tuned": {
+    "games": 100000,
+    "rainbowsPerRun": 3.4926,
+    "ci95": 0.0108,
+    "runsWithRainbow": 0.974,
+    "rainbowCounts": [
+     0.026,
+     0.0898,
+     0.1843,
+     0.2325,
+     0.2047,
+     0.2628
+    ],
+    "devoursPerRun": 5.51,
+    "bitesPerDevour": 1.358,
+    "chainStopsPerRun": 0,
+    "chainLengths": [
+     0.7088,
+     0.2346,
+     0.0473,
+     0.0082,
+     0.0012,
+     0
+    ],
+    "rainbowSources": {
+     "chain": 89778,
+     "singleDevour": 106654,
+     "other": 152832
+    },
+    "firstRainbowDay": 9.26,
+    "swapsPerRun": 9.01,
+    "executionsPerRun": 0.046,
+    "doorsPerRun": 20.69
+   }
+  }
+ },
+ "challenge": {
+  "headline": {
+   "games": 200000,
+   "passRate": 0.9548,
+   "passCi95": 0.0009,
+   "fullRate": 0.6045,
+   "points": 52.43,
+   "pointsCi95": 0.04,
+   "pointsWhenPassed": 53.54,
+   "value": 1007.28,
+   "vouchersLeft": 1.44,
+   "fail": {
+    "noSupreme": 0.0191,
+    "rainbowStuck": 0,
+    "noVouchers": 0,
+    "twoMissed": 0.026
+   },
+   "slots": [
+    {
+     "delivered": 0.8685,
+     "points": 7.7,
+     "heavyEscort": 0,
+     "day": 4
+    },
+    {
+     "delivered": 0.7237,
+     "points": 12.33,
+     "heavyEscort": 0.0207,
+     "day": 8
+    },
+    {
+     "delivered": 0.9809,
+     "points": 37.54,
+     "heavyEscort": 0.9999,
+     "day": 12
+    }
+   ],
+   "earlyRate": 0,
+   "earlyDay": null,
+   "scoreHist": [
+    0.0005,
+    0.0018,
+    0.0037,
+    0.0064,
+    0.0044,
+    0.0019,
+    0.0034,
+    0.0376,
+    0.1085,
+    0.16,
+    0.254,
+    0.213,
+    0.1304,
+    0.053,
+    0.0168,
+    0.004,
+    0.0005,
+    0,
+    0
+   ],
+   "loadouts": {
+    "supply": {
+     "games": 66667,
+     "passRate": 0.9673,
+     "fullRate": 0.8041,
+     "points": 52.2,
+     "pointsWhenPassed": 53.37
+    },
+    "lean": {
+     "games": 66667,
+     "passRate": 0.9318,
+     "fullRate": 0.4568,
+     "points": 50.76,
+     "pointsWhenPassed": 52.27
+    },
+    "rats": {
+     "games": 66666,
+     "passRate": 0.9655,
+     "fullRate": 0.5527,
+     "points": 54.35,
+     "pointsWhenPassed": 54.92
+    }
+   },
+   "variants": {
+    "cohort": {
+     "games": 67034,
+     "delivered": 0.7436,
+     "points": 8.14
+    },
+    "kin": {
+     "games": 66791,
+     "delivered": 0.7559,
+     "points": 10.86
+    },
+    "heavy": {
+     "games": 99623,
+     "delivered": 0.9803,
+     "points": 35.15
+    },
+    "muster": {
+     "games": 66552,
+     "delivered": 0.5412,
+     "points": 15.38
+    },
+    "bounty": {
+     "games": 100377,
+     "delivered": 0.9814,
+     "points": 39.91
+    },
+    "veteran": {
+     "games": 66579,
+     "delivered": 0.9347,
+     "points": 8.19
+    },
+    "elite": {
+     "games": 66657,
+     "delivered": 0.8736,
+     "points": 11.73
+    },
+    "mixed": {
+     "games": 66387,
+     "delivered": 0.9282,
+     "points": 6.86
+    }
+   },
+   "unfinished": 0
+  },
+  "habits": [
+   {
+    "id": "full",
+    "label": "The trained strategy",
+    "passRate": 0.9548,
+    "passCi95": 0.0009,
+    "points": 52.43,
+    "fullRate": 0.6045,
+    "value": 1007.28,
+    "fail": {
+     "noSupreme": 0.0191,
+     "rainbowStuck": 0,
+     "noVouchers": 0,
+     "twoMissed": 0.026
+    }
+   },
+   {
+    "id": "mostPointsAll",
+    "label": "Sending the most points, even the heavy contract’s last voucher",
+    "passRate": 0.3602,
+    "passCi95": 0.003,
+    "points": 61.97,
+    "fullRate": 0.0502,
+    "value": 422.13,
+    "fail": {
+     "noSupreme": 0.0966,
+     "rainbowStuck": 0.1782,
+     "noVouchers": 0.3559,
+     "twoMissed": 0.0092
+    }
+   },
+   {
+    "id": "mostPoints",
+    "label": "Sending the most points, keeping 1 voucher",
+    "passRate": 0.7814,
+    "passCi95": 0.0026,
+    "points": 61.94,
+    "fullRate": 0.4194,
+    "value": 843.36,
+    "fail": {
+     "noSupreme": 0.0667,
+     "rainbowStuck": 0.1426,
+     "noVouchers": 0,
+     "twoMissed": 0.0092
+    }
+   },
+   {
+    "id": "lightMost",
+    "label": "Most points, but by light escort only",
+    "passRate": 0.925,
+    "passCi95": 0.0016,
+    "points": 62.99,
+    "fullRate": 0.5346,
+    "value": 988,
+    "fail": {
+     "noSupreme": 0.0489,
+     "rainbowStuck": 0,
+     "noVouchers": 0,
+     "twoMissed": 0.0261
+    }
+   },
+   {
+    "id": "reserve1",
+    "label": "Cheap cargo, but heavy escorts allowed early",
+    "passRate": 0.9392,
+    "passCi95": 0.0015,
+    "points": 53.08,
+    "fullRate": 0.7022,
+    "value": 992.23,
+    "fail": {
+     "noSupreme": 0.0204,
+     "rainbowStuck": 0.0312,
+     "noVouchers": 0,
+     "twoMissed": 0.0092
+    }
+   },
+   {
+    "id": "keepHalf",
+    "label": "Sending some Rares on the first two",
+    "passRate": 0.9393,
+    "passCi95": 0.0015,
+    "points": 63.44,
+    "fullRate": 0.5507,
+    "value": 1002.74,
+    "fail": {
+     "noSupreme": 0.0346,
+     "rainbowStuck": 0,
+     "noVouchers": 0,
+     "twoMissed": 0.0261
+    }
+   },
+   {
+    "id": "noNeed",
+    "label": "Ignoring the next contract while playing",
+    "passRate": 0.9253,
+    "passCi95": 0.0016,
+    "points": 51.03,
+    "fullRate": 0.4993,
+    "value": 976.32,
+    "fail": {
+     "noSupreme": 0.0141,
+     "rainbowStuck": 0,
+     "noVouchers": 0,
+     "twoMissed": 0.0606
+    }
+   },
+   {
+    "id": "earlyAny",
+    "label": "Shipping the heavy contract as soon as it qualifies",
+    "passRate": 0.9548,
+    "passCi95": 0.0013,
+    "points": 51.38,
+    "fullRate": 0.6046,
+    "value": 1006.23,
+    "fail": {
+     "noSupreme": 0.0191,
+     "rainbowStuck": 0,
+     "noVouchers": 0,
+     "twoMissed": 0.0261
+    }
+   },
+   {
+    "id": "earlyFull",
+    "label": "Shipping the heavy contract early once its escort is full",
+    "passRate": 0.9548,
+    "passCi95": 0.0013,
+    "points": 52.46,
+    "fullRate": 0.6046,
+    "value": 1007.26,
+    "fail": {
+     "noSupreme": 0.0191,
+     "rainbowStuck": 0,
+     "noVouchers": 0,
+     "twoMissed": 0.0261
+    }
+   },
+   {
+    "id": "drillPlay",
+    "label": "Playing with the drill weights (convoys unchanged)",
+    "passRate": 0.9325,
+    "passCi95": 0.0016,
+    "points": 50.31,
+    "fullRate": 0.4679,
+    "value": 982.86,
+    "fail": {
+     "noSupreme": 0.0098,
+     "rainbowStuck": 0,
+     "noVouchers": 0,
+     "twoMissed": 0.0576
+    }
+   }
+  ]
+ }
+}

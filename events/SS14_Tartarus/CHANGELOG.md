@@ -106,3 +106,11 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - Consume and End were the only options when standing on some opened cells (no Replace button) — not explained yet.
 
 **Site:** `/ss14/` became a play sheet: the patterns above, the instrument pick and "take it when…" for treasures and incidents. The board-mirroring advisor was dropped (too conditional to solve; confusing in play).
+
+## 2026-10-17 — simulator 20261016zzc → 20261016zzs (automatic)
+
+- New instrument: **Filthy Claws: Alpha Wolf** — At the start of each day, Scratch Marks go on 1 random unopened cell: it shows the rarity inside, and a Wolf of that rarity can consume the inmate through the door for +3.
+- New instrument: **Blood-Stained Trap: Berserk Lion** — With the warden on a Lion's cell, Hunt joins the day's choices: the Lion puts a Prey mark on one inmate it can consume, and each morning both rise a tier, for 3 mornings. A day has a Consume, a Replace or a Hunt.
+- New objectives: Behind Cell Doors
+- New startCards: Opulence
+- Rainbows/run (tuned strategy): 3.4349 → 3.4926
