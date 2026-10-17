@@ -1,0 +1,75 @@
+name: Update data and deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Every 6 hours: pull fresh simulator data + live telemetry during the season.
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  update-data:
+    # Only scheduled/manual runs refresh data; pushes just rebuild.
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Update season data
+        run: |
+          for script in SS*_*/scripts/update_data.py; do
+            python3 -I "$script"
+          done
+      - name: Commit if anything changed
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A SS*_*/
+          git commit -m "chore(data): update season data"
+          git push
+
+  build:
+    needs: update-data
+    # Run after update-data, or on its own when that job was skipped (push).
+    if: ${{ !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Latest commit on the branch, including one just pushed by update-data.
+          ref: ${{ github.ref }}
+      - name: Set SITE and BASE_PATH for GitHub Pages
+        run: |
+          owner="${GITHUB_REPOSITORY_OWNER,,}"
+          echo "SITE=https://${owner}.github.io" >> "$GITHUB_ENV"
+          echo "BASE_PATH=/${GITHUB_REPOSITORY#*/}/" >> "$GITHUB_ENV"
+      - uses: withastro/action@v6
+        with:
+          package-manager: pnpm@12.11.2
+
+  deploy:
+    needs: build
+    if: ${{ !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
