@@ -6,6 +6,14 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: game art for Scapegoat's Guillotine (it showed a "?").
+
+### Changed
+
+- SS14 play sheet: sharper Iron Pestle art, from the live client instead of the preview video.
+
 ## [1.0.2] - 2026-10-17
 
 ### Added
