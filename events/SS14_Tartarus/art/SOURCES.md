@@ -38,6 +38,7 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `tool-forged` | Forged Key | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 1327,270 220×165 |
 | `tool-tongs` | Iron Tongs of Lust: Mammoth | [37_vod_torture_set_tongs_ratheads_guillotine.jpg](../images/37_vod_torture_set_tongs_ratheads_guillotine.jpg) | 367,270 220×165 |
 | `tool-skewer` | Skewered Rat Heads: Colossal Rat | [37_vod_torture_set_tongs_ratheads_guillotine.jpg](../images/37_vod_torture_set_tongs_ratheads_guillotine.jpg) | 847,270 220×165 |
+| `tool-ironbox` | Squirming Iron Box: Colossal Rat (small icon from the left Torture Instrument panel) | [38_vod_squirming_iron_box_rat_nest.jpg](../images/38_vod_squirming_iron_box_rat_nest.jpg) | 87,328 74×100 |
 | `tool-dogtag` | Felon's Dog Tag | [70_live_objective_reward_dogtag_guillotine_fire.webp](../images/70_live_objective_reward_dogtag_guillotine_fire.webp) | 236,240 300×250 |
 | `tool-guillotine` | Fanged Guillotine: Alpha Wolf (live; replaces the VOD crop) | [70_live_objective_reward_dogtag_guillotine_fire.webp](../images/70_live_objective_reward_dogtag_guillotine_fire.webp) | 873,240 300×250 |
 | `tool-fire` | Searing Branding Iron | [70_live_objective_reward_dogtag_guillotine_fire.webp](../images/70_live_objective_reward_dogtag_guillotine_fire.webp) | 1510,240 300×250 |

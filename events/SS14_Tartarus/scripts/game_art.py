@@ -64,6 +64,7 @@ CROPS = [
     ("tool-forged", "36_vod_torture_set_whip_stake_key.jpg", (1327, 270, 220, 165), "Forged Key"),
     ("tool-tongs", "37_vod_torture_set_tongs_ratheads_guillotine.jpg", (367, 270, 220, 165), "Iron Tongs of Lust: Mammoth"),
     ("tool-skewer", "37_vod_torture_set_tongs_ratheads_guillotine.jpg", (847, 270, 220, 165), "Skewered Rat Heads: Colossal Rat"),
+    ("tool-ironbox", "38_vod_squirming_iron_box_rat_nest.jpg", (87, 328, 74, 100), "Squirming Iron Box: Colossal Rat (small icon from the left Torture Instrument panel)"),
     ("tool-dogtag", "70_live_objective_reward_dogtag_guillotine_fire.webp", (236, 240, 300, 250), "Felon's Dog Tag"),
     ("tool-guillotine", "70_live_objective_reward_dogtag_guillotine_fire.webp", (873, 240, 300, 250), "Fanged Guillotine: Alpha Wolf (live; replaces the VOD crop)"),
     ("tool-fire", "70_live_objective_reward_dogtag_guillotine_fire.webp", (1510, 240, 300, 250), "Searing Branding Iron"),
