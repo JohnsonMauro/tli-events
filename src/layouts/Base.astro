@@ -56,6 +56,8 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
     <meta property="og:image:height" content={String(og.attributes.height)} />
   </>}
   <meta name="twitter:card" content={og ? 'summary_large_image' : 'summary'} />
+  {/* Search Console ownership (URL-prefix property for the Pages project site). Keep it: removing it unverifies the site. */}
+  <meta name="google-site-verification" content="INWse-XtGLavB8Tu7RXajMkwTpACvo8dxvEqqKnCkv4" />
   {/* Self-hosted (astro.config.mjs `fonts`); preload only what paints first: body text (regular + bold) and headings, Latin. */}
   <Font cssVariable="--font-sans" preload={[{ weight: '400', subset: 'latin' }, { weight: '700', subset: 'latin' }]} />
   <Font cssVariable="--font-display" preload />
