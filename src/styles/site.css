@@ -424,16 +424,6 @@ a.back svg {
   color: var(--ink2);
   letter-spacing: 0.02em;
 }
-.site-foot .ver {
-  color: inherit;
-  font: 500 12px var(--mono);
-  text-decoration: none;
-}
-.site-foot .ver:hover,
-.site-foot .ver:focus-visible {
-  color: var(--ink);
-  text-decoration: underline;
-}
 .heart {
   width: 16px;
   height: 16px;

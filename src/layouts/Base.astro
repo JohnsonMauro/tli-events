@@ -3,7 +3,6 @@ import { Font, getImage } from 'astro:assets';
 import '../styles/site.css';
 import { url } from '../lib/events';
 import Flag from '../components/Flag.astro';
-import { CHANGELOG_URL, VERSION } from '../lib/project';
 
 interface Props {
   title: string;
@@ -143,10 +142,6 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
       <svg class="heart" viewBox="0 0 24 24" role="img" aria-label="love">
         <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.2 5.2 3.1 1.6-1.9 3.1-3.1 5.2-3.1 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z" />
       </svg>
-      <span aria-hidden="true">·</span>
-      <a class="ver" href={CHANGELOG_URL} title="Changelog">
-        v{VERSION}
-      </a>
     </footer>
     <script is:inline>
       const langSel = document.querySelector('.lang-select');

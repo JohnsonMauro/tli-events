@@ -41,7 +41,7 @@ Guide, CHANGELOG and `images/INDEX.md` are the research base in the repo; the si
 
 ## Releases
 
-The site follows [SemVer](https://semver.org/spec/v2.0.0.html). The version lives in `package.json` (`version`), equals the git tag `vX.Y.Z` and shows in the footer, linked to `CHANGELOG.md` ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/)).
+The site follows [SemVer](https://semver.org/spec/v2.0.0.html). The version lives in `package.json` (`version`) and equals the git tag `vX.Y.Z`; history in `CHANGELOG.md` ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/)). The version is not shown on the site (owner's call), and there are no GitHub Releases: tag + changelog are the record.
 
 - **Every change a player can see adds a line under `## [Unreleased]` in the same commit**, written as the effect for the player, not the diff.
 - **Two changelogs, two jobs:** `events/<Dir>/CHANGELOG.md` is the research log of the game (patches, odds, data, dated, append-only); the root `CHANGELOG.md` records what the site changed. A game patch that changes what a page says goes in both: the facts in the event log, the page change here (naming the patch).
