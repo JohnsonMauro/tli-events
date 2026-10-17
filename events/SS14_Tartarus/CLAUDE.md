@@ -33,3 +33,4 @@ Season starting Oct 15, 2026 (19:00 PDT). Mechanic: the **Warden's Duty** (典�
 1. `python3 -I scripts/update_data.py --dry-run` → if there is a change, run it without `--dry-run`.
 2. New official patch: read `torchlight.xd.com/ss14pn` (and the supplemental log), add a manual entry to the CHANGELOG, adjust `TARTARUS_GUIDE.md` (rules/odds/instruments sections) and the play sheet texts (`src/sheets/ss14/tool-text.ts`, `src/sheets/ss14/i18n.ts`).
 3. A conclusion changed → fix it in the document and record the correction in the CHANGELOG.
+4. Steps 2–3 changed what the play sheet says → also add a line under `## [Unreleased]` in the root `CHANGELOG.md` (patch → MINOR, correction → PATCH; see the root `CLAUDE.md` → "Releases").

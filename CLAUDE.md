@@ -39,6 +39,23 @@ public/sw.js                  service worker: /_astro/* cache-first, pages netwo
 Follow `events/README.md` → "Adding a new event". In short: copy `events/_template`, fill the guide's frontmatter — the card shows up on the list, unlinked until the event has a page at `src/pages/<slug>/index.astro`.
 Guide, CHANGELOG and `images/INDEX.md` are the research base in the repo; the site doesn't publish them.
 
+## Releases
+
+The site follows [SemVer](https://semver.org/spec/v2.0.0.html). The version lives in `package.json` (`version`), equals the git tag `vX.Y.Z` and shows in the footer, linked to `CHANGELOG.md` ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/)).
+
+- **Every change a player can see adds a line under `## [Unreleased]` in the same commit**, written as the effect for the player, not the diff.
+- **Two changelogs, two jobs:** `events/<Dir>/CHANGELOG.md` is the research log of the game (patches, odds, data, dated, append-only); the root `CHANGELOG.md` records what the site changed. A game patch that changes what a page says goes in both: the facts in the event log, the page change here (naming the patch).
+- **Bump by what a player notices:**
+
+| Bump | When |
+|---|---|
+| MAJOR | links break or content goes away: URL/route changes, a page or language removed |
+| MINOR | something new: an event page, a language, a section or tool, the site updated for a game patch (new or changed instruments, incidents, rules) |
+| PATCH | corrections: texts and numbers, art for items already listed, layout and behavior fixes, dependency updates |
+| none | the 6-hourly data refresh (`chore(data)`), docs, tooling, refactors with no visible change |
+
+- **Cutting a release:** move `Unreleased` into `## [X.Y.Z] - YYYY-MM-DD`, update the compare links at the bottom, bump `package.json`, commit `chore(release): vX.Y.Z`. Creating and pushing the tag `vX.Y.Z` only when the owner says so.
+
 ## Rules for this repo
 
 - Research method and source access live in `events/README.md`; event-specific context in `events/<Dir>/CLAUDE.md`.
