@@ -1,6 +1,4 @@
-/* Display texts shared by the SS14 pages (play sheet and reference). */
-
-// One-line summaries shown next to each instrument's card text.
+// One-line English summaries shown next to each instrument's card text (other languages: `tool` in ./i18n.ts).
 export const TOOL_TEXT = {
   crown:'Lions eat any inmate of the same rarity; +2 extra tiers per bite (3 in total).',
   rope:'Replace never brings Normal/Magic → every Replace is an upgrade.',

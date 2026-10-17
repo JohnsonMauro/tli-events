@@ -1,17 +1,8 @@
 // Translations of the /ss14/ play sheet. Game names (instruments, incidents, treasures, actions,
 // rarities) stay in English: they are what the EN client shows; localized client names are not verified.
 // Markup in strings: **key term** → .k (accent), !!warning!! → .no (red), {var} → filled by fmt().
-import { TOOL_TEXT } from '../scripts/ss14-text.js';
-
-export const LANGS = [
-  { code: 'en', label: 'EN', name: 'English', hreflang: 'en' },
-  { code: 'pt-br', label: 'PT', name: 'Português (Brasil)', hreflang: 'pt-BR' },
-  { code: 'ko', label: '한', name: '한국어', hreflang: 'ko' },
-  { code: 'ja', label: '日', name: '日本語', hreflang: 'ja' },
-  { code: 'zh', label: '中', name: '简体中文', hreflang: 'zh-Hans' },
-  { code: 'ru', label: 'RU', name: 'Русский', hreflang: 'ru' },
-] as const;
-export type Lang = (typeof LANGS)[number]['code'];
+import type { Lang } from '../../lib/i18n';
+import { TOOL_TEXT } from './tool-text';
 
 type IncidentId = 'trickster' | 'convict' | 'appetite' | 'shared' | 'freedom' | 'ratway' | 'hunt' | 'crow' | 'usurp' | 'chain' | 'execution';
 type Incident = { short: string; does: string; good: string; bad: string };
@@ -707,11 +698,3 @@ const ru: Dict = {
 
 export const DICT: Record<Lang, Dict> = { en, 'pt-br': ptbr, ko, ja, zh, ru };
 
-/** Fill {var} placeholders. */
-export const fmt = (s: string, vars: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m));
-
-/** Escape, then turn **x** into an accent span and !!x!! into a warning span. Strings are ours, not user input. */
-export const rich = (s: string) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<span class="k">$1</span>')
-    .replace(/!!(.+?)!!/g, '<span class="no">$1</span>');

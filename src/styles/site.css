@@ -1,9 +1,9 @@
 :root{
   --bg:#f3efe6;--surface:#fbf8f2;--surface2:#ece6d9;--ink:#1d1b18;--ink2:#5b554b;--line:#d6cdbb;
-  --accent:#b4471c;--accent2:#7a2e10;--ok:#2f6b3a;--warn:#9a6a00;--bad:#9b2226;
+  --accent:#a64218;--accent2:#7a2e10;--ok:#2f6b3a;--warn:#855b00;--bad:#9b2226;
   --mammoth:#7c5a3a;--lion:#c08a1b;--wolf:#4b6f8f;--rat:#6d5b7b;
   --t0:#8a8a8a;--t1:#3f7fd1;--t2:#8e44c9;--t3:#d9731a;--t4:#c62828;--t5:linear-gradient(90deg,#e0463b,#e8a33c,#5fb85a,#3d8fe0,#9b5de5);
-  --radius:6px;--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Barlow Semi Condensed',system-ui,sans-serif;--display:'Big Shoulders Stencil Display',Impact,sans-serif;
+  --radius:6px;--mono:var(--font-mono);--sans:var(--font-sans);--display:var(--font-display);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#111214;--surface:#191b1e;--surface2:#22252a;--ink:#ece6d8;--ink2:#a29a8a;--line:#33373d;
@@ -137,3 +137,8 @@ nav .info-btn{display:inline-flex;align-items:center;gap:6px;font:600 13px/1 var
 .feedback .gh{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:var(--radius);background:var(--ink);color:var(--bg);font:700 14px var(--sans);text-decoration:none}
 .feedback .gh svg{width:18px;height:18px;fill:currentColor}
 .feedback .gh:hover{background:var(--accent);color:#fff}
+
+/* ---- 404 ---- */
+.nf-list{list-style:none;margin:8px 0 40px;padding:0;display:grid;gap:8px}
+.nf-list a{display:block;padding:14px 16px;border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:var(--radius);background:var(--surface);color:var(--ink);text-decoration:none}
+.nf-list a:hover{border-color:var(--accent)}

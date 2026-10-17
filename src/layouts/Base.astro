@@ -1,6 +1,7 @@
 ---
+import { Font, getImage } from 'astro:assets';
 import '../styles/site.css';
-import { url } from '../events';
+import { url } from '../lib/events';
 import Flag from '../components/Flag.astro';
 
 interface Props {
@@ -14,9 +15,21 @@ interface Props {
   lang?: string;
   /** Translations of this page: language switcher + hreflang links. */
   langs?: { code: string; label: string; name: string; hreflang: string; href: string; current: boolean }[];
+  /** Share image (Open Graph / Twitter card), e.g. the event's key art. */
+  image?: ImageMetadata;
+  /** Keep the page out of search results (404). */
+  noindex?: boolean;
 }
 
-const { title, description = 'Torchlight: Infinite season strategy', back, wide = false, lang = 'en', langs = [] } = Astro.props;
+const SITE_NAME = 'TLI Events';
+const {
+  title, description = 'Torchlight: Infinite season event strategy: rules, odds and picks, backed by sources.',
+  back, wide = false, lang = 'en', langs = [], image, noindex = false,
+} = Astro.props;
+const abs = (path: string) => new URL(path, Astro.site ?? Astro.url).href;
+const canonical = abs(Astro.url.pathname);
+// JPEG for the share card: every chat app and crawler reads it (WebP support is still uneven there).
+const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', quality: 80 }) : null;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -25,10 +38,28 @@ const { title, description = 'Torchlight: Infinite season strategy', back, wide 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
   <title>{title}</title>
-  {langs.map((l) => <link rel="alternate" hreflang={l.hreflang} href={new URL(l.href, Astro.site ?? Astro.url).href} />)}
+  {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+  {langs.map((l) => <link rel="alternate" hreflang={l.hreflang} href={abs(l.href)} />)}
+  {langs.length > 0 && <link rel="alternate" hreflang="x-default" href={abs(langs[0].href)} />}
   <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Barlow+Semi+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="manifest" href={url('manifest.webmanifest')} />
+  <meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)" />
+  <meta property="og:site_name" content={SITE_NAME} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  {og && <>
+    <meta property="og:image" content={abs(og.src)} />
+    <meta property="og:image:width" content={String(og.attributes.width)} />
+    <meta property="og:image:height" content={String(og.attributes.height)} />
+  </>}
+  <meta name="twitter:card" content={og ? 'summary_large_image' : 'summary'} />
+  {/* Self-hosted (astro.config.mjs `fonts`); preload only what paints first: body text (regular + bold) and headings, Latin. */}
+  <Font cssVariable="--font-sans" preload={[{ weight: '400', subset: 'latin' }, { weight: '700', subset: 'latin' }]} />
+  <Font cssVariable="--font-display" preload />
+  <Font cssVariable="--font-mono" />
   <script is:inline>
     // Apply the saved theme before paint (per-viewer convenience only).
     try { const t = localStorage.getItem('tt-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -74,5 +105,15 @@ const { title, description = 'Torchlight: Infinite season strategy', back, wide 
       try { localStorage.setItem('tt-theme', root.dataset.theme); } catch (e) {}
     });
   </script>
+  {import.meta.env.PROD && (
+    // Page-view counts (GoatCounter: no cookies, no personal data). Async, off the critical path.
+    <script is:inline data-goatcounter="https://tlievents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  )}
+  {import.meta.env.PROD && (
+    <script is:inline define:vars={{ sw: url('sw.js'), scope: url() }}>
+      // Offline + instant repeat visits (public/sw.js). Pages can't send long cache headers; the worker can.
+      if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register(sw, { scope }).catch(() => {}));
+    </script>
+  )}
 </body>
 </html>

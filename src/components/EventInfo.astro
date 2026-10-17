@@ -2,9 +2,9 @@
 // "Method & credits" for an event page: a header button that opens a dialog with the methodology,
 // thanks + links to the creators whose work the page uses, and the feedback link (GitHub Discussions).
 // Usage: <EventInfo slot="nav" lang={lang} method={t.method} credits={credits} /> inside <Base>.
-import { INFO, type Role } from '../i18n/event-info';
-import { rich, type Lang } from '../i18n/ss14-play';
-import { DISCUSSIONS_URL } from '../project';
+import { INFO, type Role } from './event-info.i18n';
+import { rich, type Lang } from '../lib/i18n';
+import { DISCUSSIONS_URL } from '../lib/project';
 
 export interface Credit { name: string; platform: 'youtube' | 'bilibili'; url: string; role: Role }
 interface Props { lang: Lang; method: string[]; credits: Credit[] }
@@ -15,7 +15,7 @@ const ICON = {
   bilibili: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3l3 3M17 3l-3 3" stroke="#00a1d6" stroke-width="2" stroke-linecap="round"/><rect x="2" y="6" width="20" height="14" rx="4" fill="#00a1d6"/><path d="M8 12v2M16 12v2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',
 };
 ---
-<button type="button" class="info-btn" id="infoBtn" aria-haspopup="dialog" aria-controls="infoDlg">
+<button type="button" class="info-btn" id="infoBtn" aria-haspopup="dialog" aria-controls="infoDlg" aria-label={L.btn}>
   <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" /><path d="M12 11v6M12 7.5v.5" /></svg>
   <span>{L.btn}</span>
 </button>

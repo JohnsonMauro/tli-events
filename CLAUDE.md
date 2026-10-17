@@ -1,7 +1,7 @@
 # TLI Events — Torchlight: Infinite event research base
 
 The team's strategy base for Torchlight: Infinite (XD Games) seasonal events, published as an Astro site on GitHub Pages (public repo `JohnsonMauro/tli-events`). **Everything is in English** — the team plays the English client, so mechanic/item names match the game exactly; Chinese terms stay in parentheses where useful.
-Exception: the SS14 play sheet (`/ss14/`) is also published in pt-BR, ko, ja, zh and ru for other players — texts in `src/i18n/ss14-play.ts`; game names (instruments, incidents, actions, rarities) stay in English there too.
+Exception: the SS14 play sheet (`/ss14/`) is also published in pt-BR, ko, ja, zh and ru for other players — texts in `src/sheets/ss14/i18n.ts`; game names (instruments, incidents, actions, rarities) stay in English there too.
 
 ## Layout
 
@@ -10,14 +10,19 @@ events/                       one self-contained folder per event — the worksp
   README.md                   method, sources, how to add an event  ← read before researching
   _template/                  skeleton to copy for a new event (skipped by the site)
   SS14_Tartarus/              SS14 event (guide, changelog, data, images, scripts)
-src/                          Astro 7 site — publishes only the event list and each event's page
+src/                          Astro 7 site — publishes the event list and each event's play sheet
   content.config.ts           `guides` (events/*/*_GUIDE.md, frontmatter = event card)
-  events.ts                   event registry from the guides, url()
-  layouts/Base.astro          sticky header (brand, back to list, language, theme) + footer
-  pages/index.astro           TLI Events home: event list (links only events with a page; card background = events/<Dir>/banner.*)
-  pages/ss14/                 SS14 play sheet: index.astro (en) + [lang].astro → components/ss14/PlaySheet.astro
-  components/EventInfo.astro  "Method & credits" dialog on every event page (methodology, creator thanks + links, GitHub Discussions)
-  project.ts                  repo and Discussions URLs
+  lib/                        site-wide modules, no markup
+    events.ts                 event registry from the guides (banner, hasPage), url(), eventUrl(), eventLangs()
+    i18n.ts                   LANGS, Lang, fmt(), rich() — shared by every sheet
+    images.ts                 fixed()/fluid()/artSet(): WebP + srcset + intrinsic size
+    project.ts                repo and Discussions URLs
+  layouts/Base.astro          head (fonts, canonical, hreflang, OG, manifest, SW) + sticky header + footer
+  components/                 Art (optimized <img>), EventInfo ("Method & credits" dialog), Flag
+  sheets/<slug>/              one play sheet per event, colocated: PlaySheet.astro, i18n.ts, play.ts (client), play.css
+  pages/                      index (event list), 404, sitemap.xml, manifest.webmanifest, <slug>/index + [lang] → sheets/<slug>
+  assets/fonts/               self-hosted font files not on Google's API (astro.config.mjs `fonts`)
+public/sw.js                  service worker: /_astro/* cache-first, pages network-first (works around Pages' 10-min cache)
 .github/workflows/deploy.yml  push → build/deploy; every 6h → run events/*/scripts/update_data.py, commit if changed, deploy
 ```
 
