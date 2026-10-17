@@ -23,6 +23,13 @@ export const INFO: Record<Lang, InfoLabels> = {
     feedbackH: 'Ajude a melhorar', feedbackP: 'Achou um erro, um combo novo ou um bug do jogo? Conte para a gente no GitHub Discussions.',
     feedbackBtn: 'Abrir GitHub Discussions', close: 'Fechar',
   },
+  de: {
+    btn: 'Methode & Credits', title: 'Wie diese Seite entstanden ist', methodH: 'Methode',
+    thanksH: 'Danke an die Creator', thanksLead: 'Diese Seite baut auf ihrer Arbeit auf — besucht ihre Kanäle und unterstützt sie:',
+    roles: { sim: 'Simulator & Tools', video: 'Season-Video', interview: 'Entwickler-Interview', official: 'offizielle Vorschau' },
+    feedbackH: 'Hilf mit, sie zu verbessern', feedbackP: 'Einen Fehler, eine neue Kombo oder einen Bug im Spiel gefunden? Teil es uns in den GitHub Discussions mit.',
+    feedbackBtn: 'GitHub Discussions öffnen', close: 'Schließen',
+  },
   ko: {
     btn: '방법 & 크레딧', title: '이 페이지는 이렇게 만들었습니다', methodH: '방법',
     thanksH: '크리에이터분들께 감사드립니다', thanksLead: '이 페이지는 이분들의 작업 위에 있습니다 — 채널을 방문해 응원해 주세요:',

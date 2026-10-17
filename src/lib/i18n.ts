@@ -4,6 +4,7 @@
 export const LANGS = [
   { code: 'en', label: 'EN', name: 'English', hreflang: 'en' },
   { code: 'pt-br', label: 'PT', name: 'Português (Brasil)', hreflang: 'pt-BR' },
+  { code: 'de', label: 'DE', name: 'Deutsch', hreflang: 'de' },
   { code: 'ko', label: '한', name: '한국어', hreflang: 'ko' },
   { code: 'ja', label: '日', name: '日本語', hreflang: 'ja' },
   { code: 'zh', label: '中', name: '简体中文', hreflang: 'zh-Hans' },

@@ -43,6 +43,11 @@ const usStripes = Array.from({ length: 7 }, (_, i) => i * (40 / 13));
     <polygon points={star(5, 5, 3)} fill="#ffde00" />
     {[[10, 2, 23], [12, 4, 45], [12, 7, 70], [10, 9, 90]].map(([x, y, a]) => <polygon points={star(x, y, 1, a + 180)} fill="#ffde00" />)}
   </>}
+  {code === 'de' && <>
+    <rect width="30" height="6.67" fill="#000" />
+    <rect y="6.67" width="30" height="6.67" fill="#dd0000" />
+    <rect y="13.33" width="30" height="6.67" fill="#ffce00" />
+  </>}
   {code === 'ru' && <>
     <rect width="30" height="20" fill="#fff" />
     <rect y="6.67" width="30" height="6.67" fill="#0039a6" />
