@@ -5,6 +5,7 @@ One folder per seasonal event. Each folder is self-contained: guide, changelog, 
 | Event | Mechanic | Folder |
 |---|---|---|
 | SS14 Tartarus (塔罗斯的困兽) | Warden's Duty — a 16-cell prison | [SS14_Tartarus/](SS14_Tartarus/) |
+| SS4 Whispering Mist (雾都怪谈) | Mistville — a 15-day roguelike in a fogged town (core since SS5) | [SS4_WhisperingMist/](SS4_WhisperingMist/) |
 
 ## Adding a new event
 
@@ -12,7 +13,7 @@ One folder per seasonal event. Each folder is self-contained: guide, changelog, 
 2. Rename `MECHANIC_GUIDE.md` to `<MECHANIC>_GUIDE.md` and fill the frontmatter (event card: `slug`, `code`, `name`, `nameCn`, `mechanic`, `launched`, `summary`). That puts the event's card on the site's list.
 3. Research with the method below and fill the guide, `CHANGELOG.md` and `images/INDEX.md`.
 4. Optional: `scripts/update_data.py` following `scripts/README.md` — then the 6-hourly workflow keeps the data and changelog fresh.
-5. The event page: `src/pages/<slug>/index.astro` (see SS14's play sheet). Until it exists the card on the list is not linked. Every event page carries `<EventInfo slot="nav">` (`src/components/EventInfo.astro`): a short methodology in each language plus `credits.json` — **always thank the YouTube/Bilibili creators used and link their channel** (resolve the channel from the video itself, e.g. `yt-dlp --print channel_url`; Bilibili via the video page's `__INITIAL_STATE__.videoData.owner`).
+5. The event page: `src/pages/<slug>/index.astro` (see SS14's play sheet). Until it exists the card on the list is not linked. Every event page carries `<EventInfo slot="nav">` (`src/components/EventInfo.astro`): a short methodology in each language plus `credits.json` — **always thank the YouTube/Bilibili creators used and link their channel** (resolve the channel from the video itself, e.g. `yt-dlp --print channel_url`; Bilibili via the video page's `__INITIAL_STATE__.videoData.owner`). A page built only from text sources (SS4) has `credits.json` = `[]`; the dialog then leaves out the thanks section.
 6. Add the row to the table above; check with `pnpm build` and `pnpm check`.
 
 Folder layout:
@@ -48,7 +49,8 @@ SS<nn>_<Name>/
 |---|---|---|
 | Official patch notes | `https://torchlight.xd.com/ss<nn>pn` (`?lang=en`); CN `torchlight.xd.cn/ss<nn>pn/?lang=zh-CN` | JS-rendered; download the HTML and extract the embedded i18n JSON. Watch for a supplemental log (补充日志) that overrides the main text. |
 | Steam news | `GetNewsForApp` API, appid **1974050** | The launch post usually summarizes the mechanic. |
-| tlidb.com | `/en/<Page>` and `/cn/<Page>` | Beta data — tag it as such. |
+| Older seasons (before `ss<nn>pn`) | XD news index `https://website.xdcdn.net/form/website/torchlight/news.json` → article JSON `…/news/<en\|zh-tw>/<id>.json` (plain JSON, no JS); season landing site `torchlight.xd.com/us/ep<N>` via the Wayback Machine (its images on `website.xdcdn.net` stay live) | SS4 had no `ss4pn` page. Maxroll's old season pages return 404: read them on Wayback. |
+| tlidb.com | `/en/<Page>` and `/cn/<Page>` | Beta data — tag it as such. It shows the **current** client: for a past season the values are post-rebalance, not launch values. |
 | Reddit r/TorchlightInfinite | `.json` and old.reddit are blocked; **RSS (`/.rss`) works** | RSS has no upvote counts. |
 | Bilibili | search API IP-blocks fast; **wbi comment API** worked | Video/subtitles/AI summary need login. Comment images on `i0.hdslb.com` need `Referer: https://www.bilibili.com`. |
 | NGA, 小黑盒, kdocs, 腾讯文档 | login required | Unusable for SS14. |

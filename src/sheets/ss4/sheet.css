@@ -1,0 +1,338 @@
+/* ---- /ss4/ Mistville sheet: one screen on desktop (panes scroll inside), stacked on phones ---- */
+main.wide {
+  max-width: none;
+  padding: 0 12px;
+}
+/* viewport minus the sticky nav (~54px), the back-link row (38px) and the footer (38px) */
+.sheet-top {
+  height: 38px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  min-width: 0;
+}
+.sheet-top .status {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-bottom: 6px;
+}
+.mist {
+  --slot: #17181c;
+  --mist: radial-gradient(circle at 50% 40%, #3a3d4a 0%, #17181c 70%);
+  display: grid;
+  grid-template-columns: minmax(300px, 1.1fr) minmax(0, 1.3fr) minmax(280px, 1fr);
+  gap: 12px;
+  height: calc(100dvh - 56px - 38px - 38px);
+  padding: 10px 0;
+  overflow: hidden;
+}
+.pane {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  overflow: auto;
+  min-height: 0;
+  min-width: 0;
+}
+.pane-h {
+  font-family: var(--display);
+  font-size: 26px;
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+.sub-h,
+.side .pane-h:not(:first-child) {
+  margin-top: 16px;
+}
+.pane p {
+  margin: 2px 0 0;
+}
+.inl {
+  height: 1.3em;
+  width: auto;
+  vertical-align: -0.3em;
+}
+/* key terms: what the reader must not miss */
+.k {
+  font-weight: 700;
+  color: var(--accent);
+}
+.no {
+  font-weight: 700;
+  color: var(--bad);
+}
+
+/* game art sits on a dark misty slot: the icons are drawn for the game's dark UI */
+.step-art img,
+.items img,
+.ic {
+  background: var(--mist);
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+/* how to clear */
+.steps {
+  list-style: none;
+  counter-reset: p;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.steps > li {
+  counter-increment: p;
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  background: var(--surface2);
+  border-radius: var(--radius);
+  padding: 18px 8px 8px;
+  position: relative;
+}
+.steps > li::before {
+  content: var(--step) ' ' counter(p);
+  position: absolute;
+  left: 8px;
+  top: -7px;
+  padding: 0 8px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font: 700 11px/20px var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.steps b {
+  font-size: 16px;
+}
+.steps p {
+  font-size: 14px;
+  color: var(--ink2);
+}
+.step-art {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+.step-art img {
+  width: 72px;
+  height: 72px;
+}
+.step-art.multi {
+  flex-wrap: wrap;
+}
+.step-art.multi img {
+  width: 44px;
+  height: 44px;
+}
+
+/* engines */
+.engines {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: grid;
+  gap: 8px;
+}
+.engines > li,
+.rich {
+  background: var(--surface2);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+}
+.engines p,
+.rich p {
+  font-size: 14px;
+  color: var(--ink2);
+}
+.eng-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+}
+.eng-head b,
+.rich > b {
+  font-size: 16px;
+}
+.tag {
+  font: 600 11px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ok);
+}
+.items {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.items img {
+  width: 44px;
+  height: 44px;
+  display: block;
+}
+.rich {
+  margin-top: 8px;
+  border-left: 3px solid var(--accent);
+}
+/* upgrade order: arrows between the three */
+.items.order li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.items.order li:not(:last-child)::after {
+  content: '›';
+  font: 700 18px var(--sans);
+  color: var(--ink2);
+}
+
+/* Bad Omen Steles: icon | name | base curse, then the Amulet L2 flip */
+.steles {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: grid;
+  gap: 4px;
+}
+.steles li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 8px;
+  align-items: center;
+  padding: 4px 6px 4px 4px;
+  border-radius: var(--radius);
+  background: var(--surface2);
+  font-size: 14px;
+}
+.steles .ic {
+  grid-row: span 3;
+}
+.steles .base {
+  color: var(--bad);
+  font-size: 13px;
+}
+.steles .flip {
+  color: var(--ok);
+  font-size: 13px;
+}
+.steles em {
+  font: 600 10px var(--mono);
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink2);
+}
+.ic {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: inline-block;
+}
+
+/* months and rewards */
+.months {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 6px 0;
+}
+.months th,
+.months td {
+  text-align: left;
+  padding: 5px 6px;
+  border-top: 1px solid var(--line);
+}
+.months thead th {
+  font: 600 11px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink2);
+  border-top: none;
+}
+.months tbody th {
+  font: 700 15px var(--display);
+  width: 3.2em;
+}
+.months tr.top {
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+.months tr.top td:last-child {
+  font-weight: 700;
+  color: var(--accent);
+}
+.note {
+  font-size: 14px;
+  color: var(--ink2);
+}
+
+/* before you go in */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 4px;
+}
+.list li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 8px;
+  align-items: center;
+  padding: 4px 6px 4px 4px;
+  border-radius: var(--radius);
+  background: var(--surface2);
+  font-size: 14px;
+}
+.list li .ic {
+  grid-row: span 2;
+}
+.list li span {
+  font-size: 13px;
+  color: var(--ink2);
+}
+.list li.noart {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 5px 8px;
+}
+.cta {
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface2));
+  font-size: 14px;
+}
+.cta a {
+  font-weight: 700;
+}
+.cta .meta {
+  display: block;
+  margin-top: 2px;
+}
+
+@media (max-width: 1100px) {
+  .mist {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    height: auto;
+    overflow: visible;
+  }
+  .side {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 760px) {
+  .mist {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sheet-top .status {
+    display: none;
+  }
+}

@@ -1,0 +1,12 @@
+---
+// /ss4/<lang>/ — the Mistville sheet in the other languages (texts in src/sheets/ss4/i18n.ts).
+import PlaySheet from '../../sheets/ss4/PlaySheet.astro';
+import { DEFAULT_LANG, LANGS, type Lang } from '../../lib/i18n';
+
+export function getStaticPaths() {
+  return LANGS.filter((l) => l.code !== DEFAULT_LANG).map((l) => ({ params: { lang: l.code } }));
+}
+const lang = Astro.params.lang as Lang;
+---
+
+<PlaySheet lang={lang} />

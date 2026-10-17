@@ -47,26 +47,31 @@ const ICON = {
       <li set:html={rich(m)} />
     ))}
   </ol>
-  <h3>{L.thanksH}</h3>
-  <p class="info-lead">{L.thanksLead}</p>
-  <ul class="credits">
-    {credits.map((c) => (
-      <li>
-        <a href={c.url} target="_blank" rel="noopener noreferrer">
-          <span class="pf" set:html={ICON[c.platform]} />
-          <span class="who">
-            <b>{c.name}</b>
-            <em>
-              {c.platform === 'youtube' ? 'YouTube' : 'Bilibili'} · {L.roles[c.role]}
-            </em>
-          </span>
-          <svg class="ext" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
-          </svg>
-        </a>
-      </li>
-    ))}
-  </ul>
+  {/* An event built from text sources only (no creator videos) has no credits: no thanks section then. */}
+  {credits.length > 0 && (
+    <>
+      <h3>{L.thanksH}</h3>
+      <p class="info-lead">{L.thanksLead}</p>
+      <ul class="credits">
+        {credits.map((c) => (
+          <li>
+            <a href={c.url} target="_blank" rel="noopener noreferrer">
+              <span class="pf" set:html={ICON[c.platform]} />
+              <span class="who">
+                <b>{c.name}</b>
+                <em>
+                  {c.platform === 'youtube' ? 'YouTube' : 'Bilibili'} · {L.roles[c.role]}
+                </em>
+              </span>
+              <svg class="ext" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
   <div class="feedback">
     <div>
       <h3>{L.feedbackH}</h3>

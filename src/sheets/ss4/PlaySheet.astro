@@ -1,0 +1,248 @@
+---
+import Base from '../../layouts/Base.astro';
+import Art from '../../components/Art.astro';
+import EventInfo, { type Credit } from '../../components/EventInfo.astro';
+import BackLink from '../../components/BackLink.astro';
+import { getEvent, eventLangs, url } from '../../lib/events';
+import { artSet } from '../../lib/images';
+import { hreflang, rich, type Lang } from '../../lib/i18n';
+import { DICT } from './i18n';
+import credits from '../../../events/SS4_WhisperingMist/credits.json';
+import './sheet.css';
+
+// Mistville sheet for SS4 in one language: how a run goes day by day, the engines that clear it,
+// the Bad Omen Steles, and what each month pays. Static (no simulator exists, so nothing to compute).
+// Pages: src/pages/ss4/index.astro (en) and src/pages/ss4/[lang].astro. Texts: ./i18n.ts.
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = DICT[lang];
+const event = await getEvent('ss4');
+const langs = eventLangs(event, lang);
+// Full item/food/folklore tables with values: the deep detail lives there, not on this page.
+const TLIDB_URL = 'https://tlidb.com/en/Mistville_Exploration';
+
+// Game icons fetched by events/SS4_WhisperingMist/scripts/game_art.py (sources in art/SOURCES.md).
+const A = artSet(
+  import.meta.glob<{ default: ImageMetadata }>('../../../events/SS4_WhisperingMist/art/*.webp', { eager: true }),
+);
+
+// [art ids, title, text] per step; the first step shows the start and the goal of a day.
+const steps = [
+  [['tile-bench', 'tile-clock'], t.s1t, t.s1p],
+  [['tile-bank'], t.s2t, t.s2p],
+  [['tile-workshop'], t.s3t, t.s3p],
+  [['food-moth-soup'], t.s4t, t.s4p],
+  [['os-gaze'], t.s5t, t.s5p],
+  [['os-shackles', 'os-nail', 'os-key'], t.s6t, t.s6p],
+  [['tile-clock-locked'], t.s7t, t.s7p],
+] as const;
+
+// [engine, items (art id + EN name)] — the names stay English: they are what the client shows.
+const ENGINES = [
+  [
+    'food',
+    [
+      ['os-fork', "Gourmet's Knife and Fork"],
+      ['os-medal-food', 'Guild Medal - Food'],
+      ['os-statue', "Chief Trader's Statue"],
+      ['food-cheese', 'Golden Worm Cheese'],
+      ['food-sashimi', 'Dreamfish Sashimi'],
+      ['food-pate', 'Rich Pork Pate'],
+    ],
+  ],
+  [
+    'poverty',
+    [
+      ['os-horn-poverty', "Poor Black Goat's Horn"],
+      ['os-amulet-poverty', 'Amulet: Poverty'],
+      ['os-map-poverty', 'Map: Bad Omen Stele - Poverty'],
+      ['os-wages', "Filth Eater's Wages"],
+      ['os-iou', "Banker's IOU"],
+    ],
+  ],
+  [
+    'stele',
+    [
+      ['os-horn-anxiety', "Anxious Black Goat's Horn"],
+      ['os-amulet-anxiety', 'Amulet: Anxiety'],
+      ['os-misfortune', 'Mr. Misfortune'],
+      ['os-grumpy', 'Ms. Grumpy'],
+      ['os-bear', 'Baby Bear'],
+    ],
+  ],
+  [
+    'preview',
+    [
+      ['os-burnt-map', 'Burnt Map'],
+      ['os-torn-map', 'Torn Map'],
+      ['os-cartographer', '"Cartographer"'],
+      ['os-stool', "Cartographer's Stool"],
+      ['os-bottle', "Cartographer's Medicine Bottle"],
+      ['os-purse-carto', "Cartographer's Purse"],
+    ],
+  ],
+] as const;
+const engines = ENGINES.map(([id, items]) => ({
+  id,
+  ...t.eng[id],
+  items: items.map(([art, name]) => ({ name, art: A(art) })),
+}));
+const rich3 = [
+  ['os-statue', "Chief Trader's Statue"],
+  ['os-medal-food', 'Guild Medal - Food'],
+  ['os-purse', 'Watchful Purse'],
+].map(([art, name]) => ({ name, art: A(art) }));
+
+const STELES = [
+  ['blank', 'Blank Stele'],
+  ['blindness', 'Blindness'],
+  ['anxiety', 'Anxiety'],
+  ['poverty', 'Poverty'],
+  ['anorexia', 'Anorexia'],
+] as const;
+const steles = STELES.map(([id, name]) => ({ name, art: A('stele-' + id), ...t.st[id] }));
+
+// SS5 patch notes (2024-07-01): Activation Medium drops by month.
+const months = [
+  ['1–5', t.mChance, t.mGuarUpRare],
+  ['6', t.mChance, t.mGuarRare],
+  ['7', t.mChanceRare, t.mGuarUlt],
+];
+
+const start = [
+  [null, t.entryB, t.entryP],
+  ['talent-relic', t.wallyB, t.wallyP],
+  ['intel', t.intelB, t.intelP],
+  ['orphan', t.orphanB, t.orphanP],
+] as const;
+---
+
+<Base
+  title={`${t.title} · TLI Events`}
+  description={t.desc}
+  langs={langs}
+  lang={hreflang(lang)}
+  image={event.banner}
+  wide
+>
+  <EventInfo slot="nav" lang={lang} method={t.method} credits={credits as Credit[]} />
+  <div class="sheet-top">
+    <BackLink href={url()} label={t.back} /> <span class="meta status">{t.status}</span>
+  </div>
+  <div class="mist">
+    <section class="pane" aria-labelledby="how-h">
+      <h2 class="pane-h" id="how-h">
+        {t.howH}
+      </h2>
+      <ol class="steps" style={`--step:${JSON.stringify(t.step)}`}>
+        {steps.map(([arts, title, text]) => (
+          <li>
+            <div class:list={['step-art', { multi: arts.length > 1 }]}>
+              {arts.map((id) => (
+                <Art img={A(id, 'md')} />
+              ))}
+            </div>
+            <div>
+              <b>{title}</b>
+              <p set:html={rich(text)} />
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="pane" aria-labelledby="eng-h">
+      <h2 class="pane-h" id="eng-h">
+        {t.engH}
+      </h2>
+      <p class="meta">{t.engMeta}</p>
+      <ul class="engines">
+        {engines.map((e) => (
+          <li>
+            <div class="eng-head">
+              <b>{e.name}</b> <span class="tag">{e.tag}</span>
+            </div>
+            <ul class="items">
+              {e.items.map((x) => (
+                <li title={x.name}>
+                  <Art img={x.art} alt={x.name} />
+                </li>
+              ))}
+            </ul>
+            <p set:html={rich(e.p)} />
+          </li>
+        ))}
+      </ul>
+      <div class="rich">
+        <b>{t.richH}</b>
+        <ol class="items order">
+          {rich3.map((x) => (
+            <li title={x.name}>
+              <Art img={x.art} alt={x.name} />
+            </li>
+          ))}
+        </ol>
+        <p set:html={rich(t.richP)} />
+      </div>
+      <h2 class="pane-h sub-h">{t.stelesH}</h2>
+      <p class="meta">{t.stelesMeta}</p>
+      <ul class="steles">
+        {steles.map((s) => (
+          <li>
+            <Art img={s.art} alt={s.name} class="ic" />
+            <b>{s.name}</b> <span class="base">{s.base}</span>{' '}
+            {s.amulet && (
+              <span class="flip">
+                <em>{t.amuletL2}</em> {s.amulet}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <aside class="pane side" aria-label={`${t.monthsH} · ${t.startH}`}>
+      <h2 class="pane-h">{t.monthsH}</h2>
+      <p class="meta">{t.monthsMeta}</p>
+      <table class="months">
+        <thead>
+          <tr>
+            <th scope="col">{t.month}</th>
+            <th scope="col">{t.days913}</th>
+            <th scope="col">{t.day15}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {months.map(([m, d9, d15]) => (
+            <tr class:list={{ top: m === '7' }}>
+              <th scope="row">{m}</th>
+              <td>{d9}</td>
+              <td>{d15}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="note">
+        <Art img={A('essence')} class="inl" /> <Fragment set:html={rich(t.m7cost)} />
+      </p>
+      <h2 class="pane-h">{t.startH}</h2>
+      <ul class="list">
+        {start.map(([art, b, p]) => (
+          <li class:list={{ noart: !art }}>
+            {art && <Art img={A(art)} class="ic" />}
+            <b>{b}</b> <span set:html={rich(p)} />
+          </li>
+        ))}
+      </ul>
+      <p class="cta">
+        {t.moreCta}{' '}
+        <a href={TLIDB_URL} target="_blank" rel="noopener noreferrer">
+          tlidb.com
+        </a>{' '}
+        <span class="meta">{t.noSim}</span>
+      </p>
+    </aside>
+  </div>
+</Base>

@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS4 Whispering Mist: Mistville sheet at `/ss4/` in all 7 languages — how a 15-day run goes, the four engines that clear it with their item art, the Bad Omen Steles and what each month pays — and its card on the event list with the official season art.
+
 ## [1.0.3] - 2026-10-17
 
 ### Added
