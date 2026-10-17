@@ -38,8 +38,25 @@ jobs:
           git commit -m "chore(data): update season data"
           git push
 
+  lint:
+    # Same gate as the pre-commit hook (lint, format, types), for commits that never ran it.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6 # version from package.json "packageManager"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm check
+
   build:
-    needs: update-data
+    needs: [update-data, lint]
     # Run after update-data, or on its own when that job was skipped (push).
     if: ${{ !failure() && !cancelled() }}
     runs-on: ubuntu-latest

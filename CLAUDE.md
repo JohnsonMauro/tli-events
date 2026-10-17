@@ -25,7 +25,7 @@ src/                          Astro 7 site — publishes the event list and each
   pages/                      index (event list), 404, sitemap.xml, manifest.webmanifest, <slug>/index + [lang] → sheets/<slug>
   assets/fonts/               self-hosted font files not on Google's API (astro.config.mjs `fonts`)
 public/sw.js                  service worker: /_astro/* cache-first, pages network-first (works around Pages' 10-min cache)
-.github/workflows/deploy.yml  push → build/deploy; every 6h → run events/*/scripts/update_data.py, commit if changed, deploy
+.github/workflows/deploy.yml  push → lint (eslint, prettier, astro check) → build/deploy; every 6h → run events/*/scripts/update_data.py, commit if changed, deploy
 ```
 
 ## Repo skills

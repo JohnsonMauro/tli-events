@@ -30,7 +30,7 @@ Dated: Astro 7.4.0, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/a
 
 - Internal links always go through `url()` from `src/lib/events.ts` (uses `import.meta.env.BASE_URL`). Check: `BASE_PATH=/repo/ SITE=https://x.github.io pnpm build`, then grep for `href="/` without the prefix.
 - In the workflow, `github.event.repository` **does not exist on `schedule` events**: `BASE_PATH` comes from `${GITHUB_REPOSITORY#*/}`.
-- A push made with `GITHUB_TOKEN` doesn't trigger another workflow: data refresh and deploy live in the same file (`.github/workflows/deploy.yml`, jobs `update-data` → `build` → `deploy`).
+- A push made with `GITHUB_TOKEN` doesn't trigger another workflow: data refresh and deploy live in the same file (`.github/workflows/deploy.yml`, jobs `update-data` + `lint` → `build` → `deploy`).
 - Pushing files under `.github/workflows/` over **HTTPS with the gh OAuth token** needs the `workflow` scope (`gh auth refresh -s workflow`). This repo's remote is **SSH**, which isn't restricted.
 
 ## Delivery on GitHub Pages (measured 2026-10-17)
