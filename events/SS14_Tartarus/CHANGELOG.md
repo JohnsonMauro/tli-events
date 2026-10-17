@@ -125,3 +125,28 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 
 - The live card (`images/78`) says Colossal Rat can consume Colossal Rats of the same rarity and gets **+2 additional Rarity Tiers after consuming**. The preview VOD card (print 37) said +1, and the simulator (20261016zzx) still applies +1 — while it applies the identical Iron Crown wording as +2. So the sim's value for Skewered Rat Heads (1.57 Rainbow/run, tier B) is an **underestimate**. The play sheet now says +2 and flags the tier; worth reporting to the simulator.
 - **Fanged Guillotine: Alpha Wolf** full card seen (`images/79`): the Alpha Wolf can consume lower-rarity countered inmates, **triggering Oppress after consuming**. The simulator models only the first half; Oppress is not in it, so its value for the Guillotine (1.32, tier C) leaves that effect out. What Oppress does: **no data yet** (needs its tooltip).
+
+## 2026-10-17 — simulator 20261016zzs → 20261017d (automatic)
+
+- Value Executioner's Blacklist: 1.716 → 1.566 Rainbows/run
+- Value Crowded Beastcage: 1.073 → 0.984 Rainbows/run
+- Value Kin's Coin of Fate: 2.091 → 1.963 Rainbows/run
+- Value Maddened Beast's Barbed Collar: 1.363 → 1.264 Rainbows/run
+- Value Felon's Dog Tag: 1.251 → 1.151 Rainbows/run
+- Value Searing Branding Iron: 0.989 → 0.921 Rainbows/run
+- Value Fanged Guillotine: Alpha Wolf: 1.318 → 1.209 Rainbows/run
+- Value Sorting Hook: 1.388 → 1.287 Rainbows/run
+- Value Elephant-Foot Maul: Mammoth: 2.158 → 2.04 Rainbows/run
+- Value Raging Beast's Agonizing Muzzle: 1.703 → 1.649 Rainbows/run
+- Value Iron Pestle: 0.972 → 0.886 Rainbows/run
+- Value Ferocious Beast's Ravenous Chains: 1.651 → 1.529 Rainbows/run
+- Value Avenger's Casket: 1.614 → 1.528 Rainbows/run
+- Value Hangman's Noose: 2.229 → 2.17 Rainbows/run
+- Value Rusty Saw: 1.369 → 1.272 Rainbows/run
+- Value Warden's Scales: 1.021 → 0.948 Rainbows/run
+- Value Scapegoat's Guillotine: 2.157 → 2.032 Rainbows/run
+- Value Long-Chained Shackles: 1.818 → 1.751 Rainbows/run
+- Value Short-Chained Shackles: 1.018 → 0.948 Rainbows/run
+- Value Skewered Rat Heads: Colossal Rat: 1.571 → 1.471 Rainbows/run
+- Value Iron Tongs of Lust: Mammoth: 1.169 → 1.091 Rainbows/run
+- Value Barbed Whip: 1.233 → 1.171 Rainbows/run
