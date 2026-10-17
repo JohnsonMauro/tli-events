@@ -73,6 +73,10 @@ main.wide{max-width:none;padding:0 12px}
 .tier-h{display:flex;align-items:center;gap:8px;margin:0 0 6px;font-size:13px;text-transform:none;letter-spacing:0}
 .tier-h .tier{font-size:16px;min-width:26px}
 .tier-h .rule{flex:1;border-top:2px dashed var(--line)}
+.tier-info{display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid transparent;border-radius:var(--radius);padding:2px 4px;margin:-2px -4px -2px 0;color:var(--ink2);font:inherit;cursor:help}
+.tier-info svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.tier-info:hover,.tier-info:focus-visible{color:var(--ink);border-color:var(--line)}
+.tier-info:hover .meta,.tier-info:focus-visible .meta{color:var(--ink)}
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:5px}
 .tool{position:relative;padding:0;border:2px solid var(--line);border-radius:var(--radius);background:#1b1916;cursor:pointer;overflow:hidden;color:#ece6d8;display:flex;flex-direction:column;text-align:center}
 .tool .pic{display:block;aspect-ratio:6/5;overflow:hidden}
@@ -91,6 +95,13 @@ main.wide{max-width:none;padding:0 12px}
 .tp-head>div>b{font-size:18px;line-height:1.15;display:block}
 .tp-stats{font-size:13px;color:var(--ink2);margin-top:2px}
 .tp-stats .tier{font-size:13px;min-width:20px;padding:0 4px}
+.tip-h{font-size:17px;display:block}
+.tip-p{margin:6px 0 8px}
+.tip-tiers{width:100%;border-collapse:collapse;font-size:13px;color:var(--ink2)}
+.tip-tiers td{padding:4px 6px;border-top:1px solid var(--line)}
+.tip-tiers td:first-child{width:1%;padding-left:0}
+.tip-tiers .tier{font-size:13px;min-width:20px;padding:0 4px}
+.tip-tiers tr.on td{color:var(--ink);font-weight:700;background:var(--surface2)}
 .tp-what{margin:10px 0 4px;font-weight:600;font-size:15px}
 .tp-sub{margin:8px 0 0;font-size:13px;color:var(--ink2)}
 .tp-pairs{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:4px}

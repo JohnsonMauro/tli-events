@@ -93,10 +93,13 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   }
   // Incident details are rendered by the page into <template id="ev-ID"> (already in the page language).
   const evHtml = (btn: HTMLElement) => (document.getElementById('ev-' + btn.dataset.ev) as HTMLTemplateElement | null)?.innerHTML ?? '';
+  // Explanations (e.g. what a tier's "≥2.6×" means) live in <template id="tip-NAME">, also in the page language.
+  const tipHtml = (btn: HTMLElement) => (document.getElementById('tip-' + btn.dataset.tip) as HTMLTemplateElement | null)?.innerHTML ?? '';
 
   let shownFor: HTMLElement | null = null;
   function showPop(anchor: HTMLElement) {
-    pop.innerHTML = anchor.dataset.tool ? toolHtml(anchor) : evHtml(anchor);
+    pop.innerHTML = anchor.dataset.tool ? toolHtml(anchor) : anchor.dataset.ev ? evHtml(anchor) : tipHtml(anchor);
+    if (anchor.dataset.row) pop.querySelector(`[data-row="${anchor.dataset.row}"]`)?.classList.add('on');
     pop.hidden = false; shownFor = anchor;
     const r = anchor.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight, m = 8;
     let left = r.right + m <= innerWidth - pw - m ? r.right + m : r.left - pw - m;
@@ -108,7 +111,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     pop.style.left = left + 'px'; pop.style.top = top + 'px';
   }
   const hidePop = () => { pop.hidden = true; shownFor = null; };
-  const target = (e: Event) => (e.target as Element | null)?.closest<HTMLElement>('[data-tool],[data-ev]') ?? null;
+  const target = (e: Event) => (e.target as Element | null)?.closest<HTMLElement>('[data-tool],[data-ev],[data-tip]') ?? null;
 
   // Hover (mouse), focus (keyboard) and tap (touch) all open the same popover.
   document.addEventListener('pointerover', (e) => { const a = target(e); if (a && e.pointerType === 'mouse') showPop(a); });
@@ -117,10 +120,16 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   document.addEventListener('focusout', (e) => { if (target(e)) hidePop(); });
   document.querySelectorAll('.pane').forEach((p) => p.addEventListener('scroll', hidePop, { passive: true }));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hidePop(); });
+  // A tap focuses the button (focusin opens the popover) before its click, so the click alone can't tell
+  // "open" from "close": a touch closes it only if it was already open when the finger came down.
+  // With a mouse, hover already opened it and the click keeps it open.
+  let closeOnClick = false;
+  document.addEventListener('pointerdown', (e) => { const a = target(e); closeOnClick = !!a && shownFor === a && e.pointerType !== 'mouse'; });
   document.addEventListener('click', (e) => {
     const a = target(e);
     if (!a) { hidePop(); return; }
-    if (a.dataset.ev) { if (shownFor === a) hidePop(); else showPop(a); }
+    if (a.dataset.ev || a.dataset.tip) { if (closeOnClick) hidePop(); else showPop(a); }
+    closeOnClick = false;
   });
   grid.addEventListener('click', (e) => {
     const b = (e.target as Element).closest<HTMLElement>('[data-tool]'); if (!b) return;

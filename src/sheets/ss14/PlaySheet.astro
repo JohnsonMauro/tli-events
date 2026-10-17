@@ -159,7 +159,8 @@ const ladder = [['act-consume', t.l1b, t.l1e, ''], ['incident', t.l2b, t.l2e, 't
     <div class="tools" id="tools">
       {groups.map((g) => (
         <section class="tier-group" aria-label={`Tier ${g.tier}`}>
-          <h3 class="tier-h"><span class={`tier t${g.tier}`}>{g.tier === 'X' ? '✕' : g.tier}</span><span class="rule"></span><span class="meta">{g.note}</span></h3>
+          <h3 class="tier-h"><span class={`tier t${g.tier}`}>{g.tier === 'X' ? '✕' : g.tier}</span><span class="rule"></span>
+            <button type="button" class="tier-info" data-tip="tiers" data-row={g.tier} aria-label={`${g.note} — ${t.tipBtn}`} aria-describedby="pop"><span class="meta">{g.note}</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" /><path d="M12 11v6M12 7.5v.5" /></svg></button></h3>
           <div class="tool-grid">
             {g.tools.map((x) => (
               <button type="button" class="tool" data-tool={x.id} data-tier={x.tier} aria-describedby="pop">
@@ -206,6 +207,15 @@ const ladder = [['act-consume', t.l1b, t.l1e, ''], ['incident', t.l2b, t.l2e, 't
     </ul>
   </aside>
 </div>
+<template id="tip-tiers">
+  <b class="tip-h">{t.tipH}</b>
+  <p class="tip-p"><Fragment set:html={rich(fmt(t.tipP, { base: base.toFixed(2), top: TIERS[0][1].toFixed(1) }))} /></p>
+  <table class="tip-tiers">
+    {TIERS.map(([tier, min]) => <tr data-row={tier}><td><span class={`tier t${tier}`}>{tier}</span></td><td>≥{min.toFixed(1)}×</td><td>≥{(min * base).toFixed(2)} {t.perRun}</td></tr>)}
+    <tr data-row="X"><td><span class="tier tX">✕</span></td><td>&lt;1×</td><td>{t.tierWorse}</td></tr>
+  </table>
+  <p class="tp-sub">{fmt(t.tipNote, { pairs: t.pairsH })}</p>
+</template>
 <div class="tool-pop" id="pop" role="tooltip" hidden></div>
 <script type="application/json" id="play-data" set:html={json} />
 </Base>
