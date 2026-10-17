@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: game art for Executioner's Blacklist (it showed a "?").
+
 ## [1.1.0] - 2026-10-17
 
 ### Added

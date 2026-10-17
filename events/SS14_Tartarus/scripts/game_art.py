@@ -60,6 +60,7 @@ CROPS = [
     ("tool-rope", "35_vod_torture_set_scales_noose_pestle.jpg", (847, 270, 220, 165), "Hangman's Noose"),
     ("tool-pestle", "74_live_objective_reward_scapegoat_pestle_fire.webp", (893, 260, 300, 260), "Iron Pestle (live; replaces the VOD crop)"),
     ("tool-crown", "76_live_instrument_slot_iron_crown.webp", (60, 154, 100, 83), "Iron Crown of the Prison King (live, small print: low resolution)"),
+    ("tool-blacklist", "77_live_instrument_executioners_blacklist.webp", (235, 235, 320, 277), "Executioner's Blacklist"),
     ("tool-whip", "73_live_instrument_offer_maiden_whip_shackles.webp", (893, 260, 300, 260), "Barbed Whip (live; replaces the VOD crop)"),
     ("tool-stake", "36_vod_torture_set_whip_stake_key.jpg", (847, 270, 220, 165), "Burning Stake"),
     ("tool-forged", "36_vod_torture_set_whip_stake_key.jpg", (1327, 270, 220, 165), "Forged Key"),

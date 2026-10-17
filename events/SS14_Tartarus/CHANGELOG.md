@@ -115,7 +115,8 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - New startCards: Opulence
 - Rainbows/run (tuned strategy): 3.4349 → 3.4926
 
-## 2026-10-17 — live prints 75–76: Archenemy incident, Iron Crown sighted (LIVE)
+## 2026-10-17 — live prints 75–77: Archenemy incident, Iron Crown sighted, Executioner's Blacklist (LIVE)
 
 - **Archenemy** card seen (`images/75`, 13 days before the riot, shared by the team): randomly opens 1 cell, and the inmate inside is guaranteed to be a Consumable target for the inmate in the current cell. Only `Confirm`. **Not in the simulator.** Read: always accept — a sure meal; it follows the current inmate, so it pays most on your strongest eater.
 - **Iron Crown of the Prison King** seen live by the team (`images/76`, icon only, no card text). The telemetry had 0 offers in 110: the best solo instrument in the simulator does show up, just rarely.
+- **Executioner's Blacklist** card seen (`images/77`): with no more than 5 unopened cells, each opening gives +1 tier to 2 random inmates — matches the simulator.
