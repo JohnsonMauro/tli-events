@@ -29,6 +29,10 @@ Each season XD Games ships a new event mechanic, and for the first few weeks nob
 
 Spotted something wrong, or have live data? Open a [Discussion](https://github.com/JohnsonMauro/tli-events/discussions).
 
+## Practice or simulate
+
+TLI Events summarizes; it doesn't simulate. To practice the Warden's Duty, test a board from your own run, or rerun the numbers, use **[Tartarus Simulator](https://blahdot3h.github.io/tartarus-simulator/)** by **CoffeeBns** ([source](https://github.com/blahdot3h/tartarus-simulator), [YouTube](https://www.youtube.com/@CoffeeBns), [Twitch](https://twitch.tv/coffeebns)). It is the source of the instrument tiers and the live odds on the SS14 play sheet, and it ships a board analyzer and a strategy lab that runs under Node.
+
 ## Contributing a new event
 
 1. `cp -r events/_template events/SS<nn>_<Name>`, then fill in the guide's frontmatter. The event's card shows up on the list right away.

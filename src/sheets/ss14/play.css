@@ -130,3 +130,7 @@ main.wide{max-width:none;padding:0 12px}
   .play{grid-template-columns:minmax(0,1fr)}
   .tool-grid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr))}
 }
+
+/* link to the simulator the tiers come from */
+.sim-cta{margin:8px 0 0;padding:8px 10px;border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 10%,var(--surface2));font-size:14px}
+.sim-cta a{font-weight:700}

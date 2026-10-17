@@ -8,6 +8,8 @@ import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
 import { DICT } from './i18n';
 import data from '../../../events/SS14_Tartarus/data/tartarus_data.json';
 import credits from '../../../events/SS14_Tartarus/credits.json';
+// CoffeeBns' Tartarus simulator: the source of the tier values, and where players can practice.
+const SIMULATOR_URL = 'https://blahdot3h.github.io/tartarus-simulator/';
 import './play.css';
 
 // Play sheet for SS14 in one language: general patterns of the Warden's Duty, strong instrument pairs,
@@ -168,6 +170,7 @@ const ladder = [['act-consume', t.l1b, t.l1e, ''], ['incident', t.l2b, t.l2e, 't
       ))}
     </div>
     <p class="meta">{fmt(t.tierMeta, { base: base.toFixed(2) })}</p>
+    <p class="sim-cta">{t.simCta}{" "}<a href={SIMULATOR_URL} target="_blank" rel="noopener noreferrer">Tartarus Simulator</a>{" "}<span class="meta">(CoffeeBns)</span></p>
   </section>
 
   <aside class="pane side" aria-label={`${t.treasureH} · ${t.incH} · ${t.startH}`}>
