@@ -7,10 +7,14 @@ import { getEvent, eventLangs, url } from '../../lib/events';
 import { artSet } from '../../lib/images';
 import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
 import { DICT } from './i18n';
+import { DOUBT } from './tool-text';
+import { ISSUES_URL } from '../../lib/project';
 import data from '../../../events/SS14_Tartarus/data/tartarus_data.json';
 import credits from '../../../events/SS14_Tartarus/credits.json';
 // CoffeeBns' Tartarus simulator: the source of the tier values, and where players can practice.
 const SIMULATOR_URL = 'https://blahdot3h.github.io/tartarus-simulator/';
+// The r/TorchlightInfinite thread where the play sheet is discussed: the other place to send prints and numbers.
+const REDDIT_URL = 'https://www.reddit.com/r/TorchlightInfinite/comments/1x839x1/comment/pha1kgm/';
 import './play.css';
 
 // Play sheet for SS14 in one language: general patterns of the Warden's Duty, strong instrument pairs,
@@ -49,6 +53,7 @@ const tools = Object.entries(data.tools as Record<string, { name: string; value?
     name: x.name,
     tier: tierOf(x.value as number),
     art: A('tool-' + id, 'lg'),
+    doubt: DOUBT.has(id),
   }));
 const groups = [
   ...TIERS.map(([tier, min]) => ({ tier, note: `≥${min.toFixed(1)}×` })),
@@ -143,6 +148,7 @@ const ui = {
   card: t.card,
   withYou: t.withYou,
   partners: t.partners,
+  doubt: t.doubt,
   tool: t.tool,
 };
 const json = JSON.stringify({ tools: data.tools, pairs: data.pairs, base, offers, ui }).replace(/</g, '\\u003c');
@@ -342,7 +348,19 @@ const ladder = [
             </h3>
             <div class="tool-grid">
               {g.tools.map((x) => (
-                <button type="button" class="tool" data-tool={x.id} data-tier={x.tier} aria-describedby="pop">
+                <button
+                  type="button"
+                  class="tool"
+                  data-tool={x.id}
+                  data-tier={x.tier}
+                  data-doubt={x.doubt ? '' : undefined}
+                  aria-describedby="pop"
+                >
+                  {x.doubt && (
+                    <span class="doubt" aria-hidden="true">
+                      !
+                    </span>
+                  )}
                   <span class="pic">
                     {x.art ? (
                       <Art img={x.art} />
@@ -360,6 +378,21 @@ const ladder = [
         ))}
       </div>
       <p class="meta">{fmt(t.tierMeta, { base: base.toFixed(2) })}</p>
+      <p class="doubt-note">
+        <span class="doubt" aria-hidden="true">
+          !
+        </span>
+        <span>
+          {t.doubtNote}{' '}
+          <a href={ISSUES_URL} target="_blank" rel="noopener noreferrer">
+            {t.doubtIssue}
+          </a>{' '}
+          ·{' '}
+          <a href={REDDIT_URL} target="_blank" rel="noopener noreferrer">
+            {t.doubtReddit}
+          </a>
+        </span>
+      </p>
       <p class="sim-cta">
         {t.simCta}{' '}
         <a href={SIMULATOR_URL} target="_blank" rel="noopener noreferrer">

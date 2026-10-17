@@ -26,7 +26,8 @@ interface PlayData {
     | 'offered'
     | 'card'
     | 'withYou'
-    | 'partners',
+    | 'partners'
+    | 'doubt',
     string
   > & { tool: Record<string, string> };
 }
@@ -140,6 +141,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     return `<div class="tp-head">${src ? `<img src="${esc(src)}" alt="">` : '<span></span>'}<div><b>${esc(t.name)}</b>
         <div class="tp-stats"><span class="tier t${esc(tier)}">${tier === 'X' ? '✕' : esc(tier)}</span> <b>${t.value.toFixed(2)}</b> ${esc(T.perRun)} · ${(t.value / D.base).toFixed(1)}${esc(T.xNone)}</div>
         ${offers && off != null ? `<div class="tp-stats">${esc(fmt(T.offered, { p: Math.round(off * 100), n: offers.n }))}</div>` : ''}</div></div>
+      ${btn.dataset.doubt != null ? `<p class="tp-doubt"><span class="doubt" aria-hidden="true">!</span>${esc(T.doubt)}</p>` : ''}
       ${T.tool[id] ? `<p class="tp-what">${esc(T.tool[id])}</p>` : ''}
       ${t.text ? `<p class="tp-sub"><span>${esc(T.card)}</span>${esc(t.text)}</p>` : ''}
       ${withHeld.length ? `<div class="tp-sub"><span>${esc(T.withYou)}</span>${pairList(withHeld)}</div>` : ''}

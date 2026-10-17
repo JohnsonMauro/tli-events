@@ -502,6 +502,46 @@ main.wide {
 .tool.held {
   opacity: 0.4;
 }
+/* "!" = sources disagree on this instrument (DOUBT in ./tool-text.ts) */
+.doubt {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--warn);
+  color: var(--bg);
+  font: 800 13px/1 var(--sans);
+}
+.tool .doubt {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1;
+  box-shadow: 0 0 0 2px #14120f;
+}
+.doubt-note,
+.tp-doubt {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.doubt-note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--ink2);
+}
+.doubt-note a {
+  font-weight: 700;
+}
+.tp-doubt {
+  margin: 10px 0 0;
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--warn) 14%, var(--surface2));
+  font-size: 13px;
+}
 
 /* instrument info popover (fixed: escapes the pane's scroll clipping) */
 .tool-pop {

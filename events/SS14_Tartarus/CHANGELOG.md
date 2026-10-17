@@ -150,3 +150,21 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - Value Skewered Rat Heads: Colossal Rat: 1.571 → 1.471 Rainbows/run
 - Value Iron Tongs of Lust: Mammoth: 1.169 → 1.091 Rainbows/run
 - Value Barbed Whip: 1.233 → 1.171 Rainbows/run
+
+## 2026-10-17 — Oppress defined (DATA, tlidb)
+
+- **Oppress** (欺压), triggered by **Fanged Guillotine: Alpha Wolf** after the Wolf eats lower-rarity prey (`images/79`): *"Determines upgrade based on the difference in rarity between both parties. Reduces upgrade chance by 5% for each tier difference."* (https://tlidb.com/en/Oppress, same text on `cn/Oppress`). Those bites are no longer a sure +1; the simulator (20261016zzx, `gainFor()`) still gives a sure +1, so its Guillotine value (1.32, tier C) is a slight overestimate. Still open: the base chance and whether other cross-rarity bites trigger it. Guide §7 and §11 updated; the play sheet now explains Oppress.
+
+## 2026-10-17 — live print 80: card texts scroll; Kin's Coin and Long-Chained Shackles complete (LIVE)
+
+- A card's text box **scrolls** (`images/80`): the "cut-off" effects in earlier prints were cut by the scroll box, not by the game. Scrolling the card shows the rest — the way to finish the Maiden, Scapegoat's Guillotine, Burning Stake and Avenger's Casket cards.
+- **Kin's Coin of Fate** full effect: removes 1 random matching inmate (same beast and rarity), then 1 random remaining matching inmate gets +2 tiers — matches the simulator.
+- **Long-Chained Shackles** full effect: +1 tier to 1 random inmate — matches the simulator.
+- **Forged Key** live card (`images/81`, scrolled): −1 daily destination; 50% after opening → opens 1 more random cell (no other effects). First live print (was VOD-only); matches the simulator.
+- **The game log carries no card text or board state.** With the log on (`UE_game.log`), a full run writes only UI events: page names (`S16BoardMain`, `S16BoardRelicPop` = instrument pick, `S16BoardColoredPop` = Warden's Treasure), button clicks and sounds (`UI_S16_Prison_Relock`, `UI_S16_Own_Eat`, `UI_S16_Basic/Mid/Premium_Quality`). Internally the mode is `S16`. Good for a coarse run timeline (days, consumes, Rainbows), not for texts or odds.
+
+## 2026-10-17 — live prints 82–84 (Ravenous Chains, Blood-Stained Trap, Prey) and the Tusk rule (LIVE)
+
+- **Ferocious Beast's Ravenous Chains** first print (`images/82`): each morning, removes the inmates on both sides of the highest-rarity inmate; 40% for +1 tier to it per inmate removed. Matches the simulator and our engine.
+- **Blood-Stained Trap: Berserk Lion** first print (`images/83`): when the warden stops on a Berserk Lion's cell, Hunt joins the day's choices and puts a Prey mark on an inmate the Lion can consume. **Prey** tooltip (`images/84`): lasts 3 rounds; Lion and prey +1 tier each morning; the mark goes when either is removed or changes Code. Matches the tlidb tooltip, the simulator and our engine.
+- **Tusk stays through Replaces** (Iron Tongs of Lust: Mammoth): content creator **ALannister** (Reddit comment on the team's play sheet, 2026-10-17) says the mark only clears when its cell empties — the inmate is eaten or reaches Chromatic — and calls Tongs one of the best instruments ("a Rainbow printer"): keep Mammoths, never consume a Mammoth or an inmate in a Tusk cell, Replace on Tusk cells for +1 ×4. Agrees with the tlidb tooltip ("when there is no Inmate in this room"); the simulator also keeps the mark, so its low value (1.09, tier D) comes from how its player plays, not from the rule. Our engine now keeps the Tusk by default (`tusk_persists=true`): Tongs **1.88 → 2.38** Rainbows/run with rewards off (base 0.91), 4th of 31 instruments. Guide §7 updated.

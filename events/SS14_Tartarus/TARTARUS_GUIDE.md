@@ -19,6 +19,7 @@ summary: "20 days to raise inmates to Rainbow; the riot turns the board into War
 - **[LIVE]** observed by players on the live servers (shared boards, transcribed cards) on Oct 16
 - **[SIM]** fan simulator (rules + millions of simulated runs). Good for *relative decisions*; absolute numbers may differ from the game
 - **[CALC]** my own math from the data above
+- **[ENGINE]** our own simulator (`engine/`, rules from the card texts, odds from the live telemetry); rewards off unless stated
 
 ---
 
@@ -222,8 +223,12 @@ Values = Rainbows/run holding the instrument from day 1, with no other rewards. 
 | B | Avenger's Casket | 1.61 | Consume can open up a new meal at the new tier |
 | B | Skewered Rat Heads | 1.57 | Rat eats rat; rat consume **+2 extra** on the live card (print 78) — the sim uses +1, so 1.57 is an underestimate |
 | C | Sorting Hook 1.39 · Rusty Saw 1.37 · Barbed Collar 1.36 · Burning Stake 1.35 · Fanged Guillotine 1.32 · Felon's Dog Tag 1.25 · Barbed Whip 1.23 | | |
-| D | Iron Tongs 1.17 · Lost Ring of Keys 1.14 · Crowded Beastcage 1.07 · Warden's Scales 1.02 · Short-Chained Shackles 1.02 · Searing Branding Iron 0.99 · Iron Pestle 0.97 | ~0 | near zero |
+| D | Iron Tongs 1.17 (underestimate, see below) · Lost Ring of Keys 1.14 · Crowded Beastcage 1.07 · Warden's Scales 1.02 · Short-Chained Shackles 1.02 · Searing Branding Iron 0.99 · Iron Pestle 0.97 | ~0 | near zero |
 | **Avoid** | Gaoler's Execution Axe 0.94 · Forged Key 0.81 · **Squirming Iron Box 0.54** | <1 | make the run worse (on their own) |
+
+**Fanged Guillotine: Alpha Wolf** (live card, print 79): the Wolf eats lower-rarity countered prey and then triggers **Oppress** — *"Determines upgrade based on the difference in rarity between both parties. Reduces upgrade chance by 5% for each tier difference."* [DATA, tlidb `en/Oppress`, `cn/Oppress` 欺压, checked 2026-10-17]. So those bites are no longer a sure +1: if the base is 100% (not stated), 95% / 90% / 85% for a 1 / 2 / 3-tier gap [CALC]. The sim gives a sure +1, so its 1.32 is a slight overestimate; eating the lower prey is still worth it.
+
+**Iron Tongs of Lust: Mammoth** (VOD card, print 37): each morning a Tusk mark goes on 1 random Mammoth cell; a Replace in a Tusk cell raises 4 random inmates +1 (tlidb `Tusk`). The Tusk **stays through Replaces** and goes only when the cell empties — the inmate is eaten or reaches Chromatic [OFFICIAL tlidb: "when there is no Inmate in this room"; LIVE: content creator ALannister, Reddit, 2026-10-17]. How to play it (ALannister): get Mammoths on the board early, never consume a Mammoth or an inmate standing in a Tusk cell, and keep landing on Tusk cells to Replace (+1 ×4 each time) — "a Rainbow printer", one of the best instruments, especially as the first pick. The sim keeps the Tusk too, but its player doesn't farm Tusks, so its value (1.17; 1.09 in sim 20261017d) is an **underestimate**. Our engine gives **2.38** (base 0.91), 4th of 31, with a player that doesn't protect Tusk cells either [ENGINE, 100k runs, 2026-10-17].
 
 ### Combos (pairs) — top [SIM, ~16.6M runs]
 
@@ -308,7 +313,7 @@ The beast-specific instruments (name with ": Berserk Lion", ": Mammoth", ": Colo
 
 - Number of Nameplates per run: 12 inferred from the UI ("1/12"), no official text; actual time per run; Warden's Cache drop table by quality — **no public data**.
 - Why beast-specific instruments are almost never offered.
-- **Oppress**: Fanged Guillotine's live card (print 79) triggers it after a Wolf eats lower-rarity prey; what it does is unknown and the sim leaves it out — needs a print of its tooltip.
+- **Oppress** (defined in §7): the base upgrade chance before the −5%/tier (the tooltip doesn't say), and whether it also applies to other cross-rarity bites (Elephant-Foot Maul eats *higher* rarity; only the Fanged Guillotine card names Oppress) — no data.
 - Rate of each event type (the sim assumes uniform; on live only 20 Chain/Execution counted).
 - Reward for each objective (the sim assumes 1 instrument); Tartarus Rumors (异闻) with no reports.
 - Origin of the markers seen on live (Tusk, Prey, Scratch, Rat nest) beyond the instruments — uncertain.

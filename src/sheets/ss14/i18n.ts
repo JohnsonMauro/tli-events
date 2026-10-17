@@ -88,6 +88,12 @@ const en = {
   tierMeta:
     'Tier = sim Rainbow/run vs. no instrument ({base}). Hover (or tap) a tile for what it does. Crown and Maul almost never show up live.',
   simCta: 'Want to practice, or test a board of your own?',
+  doubt:
+    'Sources disagree on this one (card, simulator, our tests): its tier may be off. We keep playing to pin it down.',
+  doubtNote:
+    '= sources disagree, tier may be off; we keep playing to pin these down. Got a card print or a number? Send it:',
+  doubtIssue: 'GitHub issue',
+  doubtReddit: 'Reddit thread',
   tierWorse: 'worse than none',
   tipBtn: 'What does this number mean?',
   tipH: 'Instrument tiers',
@@ -262,6 +268,12 @@ const ptbr: Dict = {
   tierMeta:
     'Tier = Rainbow/run no sim vs. sem instrumento ({base}). Passe o mouse (ou toque) para ver o que faz. Crown e Maul quase nunca aparecem ao vivo.',
   simCta: 'Quer treinar ou testar um tabuleiro por conta própria?',
+  doubt:
+    'As fontes discordam neste (carta, simulador, nossos testes): o tier pode estar errado. Seguimos jogando para confirmar.',
+  doubtNote:
+    '= fontes discordam, o tier pode estar errado; seguimos jogando para confirmar. Tem print da carta ou um número? Mande:',
+  doubtIssue: 'issue no GitHub',
+  doubtReddit: 'thread no Reddit',
   tierWorse: 'pior que nenhum',
   tipBtn: 'O que significa este número?',
   tipH: 'Tiers de instrumento',
@@ -390,10 +402,12 @@ const ptbr: Dict = {
     collar: 'Cada mordida da corrente após a 1ª: 80% de +1 extra.',
     stake: '−1 destino/dia. Replace num inmate abaixo de Legendary: 40% de trazer um Legendary.',
     guillotine:
-      'Wolves também comem suas presas de raridade menor e depois disparam Oppress (o que o Oppress faz: ainda desconhecido; o sim ignora).',
+      'Wolves também comem suas presas de raridade menor e depois disparam Oppress: −5% de chance de subir por tier de diferença de raridade (o sim ainda conta +1 garantido).',
     dogtag: 'Porta aberta na patrulha: 25% de esse inmate subir +1.',
     whip: '−1 destino/dia. Cada mordida: 35% de +1 extra.',
-    tongs: 'Toda manhã um Mammoth ganha um Tusk (um Replace ali sobe 4 inmates).',
+    tongs:
+      'Toda manhã um Mammoth ganha um Tusk; cada Replace ali sobe 4 inmates, e o Tusk fica até a cela esvaziar. Guarde os Mammoths, nunca coma o inmate de uma cela com Tusk — o sim não explora o Tusk, então o tier dele está baixo.',
+    trap: 'Com o warden na cela de um Lion, Hunt entra nas escolhas do dia: marca Prey num inmate que o Lion pode comer; os dois +1 toda manhã por 3 rounds (acaba se um sair ou mudar de fera).',
     keys: 'Porta aberta: 80% (carta; 63% medido ao vivo) de abrir também os dois vizinhos.',
     cage: 'Depois que um inmate é comido, 40% de a cela reabrir com um novo inmate.',
     scales: 'Após um Replace, 80% de revelar o melhor inmate atrás das portas.',
@@ -468,6 +482,11 @@ const ko: Dict = {
   tierMeta:
     '티어 = 시뮬 Rainbow/런 vs. 도구 없음 ({base}). 마우스를 올리거나 눌러서 효과 보기. Crown과 Maul은 실전에서 거의 안 나옵니다.',
   simCta: '직접 연습하거나 내 보드를 시험해 보고 싶다면?',
+  doubt: '이 도구는 출처끼리 다름 (카드, 시뮬레이터, 우리 테스트): 티어가 틀릴 수 있음. 확인하려고 계속 플레이 중.',
+  doubtNote:
+    '= 출처가 다름, 티어가 틀릴 수 있음; 확인하려고 계속 플레이 중. 카드 스크린샷이나 수치가 있다면 보내 주세요:',
+  doubtIssue: 'GitHub 이슈',
+  doubtReddit: 'Reddit 스레드',
   tierWorse: '없는 것보다 나쁨',
   tipBtn: '이 숫자는 무슨 뜻인가요?',
   tipH: '도구 티어',
@@ -593,10 +612,13 @@ const ko: Dict = {
     saw: 'Consume 후 25% 확률로 +1 추가.',
     collar: '사슬의 두 번째 입부터: 80% 확률로 +1 추가.',
     stake: '하루 목적지 −1. Legendary 미만 죄수를 Replace: 40% 확률로 Legendary.',
-    guillotine: 'Wolf가 더 낮은 희귀도 먹이도 먹고, 그 뒤 Oppress 발동 (Oppress 효과: 아직 모름; 시뮬은 무시).',
+    guillotine:
+      'Wolf가 더 낮은 희귀도 먹이도 먹고, 그 뒤 Oppress 발동: 희귀도 1티어 차이마다 상승 확률 −5% (시뮬은 아직 +1 확정으로 계산).',
     dogtag: '순찰 중 연 문: 25% 확률로 그 죄수 +1.',
     whip: '하루 목적지 −1. 한 입마다 35% 확률로 +1 추가.',
-    tongs: '매일 아침 Mammoth 하나에 Tusk 표식 (그 칸에서 Replace하면 죄수 4명 상승).',
+    tongs:
+      '매일 아침 Mammoth 하나에 Tusk 표식; 그 칸에서 Replace할 때마다 죄수 4명 상승, Tusk는 칸이 빌 때까지 유지. Mammoth를 남기고 Tusk 칸의 죄수는 절대 먹지 말 것 — 시뮬은 Tusk를 활용하지 않아 티어가 낮게 나옴.',
+    trap: 'Lion 칸에 멈추면 그날 선택지에 Hunt 추가: Lion이 먹을 수 있는 죄수에 Prey 표식; 3라운드 동안 매일 아침 둘 다 +1 (한쪽이 사라지거나 야수가 바뀌면 종료).',
     keys: '문을 열면 80% (카드; 실측 63%) 확률로 양옆도 엶.',
     cage: '죄수가 먹히면 40% 확률로 그 칸이 새 죄수와 함께 다시 열림.',
     scales: 'Replace 후 80% 확률로 문 뒤 최고의 죄수를 공개.',
@@ -671,6 +693,12 @@ const ja: Dict = {
   tierMeta:
     'ティア = シムのRainbow/ラン vs. 拷問具なし（{base}）。カーソルを合わせる（またはタップ）で効果表示。CrownとMaulは実戦でほぼ出ない。',
   simCta: '自分で練習したい？自分の盤面を試したい？',
+  doubt:
+    'この刑具は情報源ごとに食い違い（カード・シミュ・自前テスト）：ティアがずれている可能性。確かめるためにプレイを続けています。',
+  doubtNote:
+    '= 情報源が食い違い、ティアがずれている可能性。確かめるためにプレイを続けています。カードのスクショや数値があれば送ってください：',
+  doubtIssue: 'GitHub Issue',
+  doubtReddit: 'Redditスレッド',
   tierWorse: 'なしより悪い',
   tipBtn: 'この数字の意味は？',
   tipH: '拷問具のティア',
@@ -797,10 +825,13 @@ const ja: Dict = {
     saw: 'Consume後、25%で+1追加。',
     collar: '連鎖の2口目以降：80%で+1追加。',
     stake: '1日の行き先−1。Legendary未満の囚人をReplace：40%でLegendary。',
-    guillotine: 'Wolfが低いレアリティの獲物も食べ、その後Oppressが発動（Oppressの効果：まだ不明；シミュは無視）。',
+    guillotine:
+      'Wolfが低いレアリティの獲物も食べ、その後Oppressが発動：レアリティ差1ティアごとに上昇確率−5%（シミュはまだ確定+1で計算）。',
     dogtag: '巡回で開けた扉：25%でその囚人+1。',
     whip: '1日の行き先−1。一口ごとに35%で+1追加。',
-    tongs: '毎朝Mammoth1体にTusk（そこでReplaceすると囚人4体が上がる）。',
+    tongs:
+      '毎朝Mammoth1体にTusk；そこでReplaceするたびに囚人4体が上がり、Tuskはマスが空くまで残る。Mammothを残し、Tuskのマスの囚人は食べない——シミュはTuskを活かさないのでティアが低め。',
+    trap: 'LionのマスでHuntがその日の選択肢に加わる：Lionが食べられる囚人にPreyマーク；3ラウンドの間、毎朝両方+1（どちらかが消えるか獣が変わると終了）。',
     keys: '扉を開けると80%（カード；実測63%）で両隣も開く。',
     cage: '囚人が食べられた後、40%でそのマスが新しい囚人で再び開く。',
     scales: 'Replace後、80%で扉の奥の最良の囚人を公開。',
@@ -873,6 +904,10 @@ const zh: Dict = {
   remove: '移除',
   tierMeta: '档位 = 模拟 Rainbow/局 vs. 无刑具（{base}）。悬停（或点按）查看效果。Crown和Maul实战几乎不出现。',
   simCta: '想自己练习，或者测试自己的棋盘？',
+  doubt: '这个刑具各来源说法不一（卡牌、模拟器、我们的测试）：档位可能不准。我们一直在实战确认。',
+  doubtNote: '= 来源说法不一，档位可能不准；我们一直在实战确认。有卡牌截图或数据？请发给我们：',
+  doubtIssue: 'GitHub Issue',
+  doubtReddit: 'Reddit 讨论帖',
   tierWorse: '不如不拿',
   tipBtn: '这个数字是什么意思？',
   tipH: '刑具档位',
@@ -996,10 +1031,12 @@ const zh: Dict = {
     saw: 'Consume后25%额外+1。',
     collar: '连吃第2口起：80%额外+1。',
     stake: '每天目的地−1。Replace低于Legendary的囚犯：40%换来Legendary。',
-    guillotine: 'Wolf也能吃更低稀有度的猎物，吃完后触发Oppress（Oppress的效果：尚不清楚；模拟器忽略了它）。',
+    guillotine: 'Wolf也能吃更低稀有度的猎物，吃完后触发Oppress：稀有度每差1档，升档概率−5%（模拟器仍按必定+1计算）。',
     dogtag: '巡逻开的门：25%该囚犯+1。',
     whip: '每天目的地−1。每口35%额外+1。',
-    tongs: '每天早上一只Mammoth获得Tusk（在那里Replace会提升4个囚犯）。',
+    tongs:
+      '每天早上一只Mammoth获得Tusk；每次在那里Replace提升4个囚犯，Tusk一直保留到该格变空。留住Mammoth，绝不吃Tusk格里的囚犯——模拟器不会利用Tusk，所以档位偏低。',
+    trap: '停在Lion的格子时，当天选项多出Hunt：给Lion能吃的囚犯打上Prey标记；3回合内每天早上两者各+1（任一方离开或兽种改变即结束）。',
     keys: '开门：80%（卡面；实测63%）同时打开两侧邻格。',
     cage: '囚犯被吃后，40%该格重新打开出现新囚犯。',
     scales: 'Replace后80%揭示门后最好的囚犯。',
@@ -1075,6 +1112,12 @@ const ru: Dict = {
   tierMeta:
     'Ранг = Rainbow/забег в симуляторе против забега без инструмента ({base}). Наведите (или нажмите), чтобы увидеть эффект. Crown и Maul вживую почти не выпадают.',
   simCta: 'Хотите потренироваться или проверить свою доску?',
+  doubt:
+    'Источники расходятся (карта, симулятор, наши тесты): ранг может быть неточным. Мы продолжаем играть, чтобы это проверить.',
+  doubtNote:
+    '= источники расходятся, ранг может быть неточным; продолжаем играть, чтобы проверить. Есть скриншот карты или цифры? Пишите:',
+  doubtIssue: 'issue на GitHub',
+  doubtReddit: 'ветка на Reddit',
   tierWorse: 'хуже, чем без него',
   tipBtn: 'Что значит это число?',
   tipH: 'Ранги инструментов',
@@ -1203,10 +1246,12 @@ const ru: Dict = {
     collar: 'Каждый укус цепочки после 1-го: 80% на +1 доп.',
     stake: '−1 вариант пути в день. Replace заключённого ниже Legendary: 40% получить Legendary.',
     guillotine:
-      'Wolf ест и добычу ниже редкостью, после чего срабатывает Oppress (что делает Oppress — пока неизвестно; симулятор его не учитывает).',
+      'Wolf ест и добычу ниже редкостью, после чего срабатывает Oppress: −5% к шансу повышения за каждый ранг разницы в редкости (симулятор пока считает гарантированный +1).',
     dogtag: 'Дверь, открытая в обходе: 25%, что заключённый получит +1.',
     whip: '−1 вариант пути в день. Каждый укус: 35% на +1 доп.',
-    tongs: 'Каждое утро один Mammoth получает Tusk (Replace там поднимает 4 заключённых).',
+    tongs:
+      'Каждое утро один Mammoth получает Tusk; каждый Replace там поднимает 4 заключённых, и Tusk остаётся, пока клетка не опустеет. Берегите Mammoth, не ешьте заключённого в клетке с Tusk — симулятор так не играет, поэтому ранг занижен.',
+    trap: 'Остановка на клетке Lion: в выборе дня появляется Hunt — метка Prey на заключённого, которого Lion может съесть; оба +1 каждое утро 3 раунда (конец, если один исчезнет или сменит зверя).',
     keys: 'Открытая дверь: 80% (карта; вживую 63%) открыть и обоих соседей.',
     cage: 'После поедания заключённого 40%, что клетка откроется снова с новым.',
     scales: 'После Replace 80% раскрыть лучшего заключённого за дверями.',
@@ -1284,6 +1329,12 @@ const de: Dict = {
   tierMeta:
     'Tier = Sim-Rainbow/Run gegenüber keinem Instrument ({base}). Fahr über eine Kachel (oder tippe), um zu sehen, was sie tut. Crown und Maul tauchen live fast nie auf.',
   simCta: 'Willst du üben oder ein eigenes Board testen?',
+  doubt:
+    'Die Quellen widersprechen sich hier (Karte, Simulator, unsere Tests): die Stufe kann falsch sein. Wir spielen weiter, um es zu klären.',
+  doubtNote:
+    '= Quellen widersprechen sich, Stufe kann falsch sein; wir spielen weiter, um es zu klären. Du hast einen Karten-Screenshot oder eine Zahl? Schick sie:',
+  doubtIssue: 'GitHub-Issue',
+  doubtReddit: 'Reddit-Thread',
   tierWorse: 'schlechter als keins',
   tipBtn: 'Was bedeutet diese Zahl?',
   tipH: 'Instrument-Tiers',
@@ -1412,10 +1463,12 @@ const de: Dict = {
     collar: 'Jeder Kettenbiss nach dem 1.: 80 % auf +1 extra.',
     stake: '−1 Ziel/Tag. Replace eines Inmates unter Legendary: 40 %, einen Legendary zu bringen.',
     guillotine:
-      'Wolves fressen auch Beute niedrigerer Seltenheit und lösen danach Oppress aus (was Oppress macht: noch unbekannt; der Sim ignoriert es).',
+      'Wolves fressen auch Beute niedrigerer Seltenheit und lösen danach Oppress aus: −5 % Aufstiegschance pro Stufe Seltenheitsunterschied (der Sim zählt noch ein sicheres +1).',
     dogtag: 'Auf Patrouille geöffnete Tür: 25 %, dass dieser Inmate +1 steigt.',
     whip: '−1 Ziel/Tag. Jeder Biss: 35 % auf +1 extra.',
-    tongs: 'Jeden Morgen bekommt ein Mammoth einen Tusk (ein Replace dort hebt 4 Inmates).',
+    tongs:
+      'Jeden Morgen bekommt ein Mammoth einen Tusk; jeder Replace dort hebt 4 Inmates, und der Tusk bleibt, bis die Zelle leer ist. Mammoths behalten, nie den Inmate einer Tusk-Zelle fressen — der Sim nutzt Tusks nicht, daher ist die Stufe zu niedrig.',
+    trap: 'Mit dem Warden auf der Zelle eines Lion kommt Hunt zu den Tagesoptionen: Prey-Markierung auf einen Inmate, den der Lion fressen kann; beide +1 jeden Morgen für 3 Runden (endet, wenn einer verschwindet oder die Bestie wechselt).',
     keys: 'Geöffnete Tür: 80 % (Karte; live gemessen 63 %), auch beide Nachbarn zu öffnen.',
     cage: 'Nachdem ein Inmate gefressen wurde, 40 %, dass seine Zelle mit einem neuen Inmate wieder öffnet.',
     scales: 'Nach einem Replace 80 %, den besten Inmate hinter den Türen aufzudecken.',

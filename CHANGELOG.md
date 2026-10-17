@@ -6,6 +6,16 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: a **"!"** marks instruments whose sources disagree (card, simulator, our tests), so their tier may be off — Severed Iron Maiden, Barbed Collar, Agonizing Muzzle, Fanged Guillotine, Skewered Rat Heads, Iron Tongs, Blood-Stained Trap, Filthy Claws, Executioner's Blacklist and Avenger's Casket. Its info says we keep playing to pin them down, and a note under the ranking asks for card prints or numbers through a GitHub issue or the Reddit thread.
+- SS14 play sheet: game art for Ferocious Beast's Ravenous Chains and Blood-Stained Trap (they showed a "?"), and a summary for Blood-Stained Trap (Hunt and the Prey mark), from their live cards.
+
+### Fixed
+
+- SS14 play sheet: Fanged Guillotine explains **Oppress** — eating lower-rarity prey has a 5% lower upgrade chance per tier of rarity difference (the simulator still counts a sure +1).
+- SS14 play sheet: Iron Tongs says the **Tusk stays** through Replaces until its cell empties, and how to play it (keep Mammoths, never eat the inmate of a Tusk cell); its tier is marked as low, since the simulator doesn't farm Tusks (tip from content creator ALannister).
+
 ## [1.1.2] - 2026-10-17
 
 ### Fixed

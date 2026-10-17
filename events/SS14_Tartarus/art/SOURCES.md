@@ -35,6 +35,8 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `tool-pestle` | Iron Pestle (live; replaces the VOD crop) | [74_live_objective_reward_scapegoat_pestle_fire.webp](../images/74_live_objective_reward_scapegoat_pestle_fire.webp) | 893,260 300×260 |
 | `tool-crown` | Iron Crown of the Prison King (live, small print: low resolution) | [76_live_instrument_slot_iron_crown.webp](../images/76_live_instrument_slot_iron_crown.webp) | 60,154 100×83 |
 | `tool-blacklist` | Executioner's Blacklist | [77_live_instrument_executioners_blacklist.webp](../images/77_live_instrument_executioners_blacklist.webp) | 235,235 320×277 |
+| `tool-ravenous` | Ferocious Beast's Ravenous Chains | [82_live_instrument_ravenous_chains.webp](../images/82_live_instrument_ravenous_chains.webp) | 150,135 240×210 |
+| `tool-trap` | Blood-Stained Trap: Berserk Lion | [83_live_instrument_blood_stained_trap.webp](../images/83_live_instrument_blood_stained_trap.webp) | 150,130 240×210 |
 | `tool-whip` | Barbed Whip (live; replaces the VOD crop) | [73_live_instrument_offer_maiden_whip_shackles.webp](../images/73_live_instrument_offer_maiden_whip_shackles.webp) | 893,260 300×260 |
 | `tool-stake` | Burning Stake | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 847,270 220×165 |
 | `tool-forged` | Forged Key | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 1327,270 220×165 |

@@ -1,3 +1,18 @@
+// Instruments whose sources disagree, so their tier may be off: the sheet marks them with "!" and asks
+// players for prints or numbers. Remove an id once a card or a measurement settles it.
+export const DOUBT: ReadonlySet<string> = new Set([
+  'maiden', // card shows no Replace trigger; the effect is cut; the sim fires it after a Replace
+  'collar', // card: every chain bite; the sim: only bites after the first
+  'muzzle', // preview card: ≤3 inmates; the sim: ≤4; no live print yet
+  'guillotine', // live card triggers Oppress; the sim gives a sure +1
+  'skewer', // live card +2; the sim +1
+  'tongs', // the Tusk stays through Replaces; the sim's player doesn't farm it (our engine: 2.38 vs 1.09)
+  'trap', // the sim values it 2.22, our engine 1.46
+  'claws', // the sim 2.15, our engine 2.69
+  'blacklist', // the sim 1.57, our engine 1.99
+  'revenge', // the effect is cut on every print; the sim 1.53, our engine 1.35
+]);
+
 // One-line English summaries shown next to each instrument's card text (other languages: `tool` in ./i18n.ts).
 export const TOOL_TEXT = {
   crown: 'Lions eat any inmate of the same rarity; +2 extra tiers per bite (3 in total).',
@@ -20,10 +35,12 @@ export const TOOL_TEXT = {
   collar: 'Each chain bite after the 1st: 80% for +1 extra.',
   stake: '−1 destination/day. Replacing an inmate below Legendary: 40% to bring a Legendary.',
   guillotine:
-    'Wolves also eat their prey at a lower rarity, then trigger Oppress (what Oppress does: not known yet; the sim ignores it).',
+    'Wolves also eat their prey at a lower rarity, then trigger Oppress: −5% upgrade chance per tier of rarity difference (the sim still counts a sure +1).',
   dogtag: 'Door opened on patrol: 25% for that inmate to rise +1.',
   whip: '−1 destination/day. Each bite: 35% for +1 extra.',
-  tongs: 'Each morning a Mammoth gets a Tusk (a Replace there raises 4 inmates).',
+  tongs:
+    "Each morning a Mammoth gets a Tusk; every Replace there raises 4 inmates, and the Tusk stays until the cell empties. Keep Mammoths, never eat the inmate of a Tusk cell — the sim doesn't farm Tusks, so its tier is low.",
+  trap: "With the warden on a Lion's cell, Hunt joins the day's choices: a Prey mark on an inmate the Lion can eat; both +1 each morning for 3 rounds (ends if either leaves or changes beast).",
   keys: 'Opened door: 80% (card; 63% measured live) to also open both neighbours.',
   cage: 'After an inmate is eaten, 40% for its cell to reopen with a new inmate.',
   scales: 'After a Replace, 80% to reveal the best inmate behind the doors.',
