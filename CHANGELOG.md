@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-10-17
+
 ### Fixed
 
 - SS14 play sheet: Skewered Rat Heads gives **+2** extra tiers per Rat bite, as the live card says (it said +1, from the simulator); its tier is marked as underestimated.
@@ -75,7 +77,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.0.2...v1.0.3
