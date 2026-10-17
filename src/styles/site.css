@@ -73,9 +73,9 @@ nav a.brand{font-family:var(--display);font-size:20px;letter-spacing:.04em;color
 /* ---- seasons index ---- */
 
 /* ---- back to the event list ---- */
-nav a.back{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:var(--radius);padding:4px 10px 4px 6px;font-size:13px;color:var(--ink2)}
-nav a.back:hover{color:var(--ink);border-color:var(--ink2)}
-nav a.back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+a.back{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:var(--radius);padding:4px 10px 4px 6px;font:600 13px var(--sans);text-transform:uppercase;letter-spacing:.06em;text-decoration:none;color:var(--ink2);white-space:nowrap}
+a.back:hover{color:var(--ink);border-color:var(--ink2)}
+a.back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---- footer ---- */
 .site-foot{flex:none;margin:0;padding:0 16px;display:flex;align-items:center;justify-content:center;gap:6px;height:38px;border-top:1px solid var(--line);font:600 13px var(--sans);color:var(--ink2);letter-spacing:.02em}

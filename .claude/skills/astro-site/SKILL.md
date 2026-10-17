@@ -17,7 +17,7 @@ Dated: Astro 7.4.0, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/a
 - **A grid item with `min-width: auto` widens the page.** The calculator (`.calc-grid`) with fixed columns made the page 19 px too wide at 390 px. Use `minmax(0,1fr)` in `.grid2`/`.calc-grid`.
 - Test at 390 px on every page: `document.documentElement.scrollWidth === clientWidth`; to find the culprit, list text nodes whose `Range.getBoundingClientRect().right` passes the container.
 
-- **The nav scrolls sideways on phones, so nothing absolute may live in the scroller.** `overflow-x:auto` also clips Y: the language dropdown was cut off. `Base.astro` splits the bar into `.links` (scrolls) and `.nav-end` (language `<details>` + theme icon, `flex:none`).
+- **The nav scrolls sideways on phones, so nothing absolute may live in the scroller.** `overflow-x:auto` also clips Y: the language dropdown was cut off. `Base.astro` splits the bar into `.links` (scrolls) and `.nav-end` (language `<details>` + theme icon, `flex:none`). The event pages' "All events" link was cut off there at 390 px, so since 2026-10-17 it lives at the top of the page content (`src/components/BackLink.astro`), not in the nav.
 
 ## Content from outside `src/`
 

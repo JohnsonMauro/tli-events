@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Art from '../../components/Art.astro';
 import EventInfo, { type Credit } from '../../components/EventInfo.astro';
+import BackLink from '../../components/BackLink.astro';
 import { getEvent, eventLangs, url } from '../../lib/events';
 import { artSet } from '../../lib/images';
 import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
@@ -85,8 +86,9 @@ const ui = { take: t.take, perRun: t.perRun, withHeld: t.withHeld, sim: t.sim, t
 const json = JSON.stringify({ tools: data.tools, pairs: data.pairs, base, offers, ui }).replace(/</g, '\\u003c');
 const ladder = [['act-consume', t.l1b, t.l1e, ''], ['incident', t.l2b, t.l2e, 'tall'], ['door', t.l3b, t.l3e, ''], ['act-replace', t.l4b, t.l4e, '']] as const;
 ---
-<Base title={`${t.title} · TLI Events`} description={t.desc} back={{ href: url(), label: t.back }} langs={langs} lang={hreflang(lang)} image={event.banner} wide>
+<Base title={`${t.title} · TLI Events`} description={t.desc} langs={langs} lang={hreflang(lang)} image={event.banner} wide>
 <EventInfo slot="nav" lang={lang} method={t.method} credits={credits as Credit[]} />
+<div class="sheet-top"><BackLink href={url()} label={t.back} /></div>
 <div class="play">
 
   <section class="pane patterns" aria-labelledby="pat-h">

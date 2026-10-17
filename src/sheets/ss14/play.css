@@ -1,7 +1,8 @@
 /* ---- /ss14/ play sheet: one screen on desktop (panes scroll inside), stacked on phones ---- */
 main.wide{max-width:none;padding:0 12px}
-/* viewport minus the sticky nav (~54px) and the footer (38px) */
-.play{display:grid;grid-template-columns:minmax(300px,1.1fr) minmax(0,1.3fr) minmax(280px,1fr);gap:12px;height:calc(100dvh - 56px - 38px);padding:10px 0;overflow:hidden}
+/* viewport minus the sticky nav (~54px), the back-link row (38px) and the footer (38px) */
+.sheet-top{height:38px;display:flex;align-items:flex-end}
+.play{display:grid;grid-template-columns:minmax(300px,1.1fr) minmax(0,1.3fr) minmax(280px,1fr);gap:12px;height:calc(100dvh - 56px - 38px - 38px);padding:10px 0;overflow:hidden}
 .pane{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;overflow:auto;min-height:0;min-width:0}
 .pane-h{font-family:var(--display);font-size:26px;margin:0 0 8px;letter-spacing:.02em}
 .side .pane-h{margin-top:14px}.side .pane-h:first-child{margin-top:0}

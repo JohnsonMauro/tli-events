@@ -7,8 +7,6 @@ import Flag from '../components/Flag.astro';
 interface Props {
   title: string;
   description?: string;
-  /** Back link shown next to the brand on event pages (to the event list). */
-  back?: { href: string; label: string };
   /** Full-width main area (the play sheet fills the viewport). */
   wide?: boolean;
   /** Page language (BCP 47). */
@@ -24,7 +22,7 @@ interface Props {
 const SITE_NAME = 'TLI Events';
 const {
   title, description = 'Torchlight: Infinite season event strategy: rules, odds and picks, backed by sources.',
-  back, wide = false, lang = 'en', langs = [], image, noindex = false,
+  wide = false, lang = 'en', langs = [], image, noindex = false,
 } = Astro.props;
 const abs = (path: string) => new URL(path, Astro.site ?? Astro.url).href;
 const canonical = abs(Astro.url.pathname);
@@ -71,7 +69,6 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
   <nav><div class="in">
     <div class="links">
       <a class="brand" href={url()}>TLI <span>Events</span></a>
-      {back && <a class="back" href={back.href}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>{back.label}</a>}
     </div>
     <div class="nav-end">
       <slot name="nav" />

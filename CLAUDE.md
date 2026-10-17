@@ -20,7 +20,7 @@ src/                          Astro 7 site — publishes the event list and each
     images.ts                 fixed()/fluid()/artSet(): WebP + srcset + intrinsic size
     project.ts                repo and Discussions URLs
   layouts/Base.astro          head (fonts, canonical, hreflang, OG, manifest, SW) + sticky header + footer
-  components/                 Art (optimized <img>), EventInfo ("Method & credits" dialog), Flag
+  components/                 Art (optimized <img>), BackLink (top of an event page's content), EventInfo ("Method & credits" dialog), Flag
   sheets/<slug>/              one play sheet per event, colocated: PlaySheet.astro, i18n.ts, play.ts (client), play.css
   pages/                      index (event list), 404, sitemap.xml, manifest.webmanifest, <slug>/index + [lang] → sheets/<slug>
   assets/fonts/               self-hosted font files not on Google's API (astro.config.mjs `fonts`)
