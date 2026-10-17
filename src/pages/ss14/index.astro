@@ -1,0 +1,219 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { url } from '../../seasons';
+import data from '../../../SS14_Tartarus/data/tartarus_data.json';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../../../SS14_Tartarus/images/*.{png,jpg,jpeg,webp,gif}', { eager: true });
+const images = await Promise.all(Object.entries(files).sort(([a], [b]) => a.localeCompare(b)).map(async ([path, mod]) => ({
+  name: path.split('/').pop() ?? path,
+  meta: mod.default,
+  full: (await getImage({ src: mod.default, width: Math.min(mod.default.width, 1800) })).src,
+})));
+const hasIndex = Boolean(await getEntry('docs', 'SS14_Tartarus/images/INDEX'));
+// Embedded for the client script; escape "<" so the JSON can never close the tag.
+const json = JSON.stringify(data).replace(/</g, '\\u003c');
+
+const anchors = [
+  ['#rules', 'Rules'], ['#flow', 'Flow'], ['#ring-sec', 'Ring'], ['#food-chain', 'Chain'], ['#calc', 'Calculator'],
+  ['#odds', 'Odds'], ['#instruments', 'Instruments'], ['#events', 'Events'], ['#habits', 'Habits'], ['#riot', 'Riot'], ['#gallery-sec', 'Images'],
+].map(([href, label]) => ({ href, label }));
+---
+<Base title="Tartarus — Strategy Map" description="SS14 Tartarus: rules, live odds, Torture Instrument combos and a chain calculator." season="ss14" anchors={anchors}>
+<header class="hero">
+  <div class="kicker">Torchlight: Infinite · SS14 · 塔罗斯的困兽</div>
+  <h1>Warden's Duty<small>strategy map for the Tartarus prison</small></h1>
+  <p class="lead">How to turn 20 days of prison into Rainbows (Chromatic) — and Rainbows into Warden's Caches at the riot. Rules, odds measured live, instrument combos and a chain calculator.</p>
+  <div class="meta" id="meta">loading data…</div>
+  <div class="legend" style="margin-top:10px">
+    <span class="badge b-of">OFFICIAL</span> patch notes/Steam{" "}
+    <span class="badge b-live">LIVE</span> measured by players{" "}
+    <span class="badge b-sim">SIM</span> fan simulator (millions of runs){" "}
+    <span class="badge b-calc">CALC</span> derived math
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<section id="rules">
+<h2><span class="n">01</span>{" "}Golden rules</h2>
+<ol class="rules">
+  <li><b>Consume every day you can.</b> Waiting for a bigger chain loses Rainbows. <span class="badge b-sim">SIM</span></li>
+  <li class="hot"><b>Don't break a Prey mark.</b> The Lion and its marked prey both gain +1 each morning for 3 mornings, for free.</li>
+  <li><b>Locked door &gt; known inmate</b>, and the farther destination on a tie.</li>
+  <li><b>Replace a Normal/Magic with nothing to eat.</b> Live, Replace odds ≈ door odds (n=696); never replacing costs Rainbows. <span class="badge b-live">LIVE</span></li>
+  <li><b>Office by the board:</b> many targets → Bestow; thin board → Instigate. Never "always Bestow".</li>
+  <li class="hot"><b>Execution only when it gains more than it wipes.</b> Always accepting costs ~15% of Rainbows.</li>
+  <li><b>Accept events that only give</b>: Behind Closed Doors, Ravenous Appetite, High-Risk Convict, Crow Whispers, Taste of Freedom, Usurpations.</li>
+  <li><b>Build the staircase at Legendary/Supreme.</b> A Supreme that eats = Rainbow 100%. Wolf and Rat are the most valuable prey at the top.</li>
+  <li class="hot"><b>Hangman's Noose + Severed Iron Maiden</b>: keep the block empty → every Replace becomes a Rainbow (~15/run).</li>
+  <li><b>The end of the run counts the whole board</b> (each inmate = 1 cache). In the last days, raise quality — don't wipe inmates.</li>
+</ol>
+</section>
+
+<section id="flow">
+<h2><span class="n">02</span>{" "}Event flow</h2>
+<div class="flow">
+  <div><b>1 · Hunt</b><span>Netherrealm maps: escaped inmates drop <em>Prisoner Nameplates</em>. 12 nameplates start a run (inferred from the UI).</span> <span class="badge b-of">OFFICIAL</span></div>
+  <div><b>2 · Warden's Duty</b><span>20 days (turns) on a 16-cell ring. Goal: raise inmates to Rainbow. Instruments, events, objective.</span></div>
+  <div><b>3 · Riot</b><span>Rainbows + everyone left on the board break out. 3 levels, 6 attempts. Each inmate carries a Warden's Cache of its quality.</span></div>
+  <div><b>4 · Reward</b><span>Open caches: rare items + Recommendation Letters → Followers (Lion Queen, Lone Wolf, Mammoth, Witch Rat).</span></div>
+</div>
+</section>
+
+<section id="ring-sec">
+<h2><span class="n">03</span>{" "}The cell ring</h2>
+<div class="ring-wrap">
+  <svg id="ring" viewBox="0 0 400 400" role="img" aria-label="Ring of 16 cells"></svg>
+  <div>
+    <p><b>Click a cell</b> to put the warden there: the 6 cells ahead (clockwise) light up — the day's 3 destination choices come from them.</p>
+    <div class="legend"><span><i style="background:var(--accent)"></i>warden</span><span><i style="background:color-mix(in srgb,var(--ok) 40%,var(--surface2))"></i>reach (6 cells)</span><span><i style="background:color-mix(in srgb,var(--accent) 30%,var(--surface2))"></i>01 office</span></div>
+    <h3>A typical day</h3>
+    <table>
+      <tr><td><b>Patrol</b></td><td>1 of 3 destinations (2 on ~17% of mornings). A sealed door opens on arrival.</td></tr>
+      <tr><td><b>Event</b></td><td>If an incident was behind the door: accept or skip.</td></tr>
+      <tr><td><b>Office</b></td><td>On cell 01: Instigate (2 events behind 2 doors) or Bestow (+1 tier to a random inmate).</td></tr>
+      <tr><td><b>Consume</b></td><td>The inmate in the warden's cell eats same-rarity prey; +1 tier and re-rolls its beast; the chain goes on if there is food.</td></tr>
+      <tr><td><b>Replace</b></td><td>Swaps the inmate for a random one. <b>Consume OR Replace</b> each day.</td></tr>
+    </table>
+    <p class="note">Position only matters for reach, walking ≥4 cells (Long-Chained Shackles / Prison Walk) and Ravenous Chains (neighbours). Eating needs no adjacency.</p>
+  </div>
+</div>
+</section>
+
+<section id="food-chain">
+<h2><span class="n">04</span>{" "}Food chain</h2>
+<div class="grid2">
+  <svg id="chain" viewBox="0 0 400 330" role="img" aria-label="Food chain cycle"></svg>
+  <div>
+    <p>Cycle <span class="badge b-of">OFFICIAL</span>: <b>Mammoth → Lion → Wolf → Rat → Mammoth</b>. Only <b>the same rarity</b> can be eaten.</p>
+    <p>From <b>Legendary</b> up <span class="badge b-live">LIVE</span> (dashed): Mammoth also eats Wolf; Lion also eats Rat. Pre-launch images show these at Normal/Magic too — still unresolved.</p>
+    <p>Tiers: <span class="tier" style="background:var(--t0)">N</span> <span class="tier" style="background:var(--t1)">M</span> <span class="tier" style="background:var(--t2)">R</span> <span class="tier" style="background:var(--t3)">L</span> <span class="tier" style="background:var(--t4)">S</span> <span class="tier" style="background:var(--t5)">🌈</span> — a Rainbow leaves the block for the vault and opens a Warden's Treasure.</p>
+    <h3>Who feeds whom at the top</h3>
+    <table><thead><tr><th>Prey</th><th>&lt; Legendary</th><th>Legendary+</th></tr></thead>
+      <tbody>
+      <tr><td>Lion</td><td>Mammoth</td><td>Mammoth</td></tr>
+      <tr><td>Wolf</td><td>Lion</td><td><b>Lion, Mammoth</b></td></tr>
+      <tr><td>Rat</td><td>Wolf</td><td><b>Wolf, Lion</b></td></tr>
+      <tr><td>Mammoth</td><td>Rat</td><td>Rat</td></tr>
+      </tbody></table>
+  </div>
+</div>
+</section>
+
+<section id="calc">
+<h2><span class="n">05</span>{" "}Chain calculator <span class="badge b-calc">CALC</span></h2>
+<p>Pick the eater's tier and which beasts are <b>waiting</b> at each tier above. The 1st bite is your choice; after that each bite re-rolls the beast (25% each) and the chain only continues if there is food at the new tier.</p>
+<div class="grid2">
+  <div class="card">
+    <div style="margin-bottom:10px">Eater: <select id="eater"></select></div>
+    <div class="calc-grid" id="calcGrid"></div>
+  </div>
+  <div class="card">
+    <div class="meta">chance this chain reaches Rainbow</div>
+    <div class="big" id="calcOut">—</div>
+    <div id="calcSteps" class="meta"></div>
+    <h3>Best beast to add</h3>
+    <div id="calcTip"></div>
+    <p class="note">Model: one chain, no events/instruments. The simulator (full strategy, many chains per run) gives higher numbers — e.g. a Legendary with 2 beasts waiting at Supreme reaches Rainbow 74% of the time.</p>
+  </div>
+</div>
+<h3>Continuation table</h3>
+<div class="tbl-wrap"><table id="contTbl"><thead><tr><th>Beasts waiting at the next tier</th><th class="num">&lt; Legendary</th><th class="num">Legendary+</th></tr></thead><tbody></tbody></table></div>
+<h3>"Staircase" in the simulator <span class="badge b-sim">SIM</span></h3>
+<p class="note">Format <code>tier:distinct beasts per tier above</code> (0=N … 4=S). E.g. <code>3:2</code> = a Legendary with 2 different beasts waiting at Supreme.</p>
+<div class="tbl-wrap"><table id="stairTbl"><thead><tr><th>Situation</th><th class="num">samples</th><th class="num">reaches Rainbow</th><th></th><th class="num">bites</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="odds">
+<h2><span class="n">06</span>{" "}Rarity odds <span class="badge b-live">LIVE</span></h2>
+<div id="oddsBars" class="card"></div>
+<div class="stats" id="oddsDerived"></div>
+<h3>Live telemetry <span class="badge b-live">LIVE</span></h3>
+<div class="stats" id="liveStats"></div>
+<p class="note" id="liveNote">Measured on boards players share through the simulator's board analyzer (rates.json), without instruments that change the odds. Refreshed by <code>scripts/update_data.py</code>.</p>
+</section>
+
+<section id="instruments">
+<h2><span class="n">07</span>{" "}Torture Instruments (刑具) <span class="badge b-sim">SIM</span></h2>
+<p>Rainbows/run holding the instrument from day 1, with no other rewards. Baseline with nothing: <b id="baseVal"></b>. Click a row to see its best partners.</p>
+<div class="combo-pick">
+  <input type="search" id="toolSearch" placeholder="filter instruments…">
+  <span>Combo:</span><select id="pA"></select><span>+</span><select id="pB"></select><b id="pOut" class="meta"></b>
+</div>
+<div class="grid2">
+  <div class="tbl-wrap"><table id="toolTbl"><thead><tr><th>Tier</th><th>Instrument</th><th class="num">R/run</th><th></th><th class="num" title="% of 3-instrument offers it appeared in (live)">offered</th></tr></thead><tbody></tbody></table></div>
+  <div>
+    <div class="card" id="toolDetail"><span class="meta">select an instrument</span></div>
+    <h3>Top 12 pairs</h3>
+    <div class="tbl-wrap"><table id="pairTbl"><thead><tr><th>Pair</th><th class="num">R/run</th><th class="num">×base</th></tr></thead><tbody></tbody></table></div>
+    <p class="note" id="offerNote"></p>
+  </div>
+</div>
+</section>
+
+<section id="events">
+<h2><span class="n">08</span>{" "}Events, objectives, cards and treasures</h2>
+<div class="tbl-wrap"><table id="evTbl"><thead><tr><th>Event (Prison Incident)</th><th>Effect</th><th>Decision</th></tr></thead><tbody></tbody></table></div>
+<div class="grid2" style="margin-top:20px">
+  <div><h3>Run objectives</h3><table id="objTbl"><tbody></tbody></table>
+       <h3>Pre-run cards</h3><table id="cardTbl"><tbody></tbody></table></div>
+  <div><h3>Warden's Treasure (1 per Rainbow)</h3><table id="giftTbl"><thead><tr><th>Treasure</th><th class="num">R/run</th><th>When</th></tr></thead><tbody></tbody></table></div>
+</div>
+</section>
+
+<section id="habits">
+<h2><span class="n">09</span>{" "}What each habit is worth <span class="badge b-sim">SIM</span></h2>
+<p>Rainbows/run with no instruments, changing one habit of the full strategy.</p>
+<div class="tbl-wrap"><table id="habTbl"><tbody></tbody></table></div>
+</section>
+
+<section id="riot">
+<h2><span class="n">10</span>{" "}Riot and loot</h2>
+<div class="grid2">
+  <div class="card">
+    <h3 style="margin-top:0">Shackles compass <span class="badge b-of">tlidb beta</span></h3>
+    <table><thead><tr><th>Compass</th><th class="num">+caches</th><th>cost</th></tr></thead><tbody>
+      <tr><td>Darkiron</td><td class="num">+10%</td><td>—</td></tr>
+      <tr><td>Mercury</td><td class="num">+30%</td><td>monsters take −45% damage</td></tr>
+      <tr><td>Redgold</td><td class="num">+80%</td><td>monsters take −70% damage</td></tr>
+    </tbody></table>
+    <p class="note">They don't stack and are consumed when the riot starts. Use the highest one you can clear safely.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Twin Inquisitors 断罪双子 <span class="badge b-of">OFFICIAL</span></h3>
+    <table><tbody>
+      <tr><td>Minor nodes</td><td>+1/2% caches</td></tr>
+      <tr><td>Major node</td><td>18% to duplicate cache items</td></tr>
+      <tr><td>T2 / T4</td><td>50% +1 instrument refresh / +1 guaranteed</td></tr>
+      <tr><td>T3 / T5</td><td>8% / 16% to reopen a cache</td></tr>
+      <tr><td>T6</td><td>28% duplicate</td></tr>
+    </tbody></table>
+    <p class="note">Instrument refreshes = more chances to find the right combo.</p>
+  </div>
+</div>
+<p class="note">Every Rainbow and every inmate left on the board carries a Warden's Cache of its quality. First Aember (gloves, season-limited) only drops from Caged Beasts at Profound+.</p>
+</section>
+
+<section id="gallery-sec">
+<h2><span class="n">11</span>{" "}Event images</h2>
+<p class="meta">Folder <code>SS14_Tartarus/images/</code> · {hasIndex ? <a href={url('ss14/images/')}>transcriptions and sources</a> : 'transcriptions not available yet'}</p>
+{images.length ? (
+  <div class="gallery" id="gallery">
+    {images.map((img) => (
+      <figure>
+        <a href={img.full} data-full={img.full}><Image src={img.meta} alt={img.name} width={440} loading="lazy" /></a>
+        <figcaption>{img.name}</figcaption>
+      </figure>
+    ))}
+  </div>
+) : <p class="meta">No images in SS14_Tartarus/images/ yet.</p>}
+</section>
+
+<footer>
+  Sources: official patch notes (torchlight.xd.com/ss14pn) · Steam news · tlidb.com · CoffeeBns' simulator (blahdot3h.github.io/tartarus-simulator), based on 塔羅斯监狱 by 爱玩游戏的吉吉罗 (torchlightskill.com/talos). See the <a href={url('ss14/guide/')}>full guide</a> and the <a href={url('ss14/changelog/')}>changelog</a>.
+</footer>
+<dialog id="lightbox"><img alt="" /></dialog>
+<script type="application/json" id="tartarus-data" set:html={json} />
+</Base>
+<script src="../../scripts/ss14-map.js"></script>

@@ -1,0 +1,35 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { url } from '../../seasons';
+import { rewriteDocLinks } from '../../seasons-routes.mjs';
+
+// Season docs rendered from SS14_Tartarus/*.md (source of truth stays there).
+const DOCS = {
+  guide: { id: 'SS14_Tartarus/TARTARUS_GUIDE', title: 'Tartarus — Full guide' },
+  changelog: { id: 'SS14_Tartarus/CHANGELOG', title: 'Tartarus — Changelog' },
+  images: { id: 'SS14_Tartarus/images/INDEX', title: 'Tartarus — Images and transcriptions' },
+};
+
+export async function getStaticPaths() {
+  const ids = {
+    guide: 'SS14_Tartarus/TARTARUS_GUIDE',
+    changelog: 'SS14_Tartarus/CHANGELOG',
+    images: 'SS14_Tartarus/images/INDEX',
+  };
+  const out = [];
+  for (const [doc, id] of Object.entries(ids)) {
+    if (await getEntry('docs', id)) out.push({ params: { doc } });
+  }
+  return out;
+}
+
+const { doc } = Astro.params as { doc: keyof typeof DOCS };
+const meta = DOCS[doc];
+const entry = await getEntry('docs', meta.id);
+if (!entry?.rendered) throw new Error(`Missing doc ${meta.id}`);
+const html = rewriteDocLinks(entry.rendered.html, url('ss14/'));
+---
+<Base title={meta.title} season="ss14">
+  <article class="prose" set:html={html} />
+</Base>

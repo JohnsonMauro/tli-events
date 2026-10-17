@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { SEASONS, url } from '../seasons';
+---
+<Base title="Torchlight: Infinite — Seasons">
+  <header class="hero">
+    <div class="kicker">Torchlight: Infinite · team strategy base</div>
+    <h1>Seasons<small>seasonal mechanics, odds and strategy</small></h1>
+    <p class="lead">One map per season: confirmed rules, odds measured live, combos, and what changed during the event. Every number carries a tag saying where it came from.</p>
+  </header>
+  {SEASONS.map((s) => (
+    <a class="season-card" href={url(`${s.slug}/`)}>
+      <div class="code">{s.code} · {s.nameCn} · since {s.launched}</div>
+      <h2>{s.name}</h2>
+      <div><b>{s.mechanic}</b> — {s.summary}</div>
+    </a>
+  ))}
+  <footer>
+    Sources are listed in each season’s guide. Community research; not affiliated with XD Games.
+  </footer>
+</Base>

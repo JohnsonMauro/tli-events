@@ -1,0 +1,220 @@
+{
+  "_meta": {
+    "season": "SS14 Tartarus (塔罗斯的困兽)",
+    "collected": "2026-10-16",
+    "confidence_values": {
+      "read-from-image": "text/element read directly from the cited image",
+      "inferred": "deduced from one or more images (reasoning described in note)",
+      "text-official": "text from the official patch notes (torchlight.xd.com/ss14pn, i18n dictionary), not from an image",
+      "fan-sim": "text from a fan simulator; unofficial",
+      "missing": "not found"
+    },
+    "build_caveat": "OFFICIAL images come from a development build ('Season under development'); 22-25 and 21 are from the live game."
+  },
+
+  "rarities": [
+    {"tier": 0, "name_en": "Normal", "name_cn": null, "color": "white", "source": ["27_vod_board_numbering_decision_menu.jpg", "35_vod_torture_set_scales_noose_pestle.jpg"], "confidence": "read-from-image", "note": "'Normal' in 35; white from the caption 'white-rarity Mammoth' in 27"},
+    {"tier": 1, "name_en": "Magic", "name_cn": "魔法", "color": "blue", "source": ["35_vod_torture_set_scales_noose_pestle.jpg", "28_vod_chain_consume.jpg", "17_follower_mammoth_stream_17173.webp"], "confidence": "read-from-image", "note": "blue from the caption 'upgrade to blue rarity' (28); 魔法 on follower card 17"},
+    {"tier": 2, "name_en": "Rare", "name_cn": null, "color": "purple", "source": ["38_vod_squirming_iron_box_rat_nest.jpg"], "confidence": "read-from-image", "note": "'Rare Colossal Rat' in the tooltip + caption 'purple Colossal Rat'"},
+    {"tier": 3, "name_en": "Legendary", "name_cn": "传奇/傳奇", "color": "orange", "source": ["36_vod_torture_set_whip_stake_key.jpg", "30_vod_same_rarity_orange_mammoth.jpg", "14_follower_lonewolf_cn_press.webp"], "confidence": "read-from-image", "note": "orange: caption 'straight to orange rarity' about Burning Stake (below Legendary)"},
+    {"tier": 4, "name_en": "Ultimate", "name_cn": "至臻", "color": "red", "source": ["03_prison_grid_en_objective_officialsite.webp", "04_prison_grid_cn_objective_officialsite.png"], "confidence": "read-from-image", "note": "'Ultimate' written in red in the objective; red aura color = inferred"},
+    {"tier": 5, "name_en": "Chromatic", "name_cn": "绮彩", "color": "rainbow", "source": ["39_vod_wardens_treasure_chromatic.jpg", "04_prison_grid_cn_objective_officialsite.png"], "confidence": "read-from-image", "note": "EN patch notes also translate it as 'Iridescent' (text-official); 17173b uses '奇才/七彩' (media error)"}
+  ],
+
+  "prisoner_types": [
+    {"code": "M", "name_en": "Mammoth", "name_cn": null, "eats_base": "Lion", "eaten_by": "Rat", "source": ["29_vod_food_chain_diagram.jpg"], "confidence": "read-from-image"},
+    {"code": "L", "name_en": "Berserk Lion", "name_cn": null, "eats_base": "Wolf", "eaten_by": "Mammoth", "source": ["29_vod_food_chain_diagram.jpg"], "confidence": "read-from-image"},
+    {"code": "W", "name_en": "Alpha Wolf (in-game term 'Packleader' in Fanged Guillotine text)", "name_cn": null, "eats_base": "Rat", "eaten_by": "Lion", "source": ["29_vod_food_chain_diagram.jpg", "37_vod_torture_set_tongs_ratheads_guillotine.jpg", "07_prison_grid_red_select_bili_17173.jpg"], "confidence": "read-from-image", "note": "Packleader=Alpha Wolf is inferred"},
+    {"code": "R", "name_en": "Colossal Rat", "name_cn": null, "eats_base": "Mammoth", "eaten_by": "Wolf", "source": ["29_vod_food_chain_diagram.jpg"], "confidence": "read-from-image"},
+    {"_note": "CN names of the 4 prisoner types (巨象/狂狮/头狼/硕鼠) only appear in the CN simulator -> fan-sim; no image shows them. 17173 mentions '六大类' (6 races) -> contradicted by the VOD (4 types)."}
+  ],
+
+  "food_chain": {
+    "base_edges": [["M", "L"], ["L", "W"], ["W", "R"], ["R", "M"]],
+    "base_edges_source": "29_vod_food_chain_diagram.jpg",
+    "base_edges_confidence": "read-from-image",
+    "second_meals": {
+      "edges": [["M", "W"], ["L", "R"]],
+      "from_tier": null,
+      "confidence": "inferred",
+      "evidence": [
+        "01_prison_grid_cn_press.webp: white Lions (7,8,10,12) with the fangs icon and no white Wolf on the board; blue Mammoth (3) with fangs whose only blue target is a Wolf (5) -> in the press kit build, M->W and L->R already applied at Normal/Magic",
+        "02_prison_grid_en_iggm.webp: blue Lion (11) with fangs; the only blue target of another edible species = Rat (6)"
+      ],
+      "conflict": "EN simulator (fan-sim) claims that on live M->W and L->R only apply from Legendary up 'as live screenshots show'; the CN sim allowed them at all rarities. I found no live screenshot that settles it. Treat from_tier as unknown (0 in the preview build; 3 according to fan-sim)."
+    },
+    "same_rarity_required": true,
+    "same_rarity_source": ["30_vod_same_rarity_orange_mammoth.jpg"],
+    "same_rarity_confidence": "read-from-image",
+    "same_type_cannibalism": {"allowed": false, "exception": "Skewered Rat Heads: Colossal Rat (Rat eats Rat of the same rarity)", "source": "37_vod_torture_set_tongs_ratheads_guillotine.jpg", "confidence": "read-from-image"}
+  },
+
+  "consume_rules": {
+    "tiers_gained_per_consume": 1,
+    "tiers_source": "28_vod_chain_consume.jpg (caption 'upgrade to blue'); VOD caption 2:39 'Each consumed target adds one rarity level'",
+    "tiers_confidence": "read-from-image",
+    "code_reroll_after_consume": {"value": "random new Code (= type)", "distribution": null, "source": "28_vod_chain_consume.jpg", "confidence": "read-from-image", "note": "probability of the new type not shown (uniform? excludes its own?) -> missing"},
+    "chain_consume": {"value": "if the new type has a valid target, it consumes again on the same turn (UI 'Chain Consume' / 连吃)", "source": ["28_vod_chain_consume.jpg", "07_prison_grid_red_select_bili_17173.jpg"], "confidence": "read-from-image"},
+    "who_can_consume": {"value": "the prisoner in the cell where the Warden is ('Make Your Decision' choice)", "source": "27_vod_board_numbering_decision_menu.jpg", "confidence": "inferred"},
+    "daily_actions": {"value": ["Consume", "Replace", "End"], "source": "27_vod_board_numbering_decision_menu.jpg", "confidence": "read-from-image"},
+    "replace": {"value": "executes the prisoner and brings in a new one (caption 'Replace to execute an inmate and bring in a new one'); the game calls it 'Swapped in'", "replacement_pool_odds": null, "source": ["35_vod_torture_set_scales_noose_pestle.jpg", "36_vod_torture_set_whip_stake_key.jpg"], "confidence": "read-from-image", "note": "Replace rarity odds -> missing from the images"},
+    "chromatic": {"value": "on reaching Chromatic it leaves the board for separate containment and grants a Warden's Treasure choice (1 of 4)", "source": ["39_vod_wardens_treasure_chromatic.jpg", "10_season_event_tasks_en_officialsite.webp"], "confidence": "read-from-image"},
+    "chromatic_container_slots": {"value": 10, "source": ["27_vod_board_numbering_decision_menu.jpg", "22_riot_board_3tiers_bili_a.jpg", "23_riot_board_3tiers_bili_b.jpg", "24_riot_board_3tiers_bili_c.jpg", "25_riot_board_3tiers_bili_d.jpg"], "confidence": "inferred", "note": "panel with ~10 hexagons and all 4 live riot screens have exactly 10 Chromatic -> likely cap of 10 (may be poster bias)"}
+  },
+
+  "grid": {
+    "cells": 16,
+    "warden_office": 1,
+    "prisoner_cells": 15,
+    "numbering": "clockwise: top 1(office),2,3,4,5,6 (left->right); right 7,8; bottom 9,10,11,12,13,14 (right->left); left 15,16 (bottom->top)",
+    "positions_xy": {"1": [0,0], "2": [1,0], "3": [2,0], "4": [3,0], "5": [4,0], "6": [5,0], "7": [5,1], "8": [5,2], "9": [5,3], "10": [4,3], "11": [3,3], "12": [2,3], "13": [1,3], "14": [0,3], "15": [0,2], "16": [0,1]},
+    "positions_note": "6x4 grid, ring only; coordinates inferred from the layout (cell 9 is in the bottom-right corner, 14 in the bottom-left)",
+    "source": ["27_vod_board_numbering_decision_menu.jpg", "31_vod_locked_cell_prison_incident.jpg", "38_vod_squirming_iron_box_rat_nest.jpg"],
+    "confidence": "read-from-image",
+    "start_state": {"value": "all 15 cells closed, Warden in 1, 19 day(s) until Riot on the first screen", "source": ["06_prison_grid_day19_bili_17173.jpg", "38_vod_squirming_iron_box_rat_nest.jpg"], "confidence": "read-from-image"},
+    "days": {"value": 20, "source": "VOD caption 1:13 'You have 20 in-game days'; counter starts at 19", "confidence": "read-from-image"},
+    "daily_destination_options": {
+      "value": 3,
+      "observed": [
+        {"warden_at": 1, "options": [2, 3, 4], "image": "38_vod_squirming_iron_box_rat_nest.jpg"},
+        {"warden_at": 1, "options": [2, 3, 5], "image": "04_prison_grid_cn_objective_officialsite.png"},
+        {"warden_at": 1, "options": [2, 4, 6], "image": "02_prison_grid_en_iggm.webp"},
+        {"warden_at": 6, "options": [7, 11, 12], "image": "01_prison_grid_cn_press.webp"},
+        {"warden_at": 8, "options": [9, 11, 12], "image": "41_vod_board_objective_completed_keys.jpg"},
+        {"warden_at": 7, "options": [10, 12], "image": "31_vod_locked_cell_prison_incident.jpg", "note": "2 options -> probably the 'Daily destination options -1' instrument"}
+      ],
+      "rule_inferred": "3 destinations drawn from the next 6 cells clockwise (every observation fits that window; 'cell 1' also counts)",
+      "confidence": "inferred",
+      "sampling_distribution": null
+    },
+    "cell_states": ["locked/unopened (🔒)", "opened with known inmate", "empty after consume (re-seals)", "Prison Incident marker '!'", "Rat Nest mark", "Tusk mark"],
+    "cell_states_source": ["31_vod_locked_cell_prison_incident.jpg", "38_vod_squirming_iron_box_rat_nest.jpg", "37_vod_torture_set_tongs_ratheads_guillotine.jpg"],
+    "door_rarity_odds": null,
+    "door_rarity_odds_confidence": "missing"
+  },
+
+  "prison_incidents": [
+    {"name_en": "Chain Reaction", "name_cn": "连锁反应", "effect": "On your next move, automatically Open all unopened Cells along the path (no other effects triggered)", "source": "32_vod_incident_chain_reaction.jpg", "confidence": "read-from-image", "name_cn_confidence": "text (17173 article)"},
+    {"name_en": "Execution Efficiency", "name_cn": "处刑效率", "effect": "Remove all Lower-Tier Prisoners that are countered by the current Inmate. For each one removed, the current Inmate's rarity increases by 1 tier", "source": "33_vod_incident_execution_efficiency.jpg", "confidence": "read-from-image", "name_cn_confidence": "text (17173 article)"},
+    {"_note": "Trigger: 'Locked Cell … Can trigger Prison Incident' (31). Frequency per cell -> missing from the images. Other incidents (Behind Closed Doors, Ravenous Appetite, High-Risk Convict, Crow Whispers, Taste of Freedom, Usurpation I/II, Treasure Hunt) only in the fan-sim."}
+  ],
+
+  "torture_instruments": {
+    "how_obtained": {"value": "'Complete objectives to select a Torture Instrument reward' — choose 1 of 3; they last the whole run", "source": ["34_vod_torture_set_casket_muzzle_saw.jpg"], "confidence": "read-from-image"},
+    "objective_example": {"name_en": "King of the Caged", "name_cn": "困兽称王", "text": "At least 1 Inmate's rarity reaches Ultimate", "source": ["03_prison_grid_en_objective_officialsite.webp", "04_prison_grid_cn_objective_officialsite.png", "41_vod_board_objective_completed_keys.jpg"], "confidence": "read-from-image"},
+    "items": [
+      {"name_en": "Avenger's Casket", "condition": "Devouring has a 30% chance to trigger", "effect": "Randomly Open 1 Cell, and the inmate inside is guaranteed to be a … [cut off]", "p": 0.30, "source": "34_vod_torture_set_casket_muzzle_saw.jpg", "confidence": "read-from-image"},
+      {"name_en": "Raging Beast's Agonizing Muzzle", "name_cn": "狂兽的剧痛口枷", "condition": "When there are no more than 3 inmates on the board, after Devouring", "effect": "This inmate gains an additional +2 tiers of rarity", "p": 1.0, "source": ["34_vod_torture_set_casket_muzzle_saw.jpg"], "confidence": "read-from-image"},
+      {"name_en": "Rusty Saw", "condition": "Devouring has a 25% chance to trigger", "effect": "This inmate gains an additional +1 tier of rarity", "p": 0.25, "source": "34_vod_torture_set_casket_muzzle_saw.jpg", "confidence": "read-from-image"},
+      {"name_en": "Warden's Scales", "condition": "Swapped in, 80% chance to trigger", "effect": "Scout: the inmate with the Highest Rarity among the unopened Cells", "p": 0.80, "source": "35_vod_torture_set_scales_noose_pestle.jpg", "confidence": "read-from-image"},
+      {"name_en": "Hangman's Noose", "condition": "Swapped in", "effect": "Inmates of Normal and Magic rarity will not appear", "p": 1.0, "source": "35_vod_torture_set_scales_noose_pestle.jpg", "confidence": "read-from-image"},
+      {"name_en": "Iron Pestle", "condition": "Swapped in", "effect": "The prisoner retains his original code name", "p": 1.0, "source": "35_vod_torture_set_scales_noose_pestle.jpg", "confidence": "read-from-image"},
+      {"name_en": "Barbed Whip", "condition": "Daily destination options -1; Devouring has a 35% chance to trigger", "effect": "This inmate gains an additional +1 tier of rarity", "p": 0.35, "destination_penalty": -1, "source": "36_vod_torture_set_whip_stake_key.jpg", "confidence": "read-from-image"},
+      {"name_en": "Burning Stake", "condition": "Daily destination options -1; after inmates below Legendary rarity are Swapped in, 40% chance to trigger", "effect": null, "effect_from_caption": "sends a newly replaced inmate straight to orange (Legendary) rarity", "p": 0.40, "destination_penalty": -1, "source": "36_vod_torture_set_whip_stake_key.jpg", "confidence": "read-from-image"},
+      {"name_en": "Forged Key", "condition": "Daily destination options -1; Open has a 50% chance to trigger", "effect": "Additionally randomly Open 1 Cell (no other … [cut off])", "p": 0.50, "destination_penalty": -1, "source": "36_vod_torture_set_whip_stake_key.jpg", "confidence": "read-from-image"},
+      {"name_en": "Iron Tongs of Lust: Mammoth", "condition": "At the start of each day", "effect": "Randomly adds a Tusk mark to 1 Cell containing a Mammoth", "tusk_mark_effect": null, "source": "37_vod_torture_set_tongs_ratheads_guillotine.jpg", "confidence": "read-from-image"},
+      {"name_en": "Skewered Rat Heads: Colossal Rat", "condition": "When a Colossal Rat Devours", "effect": "A Colossal Rat can Devour a Colossal Rat of the same rarity, and Devouring grants an additional +1 tier of rarity", "source": "37_vod_torture_set_tongs_ratheads_guillotine.jpg", "confidence": "read-from-image"},
+      {"name_en": "Fanged Guillotine: Alpha Wolf", "condition": "When a Packleader Devours", "effect": "A Packleader can Devour low-rarity inmates that it Counters, and Devouring … [cut off]", "source": "37_vod_torture_set_tongs_ratheads_guillotine.jpg", "confidence": "read-from-image"},
+      {"name_en": "Squirming Iron Box: Colossal Rat", "condition": "At the start of each day", "effect": "Randomly adds a Rat Nest mark to 1 unopened Cell", "rat_nest": "Cell opens automatically after 2 rounds, revealing a Rare Colossal Rat", "source": "38_vod_squirming_iron_box_rat_nest.jpg", "confidence": "read-from-image"},
+      {"name_en": "Lost Ring of Keys", "condition": null, "effect": "also opens an adjacent cell (caption)", "source": "41_vod_board_objective_completed_keys.jpg", "confidence": "read-from-image", "note": "caption + icon only; card not seen"}
+    ],
+    "offer_odds": null,
+    "refresh_count": {"value": "Youga talents give +1 refresh (50% at tier 2, guaranteed at tier 4)", "confidence": "text-official"}
+  },
+
+  "wardens_treasure_on_chromatic": [
+    {"name_en": "Three-Headed Thumb Ring", "effect": "Randomly Open up to 3 Cells (no other effects triggered)", "source": "39_vod_wardens_treasure_chromatic.jpg", "confidence": "read-from-image"},
+    {"name_en": "Brass Horn of Strife", "effect": "All inmates with a devourable Devour target will, in random order, Devour 1 devourable Devour target", "source": "39_vod_wardens_treasure_chromatic.jpg", "confidence": "read-from-image"},
+    {"name_en": "Crimson Vintage", "effect": "Increase the rarity of all Inmates below Legendary rarity by 1 tier", "source": "39_vod_wardens_treasure_chromatic.jpg", "confidence": "read-from-image"},
+    {"name_en": "Brand of Original Sin", "effect": "Randomly selects up to 4 inmates without a devourable Devour target and changes their codes so that they can find a devourable Devour target … [cut off]", "source": "39_vod_wardens_treasure_chromatic.jpg", "confidence": "read-from-image"},
+    {"_note": "Whether the 4 options are fixed or drawn from a larger pool -> missing"}
+  ],
+
+  "entry": {
+    "nameplates_to_start": {"value": 12, "source": "21_prison_entry_nameplates_reddit.png", "confidence": "inferred", "note": "UI shows '1/12' above the 'Start Warden's Duty' button and inventory '1/48'"},
+    "nameplate_inventory_cap": {"value": 48, "source": "21_prison_entry_nameplates_reddit.png", "confidence": "inferred"},
+    "stage_level_shown": {"values": [7, 74, 82, 90], "source": ["21_prison_entry_nameplates_reddit.png", "25_riot_board_3tiers_bili_d.jpg", "24_riot_board_3tiers_bili_c.jpg", "40_vod_riot_screen_en.jpg"], "confidence": "read-from-image"}
+  },
+
+  "riot": {
+    "levels": ["Upper Level 上层", "Middle Level 中层", "Lower Level 下层"],
+    "attempts": {"value": 6, "text": "Remaining attempts(6/6) / 剩余挑战次数(6/6)", "source": ["40_vod_riot_screen_en.jpg", "22_riot_board_3tiers_bili_a.jpg"], "confidence": "read-from-image"},
+    "buttons": ["Ignore 放弃镇压", "Suppress 前往镇压"],
+    "participants": {"value": "all contained Chromatic + all prisoners remaining on the board", "source": "40_vod_riot_screen_en.jpg (caption)", "confidence": "read-from-image"},
+    "fight_order": {"value": "lower -> middle -> upper (VOD caption 4:17)", "confidence": "read-from-image"},
+    "distribution_rule": {
+      "value": "sort prisoners by descending rarity and distribute round-robin Upper, Middle, Lower, Upper, …",
+      "verified_on": ["40_vod_riot_screen_en.jpg", "22_riot_board_3tiers_bili_a.jpg", "23_riot_board_3tiers_bili_b.jpg", "24_riot_board_3tiers_bili_c.jpg", "25_riot_board_3tiers_bili_d.jpg"],
+      "confidence": "inferred",
+      "note": "matched 5/5 counts per level and rarity; tie-break within the same rarity not determined"
+    },
+    "observed_runs": [
+      {"image": "40_vod_riot_screen_en.jpg", "stage_level": 90, "counts": {"Chromatic": 7, "Ultimate": 3, "Legendary": 0, "Rare": 6, "Magic": 0, "Normal": 3}, "per_level": {"upper": 7, "middle": 6, "lower": 6}, "context": "dev build"},
+      {"image": "22_riot_board_3tiers_bili_a.jpg", "stage_level": null, "counts": {"Chromatic": 10, "Ultimate": 10, "Legendary": 1, "Rare": 2, "Magic": 1, "Normal": 0}, "per_level": {"upper": 8, "middle": 8, "lower": 8}, "context": "live"},
+      {"image": "23_riot_board_3tiers_bili_b.jpg", "stage_level": null, "counts": {"Chromatic": 10, "Ultimate": 7, "Legendary": 0, "Rare": 0, "Magic": 1, "Normal": 1}, "per_level": {"upper": 7, "middle": 6, "lower": 6}, "context": "live"},
+      {"image": "24_riot_board_3tiers_bili_c.jpg", "stage_level": 82, "counts": {"Chromatic": 10, "Ultimate": 7, "Legendary": 4, "Rare": 0, "Magic": 3, "Normal": 1}, "per_level": {"upper": 9, "middle": 8, "lower": 8}, "context": "live"},
+      {"image": "25_riot_board_3tiers_bili_d.jpg", "stage_level": 74, "counts": {"Chromatic": 10, "Ultimate": 1, "Legendary": 2, "Rare": 1, "Magic": 2, "Normal": 1}, "per_level": {"upper": 6, "middle": 6, "lower": 5}, "context": "live"}
+    ],
+    "observed_runs_caveat": "colors read from photos of a monitor (red vs orange may be wrong); biased sample (players post good runs)",
+    "loot": {
+      "wardens_cache": "each defeated prisoner reveals a Warden's Cache (典狱秘藏) of the matching rarity; all are opened in the final room",
+      "source": ["08_riot_loot_chests_press.webp", "09_reward_room_bili_17173.jpg", "40_vod_riot_screen_en.jpg"],
+      "confidence": "read-from-image",
+      "cache_contents_by_rarity": null,
+      "recommendation_letters": {"value": "can drop in the reward room ('Letter of recommendation: The Lion Queen')", "source": "20_vod_letter_of_recommendation_drop.jpg", "confidence": "read-from-image", "drop_rate": null},
+      "talent_modifiers_text_official": ["Major Node Severe Sentence (罪加一等): cache items 18% chance to duplicate", "Tier 3: 8% chance to open the cache again", "Tier 5: 16% chance to open again", "Tier 6: 28% chance to duplicate", "Minor nodes: +1/2% Warden's Cache quantity"]
+    }
+  },
+
+  "season_event_tasks": {
+    "name_en": null, "name_cn": "铁律践行", "currency_en": "Execution Decree", "currency_cn": "执刑律令",
+    "tasks": [
+      {"en": "Obtain 1 Prisoner Nameplate(s)", "cn": "获得1个囚徒名牌", "points": 20, "cap": 30000},
+      {"en": "Suppression of the 1 riot", "cn": "镇压1次暴乱", "points": 100, "cap": 30000},
+      {"en": "Trigger Tartarus Rumor 1 time(s)", "cn": "触发1次塔罗斯异闻", "points": 1000, "cap": 45000},
+      {"en": "Cultivate 5 or more Chromatic Prisoners in a single run", "cn": "单局玩法中，培养出5个及以上的绮彩囚犯", "points": 750, "cap": 45000}
+    ],
+    "milestones": [40000, 50000, 60000, 70000, 80000, 90000, 100000],
+    "source": ["10_season_event_tasks_en_officialsite.webp", "11_season_event_tasks_cn_officialsite.png"],
+    "confidence": "read-from-image"
+  },
+
+  "followers": {
+    "species": [
+      {"name_en": "Lion Queen", "name_cn": "狮后", "confidence": "text-official"},
+      {"name_en": "Lone Wolf", "name_cn": "独狼/獨狼", "confidence": "read-from-image", "source": "14_follower_lonewolf_cn_press.webp"},
+      {"name_en": "Mammoth", "name_cn": "猛犸象", "confidence": "read-from-image", "source": "17_follower_mammoth_stream_17173.webp"},
+      {"name_en": "Witch Rat", "name_cn": "巫鼠", "confidence": "text-official", "note": "巫鼠 also appears as a skill tag in 26"}
+    ],
+    "recruitment": {"value": "Letter of Recommendation / 引荐信 (介绍信可以交易 = tradable)", "source": ["20_vod_letter_of_recommendation_drop.jpg", "26_infographic_followers_bili_lanyguier.png"], "confidence": "read-from-image"},
+    "rarity_colors": ["red (至臻/ULT)", "gold", "purple", "white"],
+    "rarity_colors_source": "26_infographic_followers_bili_lanyguier.png",
+    "initial_skill_supports": {"red": "2 random supports (+1 base trait vs gold)", "gold": "2 random supports", "purple": "1 random support", "white": "none", "source": "26_infographic_followers_bili_lanyguier.png", "confidence": "read-from-image (creator infographic)"},
+    "examples": [
+      {"name_en": "Golden-Mane Bastion Leonora", "name_cn": "金鬃堡垒 莱奥诺拉", "level": 95, "rarity": "ULT/至臻", "species": "Lion Queen (inferred)", "skill_slots": 2, "source": ["15_follower_lionqueen_en_officialsite.webp", "13_infographic_followers_4gamers.jpg"], "confidence": "read-from-image"},
+      {"name_en": "Blade of the Silver Moon", "name_cn": "银月的锋刃 塞勒涅", "level": 95, "rarity": "至臻", "species": "独狼", "skill_slots": 2, "source": "16_follower_cn_officialsite.png", "confidence": "read-from-image"},
+      {"name_en": null, "name_cn": "征服之咏 伊什塔尔", "level": 95, "rarity": "至臻", "species": "狮后", "skill_slots": 2, "initial_skill": "塔罗斯：迅法幻身Ⅲ", "slotted": ["始源塔罗斯：秘法阵Ⅲ", "塔罗斯：寒冰传送Ⅲ"], "source": "26_infographic_followers_bili_lanyguier.png", "confidence": "read-from-image"},
+      {"name_cn": "独狼", "level": 89, "rarity": "传奇", "skill_slots": 2, "source": "14_follower_lonewolf_cn_press.webp", "confidence": "read-from-image"},
+      {"name_cn": "猛犸象", "level": 86, "rarity": "魔法", "skill_slots": 2, "source": "17_follower_mammoth_stream_17173.webp", "confidence": "read-from-image"}
+    ],
+    "rules": [
+      {"text": "只能安装一个[始源]塔罗斯技能 (only 1 Origin Tartarus Skill per follower)", "source": "26_infographic_followers_bili_lanyguier.png", "confidence": "read-from-image"},
+      {"text": "Tartarus skill affixes: 词条①随机, 词条②随机, 词条③可打造", "source": "26_infographic_followers_bili_lanyguier.png", "confidence": "read-from-image"}
+    ],
+    "link_to_prison": {"value": "No image shows any direct 'Chromatic prisoner -> follower' relationship. 17173/暗黑心尘 says only 绮彩 prisoners become mercenaries; the VOD shows the letter dropping in the reward room.", "confidence": "inferred"}
+  },
+
+  "missing_for_probability_model": [
+    "rarity distribution when opening a closed cell (by stage level/timemark)",
+    "rarity distribution of Replace (Swapped in)",
+    "distribution of the new Code after consuming (uniform across 4? excludes its own type?)",
+    "tier from which M->W and L->R apply on live",
+    "Prison Incident frequency per cell and full pool of incidents/Tartarus Rumors",
+    "full pool of Torture Instruments, offer weights and which objectives grant an instrument",
+    "whether the Warden's Treasure is always the same set of 4",
+    "Warden's Cache contents/value by rarity and by stage level",
+    "exact effect of Tusk mark and full text of Avenger's Casket, Burning Stake, Forged Key, Fanged Guillotine",
+    "exact draw rule for the 3 destinations (uniform among the next 6?)",
+    "Chromatic cap (10 observed)"
+  ]
+}
