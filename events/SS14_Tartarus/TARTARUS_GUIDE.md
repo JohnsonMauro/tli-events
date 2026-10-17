@@ -220,7 +220,7 @@ Values = Rainbows/run holding the instrument from day 1, with no other rewards. 
 | B | Raging Beast's Agonizing Muzzle | 1.70 | Consume with ≤4 prisoners in the block afterwards: +2 tiers |
 | B | Ferocious Beast's Ravenous Chains | 1.65 | Every morning the highest prisoner removes its 2 neighbors; 40% for +1 per one removed |
 | B | Avenger's Casket | 1.61 | Consume can open up a new meal at the new tier |
-| B | Skewered Rat Heads | 1.57 | Rat eats rat; rat consume +1 extra |
+| B | Skewered Rat Heads | 1.57 | Rat eats rat; rat consume **+2 extra** on the live card (print 78) — the sim uses +1, so 1.57 is an underestimate |
 | C | Sorting Hook 1.39 · Rusty Saw 1.37 · Barbed Collar 1.36 · Burning Stake 1.35 · Fanged Guillotine 1.32 · Felon's Dog Tag 1.25 · Barbed Whip 1.23 | | |
 | D | Iron Tongs 1.17 · Lost Ring of Keys 1.14 · Crowded Beastcage 1.07 · Warden's Scales 1.02 · Short-Chained Shackles 1.02 · Searing Branding Iron 0.99 · Iron Pestle 0.97 | ~0 | near zero |
 | **Avoid** | Gaoler's Execution Axe 0.94 · Forged Key 0.81 · **Squirming Iron Box 0.54** | <1 | make the run worse (on their own) |
@@ -231,7 +231,7 @@ Values = Rainbows/run holding the instrument from day 1, with no other rewards. 
 |---|---|---|---|
 | **Hangman's Noose + Severed Iron Maiden** | **15.45** | **15.8×** | Empty block = Maiden's condition is always true (0 above = 0 below). Noose guarantees Rare+ → +3 = **Rainbow on every Replace**. Loop: open door → Replace → Rainbow → block stays empty. ~1 Rainbow/day |
 | Severed Iron Maiden + Scapegoat's Guillotine | 5.77 | 5.9× | Guillotine empties the block (removes 2) → Maiden triggers |
-| Squirming Iron Box + Skewered Rat Heads | 4.09 | 4.2× | Rat factory: nests → Rare Rat → rat eats rat with +1 |
+| Squirming Iron Box + Skewered Rat Heads | 4.09 | 4.2× | Rat factory: nests → Rare Rat → rat eats rat with +2 live (the sim's +1 makes 4.09 an underestimate) |
 | Agonizing Muzzle + Iron Crown | 4.09 | 4.2× | small block + lion +3/bite |
 | Hangman's Noose + Kin's Coin | 3.97 | | |
 | Lost Ring of Keys + Iron Crown | 3.92 | | |
@@ -308,6 +308,7 @@ The beast-specific instruments (name with ": Berserk Lion", ": Mammoth", ": Colo
 
 - Number of Nameplates per run: 12 inferred from the UI ("1/12"), no official text; actual time per run; Warden's Cache drop table by quality — **no public data**.
 - Why beast-specific instruments are almost never offered.
+- **Oppress**: Fanged Guillotine's live card (print 79) triggers it after a Wolf eats lower-rarity prey; what it does is unknown and the sim leaves it out — needs a print of its tooltip.
 - Rate of each event type (the sim assumes uniform; on live only 20 Chain/Execution counted).
 - Reward for each objective (the sim assumes 1 instrument); Tartarus Rumors (异闻) with no reports.
 - Origin of the markers seen on live (Tusk, Prey, Scratch, Rat nest) beyond the instruments — uncertain.

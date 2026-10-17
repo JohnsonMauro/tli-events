@@ -120,3 +120,8 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - **Archenemy** card seen (`images/75`, 13 days before the riot, shared by the team): randomly opens 1 cell, and the inmate inside is guaranteed to be a Consumable target for the inmate in the current cell. Only `Confirm`. **Not in the simulator.** Read: always accept — a sure meal; it follows the current inmate, so it pays most on your strongest eater.
 - **Iron Crown of the Prison King** seen live by the team (`images/76`, icon only, no card text). The telemetry had 0 offers in 110: the best solo instrument in the simulator does show up, just rarely.
 - **Executioner's Blacklist** card seen (`images/77`): with no more than 5 unopened cells, each opening gives +1 tier to 2 random inmates — matches the simulator.
+
+## 2026-10-17 — correction: Skewered Rat Heads is +2 live, not +1 (LIVE print 78)
+
+- The live card (`images/78`) says Colossal Rat can consume Colossal Rats of the same rarity and gets **+2 additional Rarity Tiers after consuming**. The preview VOD card (print 37) said +1, and the simulator (20261016zzx) still applies +1 — while it applies the identical Iron Crown wording as +2. So the sim's value for Skewered Rat Heads (1.57 Rainbow/run, tier B) is an **underestimate**. The play sheet now says +2 and flags the tier; worth reporting to the simulator.
+- **Fanged Guillotine: Alpha Wolf** full card seen (`images/79`): the Alpha Wolf can consume lower-rarity countered inmates, **triggering Oppress after consuming**. The simulator models only the first half; Oppress is not in it, so its value for the Guillotine (1.32, tier C) leaves that effect out. What Oppress does: **no data yet** (needs its tooltip).

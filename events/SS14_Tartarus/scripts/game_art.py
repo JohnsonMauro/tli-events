@@ -65,7 +65,7 @@ CROPS = [
     ("tool-stake", "36_vod_torture_set_whip_stake_key.jpg", (847, 270, 220, 165), "Burning Stake"),
     ("tool-forged", "36_vod_torture_set_whip_stake_key.jpg", (1327, 270, 220, 165), "Forged Key"),
     ("tool-tongs", "37_vod_torture_set_tongs_ratheads_guillotine.jpg", (367, 270, 220, 165), "Iron Tongs of Lust: Mammoth"),
-    ("tool-skewer", "37_vod_torture_set_tongs_ratheads_guillotine.jpg", (847, 270, 220, 165), "Skewered Rat Heads: Colossal Rat"),
+    ("tool-skewer", "78_live_instrument_skewered_rat_heads.webp", (150, 130, 270, 225), "Skewered Rat Heads: Colossal Rat (live; replaces the VOD crop)"),
     ("tool-hook", "71_live_instrument_offer_fire_hook_axe.webp", (787, 170, 300, 260), "Sorting Hook"),
     ("tool-axe", "71_live_instrument_offer_fire_hook_axe.webp", (1440, 175, 300, 260), "Gaoler's Execution Axe"),
     ("tool-collar", "72_live_instrument_offer_hook_collar_shackles.webp", (498, 135, 180, 150), "Maddened Beast's Barbed Collar"),

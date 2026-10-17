@@ -46,7 +46,7 @@ const tools = Object.entries(data.tools as Record<string, { name: string; value?
   .sort((a, b) => (b[1].value as number) - (a[1].value as number))
   .map(([id, x]) => ({
     id,
-    name: x.name.replace(/:.*/, ''),
+    name: x.name,
     tier: tierOf(x.value as number),
     art: A('tool-' + id, 'lg'),
   }));
@@ -59,11 +59,11 @@ const groups = [
 
 // ---- exceptions to "same rarity only" (instrument/card texts in data/tartarus_data.json and images/INDEX.md) ----
 const exceptions = [
-  ['tool-guillotine', 'Fanged Guillotine', t.exGuillotine],
-  ['tool-maul', 'Elephant-Foot Maul', t.exMaul],
+  ['tool-guillotine', 'Fanged Guillotine: Alpha Wolf', t.exGuillotine],
+  ['tool-maul', 'Elephant-Foot Maul: Mammoth', t.exMaul],
   ['', 'Cage Fight', t.exCage],
-  ['tool-crown', 'Iron Crown', t.exCrown],
-  ['tool-skewer', 'Skewered Rat Heads', t.exSkewer],
+  ['tool-crown', 'Iron Crown of the Prison King: Berserk Lion', t.exCrown],
+  ['tool-skewer', 'Skewered Rat Heads: Colossal Rat', t.exSkewer],
 ].map(([id, name, text]) => ({ name, text, art: id ? A(id) : null }));
 
 // ---- strong pairs that actually show up: sim pair value, both instruments offered in ≥3% of live offers ----
@@ -71,7 +71,8 @@ const offers =
   (data.live as { toolOffers?: { n: number; counts: Record<string, number> } } | undefined)?.toolOffers ?? null;
 const offerRate = (id: string) => (offers && offers.n ? (offers.counts[id] ?? 0) / offers.n : null);
 const SHOWS_UP = 0.03;
-const short = (id: string) => (data.tools as Record<string, { name: string }>)[id]?.name.replace(/:.*/, '') ?? id;
+// Full card names: the part after ":" names the beast a beast-specific instrument works for.
+const short = (id: string) => (data.tools as Record<string, { name: string }>)[id]?.name ?? id;
 const builds = (data.pairs as [string, string, number][])
   .slice()
   .sort((x, y) => y[2] - x[2])

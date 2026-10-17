@@ -13,12 +13,14 @@ export const TOOL_TEXT = {
   muzzle: 'A consume leaving ≤4 inmates on the block: +2 tiers.',
   ravenous: 'Each morning the top inmate removes its 2 ring neighbours; 40% for +1 per removal.',
   revenge: 'After a consume, 30% to open a cell holding a meal for the eater at its new tier.',
-  skewer: 'Rats eat Rats of the same rarity; a Rat consume gets +1 extra.',
+  skewer:
+    'Rats eat Rats of the same rarity; +2 extra tiers per Rat bite (3 in total). Live card — the sim still counts +1, so its tier is low.',
   hook: 'Opened cells never hold a Normal.',
   saw: 'After a consume, 25% for +1 extra.',
   collar: 'Each chain bite after the 1st: 80% for +1 extra.',
   stake: '−1 destination/day. Replacing an inmate below Legendary: 40% to bring a Legendary.',
-  guillotine: 'Wolves also eat prey of lower rarity.',
+  guillotine:
+    'Wolves also eat their prey at a lower rarity, then trigger Oppress (what Oppress does: not known yet; the sim ignores it).',
   dogtag: 'Door opened on patrol: 25% for that inmate to rise +1.',
   whip: '−1 destination/day. Each bite: 35% for +1 extra.',
   tongs: 'Each morning a Mammoth gets a Tusk (a Replace there raises 4 inmates).',

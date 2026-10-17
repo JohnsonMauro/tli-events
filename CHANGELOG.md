@@ -6,6 +6,16 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Fixed
+
+- SS14 play sheet: Skewered Rat Heads gives **+2** extra tiers per Rat bite, as the live card says (it said +1, from the simulator); its tier is marked as underestimated.
+- SS14 play sheet: Fanged Guillotine now says the Wolf triggers **Oppress** after eating lower-rarity prey, as the live card does (the simulator leaves it out; what Oppress does is not known yet).
+
+### Changed
+
+- SS14 play sheet: sharper Skewered Rat Heads art, from the live client instead of the preview video.
+- SS14 play sheet: instruments show their full card name, including the beast they work for (e.g. "Fanged Guillotine: Alpha Wolf").
+
 ## [1.1.1] - 2026-10-17
 
 ### Added

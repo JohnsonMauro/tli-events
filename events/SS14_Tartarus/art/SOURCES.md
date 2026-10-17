@@ -39,7 +39,7 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `tool-stake` | Burning Stake | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 847,270 220×165 |
 | `tool-forged` | Forged Key | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 1327,270 220×165 |
 | `tool-tongs` | Iron Tongs of Lust: Mammoth | [37_vod_torture_set_tongs_ratheads_guillotine.jpg](../images/37_vod_torture_set_tongs_ratheads_guillotine.jpg) | 367,270 220×165 |
-| `tool-skewer` | Skewered Rat Heads: Colossal Rat | [37_vod_torture_set_tongs_ratheads_guillotine.jpg](../images/37_vod_torture_set_tongs_ratheads_guillotine.jpg) | 847,270 220×165 |
+| `tool-skewer` | Skewered Rat Heads: Colossal Rat (live; replaces the VOD crop) | [78_live_instrument_skewered_rat_heads.webp](../images/78_live_instrument_skewered_rat_heads.webp) | 150,130 270×225 |
 | `tool-hook` | Sorting Hook | [71_live_instrument_offer_fire_hook_axe.webp](../images/71_live_instrument_offer_fire_hook_axe.webp) | 787,170 300×260 |
 | `tool-axe` | Gaoler's Execution Axe | [71_live_instrument_offer_fire_hook_axe.webp](../images/71_live_instrument_offer_fire_hook_axe.webp) | 1440,175 300×260 |
 | `tool-collar` | Maddened Beast's Barbed Collar | [72_live_instrument_offer_hook_collar_shackles.webp](../images/72_live_instrument_offer_hook_collar_shackles.webp) | 498,135 180×150 |

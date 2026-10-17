@@ -65,7 +65,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     } catch {}
   };
 
-  const toolName = (id: string) => (D.tools[id]?.name ?? id).replace(/:.*/, '');
+  const toolName = (id: string) => D.tools[id]?.name ?? id;
   const pairValue = (a: string, b: string) =>
     D.pairs.find(([x, y]) => (x === a && y === b) || (x === b && y === a))?.[2] ?? null;
   /** Sim Rainbow/run of taking `id` now: best pair with something held, else its solo value. */
