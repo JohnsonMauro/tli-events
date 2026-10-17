@@ -21,7 +21,8 @@ const out = document.getElementById('pickOut');
 const heldEl = document.getElementById('held');
 const pop = document.getElementById('pop');
 
-const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+const ENTITIES: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ENTITIES[c] ?? c);
 const fmt = (s: string, vars: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m));
 
 if (D && grid && out && heldEl && pop) init(D, grid, out, heldEl, pop);
@@ -50,7 +51,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   function render() {
     const [best, ...rest] = S.offered.slice().sort((a, b) => score(b) - score(a));
     grid.querySelectorAll<HTMLElement>('.tool').forEach((b) => {
-      const id = b.dataset.tool!;
+      const id = b.dataset.tool ?? '';
       b.classList.toggle('on', S.offered.includes(id));
       b.classList.toggle('held', S.held.includes(id));
       b.classList.toggle('best', id === best);
@@ -80,12 +81,13 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     }).join('')}</ol>`;
 
   function toolHtml(btn: HTMLElement) {
-    const id = btn.dataset.tool!, t = D.tools[id], tier = btn.dataset.tier ?? '', src = toolImg(id);
-    const off = D.offers && D.offers.n ? (D.offers.counts[id] || 0) / D.offers.n : null;
+    const id = btn.dataset.tool ?? '', t = D.tools[id], tier = btn.dataset.tier ?? '', src = toolImg(id);
+    const offers = D.offers?.n ? D.offers : null;
+    const off = offers ? (offers.counts[id] || 0) / offers.n : null;
     const withHeld = S.held.filter((h) => h !== id).map((h): [string, number | null] => [h, pairValue(id, h)]).filter(([, v]) => v != null);
     return `<div class="tp-head">${src ? `<img src="${esc(src)}" alt="">` : '<span></span>'}<div><b>${esc(t.name)}</b>
         <div class="tp-stats"><span class="tier t${esc(tier)}">${tier === 'X' ? '✕' : esc(tier)}</span> <b>${t.value.toFixed(2)}</b> ${esc(T.perRun)} · ${(t.value / D.base).toFixed(1)}${esc(T.xNone)}</div>
-        ${off != null ? `<div class="tp-stats">${esc(fmt(T.offered, { p: Math.round(off * 100), n: D.offers!.n }))}</div>` : ''}</div></div>
+        ${offers && off != null ? `<div class="tp-stats">${esc(fmt(T.offered, { p: Math.round(off * 100), n: offers.n }))}</div>` : ''}</div></div>
       ${T.tool[id] ? `<p class="tp-what">${esc(T.tool[id])}</p>` : ''}
       ${t.text ? `<p class="tp-sub"><span>${esc(T.card)}</span>${esc(t.text)}</p>` : ''}
       ${withHeld.length ? `<div class="tp-sub"><span>${esc(T.withYou)}</span>${pairList(withHeld)}</div>` : ''}
@@ -132,14 +134,12 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     closeOnClick = false;
   });
   grid.addEventListener('click', (e) => {
-    const b = (e.target as Element).closest<HTMLElement>('[data-tool]'); if (!b) return;
-    const id = b.dataset.tool!;
+    const b = (e.target as Element).closest<HTMLElement>('[data-tool]'), id = b?.dataset.tool; if (!b || !id) return;
     S.offered = S.offered.includes(id) ? S.offered.filter((x) => x !== id) : [...S.offered, id].slice(-3);
     save(); render(); showPop(b);
   });
   out.addEventListener('click', (e) => {
-    const k = (e.target as Element).closest<HTMLElement>('[data-take]'); if (!k) return;
-    const id = k.dataset.take!;
+    const id = (e.target as Element).closest<HTMLElement>('[data-take]')?.dataset.take; if (!id) return;
     S = { held: S.held.includes(id) ? S.held : [...S.held, id], offered: [] };
     save(); render();
   });

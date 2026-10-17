@@ -27,7 +27,7 @@ export async function fluid(meta: ImageMetadata, widths: number[]): Promise<Img>
 
 /** Index an `import.meta.glob(..., { eager: true })` of images by file name without extension. */
 export const byName = (files: Glob): Record<string, ImageMetadata> =>
-  Object.fromEntries(Object.entries(files).map(([path, mod]) => [path.split('/').pop()!.replace(/\.\w+$/, ''), mod.default]));
+  Object.fromEntries(Object.entries(files).map(([path, mod]) => [(path.split('/').pop() ?? path).replace(/\.\w+$/, ''), mod.default]));
 
 /**
  * Art lookup at a few box sizes: `art(id, 'sm')` → a promise of the optimized image, or null when there is no such art
@@ -44,7 +44,8 @@ export function artSet(files: Glob) {
     const meta = metas[id];
     if (!meta) return null;
     const key = `${id}:${size}`;
-    if (!memo.has(key)) memo.set(key, fixed(meta, ART_BOX[size]));
-    return memo.get(key)!;
+    let img = memo.get(key);
+    if (!img) memo.set(key, (img = fixed(meta, ART_BOX[size])));
+    return img;
   };
 }

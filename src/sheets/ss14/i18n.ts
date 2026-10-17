@@ -5,7 +5,7 @@ import type { Lang } from '../../lib/i18n';
 import { TOOL_TEXT } from './tool-text';
 
 type IncidentId = 'trickster' | 'convict' | 'appetite' | 'shared' | 'freedom' | 'ratway' | 'hunt' | 'crow' | 'usurp' | 'chain' | 'execution';
-type Incident = { short: string; does: string; good: string; bad: string };
+interface Incident { short: string; does: string; good: string; bad: string }
 type ToolText = Record<keyof typeof TOOL_TEXT, string>;
 
 const en = {

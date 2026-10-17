@@ -62,7 +62,7 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
   <Font cssVariable="--font-mono" />
   <script is:inline>
     // Apply the saved theme before paint (per-viewer convenience only).
-    try { const t = localStorage.getItem('tt-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+    try { const t = localStorage.getItem('tt-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
   </script>
 </head>
 <body>
@@ -75,6 +75,7 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
       {langs.length > 0 && (() => { const cur = langs.find((l) => l.current) ?? langs[0]; return (
         <details class="lang-select">
           <summary aria-label={`Language: ${cur.name}`}><Flag code={cur.code} /><span>{cur.name}</span></summary>
+          {/* eslint-disable-next-line astro/jsx-a11y/no-redundant-roles -- Safari drops list semantics under list-style:none */}
           <ul role="list">
             {langs.map((l) => <li><a href={l.href} hreflang={l.hreflang} lang={l.hreflang} aria-current={l.current ? 'page' : undefined}><Flag code={l.code} />{l.name}</a></li>)}
           </ul>
@@ -101,7 +102,7 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
       const root = document.documentElement;
       const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
       root.dataset.theme = dark ? 'light' : 'dark';
-      try { localStorage.setItem('tt-theme', root.dataset.theme); } catch (e) {}
+      try { localStorage.setItem('tt-theme', root.dataset.theme); } catch {}
     });
   </script>
   {import.meta.env.PROD && (
@@ -111,7 +112,7 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
   {import.meta.env.PROD && (
     <script is:inline define:vars={{ sw: url('sw.js'), scope: url() }}>
       // Offline + instant repeat visits (public/sw.js). Pages can't send long cache headers; the worker can.
-      if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register(sw, { scope }).catch(() => {}));
+      if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register(sw, { scope }).catch(() => {})); // eslint-disable-line @typescript-eslint/no-empty-function -- the site works without it
     </script>
   )}
 </body>

@@ -1,0 +1,10 @@
+# Prettier also reads .gitignore; this lists only tracked files it must leave alone.
+
+# Agents read these: Prettier pads table columns with spaces (more bytes, no gain).
+*.md
+
+# Lockfile: written by pnpm.
+pnpm-lock.yaml
+
+# Season data: written only by events/*/scripts/update_data.py (and its 6-hourly CI job).
+events/*/data/

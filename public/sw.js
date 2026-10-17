@@ -51,7 +51,7 @@ async function networkFirst(req, event) {
     return res;
   });
   // Keep the worker alive until the cache is updated, even when the cached copy answers first.
-  event.waitUntil(network.catch(() => {}));
+  event.waitUntil(network.catch(() => {})); // eslint-disable-line @typescript-eslint/no-empty-function -- offline: the cached copy already answered
   // Slow connection: answer from the last copy after a few seconds; the fetch still updates the cache.
   const timeout = new Promise((resolve) => setTimeout(resolve, NETWORK_TIMEOUT_MS)).then(() => cache.match(req));
   try {

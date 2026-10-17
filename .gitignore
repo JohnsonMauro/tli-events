@@ -1,6 +1,13 @@
+# Dependencies (pnpm install)
 node_modules/
+
+# Astro: build output and generated types (pnpm build / astro check)
 dist/
 .astro/
+
+# Python bytecode from events/*/scripts
 __pycache__/
 *.pyc
+
+# OS files
 .DS_Store

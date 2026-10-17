@@ -15,7 +15,7 @@ export type Lang = (typeof LANGS)[number]['code'];
 export const DEFAULT_LANG: Lang = 'en';
 
 /** BCP 47 tag of a site language (for `<html lang>` and hreflang). */
-export const hreflang = (code: Lang) => LANGS.find((l) => l.code === code)!.hreflang;
+export const hreflang = (code: Lang): string => LANGS.find((l) => l.code === code)?.hreflang ?? code;
 
 /** Fill {var} placeholders. */
 export const fmt = (s: string, vars: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m));

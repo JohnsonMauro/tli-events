@@ -7,15 +7,30 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "data": "for s in events/*/scripts/update_data.py; do python3 -I \"$s\" || exit 1; done"
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "data": "for s in events/*/scripts/update_data.py; do python3 -I \"$s\" || exit 1; done",
+    "prepare": "husky"
   },
   "dependencies": {
     "astro": "7.4.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@eslint/css": "2.0.1",
+    "@eslint/js": "10.0.1",
     "@types/node": "24.19.2",
-    "typescript": "6.0.3"
+    "eslint": "10.12.0",
+    "eslint-plugin-astro": "3.2.1",
+    "eslint-plugin-jsx-a11y-x": "0.2.0",
+    "globals": "17.13.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.2"
   },
   "packageManager": "pnpm@12.11.2",
   "engines": {
