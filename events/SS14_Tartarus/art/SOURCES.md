@@ -33,7 +33,7 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `tool-scales` | Warden's Scales | [35_vod_torture_set_scales_noose_pestle.jpg](../images/35_vod_torture_set_scales_noose_pestle.jpg) | 367,270 220×165 |
 | `tool-rope` | Hangman's Noose | [35_vod_torture_set_scales_noose_pestle.jpg](../images/35_vod_torture_set_scales_noose_pestle.jpg) | 847,270 220×165 |
 | `tool-pestle` | Iron Pestle | [35_vod_torture_set_scales_noose_pestle.jpg](../images/35_vod_torture_set_scales_noose_pestle.jpg) | 1327,270 220×165 |
-| `tool-whip` | Barbed Whip | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 367,270 220×165 |
+| `tool-whip` | Barbed Whip (live; replaces the VOD crop) | [73_live_instrument_offer_maiden_whip_shackles.webp](../images/73_live_instrument_offer_maiden_whip_shackles.webp) | 893,260 300×260 |
 | `tool-stake` | Burning Stake | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 847,270 220×165 |
 | `tool-forged` | Forged Key | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 1327,270 220×165 |
 | `tool-tongs` | Iron Tongs of Lust: Mammoth | [37_vod_torture_set_tongs_ratheads_guillotine.jpg](../images/37_vod_torture_set_tongs_ratheads_guillotine.jpg) | 367,270 220×165 |
@@ -41,6 +41,7 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `tool-hook` | Sorting Hook | [71_live_instrument_offer_fire_hook_axe.webp](../images/71_live_instrument_offer_fire_hook_axe.webp) | 787,170 300×260 |
 | `tool-axe` | Gaoler's Execution Axe | [71_live_instrument_offer_fire_hook_axe.webp](../images/71_live_instrument_offer_fire_hook_axe.webp) | 1440,175 300×260 |
 | `tool-collar` | Maddened Beast's Barbed Collar | [72_live_instrument_offer_hook_collar_shackles.webp](../images/72_live_instrument_offer_hook_collar_shackles.webp) | 498,135 180×150 |
+| `tool-maiden` | Severed Iron Maiden | [73_live_instrument_offer_maiden_whip_shackles.webp](../images/73_live_instrument_offer_maiden_whip_shackles.webp) | 250,254 300×260 |
 | `tool-ironbox` | Squirming Iron Box: Colossal Rat (small icon from the left Torture Instrument panel) | [38_vod_squirming_iron_box_rat_nest.jpg](../images/38_vod_squirming_iron_box_rat_nest.jpg) | 87,328 74×100 |
 | `tool-dogtag` | Felon's Dog Tag | [70_live_objective_reward_dogtag_guillotine_fire.webp](../images/70_live_objective_reward_dogtag_guillotine_fire.webp) | 236,240 300×250 |
 | `tool-guillotine` | Fanged Guillotine: Alpha Wolf (live; replaces the VOD crop) | [70_live_objective_reward_dogtag_guillotine_fire.webp](../images/70_live_objective_reward_dogtag_guillotine_fire.webp) | 873,240 300×250 |
