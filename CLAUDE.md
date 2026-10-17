@@ -44,6 +44,7 @@ Guide, CHANGELOG and `images/INDEX.md` are the research base in the repo; the si
 - Research method and source access live in `events/README.md`; event-specific context in `events/<Dir>/CLAUDE.md`.
 - Don't invent numbers: no source → write "no data" and list it under Gaps.
 - Generated files (`data/*.json`, `*.csv`, snapshots) only via the script — never edit by hand.
-- Before calling something done: clean `pnpm build` and `pnpm check`; look at the pages in a browser (`pnpm preview`, which runs in the background — stop it with `pnpm astro preview stop`) and test at 390 px (see the `astro-site` skill).
+- Code style is enforced, not described: ESLint (`eslint.config.js`) and Prettier (`prettier.config.js`) run on staged files in the pre-commit hook (husky + lint-staged, plus `astro check`); `pnpm install` activates the hook. Never skip it with `--no-verify`.
+- Before calling something done: clean `pnpm build`, `pnpm check`, `pnpm lint` and `pnpm format:check`; look at the pages in a browser (`pnpm preview`, which runs in the background — stop it with `pnpm astro preview stop`) and test at 390 px (see the `astro-site` skill).
 - CHANGELOG is append-only with absolute dates; automatic and manual entries coexist.
 - Research scratch files go to the session scratchpad, not the event folder.
