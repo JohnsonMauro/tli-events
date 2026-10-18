@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.10.2] - 2026-10-18
+
 ### Changed
 
 - SS14 play sheet: instrument, Warden's Treasure and incident pictures show whole instead of cropped — treasures and incidents at 88 px tall; instruments keep their size, and the wide ones (Tongs, Noose…) are no longer cut at the sides.
@@ -242,7 +244,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.1...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.2...HEAD
+[1.10.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.1...v1.10.2
 [1.10.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.1...v1.10.0
 [1.9.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.0...v1.9.1
