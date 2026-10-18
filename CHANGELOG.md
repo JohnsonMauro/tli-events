@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet in Portuguese, German and Spanish reads as a native would write it: "inmate" is now *prisioneiro*, *Insasse* and *preso* (names the game client shows stay in English); in Portuguese, "contra-ataca" (which means hitting back) gives way to the sheet's own "come" for what a beast eats.
+
 ## [1.10.0] - 2026-10-18
 
 ### Added
