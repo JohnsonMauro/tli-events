@@ -208,3 +208,7 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - **Re-export** (2,162 tests × 100,000 runs): no instrument 1.39 → 1.49; **Elephant-Foot Maul 2.49 → 3.23, now the best solo** (Claws 3.14, Crown 3.13, Tongs 3.12); Muzzle 1.99 → 2.41; Collar 2.59 → 2.82; Blood-Stained Trap 2.02 → 2.34; Tyranny base 4.12 → 4.98.
 - **Incidents ranked** (new in the export: the run with its first "!" forced to each kind, against an ordinary run): Usurpation **+1.49**, Behind Closed Doors +0.19, Extra Portion +0.17, High-Risk Convict +0.04, Ravenous Appetite +0.01, Taste of Freedom −0.07, Shared Fortune −0.18, Chain Reaction −0.20, Archenemy −0.23, Sewer Ratway −0.25, Execution Efficiency −0.29, Crow Whispers −0.37, "Treasure" Hunt −0.41.
 - **Crow Whispers** (`images/97`): owner's play — the 4 cells go clockwise from the warden and skip occupied cells, as the engine does. **Crowded Beastcage, Avenger's Casket, Searing Branding Iron** full cards (`images/98`–`100`); the Branding Iron's copy lands in an opened cell (`images/101`).
+
+## 2026-10-18 — Tyranny card printed (LIVE)
+
+- **Tyranny** first print (`images/106`, the owner's run): "Automatically triggers Instigate and Bestow 3 additional times each time you stop at the Interrogation Room". Matches our engine (`rules::office`: +3 of each on top of the choice) and the sheet, which had followed players' reports; no number changes. The sheet now shows its card art and drops the "card not seen" note.

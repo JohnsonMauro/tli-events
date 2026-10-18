@@ -102,6 +102,7 @@ CROPS = [
     ("compass-3", "42_live_entry_mode_compass.webp", (2197, 260, 144, 213), "Redgold Shackles compass"),
     ("card-ironlaw", "46_live_start_card_iron_law.webp", (1174, 208, 199, 199), "Iron Law"),
     ("card-cagefight", "95_live_start_card_cage_fight.webp", (271, 58, 145, 145), "Cage Fight"),
+    ("card-tyranny", "106_live_start_card_tyranny.webp", (1174, 208, 199, 199), "Tyranny"),
 ]
 
 
