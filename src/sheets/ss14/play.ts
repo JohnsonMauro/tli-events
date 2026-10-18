@@ -26,10 +26,11 @@ interface PlayData {
     | 'nothing'
     | 'pickHint'
     | 'full'
-    | 'xNone'
     | 'offered'
     | 'withYou'
     | 'partners'
+    | 'partnersSub'
+    | 'rankOf'
     | 'doubt',
     string
   > & { tool: Record<string, string> };
@@ -129,6 +130,13 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
 
   const toolName = (id: string) => D.tools[id]?.name ?? id;
   const value = (id: string) => N.tools[id] ?? D.tools[id]?.value ?? 0;
+  /** Tier for the current numbers (cut against their no-instrument run). */
+  const tierOf = (v: number) => D.tiers.find(([, min]) => v / N.base >= min)?.[0] ?? 'X';
+  /** Position among all instruments for the current numbers (1 = best), for "#5 of 31". */
+  const rankOf = (id: string) => {
+    const ids = Object.keys(D.tools);
+    return { n: 1 + ids.filter((x) => value(x) > value(id)).length, total: ids.length };
+  };
   const pairValue = (a: string, b: string) =>
     N.pairs.find(([x, y]) => (x === a && y === b) || (x === b && y === a))?.[2] ?? null;
   /** Rainbow/run of taking `id` now: best pair with something held, else its solo value. */
@@ -182,22 +190,25 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     const img = grid.querySelector<HTMLImageElement>(`[data-tool="${CSS.escape(id)}"] img`);
     return img ? img.currentSrc || img.src : '';
   };
-  /** Pairs as a list, best first: partner art, name, Rainbow/run and × no instrument. */
+  /** Pairs as a list, best first: partner art, its own tier, name, Rainbows per run with both. */
   const pairList = (rows: [string, number | null][]) =>
     `<ol class="tp-pairs">${rows
       .filter((r): r is [string, number] => r[1] != null)
       .sort((x, y) => y[1] - x[1])
       .map(([p, v]) => {
         const src = toolImg(p);
-        return `<li>${src ? `<img src="${esc(src)}" alt="">` : '<span class="ph">?</span>'}<span class="pn">${esc(toolName(p))}</span><b>${v.toFixed(2)}</b><em>${(v / N.base).toFixed(1)}×</em></li>`;
+        const pt = tierOf(value(p));
+        return `<li>${src ? `<img src="${esc(src)}" alt="">` : '<span class="ph">?</span>'}<span class="tier t${pt}">${pt === 'X' ? '✕' : pt}</span><span class="pn">${esc(toolName(p))}</span><b>${v.toFixed(2)}</b></li>`;
       })
       .join('')}</ol>`;
 
+  // An instrument's card, as a player reads it: its own rank (tier + position) decides the first pick; the best
+  // second instrument (pairs, with each partner's tier) decides the run. No multiplier: the tiers are cut against a
+  // run with no instrument, which never happens in the game.
   function toolHtml(btn: HTMLElement) {
     const id = btn.dataset.tool ?? '',
       t = D.tools[id],
       tier = btn.dataset.tier ?? '',
-      v = value(id),
       src = toolImg(id);
     const offers = D.offers?.n ? D.offers : null;
     const off = offers ? (offers.counts[id] || 0) / offers.n : null;
@@ -206,17 +217,17 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       .map((h): [string, number | null] => [h, pairValue(id, h)])
       .filter(([, v]) => v != null);
     return `<div class="tp-head">${src ? `<img src="${esc(src)}" alt="">` : '<span></span>'}<div><b>${esc(t.name)}</b>
-        <div class="tp-stats"><span class="tier t${esc(tier)}">${tier === 'X' ? '✕' : esc(tier)}</span> <b>${v.toFixed(2)}</b> ${esc(T.perRun)} · ${(v / N.base).toFixed(1)}${esc(T.xNone)}</div>
+        <div class="tp-rank"><span class="tier t${esc(tier)}">${tier === 'X' ? '✕' : esc(tier)}</span><b>${esc(fmt(T.rankOf, rankOf(id)))}</b></div>
         ${offers && off != null ? `<div class="tp-stats">${esc(fmt(T.offered, { p: Math.round(off * 100), n: offers.n }))}</div>` : ''}</div></div>
       ${btn.dataset.doubt != null ? `<p class="tp-doubt"><span class="doubt" aria-hidden="true">!</span>${esc(T.doubt)}</p>` : ''}
       ${T.tool[id] ? `<p class="tp-what">${esc(T.tool[id])}</p>` : ''}
-      ${withHeld.length ? `<div class="tp-sub"><span>${esc(T.withYou)}</span>${pairList(withHeld)}</div>` : ''}
-      <div class="tp-sub"><span>${esc(T.partners)}</span>${pairList(partners(id))}</div>`;
+      ${withHeld.length ? `<div class="tp-sub"><span>${esc(T.withYou)}</span><small>${esc(T.partnersSub)}</small>${pairList(withHeld)}</div>` : ''}
+      <div class="tp-sub tp-second"><span>${esc(T.partners)}</span><small>${esc(T.partnersSub)}</small>${pairList(partners(id))}</div>`;
   }
   // Incident details are rendered by the page into <template id="ev-ID"> (already in the page language).
   const evHtml = (btn: HTMLElement) =>
     (document.getElementById('ev-' + btn.dataset.ev) as HTMLTemplateElement | null)?.innerHTML ?? '';
-  // Explanations (e.g. what a tier's "≥2.6×" means) live in <template id="tip-NAME">, also in the page language.
+  // Explanations (e.g. what the tiers mean) live in <template id="tip-NAME">, also in the page language.
   const tipHtml = (btn: HTMLElement) =>
     (document.getElementById('tip-' + btn.dataset.tip) as HTMLTemplateElement | null)?.innerHTML ?? '';
 
@@ -224,6 +235,13 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   function showPop(anchor: HTMLElement) {
     pop.innerHTML = anchor.dataset.tool ? toolHtml(anchor) : anchor.dataset.ev ? evHtml(anchor) : tipHtml(anchor);
     if (anchor.dataset.row) pop.querySelector(`[data-row="${anchor.dataset.row}"]`)?.classList.add('on');
+    // The tier table's Rainbows per run follow the run's start card and objective.
+    pop.querySelectorAll<HTMLElement>('[data-min]').forEach((td) => {
+      td.textContent = `≥${(Number(td.dataset.min) * N.base).toFixed(2)} ${T.perRun}`;
+    });
+    pop.querySelectorAll<HTMLElement>('[data-max]').forEach((td) => {
+      td.textContent = `<${(Number(td.dataset.max) * N.base).toFixed(2)} ${T.perRun}`;
+    });
     pop.hidden = false;
     shownFor = anchor;
     const r = anchor.getBoundingClientRect(),
@@ -311,8 +329,6 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   });
 
   // ---------- your run: the choices re-tier the grid ----------
-  const tierOf = (v: number) => D.tiers.find(([, min]) => v / N.base >= min)?.[0] ?? 'X';
-  const tierMeta = document.getElementById('tierMeta');
   /** Moves every tile into its tier for the current numbers, best first, and hides empty tiers. */
   function retier() {
     const tiles = [...grid.querySelectorAll<HTMLElement>('.tool')].sort(
@@ -326,7 +342,6 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     grid.querySelectorAll<HTMLElement>('[data-group]').forEach((g) => {
       g.hidden = !g.querySelector('.tool');
     });
-    if (tierMeta?.dataset.tpl) tierMeta.textContent = fmt(tierMeta.dataset.tpl, { base: N.base.toFixed(2) });
   }
   const run = document.getElementById('run');
   // "Strong pairs": one list per start card, rendered at build; show the marked one (none → no start card).

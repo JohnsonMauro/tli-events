@@ -4,6 +4,13 @@ import { expect, test, type Page } from '@playwright/test';
 
 const SHEET = '/ss14/';
 const visiblePairs = (page: Page) => page.locator('[data-pairs]:not([hidden])');
+// Opens an instrument's card by focus. Scroll first and focus without scrolling: a pane scroll closes the card.
+async function openCard(page: Page, id: string) {
+  const tile = page.locator(`#tools .tool[data-tool="${id}"]`);
+  await tile.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await page.waitForTimeout(200);
+  await tile.evaluate((el: HTMLElement) => el.focus({ preventScroll: true }));
+}
 
 test('folds: pairs start closed, open on the heading and stay open after reload', async ({ page }) => {
   await page.goto(SHEET);
@@ -46,6 +53,57 @@ test('instrument pick: tapping 3 offered lights up a pick', async ({ page }) => 
   for (const i of [0, 1, 2]) await tiles.nth(i).click();
   await expect(page.locator('#pickOut .pick.best')).toBeVisible();
   await expect(page.locator('#tools .tool.best')).toHaveCount(1);
+});
+
+test('instrument card: own rank (tier + position), then the best second instrument with tiers', async ({ page }) => {
+  await page.goto(SHEET);
+  await openCard(page, 'rope');
+  const pop = page.locator('#pop');
+  await expect(pop).toBeVisible();
+  await expect(pop.locator('.tp-rank .tier')).toHaveText(/^[SABCD✕]$/);
+  await expect(pop.locator('.tp-rank b')).toHaveText(/^#\d+ of \d+$/);
+  const second = pop.locator('.tp-second');
+  await expect(second).toContainText('Best second instrument');
+  await expect(second.locator('li').first().locator('.tier')).toHaveText(/^[SABCD✕]$/);
+});
+
+test('no "no instrument" baseline anywhere: a run always holds one', async ({ page }) => {
+  await page.goto(SHEET);
+  await openCard(page, 'rope');
+  await expect(page.locator('#pop')).toBeVisible();
+  // Visible text and the accessible names (aria-label) both count.
+  const said = await page.evaluate(() =>
+    [
+      document.body.innerText,
+      ...[...document.querySelectorAll('[aria-label]')].map((e) => e.getAttribute('aria-label')),
+    ].join('\n'),
+  );
+  expect(said).not.toMatch(/no instrument/i);
+});
+
+test('your run: start cards and objectives open a card (what it does; best first picks)', async ({ page }) => {
+  await page.goto(SHEET);
+  const pop = page.locator('#pop');
+  const open = (sel: string) => page.locator(sel).evaluate((el: HTMLElement) => el.focus({ preventScroll: true }));
+
+  await open('#run [data-start="cagefight"]');
+  await expect(pop).toContainText('Cage Fight');
+  await expect(pop.locator('.tp-doubt')).toHaveCount(0);
+  await expect(pop.locator('.tp-second li')).toHaveCount(3);
+  await expect(pop.locator('.tp-second li .tier').first()).toHaveText(/^[SABCD✕]$/);
+
+  await open('#run [data-start="tyranny"]');
+  await expect(pop).toContainText('Tyranny');
+  await expect(pop.locator('.tp-doubt')).toHaveCount(1);
+
+  await open('#run [data-objective="walk"]');
+  await expect(pop).toContainText('Prison Walk');
+  await expect(pop).toContainText('18 tiles');
+  await expect(pop).toContainText('+1 instrument');
+
+  // "none" and "any" are not cards: no popover.
+  await expect(page.locator('#run [data-start=""]')).not.toHaveAttribute('data-tip');
+  await expect(page.locator('#run [data-objective=""]')).not.toHaveAttribute('data-tip');
 });
 
 for (const [timezoneId, offset] of [

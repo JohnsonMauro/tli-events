@@ -6,6 +6,18 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet in **French** (`/ss14/fr/`), with the "Method & credits" dialog and the "new version" notice.
+- The footer ("made with ♥") in each page's language.
+- Language switcher: English now shows the Anglosphere flag (Union Jack, US stripes, Canada's maple leaf) — English for every English-speaking player, not one country.
+- SS14 play sheet: in **Your run**, each start card and objective opens a card (hover or tap) — what the start card does and the 3 best first instruments with it (with their tiers); the objective's goal and reward. Tyranny is marked "!" (no print of its card yet).
+
+### Changed
+
+- SS14 play sheet: an instrument's card reads the way you pick — its own rank first (a big tier badge and its place, e.g. "#5 of 31", for your first instrument), then **Best second instrument**, each partner with its own tier.
+- SS14 play sheet: no more "× no instrument" anywhere (every run holds an instrument, so that comparison never happens in the game). Tiers keep their order; pairs show **Rainbows per run** with both, now defined in the tier explanation (ⓘ): how many inmates reach Rainbow, the top rarity, in a full run, on average, in our simulation.
+
 ## [1.5.0] - 2026-10-17
 
 ### Added

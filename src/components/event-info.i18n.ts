@@ -69,6 +69,24 @@ export const INFO: Record<Lang, InfoLabels> = {
     feedbackBtn: 'GitHub Discussions öffnen',
     close: 'Schließen',
   },
+  fr: {
+    btn: 'Méthode et crédits',
+    title: 'Comment cette page a été faite',
+    methodH: 'Méthode',
+    thanksH: 'Merci, créateurs',
+    thanksLead: 'Cette page repose sur leur travail — visitez leurs chaînes et soutenez-les :',
+    roles: {
+      sim: 'simulateur et outils',
+      video: 'vidéo de saison',
+      interview: 'interview des devs',
+      official: 'présentation officielle',
+    },
+    feedbackH: 'Aidez à l’améliorer',
+    feedbackP:
+      'Vous avez trouvé une erreur, un nouveau combo ou un bug du jeu ? Partagez-le avec nous sur GitHub Discussions.',
+    feedbackBtn: 'Ouvrir GitHub Discussions',
+    close: 'Fermer',
+  },
   ko: {
     btn: '방법 & 크레딧',
     title: '이 페이지는 이렇게 만들었습니다',

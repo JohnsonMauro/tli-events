@@ -5,6 +5,7 @@ export const LANGS = [
   { code: 'en', label: 'EN', name: 'English', hreflang: 'en' },
   { code: 'pt-br', label: 'PT', name: 'Português (Brasil)', hreflang: 'pt-BR' },
   { code: 'de', label: 'DE', name: 'Deutsch', hreflang: 'de' },
+  { code: 'fr', label: 'FR', name: 'Français', hreflang: 'fr' },
   { code: 'ko', label: '한', name: '한국어', hreflang: 'ko' },
   { code: 'ja', label: '日', name: '日本語', hreflang: 'ja' },
   { code: 'zh', label: '中', name: '简体中文', hreflang: 'zh-Hans' },
@@ -30,15 +31,51 @@ export const rich = (s: string) =>
     .replace(/\*\*(.+?)\*\*/g, '<span class="k">$1</span>')
     .replace(/!!(.+?)!!/g, '<span class="no">$1</span>');
 
-/** Site-wide strings (src/layouts/Base.astro): the "new version" notice. */
-export const SITE_TEXT: Record<Lang, { newVersion: string; reload: string }> = {
-  en: { newVersion: 'A new version of this page is out.', reload: 'Reload' },
-  'pt-br': { newVersion: 'Saiu uma versão nova desta página.', reload: 'Recarregar' },
-  de: { newVersion: 'Eine neue Version dieser Seite ist da.', reload: 'Neu laden' },
-  ko: { newVersion: '이 페이지의 새 버전이 나왔습니다.', reload: '새로고침' },
-  ja: { newVersion: 'このページの新しいバージョンがあります。', reload: '再読み込み' },
-  zh: { newVersion: '本页面有新版本。', reload: '刷新' },
-  ru: { newVersion: 'Вышла новая версия этой страницы.', reload: 'Обновить' },
+/** Site-wide strings (src/layouts/Base.astro): the "new version" notice and the footer ({heart} = the heart icon). */
+export const SITE_TEXT: Record<Lang, { newVersion: string; reload: string; madeWith: string; love: string }> = {
+  en: {
+    newVersion: 'A new version of this page is out.',
+    reload: 'Reload',
+    madeWith: 'TLI Events, made with {heart}',
+    love: 'love',
+  },
+  'pt-br': {
+    newVersion: 'Saiu uma versão nova desta página.',
+    reload: 'Recarregar',
+    madeWith: 'TLI Events, feito com {heart}',
+    love: 'amor',
+  },
+  de: {
+    newVersion: 'Eine neue Version dieser Seite ist da.',
+    reload: 'Neu laden',
+    madeWith: 'TLI Events, gemacht mit {heart}',
+    love: 'Liebe',
+  },
+  fr: {
+    newVersion: 'Une nouvelle version de cette page est disponible.',
+    reload: 'Recharger',
+    madeWith: 'TLI Events, fait avec {heart}',
+    love: 'amour',
+  },
+  ko: {
+    newVersion: '이 페이지의 새 버전이 나왔습니다.',
+    reload: '새로고침',
+    madeWith: 'TLI Events, {heart}을 담아 만듦',
+    love: '사랑',
+  },
+  ja: {
+    newVersion: 'このページの新しいバージョンがあります。',
+    reload: '再読み込み',
+    madeWith: 'TLI Events、{heart}を込めて',
+    love: '愛',
+  },
+  zh: { newVersion: '本页面有新版本。', reload: '刷新', madeWith: 'TLI Events，用{heart}制作', love: '爱' },
+  ru: {
+    newVersion: 'Вышла новая версия этой страницы.',
+    reload: 'Обновить',
+    madeWith: 'TLI Events, сделано с {heart}',
+    love: 'любовью',
+  },
 };
 
 /** Site language of a BCP 47 tag (Base.astro gets `lang` as the tag); English when unknown. */

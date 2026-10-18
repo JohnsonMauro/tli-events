@@ -36,6 +36,7 @@ const canonical = abs(Astro.url.pathname);
 // JPEG for the share card: every chat app and crawler reads it (WebP support is still uneven there).
 const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', quality: 80 }) : null;
 const site = SITE_TEXT[langOfTag(lang)];
+const [footBefore, footAfter = ''] = site.madeWith.split('{heart}');
 ---
 
 <!doctype html>
@@ -143,10 +144,11 @@ const site = SITE_TEXT[langOfTag(lang)];
       <slot />
     </main>
     <footer class="site-foot">
-      TLI Events, made with{' '}
-      <svg class="heart" viewBox="0 0 24 24" role="img" aria-label="love">
+      {footBefore}
+      <svg class="heart" viewBox="0 0 24 24" role="img" aria-label={site.love}>
         <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.2 5.2 3.1 1.6-1.9 3.1-3.1 5.2-3.1 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z" />
       </svg>
+      {footAfter}
     </footer>
     <div class="update-toast" id="update-toast" role="status" hidden>
       <span>{site.newVersion}</span>

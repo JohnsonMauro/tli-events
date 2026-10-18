@@ -791,6 +791,25 @@ main.wide {
   min-width: 20px;
   padding: 0 4px;
 }
+/* the instrument's own rank (first pick): big tier badge + its position among all instruments */
+.tp-rank {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+.tp-rank .tier {
+  flex: none;
+  min-width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 24px;
+  border-radius: 6px;
+}
+.tp-rank b {
+  font: 700 18px var(--mono);
+  color: var(--ink);
+}
 .tip-h {
   font-size: 17px;
   display: block;
@@ -832,6 +851,18 @@ main.wide {
   font-size: 13px;
   color: var(--ink2);
 }
+.tp-sub > small {
+  display: block;
+  font-size: 12px;
+  color: var(--ink2);
+}
+/* the best second instrument: what decides the run, so the loudest section */
+.tp-sub.tp-second > span:first-child {
+  font: 700 14px var(--sans);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 .tp-pairs {
   list-style: none;
   margin: 4px 0 0;
@@ -841,7 +872,7 @@ main.wide {
 }
 .tp-pairs li {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) auto auto;
+  grid-template-columns: 40px auto minmax(0, 1fr) auto;
   gap: 8px;
   align-items: center;
   background: var(--surface2);
@@ -874,12 +905,10 @@ main.wide {
   font: 600 13px var(--mono);
   color: var(--accent);
 }
-.tp-pairs em {
-  font: 12px var(--mono);
-  font-style: normal;
-  color: var(--ink2);
-  min-width: 3.2em;
-  text-align: right;
+.tp-pairs .tier {
+  min-width: 22px;
+  font-size: 14px;
+  padding: 0 4px;
 }
 .tp-sub > span:first-child {
   display: block;

@@ -78,7 +78,9 @@ const tools = Object.entries(E.tools)
     art: A('tool-' + id, 'lg'),
     doubt: DOUBT.has(id),
   }));
-const groups = [...TIERS.map(([tier, min]) => ({ tier, note: `≥${min.toFixed(1)}×` })), { tier: 'X', note: '<1×' }]
+// Tiers are cut on Rainbows per run against a run with no instrument (TIERS), but the page never shows that run:
+// every real run holds an instrument. Players read the letter (first pick) and the pairs (second pick).
+const groups = [...TIERS.map(([tier]) => ({ tier })), { tier: 'X' }]
   // Every group is rendered (empty ones hidden): ./play.ts moves the tiles when the run's choices change.
   .map((g) => ({ ...g, tools: tools.filter((x) => x.tier === g.tier) }));
 
@@ -120,7 +122,7 @@ const pairText = (a: string, b: string) => {
 };
 // Full card names: the part after ":" names the beast a beast-specific instrument works for.
 const short = (id: string) => E.tools[id]?.name ?? id;
-const topPairs = (pairs: Pair[], pairsBase: number) =>
+const topPairs = (pairs: Pair[]) =>
   pairs
     .slice()
     .sort((x, y) => y[2] - x[2])
@@ -133,7 +135,6 @@ const topPairs = (pairs: Pair[], pairsBase: number) =>
     .slice(0, PAIRS_SHOWN)
     .map(([a, b, v]) => ({
       v,
-      x: v / pairsBase,
       nameA: short(a),
       nameB: short(b),
       artA: A('tool-' + a),
@@ -145,9 +146,38 @@ const topPairs = (pairs: Pair[], pairsBase: number) =>
 // One list per start card (a start card changes the rules, so the pairs too); ./play.ts shows the one marked
 // in "Your run". '' = no start card. An objective has no pair numbers of its own.
 const pairLists = [
-  { start: '', base, builds: topPairs(E.pairs, base) },
-  ...Object.entries(E.byStart ?? {}).map(([start, x]) => ({ start, base: x.base, builds: topPairs(x.pairs, x.base) })),
+  { start: '', builds: topPairs(E.pairs) },
+  ...Object.entries(E.byStart ?? {}).map(([start, x]) => ({ start, builds: topPairs(x.pairs) })),
 ];
+
+// ---- your run: a popover on each start card and objective chip (what it does; a start card's best first picks) ----
+const tierAt = (v: number, b: number) => TIERS.find(([, min]) => v / b >= min)?.[0] ?? 'X';
+const firstPicks = (start: string) => {
+  const x = E.byStart?.[start];
+  if (!x) return [];
+  return Object.entries(x.tools)
+    .filter(([id]) => {
+      const r = offerRate(id);
+      return r == null || r >= SHOWS_UP;
+    })
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([id, v]) => ({ name: short(id), v, tier: tierAt(v, x.base), art: A('tool-' + id) }));
+};
+const startTips = STARTS.filter(([id]) => id).map(([id, name]) => ({
+  id,
+  name,
+  art: A('card-' + id, 'md'),
+  does: id === 'ironlaw' ? t.ironlawP : t.run[id as 'cagefight' | 'tyranny'],
+  // No print of Tyranny's card yet: the rule comes from players' reports.
+  seen: id !== 'tyranny',
+  picks: firstPicks(id),
+}));
+const objectiveTips = OBJECTIVES.filter(([id]) => id).map(([id, name]) => ({
+  id,
+  name,
+  goal: t.run[id as 'king' | 'walk' | 'consume' | 'undercurrents' | 'doors'],
+}));
 
 // ---- incidents: no skip on any card seen (only Confirm) → the choice is stepping on a "!" cell ----
 // [id, card name, verdict, art id, source of the effect text]
@@ -196,10 +226,11 @@ const ui = {
   nothing: t.nothing,
   pickHint: t.pickHint,
   full: t.full,
-  xNone: t.xNone,
   offered: t.offered,
   withYou: t.withYou,
   partners: t.partners,
+  partnersSub: t.partnersSub,
+  rankOf: t.rankOf,
   doubt: t.doubt,
   tool: t.tool,
 };
@@ -244,7 +275,14 @@ const ladder = [
         <div class="run-row" role="group" aria-label={t.runStart}>
           <span class="run-l">{t.runStart}</span>
           {STARTS.map(([id, name, art]) => (
-            <button type="button" class="opt" data-start={id} aria-pressed={id === '' ? 'true' : 'false'}>
+            <button
+              type="button"
+              class="opt"
+              data-start={id}
+              data-tip={id ? `start-${id}` : undefined}
+              aria-describedby={id ? 'pop' : undefined}
+              aria-pressed={id === '' ? 'true' : 'false'}
+            >
               {art && <Art img={art} class="inl" />}
               {name}
             </button>
@@ -254,7 +292,14 @@ const ladder = [
         <div class="run-row" role="group" aria-label={t.runObjective}>
           <span class="run-l">{t.runObjective}</span>
           {OBJECTIVES.map(([id, name]) => (
-            <button type="button" class="opt" data-objective={id} aria-pressed={id === '' ? 'true' : 'false'}>
+            <button
+              type="button"
+              class="opt"
+              data-objective={id}
+              data-tip={id ? `obj-${id}` : undefined}
+              aria-describedby={id ? 'pop' : undefined}
+              aria-pressed={id === '' ? 'true' : 'false'}
+            >
               {name}
             </button>
           ))}
@@ -381,7 +426,7 @@ const ladder = [
         </summary>
         {pairLists.map((l) => (
           <div data-pairs={l.start} hidden={l.start !== ''}>
-            <p class="meta">{fmt(t.pairsMeta, { base: l.base.toFixed(2) })}</p>
+            <p class="meta">{t.pairsMeta}</p>
             <p class="meta">{t.pairsNote}</p>
             <ul class="builds">
               {l.builds.map((b) => (
@@ -395,9 +440,7 @@ const ladder = [
                         ] as const
                       ).map(([img, n]) => (img ? <Art img={img} /> : <span class="noimg">{n}</span>))}
                     </span>
-                    <span class="val">
-                      {b.v.toFixed(2)} · {b.x.toFixed(1)}×
-                    </span>
+                    <span class="val">{b.v.toFixed(2)}</span>
                   </div>
                   <div>
                     <b>
@@ -477,10 +520,9 @@ const ladder = [
                 class="tier-info"
                 data-tip="tiers"
                 data-row={g.tier}
-                aria-label={`${g.note} — ${t.tipBtn}`}
+                aria-label={t.tipBtn}
                 aria-describedby="pop"
               >
-                <span class="meta">{g.note}</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <circle cx="12" cy="12" r="9.5" />
                   <path d="M12 11v6M12 7.5v.5" />
@@ -518,9 +560,7 @@ const ladder = [
           </section>
         ))}
       </div>
-      <p class="meta" id="tierMeta" data-tpl={t.tierMeta}>
-        {fmt(t.tierMeta, { base: base.toFixed(2) })}
-      </p>
+      <p class="meta">{t.tierMeta}</p>
       <p class="doubt-note">
         <span class="doubt" aria-hidden="true">
           !
@@ -594,10 +634,60 @@ const ladder = [
       </ul>
     </aside>
   </div>
+  {startTips.map((c) => (
+    <template id={`tip-start-${c.id}`}>
+      <div class="tp-head">
+        {c.art ? <Art img={c.art} /> : <span></span>}
+        <div>
+          <b>{c.name}</b>
+          <div class="tp-stats">{t.runStart}</div>
+        </div>
+      </div>
+      {!c.seen && (
+        <p class="tp-doubt">
+          <span class="doubt" aria-hidden="true">
+            !
+          </span>
+          {t.run.notSeen}
+        </p>
+      )}
+      <p class="tp-what" set:html={rich(c.does)} />
+      {c.picks.length > 0 && (
+        <div class="tp-sub tp-second">
+          <span>{t.run.bestFirst}</span>
+          <small>{t.perRun}</small>
+          <ol class="tp-pairs">
+            {c.picks.map((p) => (
+              <li>
+                {p.art ? <Art img={p.art} /> : <span class="ph">?</span>}
+                <span class={`tier t${p.tier}`}>{p.tier === 'X' ? '✕' : p.tier}</span>
+                <span class="pn">{p.name}</span>
+                <b>{p.v.toFixed(2)}</b>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+    </template>
+  ))}
+  {objectiveTips.map((o) => (
+    <template id={`tip-obj-${o.id}`}>
+      <b class="tip-h">{o.name}</b>
+      <div class="tp-stats">{t.runObjective}</div>
+      <p class="tp-sub">
+        <span>{t.run.goalH}</span>
+        <Fragment set:html={rich(o.goal)} />
+      </p>
+      <p class="tp-sub">
+        <span>{t.run.rewardH}</span>
+        <Fragment set:html={rich(t.run.reward)} />
+      </p>
+    </template>
+  ))}
   <template id="tip-tiers">
     <b class="tip-h">{t.tipH}</b>
     <p class="tip-p">
-      <Fragment set:html={rich(fmt(t.tipP, { base: base.toFixed(2), top: TIERS[0][1].toFixed(1) }))} />
+      <Fragment set:html={rich(t.tipP)} />
     </p>
     <table class="tip-tiers">
       {TIERS.map(([tier, min]) => (
@@ -605,8 +695,8 @@ const ladder = [
           <td>
             <span class={`tier t${tier}`}>{tier}</span>
           </td>
-          <td>≥{min.toFixed(1)}×</td>
-          <td>
+          {/* ./play.ts rewrites it for the run's start card and objective (their own no-instrument run) */}
+          <td data-min={min}>
             ≥{(min * base).toFixed(2)} {t.perRun}
           </td>
         </tr>
@@ -615,8 +705,7 @@ const ladder = [
         <td>
           <span class="tier tX">✕</span>
         </td>
-        <td>&lt;1×</td>
-        <td>
+        <td data-max="1">
           &lt;{base.toFixed(2)} {t.perRun}
         </td>
       </tr>
