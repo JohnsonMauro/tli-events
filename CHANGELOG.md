@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-10-18
+
 ### Added
 
 - SS14 play sheet in **Spanish** (`/ss14/es/`), **Polish** (`/ss14/pl/`) and **Swedish** (`/ss14/sv/`) — Polish and Swedish reached 10 visits in our analytics. Polish letters use the site's own fonts (no system-font letters in the middle of a word).
@@ -230,7 +232,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.1...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.1...v1.10.0
 [1.9.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.0...v1.9.1
 [1.9.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.8.1...v1.9.0
 [1.8.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.8.0...v1.8.1
