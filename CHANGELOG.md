@@ -6,6 +6,14 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- Every page: a "new version" notice with a Reload button when the page you have open (or got from a cache) is older than the one online.
+
+### Fixed
+
+- Every page: after an update, opening the site shows the new version right away; before, the browser could keep the old copy for up to 10 minutes.
+
 ## [1.4.0] - 2026-10-17
 
 ### Added

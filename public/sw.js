@@ -3,9 +3,10 @@
 // GitHub Pages sends `cache-control: max-age=600` for every file, so without this the browser
 // revalidates even content-hashed assets every 10 minutes. Here:
 //   /_astro/*   content-hashed (CSS, JS, images, fonts) → cache-first, kept until evicted
-//   pages       network-first with a short timeout → fresh data when online, last copy offline
+//   pages       network-first (revalidated, never the HTTP cache) with a short timeout → fresh when online,
+//               last copy offline; a page that was served stale offers a reload (src/lib/update-check.ts)
 // Bump VERSION only to drop every cache (e.g. after changing this strategy).
-const VERSION = 'v1';
+const VERSION = 'v2';
 const ASSETS = `tli-assets-${VERSION}`;
 const PAGES = `tli-pages-${VERSION}`;
 const MAX_ASSETS = 300; // a few deploys' worth; oldest entries go first
@@ -50,7 +51,9 @@ async function cacheFirst(req) {
 
 async function networkFirst(req, event) {
   const cache = await caches.open(PAGES);
-  const network = fetch(req).then(async (res) => {
+  // `no-cache`: always ask the server (a cheap 304 when nothing changed) instead of taking the browser's HTTP-cache
+  // copy, which Pages' max-age=600 keeps for 10 minutes after every deploy.
+  const network = fetch(req, { cache: 'no-cache' }).then(async (res) => {
     if (res.ok) await cache.put(req, res.clone());
     return res;
   });

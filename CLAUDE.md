@@ -20,12 +20,14 @@ src/                          Astro 7 site — publishes the event list and each
     i18n.ts                   LANGS, Lang, fmt(), rich() — shared by every sheet
     images.ts                 fixed()/fluid()/artSet(): WebP + srcset + intrinsic size
     project.ts                repo and Discussions URLs
+    build.ts                  BUILD_ID (git HEAD) → <meta name="tli-build"> on every page
+    update-check.ts           "new version" toast: compares that meta with the live page's
   layouts/Base.astro          head (fonts, canonical, hreflang, OG, manifest, SW) + sticky header + footer
   components/                 Art (optimized <img>), BackLink (top of an event page's content), EventInfo ("Method & credits" dialog), Flag
   sheets/<slug>/              one play sheet per event, colocated: PlaySheet.astro, i18n.ts, play.ts (client), play.css
   pages/                      index (event list), 404, sitemap.xml, manifest.webmanifest, <slug>/index + [lang] → sheets/<slug>
   assets/fonts/               self-hosted font files not on Google's API (astro.config.mjs `fonts`)
-public/sw.js                  service worker: /_astro/* cache-first, pages network-first (works around Pages' 10-min cache)
+public/sw.js                  service worker: /_astro/* cache-first, pages network-first revalidated with `no-cache` (works around Pages' 10-min cache)
 .github/workflows/deploy.yml  push → lint (eslint, prettier, astro check) → build/deploy; every 6h → run events/*/scripts/update_data.py, commit if changed, deploy
 ```
 

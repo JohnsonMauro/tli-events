@@ -3,6 +3,8 @@ import { Font, getImage } from 'astro:assets';
 import '../styles/site.css';
 import { url } from '../lib/events';
 import Flag from '../components/Flag.astro';
+import { BUILD_ID } from '../lib/build';
+import { SITE_TEXT, langOfTag } from '../lib/i18n';
 
 interface Props {
   title: string;
@@ -33,6 +35,7 @@ const abs = (path: string) => new URL(path, Astro.site ?? Astro.url).href;
 const canonical = abs(Astro.url.pathname);
 // JPEG for the share card: every chat app and crawler reads it (WebP support is still uneven there).
 const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', quality: 80 }) : null;
+const site = SITE_TEXT[langOfTag(lang)];
 ---
 
 <!doctype html>
@@ -64,6 +67,8 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
       </>
     )}
     <meta name="twitter:card" content={og ? 'summary_large_image' : 'summary'} />
+    {/* The commit this page was built from (src/lib/build.ts): the update check below compares it with the live one. */}
+    <meta name="tli-build" content={BUILD_ID} />
     {/* Search Console ownership (URL-prefix property for the Pages project site). Keep it: removing it unverifies the site. */}
     <meta name="google-site-verification" content="INWse-XtGLavB8Tu7RXajMkwTpACvo8dxvEqqKnCkv4" />
     {/* Self-hosted (astro.config.mjs `fonts`); preload only what paints first: body text (regular + bold) and headings, Latin. */}
@@ -143,6 +148,10 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
         <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.2 5.2 3.1 1.6-1.9 3.1-3.1 5.2-3.1 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z" />
       </svg>
     </footer>
+    <div class="update-toast" id="update-toast" role="status" hidden>
+      <span>{site.newVersion}</span>
+      <button type="button">{site.reload}</button>
+    </div>
     <script is:inline>
       const langSel = document.querySelector('.lang-select');
       if (langSel) {
@@ -163,6 +172,10 @@ const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', qual
           localStorage.setItem('tt-theme', root.dataset.theme);
         } catch {}
       });
+    </script>
+    <script>
+      import { watchForUpdates } from '../lib/update-check';
+      watchForUpdates();
     </script>
     {import.meta.env.PROD && (
       // Page-view counts (GoatCounter: no cookies, no personal data). Async, off the critical path.

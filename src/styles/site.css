@@ -409,6 +409,47 @@ a.back svg {
   stroke-linejoin: round;
 }
 
+/* ---- "new version" notice (src/lib/update-check.ts) ---- */
+.update-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 48px;
+  z-index: 50;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 32px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 8px 14px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 25%);
+  font: 600 14px var(--sans);
+  color: var(--ink);
+}
+.update-toast[hidden] {
+  display: none;
+}
+.update-toast button {
+  flex: none;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font: 700 13px var(--sans);
+  cursor: pointer;
+}
+.update-toast button:hover {
+  filter: brightness(1.1);
+}
+.update-toast button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
 /* ---- footer ---- */
 .site-foot {
   flex: none;

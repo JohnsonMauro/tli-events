@@ -29,3 +29,17 @@ export const rich = (s: string) =>
     .replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<span class="k">$1</span>')
     .replace(/!!(.+?)!!/g, '<span class="no">$1</span>');
+
+/** Site-wide strings (src/layouts/Base.astro): the "new version" notice. */
+export const SITE_TEXT: Record<Lang, { newVersion: string; reload: string }> = {
+  en: { newVersion: 'A new version of this page is out.', reload: 'Reload' },
+  'pt-br': { newVersion: 'Saiu uma versão nova desta página.', reload: 'Recarregar' },
+  de: { newVersion: 'Eine neue Version dieser Seite ist da.', reload: 'Neu laden' },
+  ko: { newVersion: '이 페이지의 새 버전이 나왔습니다.', reload: '새로고침' },
+  ja: { newVersion: 'このページの新しいバージョンがあります。', reload: '再読み込み' },
+  zh: { newVersion: '本页面有新版本。', reload: '刷新' },
+  ru: { newVersion: 'Вышла новая версия этой страницы.', reload: 'Обновить' },
+};
+
+/** Site language of a BCP 47 tag (Base.astro gets `lang` as the tag); English when unknown. */
+export const langOfTag = (tag: string): Lang => LANGS.find((l) => l.hreflang === tag)?.code ?? DEFAULT_LANG;
