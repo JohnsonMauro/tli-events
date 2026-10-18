@@ -12,6 +12,8 @@ pub struct Setup {
     /// Instruments held from day 1 (bitmask of `Tool::bit`).
     pub tools: u64,
     pub start_card: StartCard,
+    /// The run's objective; None = drawn at random, as in the game.
+    pub objective: Option<Objective>,
 }
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -65,6 +67,9 @@ fn resolve_incident(st: &mut State, p: &Params, pol: &mut Greedy, mut ev: Option
 
 pub fn play(p: &Params, w: &Weights, seed: u64, setup: Setup) -> Outcome {
     let mut st = rules::new_run(p, seed, setup.tools, setup.start_card);
+    if let Some(o) = setup.objective {
+        st.objective = o;
+    }
     let mut pol = Greedy::new(w, seed);
     settle(&mut st, p, &mut pol);
     while st.day <= st.max_days {
@@ -215,6 +220,7 @@ mod tests {
         let setup = Setup {
             tools: 0,
             start_card: StartCard::None,
+            objective: None,
         };
         let a = simulate(&p, &w, 300, 42, setup);
         let b = simulate(&p, &w, 300, 42, setup);
@@ -234,6 +240,7 @@ mod tests {
                 Setup {
                     tools: 0,
                     start_card: StartCard::None,
+                    objective: None,
                 },
             );
             assert!(o.rainbows <= p.rainbow_cap);

@@ -200,6 +200,10 @@ pub fn new_run(p: &Params, seed: u64, tools: u64, start_card: StartCard) -> Stat
             st.cells[n].event = Some(roll_incident(&mut st));
         }
     }
+    // The board always holds at least one incident (owner, live play).
+    if p.incident_respawn && (1..CELLS).all(|c| st.cells[c].event.is_none()) {
+        add_incident(&mut st, None);
+    }
     st.objective = st.rng.pick(&Objective::ALL);
     if p.rewards {
         st.pending_tools = p.start_picks;
@@ -773,10 +777,7 @@ pub fn office(st: &mut State, p: &Params, instigate: bool) {
         best += 3;
     }
     for _ in 0..inst * p.instigate_count as usize {
-        let mut s = Cells::collect((1..CELLS).filter(|&c| st.cells[c].event.is_none()));
-        if let Some(c) = s.take(&mut st.rng) {
-            st.cells[c].event = Some(roll_incident(st));
-        }
+        add_incident(st, None);
     }
     for _ in 0..best {
         raise_random(st, p, 1, 1);
@@ -785,9 +786,19 @@ pub fn office(st: &mut State, p: &Params, instigate: bool) {
 
 // ---------- Incidents ----------
 
+/// Puts a random incident on a random cell that has none (never the Interrogation
+/// Room, nor `except`).
+fn add_incident(st: &mut State, except: Option<usize>) {
+    let mut s =
+        Cells::collect((1..CELLS).filter(|&c| st.cells[c].event.is_none() && Some(c) != except));
+    if let Some(c) = s.take(&mut st.rng) {
+        st.cells[c].event = Some(roll_incident(st));
+    }
+}
+
 /// A random incident from the pool (uniform: no live rate per incident yet).
 pub fn roll_incident(st: &mut State) -> Incident {
-    let mut pool = [Incident::ChainReaction; 12];
+    let mut pool = [Incident::ChainReaction; 13];
     let base = [
         Incident::ChainReaction,
         Incident::Execution,
@@ -800,13 +811,14 @@ pub fn roll_incident(st: &mut State) -> Incident {
         Incident::TreasureHunt,
         Incident::SharedFortune,
         Incident::Archenemy,
+        Incident::ExtraPortion,
     ];
-    pool[..11].copy_from_slice(&base);
+    pool[..12].copy_from_slice(&base);
     let n = if st.usurp_stage <= 4 {
-        pool[11] = Incident::Usurpation(st.usurp_stage);
-        12
+        pool[12] = Incident::Usurpation(st.usurp_stage);
+        13
     } else {
-        11
+        12
     };
     pool[st.rng.below(n)]
 }
@@ -824,6 +836,11 @@ pub fn incident(
         advance_objective(st, p, 1);
     }
     let here = st.warden as usize;
+    // Usurpation I-III already places the next stage; any other incident is
+    // replaced by a new one elsewhere.
+    if p.incident_respawn && !matches!(inc, Incident::Usurpation(s) if s < 4) {
+        add_incident(st, Some(here));
+    }
     let cur = st.inmate_at(here);
     match inc {
         Incident::ChainReaction => st.chain_next = true,
@@ -940,6 +957,7 @@ pub fn incident(
                 promote(st, p, here, same as u8, false);
             }
         }
+        Incident::ExtraPortion => raise_random(st, p, 3, 1),
         Incident::Archenemy => {
             if let Some(me) = cur {
                 let mask = eats_same_tier(st, p, me);
@@ -1109,6 +1127,45 @@ mod tests {
     }
 
     #[test]
+    fn a_triggered_incident_is_replaced_elsewhere() {
+        let (mut st, p) = board(&[]);
+        put(&mut st, 2, WOLF, 1);
+        st.warden = 2;
+        let before = (1..CELLS).filter(|&c| st.cells[c].event.is_some()).count();
+        incident(&mut st, &p, Incident::TreasureHunt, None);
+        let after: Vec<usize> = (1..CELLS)
+            .filter(|&c| st.cells[c].event.is_some())
+            .collect();
+        assert_eq!(after.len(), before + 1);
+        assert!(!after.contains(&2));
+    }
+
+    #[test]
+    fn a_run_starts_with_at_least_one_incident() {
+        let p = Params::default();
+        for seed in 0..200 {
+            let st = new_run(&p, seed, 0, StartCard::None);
+            assert!(
+                (1..CELLS).any(|c| st.cells[c].event.is_some()),
+                "seed {seed}"
+            );
+        }
+    }
+
+    #[test]
+    fn extra_portion_raises_three_inmates() {
+        let (mut st, mut p) = board(&[]);
+        p.incident_respawn = false;
+        for n in 2..7 {
+            put(&mut st, n, LION, 0);
+        }
+        st.warden = 2;
+        incident(&mut st, &p, Incident::ExtraPortion, None);
+        let raised = (2..7).filter(|&n| st.cells[n].inmate.tier == 1).count();
+        assert_eq!(raised, 3);
+    }
+
+    #[test]
     fn skewer_gives_plus_two_extra() {
         let (mut st, p) = board(&[Tool::Skewer]);
         put(&mut st, 2, RAT, 1);
@@ -1272,8 +1329,10 @@ mod tests {
     }
 
     #[test]
-    fn maiden_fires_after_a_bite_when_above_equals_below() {
-        let (mut st, p) = board(&[Tool::Maiden]);
+    fn maiden_fires_only_after_a_replace_unless_any_time() {
+        // Live card (print 88): "+3 ... to the Inmate after this Replacement".
+        let (mut st, mut p) = board(&[Tool::Maiden]);
+        p.maiden_any_time = true;
         put(&mut st, 2, WOLF, 1);
         put(&mut st, 3, RAT, 1);
         put(&mut st, 8, LION, 0);
@@ -1291,8 +1350,7 @@ mod tests {
             false,
         );
         assert_eq!(st.vault, 1); // Rare + 3 = Rainbow
-        let (mut st, mut p) = board(&[Tool::Maiden]);
-        p.maiden_any_time = false;
+        let (mut st, p) = board(&[Tool::Maiden]);
         put(&mut st, 2, WOLF, 1);
         put(&mut st, 3, RAT, 1);
         put(&mut st, 8, LION, 0);

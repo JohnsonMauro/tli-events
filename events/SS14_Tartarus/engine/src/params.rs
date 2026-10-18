@@ -26,6 +26,10 @@ pub struct Params {
     pub event_chance: f64,
     /// Incidents added by Instigate (in-game rules: 1).
     pub instigate_count: u8,
+    /// The board always holds at least one incident: a run starts with one, and a
+    /// triggered incident is replaced by a new one elsewhere (owner, live play
+    /// 2026-10-17, prints 92-94).
+    pub incident_respawn: bool,
     /// Incident cards have only Confirm on live; true lets the policy skip.
     pub can_skip_incidents: bool,
     /// From this rarity up Mammoths also eat Wolves and Lions eat Rats.
@@ -39,10 +43,9 @@ pub struct Params {
     /// Agonizing Muzzle: most inmates left on the block (VOD card print 34: "no more
     /// than 3 inmates on the board, after Devouring"; community sim 4).
     pub muzzle_max: u8,
-    /// Severed Iron Maiden: the live card (print 73) names no trigger, only the
-    /// state ("Higher-Tier and Lower-Tier Inmates are equal"). true = checked
-    /// whenever the warden's inmate changes (door, Replace, bite); false = after a
-    /// Replace only (community sim).
+    /// Severed Iron Maiden: the live card (print 88) gives "+3 ... to the Inmate
+    /// after this Replacement" → false = after a Replace only (card, community
+    /// sim); true = checked whenever the warden's inmate changes (door, Replace, bite).
     pub maiden_any_time: bool,
     /// Skewered Rat Heads extra tiers (live card print 78: +2).
     pub skewer_extra: u8,
@@ -69,7 +72,8 @@ pub struct Params {
     pub start_picks: u8,
     /// Weight of each instrument in an offer (live offer counts + 1, by `Tool as usize`).
     pub offer_weights: Vec<f64>,
-    /// Policy's ranking of instruments (Rainbows/run held alone; higher = better).
+    /// Policy's ranking of instruments: our own solo values (Rainbows/run held
+    /// alone, rewards off) from `engine_results.json`; 1.0 each until exported.
     pub tool_value: Vec<f64>,
 }
 
@@ -86,12 +90,13 @@ impl Default for Params {
             beasts: [24.11, 23.21, 26.30, 26.38],
             event_chance: 0.064,
             instigate_count: 1,
+            incident_respawn: true,
             can_skip_incidents: false,
             second_meal_from: 3,
             rainbow_cap: 10,
             keys_chance: 0.628,
             muzzle_max: 3,
-            maiden_any_time: true,
+            maiden_any_time: false,
             skewer_extra: 2,
             oppress_base: 1.0,
             oppress_step: 0.05,
@@ -115,7 +120,8 @@ fn num(v: &Value, path: &[&str]) -> Option<f64> {
 }
 
 impl Params {
-    /// Defaults, then the live odds and instrument data from `tartarus_data.json`.
+    /// Defaults, then the live odds (door, Replace, beasts, offers) measured by the
+    /// community analyzer and frozen in `tartarus_data.json` → `live`.
     pub fn from_data(json: &str) -> Result<Params, String> {
         let v: Value =
             serde_json::from_str(json).map_err(|e| format!("tartarus_data.json: {e}"))?;
@@ -155,11 +161,20 @@ impl Params {
             let i = *t as usize;
             // +1 so an instrument never seen in an offer can still show up.
             p.offer_weights[i] = num(live, &["toolOffers", "counts", t.id()]).unwrap_or(0.0) + 1.0;
-            if let Some(x) = num(&v, &["tools", t.id(), "value"]) {
-                p.tool_value[i] = x;
-            }
         }
         Ok(p)
+    }
+
+    /// Instrument values from our own export (`engine_results.json` → `tools`).
+    pub fn read_tool_values(&mut self, json: &str) -> Result<(), String> {
+        let v: Value =
+            serde_json::from_str(json).map_err(|e| format!("engine_results.json: {e}"))?;
+        for t in Tool::ALL {
+            if let Some(x) = num(&v, &["tools", t.id(), "value"]) {
+                self.tool_value[*t as usize] = x;
+            }
+        }
+        Ok(())
     }
 
     /// `key=value` override from the command line.
@@ -195,6 +210,7 @@ impl Params {
             "beasts" => self.beasts.copy_from_slice(&list(4)?),
             "event_chance" => self.event_chance = f()?,
             "instigate_count" => self.instigate_count = f()? as u8,
+            "incident_respawn" => self.incident_respawn = b()?,
             "can_skip_incidents" => self.can_skip_incidents = b()?,
             "second_meal_from" => self.second_meal_from = f()? as u8,
             "rainbow_cap" => self.rainbow_cap = f()? as u8,
@@ -232,7 +248,12 @@ mod tests {
         assert_eq!(p.keys_chance, 0.6);
         assert_eq!(p.offer_weights[Tool::Rope as usize], 9.0);
         assert_eq!(p.offer_weights[Tool::Crown as usize], 1.0);
-        assert_eq!(p.tool_value[Tool::Rope as usize], 2.2);
+        // Instrument values come only from our own export, never from that file.
+        assert_eq!(p.tool_value[Tool::Rope as usize], 1.0);
+        let mut p = p;
+        p.read_tool_values(r#"{"tools":{"rope":{"value":2.7}}}"#)
+            .unwrap();
+        assert_eq!(p.tool_value[Tool::Rope as usize], 2.7);
     }
 
     #[test]

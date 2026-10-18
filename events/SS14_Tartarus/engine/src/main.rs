@@ -3,7 +3,7 @@
 use std::process::ExitCode;
 use std::time::Instant;
 
-use tartarus::model::{StartCard, Tool};
+use tartarus::model::{Objective, StartCard, Tool};
 use tartarus::params::Params;
 use tartarus::policy::Weights;
 use tartarus::run::{Setup, Summary, simulate};
@@ -24,6 +24,7 @@ options:
   --rewards on|off start pick, objective pick and Warden's Treasures
   --tool ID[,ID]   instruments held from day 1 (eval)
   --start CARD     cagefight | ironlaw | tyranny
+  --objective ID   king | walk | consume | undercurrents | doors (default: random, as in the game)
   --set KEY=VALUE  any rule (params.rs) or policy weight (w_tier, w_rainbow, w_event, w_objective, w_chain, samples)
   --out PATH       export: where to write the results";
 
@@ -38,6 +39,7 @@ struct Opts {
     rewards: Option<bool>,
     tools: u64,
     start: StartCard,
+    objective: Option<Objective>,
     sets: Vec<String>,
 }
 
@@ -61,6 +63,7 @@ fn parse(args: &[String]) -> Result<Opts, String> {
         rewards: None,
         tools: 0,
         start: StartCard::None,
+        objective: None,
         sets: Vec::new(),
     };
     let mut it = args[1..].iter();
@@ -84,12 +87,17 @@ fn parse(args: &[String]) -> Result<Opts, String> {
                 }
             }
             "--start" => {
-                o.start = match val()?.as_str() {
-                    "cagefight" => StartCard::CageFight,
-                    "ironlaw" => StartCard::IronLaw,
-                    "tyranny" => StartCard::Tyranny,
-                    s => return Err(format!("--start: unknown card `{s}`")),
-                }
+                let id = val()?;
+                o.start = StartCard::from_id(&id)
+                    .filter(|&c| c != StartCard::None)
+                    .ok_or(format!("--start: unknown card `{id}`"))?;
+            }
+            "--objective" => {
+                let id = val()?;
+                o.objective = Some(
+                    Objective::from_id(&id)
+                        .ok_or(format!("--objective: unknown objective `{id}`"))?,
+                );
             }
             "--set" => o.sets.push(val()?),
             "-h" | "--help" => return Err(USAGE.into()),
@@ -143,6 +151,10 @@ fn run(args: &[String]) -> Result<(), String> {
         .map_err(|e| e.to_string())?;
     let json = std::fs::read_to_string(&o.data).map_err(|e| format!("{}: {e}", o.data))?;
     let mut p = Params::from_data(&json)?;
+    // The instrument pick ranks offers by our own last export (absent: all equal).
+    if let Ok(own) = std::fs::read_to_string(DEFAULT_OUT) {
+        p.read_tool_values(&own)?;
+    }
     let mut w = Weights::default();
     for kv in &o.sets {
         if !w.set(kv)? {
@@ -152,6 +164,7 @@ fn run(args: &[String]) -> Result<(), String> {
     let setup = Setup {
         tools: o.tools,
         start_card: o.start,
+        objective: o.objective,
     };
     let threads = rayon::current_num_threads();
     let t0 = Instant::now();
@@ -249,34 +262,130 @@ fn round3(x: f64) -> f64 {
     (x * 1000.0).round() / 1000.0
 }
 
-/// Every number the play sheet shows, from our engine.
-fn export(o: &Opts, data: &str, mut p: Params, w: &Weights, setup: Setup) -> Result<(), String> {
-    let t0 = Instant::now();
-    let with = |tools: u64| Setup { tools, ..setup };
-    p.rewards = false;
-    let base = simulate(&p, w, o.games, o.seed, setup);
-    let mut tools = serde_json::Map::new();
-    for &t in Tool::ALL {
-        let s = simulate(&p, w, o.games, o.seed, with(t.bit()));
-        tools.insert(
-            t.id().into(),
-            serde_json::json!({ "name": t.name(), "value": round3(s.mean()), "se": round3(s.se()) }),
-        );
-        eprint!(".");
-    }
-    eprintln!(" {} instruments", Tool::ALL.len());
-    let mut pairs: Vec<(Tool, Tool, f64)> = Vec::new();
+/// Solo value of each instrument held from day 1, and the run with none.
+fn solo(
+    p: &Params,
+    w: &Weights,
+    games: u64,
+    seed: u64,
+    setup: Setup,
+) -> (Summary, Vec<(Tool, Summary)>) {
+    let base = simulate(p, w, games, seed, setup);
+    let tools = Tool::ALL
+        .iter()
+        .map(|&t| {
+            let s = simulate(
+                p,
+                w,
+                games,
+                seed,
+                Setup {
+                    tools: setup.tools | t.bit(),
+                    ..setup
+                },
+            );
+            eprint!(".");
+            (t, s)
+        })
+        .collect();
+    (base, tools)
+}
+
+/// Every pair of instruments held from day 1, best first.
+fn pairs(p: &Params, w: &Weights, games: u64, seed: u64, setup: Setup) -> Vec<serde_json::Value> {
+    let mut out: Vec<(Tool, Tool, f64)> = Vec::new();
     for (i, &a) in Tool::ALL.iter().enumerate() {
         for &b in &Tool::ALL[i + 1..] {
-            let s = simulate(&p, w, o.games, o.seed, with(a.bit() | b.bit()));
-            pairs.push((a, b, round3(s.mean())));
+            let s = simulate(
+                p,
+                w,
+                games,
+                seed,
+                Setup {
+                    tools: a.bit() | b.bit(),
+                    ..setup
+                },
+            );
+            out.push((a, b, round3(s.mean())));
         }
         eprint!(".");
     }
-    eprintln!(" {} pairs", pairs.len());
-    pairs.sort_by(|x, y| y.2.total_cmp(&x.2));
+    out.sort_by(|x, y| y.2.total_cmp(&x.2));
+    out.iter()
+        .map(|(a, b, v)| serde_json::json!([a.id(), b.id(), v]))
+        .collect()
+}
+
+/// `{id: value}` for a set of solo results.
+fn values(tools: &[(Tool, Summary)]) -> serde_json::Value {
+    tools
+        .iter()
+        .map(|(t, s)| (t.id().to_string(), serde_json::json!(round3(s.mean()))))
+        .collect()
+}
+
+/// Every number the play sheet shows, from our engine.
+/// Default (no start card, random objective, rewards off): base, instruments, pairs.
+/// `byStart`: the same per start card (each changes the rules). `byObjective`: with
+/// rewards on (an objective only matters through its reward), per objective.
+fn export(o: &Opts, data: &str, mut p: Params, w: &Weights, setup: Setup) -> Result<(), String> {
+    let t0 = Instant::now();
+    let mut tests = 0usize;
+    p.rewards = false;
+    let (base, solos) = solo(&p, w, o.games, o.seed, setup);
+    tests += 1 + solos.len();
+    eprintln!(" {} instruments", solos.len());
+    // From here on the instrument pick ranks offers by these values.
+    for (t, s) in &solos {
+        p.tool_value[*t as usize] = s.mean();
+    }
+    let tools: serde_json::Map<String, serde_json::Value> = solos
+        .iter()
+        .map(|(t, s)| {
+            (
+                t.id().to_string(),
+                serde_json::json!({ "name": t.name(), "value": round3(s.mean()), "se": round3(s.se()) }),
+            )
+        })
+        .collect();
+    let pair_list = pairs(&p, w, o.games, o.seed, setup);
+    tests += pair_list.len();
+    eprintln!(" {} pairs", pair_list.len());
+
+    let mut by_start = serde_json::Map::new();
+    for card in StartCard::ALL.into_iter().filter(|&c| c != StartCard::None) {
+        let s = Setup {
+            start_card: card,
+            ..setup
+        };
+        let (b, t) = solo(&p, w, o.games, o.seed, s);
+        let pr = pairs(&p, w, o.games / 2, o.seed, s);
+        tests += 1 + t.len() + pr.len();
+        eprintln!(" start {}", card.id());
+        by_start.insert(
+            card.id().into(),
+            serde_json::json!({ "base": round3(b.mean()), "tools": values(&t), "pairs": pr }),
+        );
+    }
+
     p.rewards = true;
     let full = simulate(&p, w, o.games, o.seed, setup);
+    tests += 1;
+    let mut by_objective = serde_json::Map::new();
+    for obj in Objective::ALL {
+        let s = Setup {
+            objective: Some(obj),
+            ..setup
+        };
+        let (b, t) = solo(&p, w, o.games, o.seed, s);
+        tests += 1 + t.len();
+        eprintln!(" objective {}", obj.id());
+        by_objective.insert(
+            obj.id().into(),
+            serde_json::json!({ "base": round3(b.mean()), "tools": values(&t) }),
+        );
+    }
+
     let live: serde_json::Value = serde_json::from_str(data).map_err(|e| e.to_string())?;
     let out = serde_json::json!({
         "generated": today(),
@@ -294,23 +403,25 @@ fn export(o: &Opts, data: &str, mut p: Params, w: &Weights, setup: Setup) -> Res
             "oppressStep": p.oppress_step,
             "tuskPersists": p.tusk_persists,
             "instigateCount": p.instigate_count,
+            "incidentRespawn": p.incident_respawn,
             "rainbowCap": p.rainbow_cap,
         },
         "base": round3(base.mean()),
         "tools": tools,
-        "pairs": pairs.iter().map(|(a, b, v)| serde_json::json!([a.id(), b.id(), v])).collect::<Vec<_>>(),
+        "pairs": pair_list,
         "run": {
             "mean": round3(full.mean()),
             "se": round3(full.se()),
             "median": full.median(),
             "zeroShare": round3(full.hist[0] as f64 / full.games as f64),
         },
+        "byStart": by_start,
+        "byObjective": by_objective,
     });
     let text = serde_json::to_string_pretty(&out).map_err(|e| e.to_string())? + "\n";
     std::fs::write(&o.out, text).map_err(|e| format!("{}: {e}", o.out))?;
     println!(
-        "export: {} tests x {} runs in {:.0}s -> {}",
-        2 + Tool::ALL.len() + pairs.len(),
+        "export: {tests} tests x {} runs in {:.0}s -> {}",
         o.games,
         t0.elapsed().as_secs_f64(),
         o.out

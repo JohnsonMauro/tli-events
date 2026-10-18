@@ -133,6 +133,8 @@ pub enum Incident {
     TreasureHunt,
     SharedFortune,
     Archenemy,
+    /// Extra Portion (live card, print 93): up to 3 random inmates +1.
+    ExtraPortion,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -183,6 +185,18 @@ impl Objective {
             Objective::Doors => 10,
         }
     }
+    pub fn id(self) -> &'static str {
+        match self {
+            Objective::King => "king",
+            Objective::Walk => "walk",
+            Objective::Consume => "consume",
+            Objective::Undercurrents => "undercurrents",
+            Objective::Doors => "doors",
+        }
+    }
+    pub fn from_id(id: &str) -> Option<Objective> {
+        Objective::ALL.into_iter().find(|o| o.id() == id)
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -191,6 +205,26 @@ pub enum StartCard {
     CageFight,
     IronLaw,
     Tyranny,
+}
+
+impl StartCard {
+    pub const ALL: [StartCard; 4] = [
+        StartCard::None,
+        StartCard::CageFight,
+        StartCard::IronLaw,
+        StartCard::Tyranny,
+    ];
+    pub fn id(self) -> &'static str {
+        match self {
+            StartCard::None => "none",
+            StartCard::CageFight => "cagefight",
+            StartCard::IronLaw => "ironlaw",
+            StartCard::Tyranny => "tyranny",
+        }
+    }
+    pub fn from_id(id: &str) -> Option<StartCard> {
+        StartCard::ALL.into_iter().find(|c| c.id() == id)
+    }
 }
 
 /// Prey mark (Blood-Stained Trap): the Lion in `lion` and its prey in `prey`.

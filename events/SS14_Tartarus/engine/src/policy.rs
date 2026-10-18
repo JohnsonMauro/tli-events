@@ -20,6 +20,10 @@ pub struct Weights {
     pub objective: f64,
     /// Weight of "the eater may chain on" after a bite.
     pub chain: f64,
+    /// Worth of a Tusk cell kept (future Replaces there raise 4 inmates); with
+    /// Iron Tongs a Mammoth on the block is worth half of it (it can get the next
+    /// Tusk). ALannister's play: never eat a Mammoth early or an inmate on a Tusk.
+    pub tusk: f64,
     /// Fogged copies played per patrol option.
     pub samples: u8,
 }
@@ -32,6 +36,7 @@ impl Default for Weights {
             event: 2.0,
             objective: 8.0,
             chain: 0.5,
+            tusk: 12.0,
             samples: 6,
         }
     }
@@ -59,6 +64,7 @@ impl Weights {
             "w_event" => self.event = f()?,
             "w_objective" => self.objective = f()?,
             "w_chain" => self.chain = f()?,
+            "w_tusk" => self.tusk = f()?,
             "samples" => self.samples = f()? as u8,
             _ => return Ok(false),
         }
@@ -106,10 +112,26 @@ impl<'a> Greedy<'a> {
             v += self.w.tier[st.cells[c].inmate.tier as usize];
         }
         v += st.cells.iter().filter(|c| c.event.is_some()).count() as f64 * self.w.event;
+        v += (1..CELLS).map(|c| self.keep(st, c)).sum::<f64>();
         if !st.objective_done && p.rewards {
             v += self.w.objective * st.objective_progress as f64 / st.objective.need() as f64;
         }
         v
+    }
+
+    /// Worth of what a cell holds beyond its inmate's rarity: a Tusk, or a Mammoth
+    /// that can take the next one.
+    fn keep(&self, st: &State, c: usize) -> f64 {
+        if !st.cells[c].is_open() {
+            return 0.0;
+        }
+        let tusk = if st.cells[c].tusk { self.w.tusk } else { 0.0 };
+        let mammoth = if st.has(Tool::Tongs) && st.cells[c].inmate.beast == MAMMOTH {
+            self.w.tusk / 2.0
+        } else {
+            0.0
+        };
+        tusk + mammoth
     }
 
     /// Expected worth of an unopened door.
@@ -217,7 +239,7 @@ impl<'a> Greedy<'a> {
         let lost = if meal.scratch {
             0.0
         } else {
-            self.w.tier[food.tier as usize]
+            self.w.tier[food.tier as usize] + self.keep(st, meal.cell as usize)
         };
         let mut v = rise * after + (1.0 - rise) * now - now - lost;
         // Chance the new form finds food at its new rarity (beast re-rolls: 1/4 each).
@@ -492,5 +514,34 @@ impl<'a> Greedy<'a> {
             .iter()
             .max_by(|a, b| p.tool_value[**a as usize].total_cmp(&p.tool_value[**b as usize]))
             .unwrap()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn eats_around_a_tusk() {
+        let p = Params {
+            rewards: false,
+            event_chance: 0.0,
+            incident_respawn: false,
+            ..Params::default()
+        };
+        let mut st = rules::new_run(&p, 1, Tool::Tongs.bit(), StartCard::None);
+        for (n, beast) in [(2, RAT), (3, MAMMOTH), (4, MAMMOTH)] {
+            st.cells[n].kind = CellKind::Open;
+            st.cells[n].inmate = Inmate { beast, tier: 1 };
+        }
+        // On a tie the last meal wins, so the Tusk sits on the later cell.
+        st.cells[4].tusk = true;
+        let w = Weights::default();
+        let pol = Greedy::new(&w, 1);
+        let (meal, _) = pol.best_bite(&st, &p, 2, false).unwrap();
+        assert_eq!(
+            meal.cell, 3,
+            "the Rat should eat the Mammoth without the Tusk"
+        );
     }
 }
