@@ -115,7 +115,7 @@ const tools = Object.entries(E.tools)
     name: x.name,
     value: x.value,
     tier: tierOf(x.value),
-    art: A('tool-' + id, 'md'), // drawn at 83 px: the 80 px set (160 px at 2×) is close enough
+    art: A('tool-' + id, 'md'), // drawn in an 83 px square: the 80 px set (160 px at 2×) is close enough
     doubt: DOUBT.has(id),
   }));
 

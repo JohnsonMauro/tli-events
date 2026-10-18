@@ -376,3 +376,14 @@ for (const width of [390, 1440]) {
     expect(cropped).toEqual([]);
   });
 }
+
+// One row height for every instrument: the art sits on its box and never sets the row (a tall Iron Box icon made
+// its row twice as tall, owner 2026-10-18).
+test('instrument rows: the art never sets the row height', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(SHEET);
+  const heights = await page
+    .locator('#tools .tool')
+    .evaluateAll((rows) => [...new Set(rows.map((r) => Math.round(r.getBoundingClientRect().height)))]);
+  expect(heights).toHaveLength(1);
+});

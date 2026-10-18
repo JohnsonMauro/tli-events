@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet: every instrument picture is re-cut square and focused on the instrument, the whole object in view (framing chosen by the owner), and every instrument row has the same height.
+
 ## [1.10.2] - 2026-10-18
 
 ### Changed
