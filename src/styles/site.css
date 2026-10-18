@@ -470,7 +470,8 @@ a.back svg {
   height: 16px;
   fill: var(--bad);
   transform-origin: center;
-  animation: heartbeat 1.4s ease-in-out infinite;
+  /* three beats (4.2 s), then still: WCAG 2.2.2 wants auto-started motion to stop within 5 s */
+  animation: heartbeat 1.4s ease-in-out 3;
 }
 @keyframes heartbeat {
   0%,
@@ -527,7 +528,8 @@ header.brand-hero {
   background-clip: text;
   color: transparent;
   background-size: 200% 100%;
-  animation: sheen 8s ease-in-out infinite;
+  /* one sweep there and back (4 s), then still: WCAG 2.2.2 (see .heart) */
+  animation: sheen 4s ease-in-out 1;
 }
 @keyframes sheen {
   0%,

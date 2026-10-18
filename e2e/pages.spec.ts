@@ -1,18 +1,8 @@
 // Every built page, at phone and desktop width: no sideways scroll, no console errors from our own code, and no
 // words glued together by `compressHTML` (see .claude/skills/astro-site → Markup).
-import { readFileSync, readdirSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
-
-const DIST = 'dist';
-const htmlFiles = (dir: string): string[] =>
-  readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
-    e.isDirectory() ? htmlFiles(join(dir, e.name)) : e.name.endsWith('.html') ? [join(dir, e.name)] : [],
-  );
-const pages = htmlFiles(DIST).map((file) => ({
-  file,
-  path: '/' + relative(DIST, file).replace(/(^|\/)index\.html$/, '$1'),
-}));
+import { pages } from './site-pages';
 
 const WIDTHS = [390, 1440];
 

@@ -5,9 +5,10 @@ import { expect, test, type Page } from '@playwright/test';
 const SHEET = '/ss14/';
 const visiblePairs = (page: Page) => page.locator('[data-pairs]:not([hidden])');
 // Opens an instrument's card by focus. Scroll first and focus without scrolling: a pane scroll closes the card.
+// Instant scroll: the page scrolls smoothly (site.css), and a scroll still running after the wait closed the card.
 async function openCard(page: Page, id: string) {
   const tile = page.locator(`#tools .tool[data-tool="${id}"]`);
-  await tile.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await tile.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
   await page.waitForTimeout(200);
   await tile.evaluate((el: HTMLElement) => el.focus({ preventScroll: true }));
 }

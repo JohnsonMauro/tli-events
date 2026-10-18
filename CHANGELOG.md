@@ -6,6 +6,11 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Fixed
+
+- SS14 play sheet: the "Tartarus Simulator" link reads clearly in the light theme (its color was too faint against its box).
+- Motion stops on its own: the footer heart beats three times and the home title's sheen sweeps once, instead of looping forever.
+
 ## [1.6.1] - 2026-10-18
 
 ### Fixed

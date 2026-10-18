@@ -69,8 +69,10 @@ main.wide {
   background: color-mix(in srgb, var(--accent) 10%, var(--surface2));
   font-size: 14px;
 }
+/* --accent on its own tint falls to 4.33:1 in the light theme; --accent2 holds 6.6:1 (light) and 7.6:1 (dark) */
 .sim-cta a {
   font-weight: 700;
+  color: var(--accent2);
 }
 .sim-diff {
   display: block;
