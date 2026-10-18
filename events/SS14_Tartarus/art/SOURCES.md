@@ -21,36 +21,37 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `act-consume` | Consume | [27_vod_board_numbering_decision_menu.jpg](../images/27_vod_board_numbering_decision_menu.jpg) | 563,758 100×100 |
 | `act-replace` | Replace | [27_vod_board_numbering_decision_menu.jpg](../images/27_vod_board_numbering_decision_menu.jpg) | 908,758 100×100 |
 | `act-end` | End | [27_vod_board_numbering_decision_menu.jpg](../images/27_vod_board_numbering_decision_menu.jpg) | 1253,758 100×100 |
-| `tool-revenge` | Avenger's Casket | [44_live_instrument_offer.webp](../images/44_live_instrument_offer.webp) | 484,343 300×300 |
+| `tool-revenge` | Avenger's Casket (art of the Traditional Chinese live client card, print 124) | [124_live_tw_instrument_revenge.webp](../images/124_live_tw_instrument_revenge.webp) | 226,137 275×275 |
 | `tool-keys` | Lost Ring of Keys | [44_live_instrument_offer.webp](../images/44_live_instrument_offer.webp) | 1161,374 253×253 |
-| `tool-shackles` | Long-Chained Shackles | [44_live_instrument_offer.webp](../images/44_live_instrument_offer.webp) | 1774,357 270×270 |
-| `tool-cage` | Crowded Beastcage | [67_live_objective_reward_cage_whip_coin.webp](../images/67_live_objective_reward_cage_whip_coin.webp) | 510,369 268×268 |
-| `tool-coin` | Kin's Coin of Fate | [67_live_objective_reward_cage_whip_coin.webp](../images/67_live_objective_reward_cage_whip_coin.webp) | 1805,392 229×229 |
-| `tool-claws` | Filthy Claws: Alpha Wolf (not in the simulator yet, so the site doesn't list it) | [66_live_instrument_offer_saw_stake_claws.webp](../images/66_live_instrument_offer_saw_stake_claws.webp) | 1797,367 247×247 |
+| `tool-shackles` | Long-Chained Shackles (art of the Traditional Chinese live client card, print 128) | [128_live_tw_instrument_shackles.webp](../images/128_live_tw_instrument_shackles.webp) | 174,134 268×268 |
+| `tool-cage` | Crowded Beastcage (art of the Traditional Chinese live client card, print 109) | [109_live_tw_instrument_cage.webp](../images/109_live_tw_instrument_cage.webp) | 178,137 274×274 |
+| `tool-coin` | Kin's Coin of Fate (art of the Traditional Chinese live client card, print 111) | [111_live_tw_instrument_coin.webp](../images/111_live_tw_instrument_coin.webp) | 186,138 277×277 |
+| `tool-claws` | Filthy Claws: Alpha Wolf (art of the Traditional Chinese live client card, print 110) | [110_live_tw_instrument_claws.webp](../images/110_live_tw_instrument_claws.webp) | 196,139 277×277 |
 | `tool-shortchain` | Short-Chained Shackles | [69_live_instrument_short_chained_shackles.webp](../images/69_live_instrument_short_chained_shackles.webp) | 251,242 259×259 |
-| `tool-muzzle` | Raging Beast's Agonizing Muzzle | [34_vod_torture_set_casket_muzzle_saw.jpg](../images/34_vod_torture_set_casket_muzzle_saw.jpg) | 841,232 242×242 |
-| `tool-saw` | Rusty Saw | [34_vod_torture_set_casket_muzzle_saw.jpg](../images/34_vod_torture_set_casket_muzzle_saw.jpg) | 1326,247 231×231 |
-| `tool-scales` | Warden's Scales | [35_vod_torture_set_scales_noose_pestle.jpg](../images/35_vod_torture_set_scales_noose_pestle.jpg) | 364,252 226×226 |
-| `tool-rope` | Hangman's Noose | [35_vod_torture_set_scales_noose_pestle.jpg](../images/35_vod_torture_set_scales_noose_pestle.jpg) | 848,212 212×212 |
+| `tool-muzzle` | Raging Beast's Agonizing Muzzle (art of the Traditional Chinese live client card, print 122) | [122_live_tw_instrument_muzzle.webp](../images/122_live_tw_instrument_muzzle.webp) | 220,139 277×277 |
+| `tool-saw` | Rusty Saw (art of the Traditional Chinese live client card, print 126) | [126_live_tw_instrument_saw.webp](../images/126_live_tw_instrument_saw.webp) | 192,134 267×267 |
+| `tool-scales` | Warden's Scales (art of the Traditional Chinese live client card, print 127) | [127_live_tw_instrument_scales.webp](../images/127_live_tw_instrument_scales.webp) | 220,131 262×262 |
+| `tool-rope` | Hangman's Noose (art of the Traditional Chinese live client card, print 125) | [125_live_tw_instrument_rope.webp](../images/125_live_tw_instrument_rope.webp) | 230,137 274×274 |
 | `tool-pestle` | Iron Pestle (live; replaces the VOD crop) | [74_live_objective_reward_scapegoat_pestle_fire.webp](../images/74_live_objective_reward_scapegoat_pestle_fire.webp) | 913,254 260×260 |
-| `tool-crown` | Iron Crown of the Prison King (live, small print: low resolution) | [76_live_instrument_slot_iron_crown.webp](../images/76_live_instrument_slot_iron_crown.webp) | 60,146 100×100 |
-| `tool-blacklist` | Executioner's Blacklist | [77_live_instrument_executioners_blacklist.webp](../images/77_live_instrument_executioners_blacklist.webp) | 264,233 281×281 |
-| `tool-ravenous` | Ferocious Beast's Ravenous Chains | [82_live_instrument_ravenous_chains.webp](../images/82_live_instrument_ravenous_chains.webp) | 150,120 240×240 |
-| `tool-trap` | Blood-Stained Trap: Berserk Lion | [83_live_instrument_blood_stained_trap.webp](../images/83_live_instrument_blood_stained_trap.webp) | 150,108 240×240 |
-| `tool-whip` | Barbed Whip (live; replaces the VOD crop) | [73_live_instrument_offer_maiden_whip_shackles.webp](../images/73_live_instrument_offer_maiden_whip_shackles.webp) | 918,258 260×260 |
-| `tool-stake` | Burning Stake | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 840,196 240×240 |
-| `tool-forged` | Forged Key | [36_vod_torture_set_whip_stake_key.jpg](../images/36_vod_torture_set_whip_stake_key.jpg) | 1359,297 170×170 |
+| `tool-crown` | Iron Crown of the Prison King: Berserk Lion (art of the Traditional Chinese live client card, print 113) | [113_live_tw_instrument_crown.webp](../images/113_live_tw_instrument_crown.webp) | 192,133 266×266 |
+| `tool-blacklist` | Executioner's Blacklist (art of the Traditional Chinese live client card, print 108) | [108_live_tw_instrument_blacklist.webp](../images/108_live_tw_instrument_blacklist.webp) | 192,133 265×265 |
+| `tool-ravenous` | Ferocious Beast's Ravenous Chains (art of the Traditional Chinese live client card, print 123) | [123_live_tw_instrument_ravenous.webp](../images/123_live_tw_instrument_ravenous.webp) | 191,131 261×261 |
+| `tool-trap` | Blood-Stained Trap: Berserk Lion (art of the Traditional Chinese live client card, print 130) | [130_live_tw_instrument_trap.webp](../images/130_live_tw_instrument_trap.webp) | 148,101 202×202 |
+| `tool-whip` | Barbed Whip (art of the Traditional Chinese live client card, print 131) | [131_live_tw_instrument_whip.webp](../images/131_live_tw_instrument_whip.webp) | 196,137 274×274 |
+| `tool-stake` | Burning Stake (art of the Traditional Chinese live client card, print 129) | [129_live_tw_instrument_stake.webp](../images/129_live_tw_instrument_stake.webp) | 186,132 263×263 |
+| `tool-forged` | Forged Key (art of the Traditional Chinese live client card, print 116) | [116_live_tw_instrument_forged.webp](../images/116_live_tw_instrument_forged.webp) | 201,133 265×265 |
 | `tool-tongs` | Iron Tongs of Lust: Mammoth | [37_vod_torture_set_tongs_ratheads_guillotine.jpg](../images/37_vod_torture_set_tongs_ratheads_guillotine.jpg) | 378,272 213×213 |
 | `tool-skewer` | Skewered Rat Heads: Colossal Rat (live; replaces the VOD crop) | [78_live_instrument_skewered_rat_heads.webp](../images/78_live_instrument_skewered_rat_heads.webp) | 150,108 270×270 |
-| `tool-hook` | Sorting Hook | [71_live_instrument_offer_fire_hook_axe.webp](../images/71_live_instrument_offer_fire_hook_axe.webp) | 820,184 245×245 |
-| `tool-axe` | Gaoler's Execution Axe | [71_live_instrument_offer_fire_hook_axe.webp](../images/71_live_instrument_offer_fire_hook_axe.webp) | 1458,175 253×253 |
-| `tool-collar` | Maddened Beast's Barbed Collar | [72_live_instrument_offer_hook_collar_shackles.webp](../images/72_live_instrument_offer_hook_collar_shackles.webp) | 521,145 144×144 |
-| `tool-maiden` | Severed Iron Maiden | [73_live_instrument_offer_maiden_whip_shackles.webp](../images/73_live_instrument_offer_maiden_whip_shackles.webp) | 278,254 260×260 |
+| `tool-hook` | Sorting Hook (art of the Traditional Chinese live client card, print 118) | [118_live_tw_instrument_hook.webp](../images/118_live_tw_instrument_hook.webp) | 194,133 265×265 |
+| `tool-axe` | Gaoler's Execution Axe (art of the Traditional Chinese live client card, print 107) | [107_live_tw_instrument_axe.webp](../images/107_live_tw_instrument_axe.webp) | 196,136 272×272 |
+| `tool-collar` | Maddened Beast's Barbed Collar (art of the Traditional Chinese live client card, print 112) | [112_live_tw_instrument_collar.webp](../images/112_live_tw_instrument_collar.webp) | 178,137 273×273 |
+| `tool-maiden` | Severed Iron Maiden (art of the Traditional Chinese live client card, print 120) | [120_live_tw_instrument_maiden.webp](../images/120_live_tw_instrument_maiden.webp) | 199,132 264×264 |
 | `tool-scapegoat` | Scapegoat's Guillotine | [74_live_objective_reward_scapegoat_pestle_fire.webp](../images/74_live_objective_reward_scapegoat_pestle_fire.webp) | 250,234 300×300 |
-| `tool-ironbox` | Squirming Iron Box: Colossal Rat (the box only, from the small icon in the left Torture Instrument panel; low-res until a card print) | [38_vod_squirming_iron_box_rat_nest.jpg](../images/38_vod_squirming_iron_box_rat_nest.jpg) | 88,354 72×72 |
-| `tool-dogtag` | Felon's Dog Tag | [70_live_objective_reward_dogtag_guillotine_fire.webp](../images/70_live_objective_reward_dogtag_guillotine_fire.webp) | 272,254 229×229 |
-| `tool-guillotine` | Fanged Guillotine: Alpha Wolf (live; replaces the VOD crop) | [70_live_objective_reward_dogtag_guillotine_fire.webp](../images/70_live_objective_reward_dogtag_guillotine_fire.webp) | 913,251 236×236 |
-| `tool-fire` | Searing Branding Iron | [70_live_objective_reward_dogtag_guillotine_fire.webp](../images/70_live_objective_reward_dogtag_guillotine_fire.webp) | 1548,244 250×250 |
+| `tool-ironbox` | Squirming Iron Box: Colossal Rat (art of the Traditional Chinese live client card, print 119) | [119_live_tw_instrument_ironbox.webp](../images/119_live_tw_instrument_ironbox.webp) | 206,133 266×266 |
+| `tool-dogtag` | Felon's Dog Tag (art of the Traditional Chinese live client card, print 114) | [114_live_tw_instrument_dogtag.webp](../images/114_live_tw_instrument_dogtag.webp) | 178,138 275×275 |
+| `tool-guillotine` | Fanged Guillotine: Alpha Wolf (art of the Traditional Chinese live client card, print 117) | [117_live_tw_instrument_guillotine.webp](../images/117_live_tw_instrument_guillotine.webp) | 173,137 275×275 |
+| `tool-fire` | Searing Branding Iron (art of the Traditional Chinese live client card, print 115) | [115_live_tw_instrument_fire.webp](../images/115_live_tw_instrument_fire.webp) | 176,137 273×273 |
+| `tool-maul` | Elephant-Foot Maul: Mammoth (art of the Traditional Chinese live client card, print 121) | [121_live_tw_instrument_maul.webp](../images/121_live_tw_instrument_maul.webp) | 181,131 262×262 |
 | `gift-ring` | Three-Headed Thumb Ring | [39_vod_wardens_treasure_chromatic.jpg](../images/39_vod_wardens_treasure_chromatic.jpg) | 200,260 220×200 |
 | `gift-horn` | Brass Horn of Strife | [39_vod_wardens_treasure_chromatic.jpg](../images/39_vod_wardens_treasure_chromatic.jpg) | 635,260 220×200 |
 | `gift-wine` | Crimson Vintage | [39_vod_wardens_treasure_chromatic.jpg](../images/39_vod_wardens_treasure_chromatic.jpg) | 1075,265 220×200 |
