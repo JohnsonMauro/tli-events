@@ -75,9 +75,44 @@ for (const { path } of pages) {
           .getAnimations()
           .filter((a): a is CSSAnimation => a instanceof CSSAnimation)
           .filter((a) => !(Number(a.effect?.getComputedTiming().endTime) <= max))
+          // Motion inside a pause toggle is allowed to go on (the footer heart; its test is below).
+          .filter((a) => !((a.effect as KeyframeEffect).target as Element | null)?.closest('button[aria-pressed]'))
           .map((a) => `${a.animationName} on .${(a.effect as KeyframeEffect).target?.getAttribute('class')}`),
       MAX_MOTION_MS,
     );
     expect(endless).toEqual([]);
   });
 }
+
+// The footer heart beats for as long as the page is open, so it must pause on a tap, stay paused after a reload,
+// and start paused for readers who ask for reduced motion.
+const heartBeats = (page: Page) =>
+  page.evaluate(() =>
+    document
+      .getAnimations()
+      .some((a) => (a.effect as KeyframeEffect).target?.closest('#heart') && a.playState === 'running'),
+  );
+
+test('footer heart: beats until tapped, stays paused after reload', async ({ page }) => {
+  await page.goto('/');
+  const heart = page.locator('#heart');
+  await expect(heart).toHaveAttribute('aria-pressed', 'false');
+  expect(await heartBeats(page)).toBe(true);
+
+  await heart.click();
+  await expect(heart).toHaveAttribute('aria-pressed', 'true');
+  expect(await heartBeats(page)).toBe(false);
+  await page.reload();
+  await expect(heart).toHaveAttribute('aria-pressed', 'true');
+  expect(await heartBeats(page)).toBe(false);
+
+  await heart.click();
+  expect(await heartBeats(page)).toBe(true);
+});
+
+test('footer heart: starts paused with reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await expect(page.locator('#heart')).toHaveAttribute('aria-pressed', 'true');
+  expect(await heartBeats(page)).toBe(false);
+});

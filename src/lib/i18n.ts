@@ -32,49 +32,65 @@ export const rich = (s: string) =>
     .replace(/!!(.+?)!!/g, '<span class="no">$1</span>');
 
 /** Site-wide strings (src/layouts/Base.astro): the "new version" notice and the footer ({heart} = the heart icon). */
-export const SITE_TEXT: Record<Lang, { newVersion: string; reload: string; madeWith: string; love: string }> = {
+export const SITE_TEXT: Record<
+  Lang,
+  { newVersion: string; reload: string; madeWith: string; love: string; pause: string }
+> = {
   en: {
     newVersion: 'A new version of this page is out.',
     reload: 'Reload',
     madeWith: 'TLI Events, made with {heart}',
     love: 'love',
+    pause: 'Pause the heart animation',
   },
   'pt-br': {
     newVersion: 'Saiu uma versão nova desta página.',
     reload: 'Recarregar',
     madeWith: 'TLI Events, feito com {heart}',
     love: 'amor',
+    pause: 'Pausar a animação do coração',
   },
   de: {
     newVersion: 'Eine neue Version dieser Seite ist da.',
     reload: 'Neu laden',
     madeWith: 'TLI Events, gemacht mit {heart}',
     love: 'Liebe',
+    pause: 'Herz-Animation anhalten',
   },
   fr: {
     newVersion: 'Une nouvelle version de cette page est disponible.',
     reload: 'Recharger',
     madeWith: 'TLI Events, fait avec {heart}',
     love: 'amour',
+    pause: 'Mettre en pause l’animation du cœur',
   },
   ko: {
     newVersion: '이 페이지의 새 버전이 나왔습니다.',
     reload: '새로고침',
     madeWith: 'TLI Events, {heart}을 담아 만듦',
     love: '사랑',
+    pause: '하트 애니메이션 일시정지',
   },
   ja: {
     newVersion: 'このページの新しいバージョンがあります。',
     reload: '再読み込み',
     madeWith: 'TLI Events、{heart}を込めて',
     love: '愛',
+    pause: 'ハートのアニメーションを一時停止',
   },
-  zh: { newVersion: '本页面有新版本。', reload: '刷新', madeWith: 'TLI Events，用{heart}制作', love: '爱' },
+  zh: {
+    newVersion: '本页面有新版本。',
+    reload: '刷新',
+    madeWith: 'TLI Events，用{heart}制作',
+    love: '爱',
+    pause: '暂停爱心动画',
+  },
   ru: {
     newVersion: 'Вышла новая версия этой страницы.',
     reload: 'Обновить',
     madeWith: 'TLI Events, сделано с {heart}',
     love: 'любовью',
+    pause: 'Остановить анимацию сердца',
   },
 };
 

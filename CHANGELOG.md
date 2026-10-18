@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- Footer: the heart beats for as long as the page is open, no longer just three times on load; tap it to pause it (it stays paused in your browser, and starts paused if your system asks for reduced motion).
+
 ## [1.9.0] - 2026-10-18
 
 ### Changed

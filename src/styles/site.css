@@ -484,13 +484,33 @@ a.back svg {
   color: var(--ink2);
   letter-spacing: 0.02em;
 }
+/* the heart beats as long as the page is open; a tap pauses it (WCAG 2.2.2: motion over 5 s needs a pause) */
 .heart {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: 0 -4px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+.heart:focus-visible {
+  outline: 2px solid var(--accent);
+}
+.heart svg {
   width: 16px;
   height: 16px;
   fill: var(--bad);
   transform-origin: center;
-  /* three beats (4.2 s), then still: WCAG 2.2.2 wants auto-started motion to stop within 5 s */
-  animation: heartbeat 1.4s ease-in-out 3;
+}
+.heart[aria-pressed='false'] svg {
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+.heart[aria-pressed='true'] svg {
+  opacity: 0.75;
 }
 @keyframes heartbeat {
   0%,
@@ -503,11 +523,6 @@ a.back svg {
   }
   28% {
     transform: scale(1.1);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .heart {
-    animation: none;
   }
 }
 

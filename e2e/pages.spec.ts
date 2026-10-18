@@ -51,15 +51,15 @@ for (const { file, path } of pages) {
   });
 }
 
-// The footer follows the page language (SITE_TEXT in src/lib/i18n.ts), heart label included.
-for (const [path, text, love] of [
-  ['/', 'made with', 'love'],
-  ['/ss14/fr/', 'fait avec', 'amour'],
-  ['/ss14/ko/', '을 담아 만듦', '사랑'],
+// The footer follows the page language (SITE_TEXT in src/lib/i18n.ts), the heart's pause button included.
+for (const [path, text, pause] of [
+  ['/', 'made with', 'Pause the heart animation'],
+  ['/ss14/fr/', 'fait avec', 'Mettre en pause l’animation du cœur'],
+  ['/ss14/ko/', '을 담아 만듦', '하트 애니메이션 일시정지'],
 ] as const) {
   test(`${path}: footer in the page language`, async ({ page }) => {
     await page.goto(path);
     await expect(page.locator('.site-foot')).toContainText(text);
-    await expect(page.locator('.site-foot .heart')).toHaveAttribute('aria-label', love);
+    await expect(page.locator('.site-foot .heart')).toHaveAttribute('aria-label', pause);
   });
 }
