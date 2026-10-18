@@ -345,3 +345,34 @@ for (const [timezoneId, offset] of [
     });
   });
 }
+
+// Instrument, treasure and incident art shows whole (owner, 2026-10-18): a cropped picture hides what the card looks like in
+// game. Instrument art wider than its box (Tongs, Noose…) was cropped at the sides until then. Either the image letterboxes (contain) or its box has the art's own shape.
+for (const width of [390, 1440]) {
+  test(`instrument, treasure and incident art is never cropped (${width}px)`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(SHEET);
+    const imgs = page.locator('.list .pic img, #tools .tool .pic img');
+    await expect(imgs.first()).toBeVisible();
+    // The rows below the fold are lazy: load them first, or an unloaded image (natural size 0) proves nothing.
+    await imgs.evaluateAll((list) =>
+      Promise.all(
+        (list as HTMLImageElement[]).map((img) => {
+          img.loading = 'eager';
+          return img.decode().catch(() => undefined);
+        }),
+      ),
+    );
+    const cropped = await imgs.evaluateAll((list) =>
+      (list as HTMLImageElement[])
+        .filter((img) => {
+          if (!img.naturalWidth) return true;
+          if (getComputedStyle(img).objectFit === 'contain') return false;
+          const box = img.getBoundingClientRect();
+          return Math.abs(box.width / box.height - img.naturalWidth / img.naturalHeight) > 0.02;
+        })
+        .map((img) => img.closest('li, .tool')?.textContent?.trim().slice(0, 30)),
+    );
+    expect(cropped).toEqual([]);
+  });
+}

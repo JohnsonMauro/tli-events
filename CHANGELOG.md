@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet: instrument, Warden's Treasure and incident pictures show whole instead of cropped — treasures and incidents at 88 px tall; instruments keep their size, and the wide ones (Tongs, Noose…) are no longer cut at the sides.
+
 ## [1.10.1] - 2026-10-18
 
 ### Changed

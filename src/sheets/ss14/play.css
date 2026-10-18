@@ -575,14 +575,14 @@ main.wide {
 .tool .pic {
   display: block;
   align-self: stretch;
-  width: 83px;
+  width: 83px; /* art wider than the box (up to 4:3) gets thin bands, never a crop */
   min-height: 69px;
   background: #1b1916;
 }
 .tool img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 .tool .noart {
@@ -859,23 +859,28 @@ main.wide {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 66px;
+  min-height: 88px;
   padding: 0 6px 0 0;
   overflow: hidden; /* the card's corners clip the art */
   border-radius: var(--radius);
   background: var(--surface2);
   font-size: 14px;
 }
+/* the whole art, never cropped: a box in the art's own shape (incidents square, treasures 1.1:1), 88 px tall; a
+   row taller than that (long text) shows dark bands above and below rather than cutting the picture */
 .list .pic {
   flex: none;
   align-self: stretch;
-  width: 56px;
+  width: 88px;
   background: #1b1916;
+}
+.list.gifts .pic {
+  width: 97px;
 }
 .list .pic img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 .list .txt {
@@ -923,7 +928,7 @@ main.wide {
   align-items: center;
   gap: 8px;
   width: 100%;
-  min-height: 66px;
+  min-height: 88px;
   padding: 0 6px 0 0;
   border-radius: var(--radius);
   cursor: help;

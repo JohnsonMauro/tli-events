@@ -208,7 +208,7 @@ const events = [...EVENTS]
   .map(([id, name, artId, src]) => ({
     id,
     name,
-    art: artId ? A(artId, 'md') : null, // row art drawn 56 px wide, up to ~70 tall: the 80 px set
+    art: artId ? A(artId, 'lg') : null, // row art: the whole square at 88 px, sharp at 2×
     pop: artId ? A(artId, 'md') : null,
     src: SRC[src],
     // Rainbows per run against an average "!" (sign kept); null before the export measures incidents.
@@ -223,7 +223,7 @@ const gifts = [
   ['ring', 'Three-Headed Thumb Ring', t.gRingDo, t.gRing],
   ['wine', 'Crimson Vintage', t.gWineDo, t.gWine],
   ['brand', 'Brand of Original Sin', t.gBrandDo, t.gBrand],
-].map(([id, name, does, when]) => ({ name, does, when, art: A('gift-' + id, 'md') }));
+].map(([id, name, does, when]) => ({ name, does, when, art: A('gift-' + id, 'lg') }));
 
 // Embedded for the client script; escape "<" so the JSON can never close the tag.
 const ui = {
