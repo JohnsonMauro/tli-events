@@ -56,6 +56,81 @@ main.wide {
   font: 700 12px var(--sans);
   letter-spacing: 0.02em;
 }
+/* the time wraps as one piece on narrow screens ("GMT-" / "3" otherwise) */
+.sim-date time {
+  white-space: nowrap;
+}
+
+/* the community simulator to practice on, and why its numbers differ */
+.sim-cta {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface2));
+  font-size: 14px;
+}
+.sim-cta a {
+  font-weight: 700;
+}
+.sim-diff {
+  display: block;
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--ink2);
+}
+
+/* left pane: each part folds (accordion); the heading is the toggle */
+.acc + .acc {
+  margin-top: 12px;
+}
+.acc > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+.acc > summary::-webkit-details-marker {
+  display: none;
+}
+.acc > summary > h2 {
+  margin: 0;
+}
+.acc > summary::after {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border: solid var(--ink2);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 150ms;
+}
+.acc[open] > summary::after {
+  transform: translateY(2px) rotate(-135deg);
+}
+.acc > summary:hover::after {
+  border-color: var(--ink);
+}
+.acc > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.acc[open] > summary {
+  margin-bottom: 8px;
+}
+.acc:not(.run) {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .acc > summary::after {
+    transition: none;
+  }
+}
 
 /* your run: start card and objective, the numbers follow (./play.ts) */
 .run {
@@ -139,7 +214,8 @@ main.wide {
   list-style: none;
   counter-reset: p;
   padding: 0;
-  margin: 0;
+  /* room for the first step's badge under the fold heading */
+  margin: 14px 0 0;
   display: grid;
   gap: 8px;
 }
@@ -259,9 +335,6 @@ main.wide {
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 6px;
   margin: 8px 0;
-}
-.builds-h {
-  margin-top: 16px;
 }
 /* key terms: what the reader must not miss */
 .k {
@@ -408,6 +481,9 @@ main.wide {
   font-size: 15px;
 }
 .builds .val {
+  display: block;
+  margin-top: 4px;
+  text-align: center;
   font: 600 12px var(--mono);
   color: var(--accent);
   white-space: nowrap;

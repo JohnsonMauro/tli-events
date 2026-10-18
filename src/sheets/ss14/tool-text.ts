@@ -54,3 +54,41 @@ export const TOOL_TEXT = {
   forged: '−1 destination/day. Opened door: 50% to open one more. Loses more than it gains.',
   ironbox: 'Each morning a cell becomes a rat nest (Rare Rat in 2 days). Bad alone; great with Skewer/Coin.',
 };
+
+// What a strong pair does together, in English (other languages: `pair` in ./i18n.ts). Keyed by the two ids
+// sorted and joined with "+"; a pair with no line here shows each instrument's line instead. The mechanics
+// come from the engine's rules (events/SS14_Tartarus/engine/src/rules.rs); "no direct link" = the pair is
+// worth about what both solos add up to (pair − (soloA + soloB − base) < 0.5 Rainbow/run at the 2026-10-18 export).
+// The same line shows under every start card's list, so keep it true under all of them (no solo verdicts).
+export const PAIR_TEXT = {
+  'maiden+rope':
+    "Every Replace lands Rare or better, and Maiden's +3 on a Rare is already Rainbow: each Replace that meets Maiden's balance (an empty block always does) is a Rainbow.",
+  'coin+rope':
+    "Noose's Replaces land Rare or Legendary, so twins (same beast and rarity) form high — Coin's +2 on a Legendary twin is a Rainbow.",
+  'maiden+scapegoat':
+    "Each Replace clears 2 other inmates and comes in above the old rarity; the thinner block meets Maiden's balance more often, for +3.",
+  'maiden+stake':
+    "Stake turns 40% of Replaces on a sub-Legendary inmate into a Legendary; when Maiden's +3 fires on it too, that's a Rainbow.",
+  'blacklist+rope':
+    'No direct link: Noose makes every Replace an upgrade; once ≤5 cells are locked, Blacklist raises 2 inmates per door.',
+  'coin+ironbox':
+    'Iron Box hatches Rare Rats all run long — a steady supply of twins; Coin removes one and gives another +2 (Ultimate).',
+  'collar+rope': 'No direct link: Noose upgrades every Replace, Collar adds +1 to most bites.',
+  'rope+shackles': 'No direct link: Noose upgrades every Replace, Shackles gives a random +1 on long walks (≥4 cells).',
+  'coin+maiden': 'No direct link: Maiden pays on Replaces (+3), Coin on twins each morning (+2).',
+  'blacklist+maiden': 'No direct link: Maiden pays on Replaces (+3), Blacklist on every door once ≤5 cells are locked.',
+  'collar+maiden': "No direct link: Maiden's +3 comes from Replaces, Collar's +1 from bites — the run uses both.",
+  'maiden+shackles': 'No direct link: Maiden pays on Replaces (+3), Shackles on long walks (a random +1).',
+  'maiden+ravenous':
+    "Little direct link: each morning Ravenous's top inmate clears its 2 neighbours (40% for +1 each); Maiden pays on Replaces (+3).",
+  'coin+stake':
+    'Stake makes Legendaries out of Replaces; a Legendary twin (same beast) is a Coin target: +2 = Rainbow.',
+  'blacklist+keys':
+    'Keys opens the neighbours of a door too, so locked cells drop to ≤5 early — from then on every door you open raises 2 inmates.',
+  'coin+collar': 'No direct link: Collar adds +1 to most bites, Coin +2 to a twin each morning.',
+  'coin+shackles': 'No direct link: Coin +2 to a twin each morning, Shackles a random +1 on long walks.',
+  'ravenous+rope':
+    "No direct link: Noose upgrades every Replace; each morning Ravenous's top inmate clears its 2 neighbours (40% for +1 each).",
+  'collar+shackles': 'No direct link: Collar adds +1 to most bites, Shackles a random +1 on long walks.',
+  'coin+keys': "Keys opens the neighbours of a door too: more inmates on the block, more twins for Coin's +2.",
+};

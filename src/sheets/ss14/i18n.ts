@@ -2,7 +2,7 @@
 // rarities) stay in English: they are what the EN client shows; localized client names are not verified.
 // Markup in strings: **key term** → .k (accent), !!warning!! → .no (red), {var} → filled by fmt().
 import type { Lang } from '../../lib/i18n';
-import { TOOL_TEXT } from './tool-text';
+import { PAIR_TEXT, TOOL_TEXT } from './tool-text';
 
 type IncidentId =
   | 'trickster'
@@ -25,6 +25,7 @@ interface Incident {
   bad: string;
 }
 type ToolText = Record<keyof typeof TOOL_TEXT, string>;
+type PairText = Record<keyof typeof PAIR_TEXT, string>;
 
 const en = {
   title: 'Tartarus — Play Sheet',
@@ -81,6 +82,9 @@ const en = {
     'A ranking, not a recipe: your board and the offers decide. New cards and rules found live update this page.',
   pickH: 'Instrument pick',
   simDate: 'Last simulation: {date}',
+  simCta: 'Want to practice, or test a board of your own?',
+  simDiff:
+    'Its numbers differ from ours in places — natural while the game is still being figured out; ours follow the live cards.',
   pickHint: 'Tap the 3 the game offers — the best one, counting what you already hold, lights up.',
   full: 'You hold 2 instruments — the most a run gives (1 at the start, 1 from the objective).',
   holding: 'holding:',
@@ -99,7 +103,6 @@ const en = {
     '= not fully confirmed in the game yet; we keep playing to pin these down. Got a card print or a number? Send it:',
   doubtIssue: 'GitHub issue',
   doubtReddit: 'Reddit thread',
-  tierWorse: 'worse than none',
   tipBtn: 'What does this number mean?',
   tipH: 'Instrument tiers',
   tipP: 'Rainbows per run in our simulation with the instrument from day 1, divided by a run with **no instrument** ({base} Rainbow/run). **≥{top}×** = at least {top} times as many Rainbows.',
@@ -217,6 +220,7 @@ const en = {
     },
   } as Record<IncidentId, Incident>,
   tool: TOOL_TEXT as ToolText,
+  pair: PAIR_TEXT as PairText,
 };
 export type Dict = typeof en;
 
@@ -276,6 +280,9 @@ const ptbr: Dict = {
     'Um ranking, não uma receita: seu tabuleiro e as ofertas decidem. Cartas e regras novas vistas ao vivo atualizam esta página.',
   pickH: 'Escolha de instrumento',
   simDate: 'Última simulação: {date}',
+  simCta: 'Quer treinar ou testar um tabuleiro por conta própria?',
+  simDiff:
+    'Os números dele diferem dos nossos em alguns pontos — natural enquanto o jogo ainda está sendo desvendado; os nossos seguem as cartas ao vivo.',
   pickHint: 'Toque nos 3 que o jogo oferece — o melhor, contando o que você já tem, acende.',
   full: 'Você tem 2 instrumentos — o máximo de uma run (1 no início, 1 do objetivo).',
   holding: 'com você:',
@@ -294,7 +301,6 @@ const ptbr: Dict = {
     '= ainda não confirmado por completo no jogo; seguimos jogando para confirmar. Tem print da carta ou um número? Mande:',
   doubtIssue: 'issue no GitHub',
   doubtReddit: 'thread no Reddit',
-  tierWorse: 'pior que nenhum',
   tipBtn: 'O que significa este número?',
   tipH: 'Tiers de instrumento',
   tipP: 'Rainbows por run na nossa simulação com o instrumento desde o dia 1, divididos por uma run **sem instrumento** ({base} Rainbow/run). **≥{top}×** = pelo menos {top} vezes mais Rainbows.',
@@ -449,6 +455,44 @@ const ptbr: Dict = {
     forged: '−1 destino/dia. Porta aberta: 50% de abrir mais uma. Perde mais do que ganha.',
     ironbox: 'Toda manhã uma cela vira ninho de rato (Rat Rare em 2 dias). Ruim sozinho; ótimo com Skewer/Coin.',
   },
+  pair: {
+    'maiden+rope':
+      'Todo Replace cai em Rare ou melhor, e o +3 da Maiden num Rare já é Rainbow: cada Replace que bate o equilíbrio da Maiden (bloco vazio sempre bate) é um Rainbow.',
+    'coin+rope':
+      'Os Replaces do Noose caem em Rare ou Legendary, então gêmeos (mesma fera e raridade) se formam no alto — o +2 da Coin num gêmeo Legendary é Rainbow.',
+    'maiden+scapegoat':
+      'Cada Replace tira 2 outros inmates e o novo entra acima da raridade antiga; o bloco mais vazio bate o equilíbrio da Maiden com mais frequência, para +3.',
+    'maiden+stake':
+      'A Stake transforma 40% dos Replaces em inmate abaixo de Legendary num Legendary; se o +3 da Maiden também dispara nele, é Rainbow.',
+    'blacklist+rope':
+      'Sem ligação direta: o Noose faz todo Replace ser melhoria; com ≤5 celas trancadas, a Blacklist sobe 2 inmates por porta.',
+    'coin+ironbox':
+      'A Iron Box choca Rats Rare a run toda — gêmeos sem parar; a Coin remove um e dá +2 a outro (Ultimate).',
+    'collar+rope': 'Sem ligação direta: o Noose melhora todo Replace, o Collar dá +1 na maioria das mordidas.',
+    'rope+shackles':
+      'Sem ligação direta: o Noose melhora todo Replace, as Shackles dão +1 aleatório em caminhadas longas (≥4 celas).',
+    'coin+maiden': 'Sem ligação direta: a Maiden rende nos Replaces (+3), a Coin nos gêmeos toda manhã (+2).',
+    'blacklist+maiden':
+      'Sem ligação direta: a Maiden rende nos Replaces (+3), a Blacklist em toda porta quando restam ≤5 celas trancadas.',
+    'collar+maiden':
+      'Sem ligação direta: o +3 da Maiden vem dos Replaces, o +1 do Collar das mordidas — a run usa os dois.',
+    'maiden+shackles':
+      'Sem ligação direta: a Maiden rende nos Replaces (+3), as Shackles em caminhadas longas (+1 aleatório).',
+    'maiden+ravenous':
+      'Pouca ligação direta: toda manhã o inmate mais alto das Ravenous tira seus 2 vizinhos (40% de +1 cada); a Maiden rende nos Replaces (+3).',
+    'coin+stake':
+      'A Stake tira Legendaries dos Replaces; um gêmeo Legendary (mesma fera) é alvo da Coin: +2 = Rainbow.',
+    'blacklist+keys':
+      'As Keys abrem também os vizinhos da porta, então as celas trancadas caem para ≤5 cedo — daí em diante cada porta aberta sobe 2 inmates.',
+    'coin+collar': 'Sem ligação direta: o Collar dá +1 na maioria das mordidas, a Coin +2 num gêmeo toda manhã.',
+    'coin+shackles':
+      'Sem ligação direta: a Coin dá +2 num gêmeo toda manhã, as Shackles +1 aleatório em caminhadas longas.',
+    'ravenous+rope':
+      'Sem ligação direta: o Noose melhora todo Replace; toda manhã o inmate mais alto das Ravenous tira seus 2 vizinhos (40% de +1 cada).',
+    'collar+shackles':
+      'Sem ligação direta: o Collar dá +1 na maioria das mordidas, as Shackles +1 aleatório em caminhadas longas.',
+    'coin+keys': 'As Keys abrem também os vizinhos da porta: mais inmates no bloco, mais gêmeos para o +2 da Coin.',
+  },
 };
 
 const ko: Dict = {
@@ -505,6 +549,8 @@ const ko: Dict = {
   pairsNote: '순위일 뿐 공식이 아님: 보드와 제안이 결정. 실전에서 찾은 새 카드·규칙으로 이 페이지가 갱신됨.',
   pickH: '도구 선택',
   simDate: '마지막 시뮬레이션: {date}',
+  simCta: '직접 연습하거나 내 보드를 시험해 보고 싶다면?',
+  simDiff: '일부 수치가 우리와 다름 — 게임을 아직 파악하는 중이라 자연스러운 일; 우리 수치는 실전 카드를 따름.',
   pickHint: '게임이 제시한 3개를 누르세요 — 보유 도구를 고려한 최선이 강조됩니다.',
   full: '도구 2개 보유 — 한 판의 최대치 (시작 1개, 목표 1개).',
   holding: '보유:',
@@ -523,7 +569,6 @@ const ko: Dict = {
     '= 게임에서 아직 완전히 확인되지 않음; 확인하려고 계속 플레이 중. 카드 스크린샷이나 수치가 있다면 보내 주세요:',
   doubtIssue: 'GitHub 이슈',
   doubtReddit: 'Reddit 스레드',
-  tierWorse: '없는 것보다 나쁨',
   tipBtn: '이 숫자는 무슨 뜻인가요?',
   tipH: '도구 티어',
   tipP: '도구를 1일차부터 가진 우리 시뮬레이션의 판당 Rainbow ÷ **도구 없는** 판 ({base} Rainbow/판). **≥{top}×** = Rainbow가 최소 {top}배.',
@@ -675,6 +720,35 @@ const ko: Dict = {
     forged: '하루 목적지 −1. 문을 열면 50% 확률로 하나 더. 얻는 것보다 잃는 게 많음.',
     ironbox: '매일 아침 한 칸이 쥐 둥지가 됨 (2일 후 Rare Rat). 단독으론 나쁨; Skewer/Coin과 최고.',
   },
+  pair: {
+    'maiden+rope':
+      '모든 Replace가 Rare 이상, Rare에 Maiden +3이면 바로 Rainbow: Maiden 균형을 맞추는 Replace(빈 블록은 항상)는 곧 Rainbow.',
+    'coin+rope':
+      'Noose의 Replace는 Rare나 Legendary로 나와 높은 희귀도에서 쌍둥이(같은 짐승+희귀도)가 생김 — Legendary 쌍둥이에 Coin +2면 Rainbow.',
+    'maiden+scapegoat':
+      'Replace마다 다른 죄수 2명이 빠지고 새 죄수는 기존보다 높게 등장; 블록이 얇아져 Maiden 균형이 더 자주 맞음(+3).',
+    'maiden+stake':
+      'Stake는 Legendary 미만 죄수 Replace의 40%를 Legendary로 바꿈; 여기에 Maiden +3까지 터지면 Rainbow.',
+    'blacklist+rope': '직접 연결 없음: Noose는 모든 Replace를 업그레이드로; 잠긴 칸 ≤5부터 Blacklist가 문마다 2명 +1.',
+    'coin+ironbox':
+      'Iron Box가 판 내내 Rare Rat을 부화 — 쌍둥이가 계속 생김; Coin이 하나 제거하고 다른 하나 +2(Ultimate).',
+    'collar+rope': '직접 연결 없음: Noose는 모든 Replace 업그레이드, Collar는 대부분의 먹기에 +1.',
+    'rope+shackles': '직접 연결 없음: Noose는 모든 Replace 업그레이드, Shackles는 긴 이동(≥4칸)에 무작위 +1.',
+    'coin+maiden': '직접 연결 없음: Maiden은 Replace에서(+3), Coin은 매일 아침 쌍둥이에서(+2).',
+    'blacklist+maiden': '직접 연결 없음: Maiden은 Replace에서(+3), Blacklist는 잠긴 칸 ≤5부터 문마다.',
+    'collar+maiden': '직접 연결 없음: Maiden +3은 Replace에서, Collar +1은 먹기에서 — 판에서 둘 다 씀.',
+    'maiden+shackles': '직접 연결 없음: Maiden은 Replace에서(+3), Shackles는 긴 이동에서(무작위 +1).',
+    'maiden+ravenous':
+      '연결 약함: 매일 아침 Ravenous의 최상위 죄수가 양옆 2명 제거(각 40% +1); Maiden은 Replace에서(+3).',
+    'coin+stake': 'Stake가 Replace로 Legendary를 만듦; Legendary 쌍둥이(같은 짐승)는 Coin 대상: +2 = Rainbow.',
+    'blacklist+keys': 'Keys가 문의 양옆도 열어 잠긴 칸이 일찍 ≤5로 줄어듦 — 그때부터 여는 문마다 죄수 2명 +1.',
+    'coin+collar': '직접 연결 없음: Collar는 대부분의 먹기에 +1, Coin은 매일 아침 쌍둥이에 +2.',
+    'coin+shackles': '직접 연결 없음: Coin은 매일 아침 쌍둥이에 +2, Shackles는 긴 이동에 무작위 +1.',
+    'ravenous+rope':
+      '직접 연결 없음: Noose는 모든 Replace 업그레이드; 매일 아침 Ravenous의 최상위 죄수가 양옆 2명 제거(각 40% +1).',
+    'collar+shackles': '직접 연결 없음: Collar는 대부분의 먹기에 +1, Shackles는 긴 이동에 무작위 +1.',
+    'coin+keys': 'Keys가 문의 양옆도 엶: 블록에 죄수가 많아지고 Coin +2를 받을 쌍둥이도 많아짐.',
+  },
 };
 
 const ja: Dict = {
@@ -732,6 +806,8 @@ const ja: Dict = {
     'ランキングであってレシピではない：盤面と提示で決まる。実戦で見つかった新カード・ルールでこのページは更新される。',
   pickH: '拷問具の選択',
   simDate: '最終シミュレーション：{date}',
+  simCta: '自分で練習したい？自分の盤面を試したい？',
+  simDiff: '数値が一部こちらと異なる——ゲームの解明が進行中なので自然なこと；こちらの数値は実戦のカードに従う。',
   pickHint: 'ゲームが提示した3つをタップ——所持品を考慮した最善が光ります。',
   full: '刑具2つ所持——1回の上限（開始時1つ、目標で1つ）。',
   holding: '所持：',
@@ -750,7 +826,6 @@ const ja: Dict = {
     '= ゲームでまだ完全には確認できていない；確かめるためにプレイを続けています。カードのスクショや数値があれば送ってください：',
   doubtIssue: 'GitHub Issue',
   doubtReddit: 'Redditスレッド',
-  tierWorse: 'なしより悪い',
   tipBtn: 'この数字の意味は？',
   tipH: '拷問具のティア',
   tipP: '刑具を1日目から持った自前シミュレーションの1回あたりRainbow ÷ **刑具なし**の回（{base} Rainbow/回）。**≥{top}×** = Rainbowが少なくとも{top}倍。',
@@ -902,6 +977,32 @@ const ja: Dict = {
     forged: '1日の行き先−1。扉を開けると50%でもう1つ。得より損が大きい。',
     ironbox: '毎朝1マスがネズミの巣に（2日後にRareのRat）。単体では弱い；Skewer/Coinと好相性。',
   },
+  pair: {
+    'maiden+rope':
+      'ReplaceはすべてRare以上、RareにMaidenの+3でもうRainbow：Maidenの均衡を満たすReplace（空のブロックは常に満たす）＝Rainbow。',
+    'coin+rope':
+      'NooseのReplaceはRareかLegendaryになり、高レアリティで双子（同じ獣+レアリティ）ができる——Legendaryの双子にCoinの+2でRainbow。',
+    'maiden+scapegoat':
+      'Replaceのたびに他の囚人2体が消え、新しい囚人は元より上で登場；薄いブロックはMaidenの均衡を満たしやすい（+3）。',
+    'maiden+stake': 'StakeはLegendary未満の囚人へのReplaceの40%をLegendaryに；そこにMaidenの+3も発動すればRainbow。',
+    'blacklist+rope': '直接の関係なし：NooseはすべてのReplaceを格上げ；施錠マス5以下からBlacklistが扉ごとに2体+1。',
+    'coin+ironbox': 'Iron Boxが回の間ずっとRareのRatを孵す——双子が途切れない；Coinが1体消して別の1体に+2（Ultimate）。',
+    'collar+rope': '直接の関係なし：NooseはすべてのReplaceを格上げ、Collarはほとんどの捕食に+1。',
+    'rope+shackles': '直接の関係なし：NooseはすべてのReplaceを格上げ、Shacklesは長い移動（4マス以上）でランダム+1。',
+    'coin+maiden': '直接の関係なし：MaidenはReplaceで（+3）、Coinは毎朝の双子で（+2）。',
+    'blacklist+maiden': '直接の関係なし：MaidenはReplaceで（+3）、Blacklistは施錠マス5以下から扉ごとに。',
+    'collar+maiden': '直接の関係なし：Maidenの+3はReplaceから、Collarの+1は捕食から——回では両方使う。',
+    'maiden+shackles': '直接の関係なし：MaidenはReplaceで（+3）、Shacklesは長い移動で（ランダム+1）。',
+    'maiden+ravenous': '関係は薄い：毎朝Ravenousの最上位囚人が両隣2体を除去（各40%で+1）；MaidenはReplaceで（+3）。',
+    'coin+stake': 'StakeがReplaceからLegendaryを作る；Legendaryの双子（同じ獣）はCoinの対象：+2＝Rainbow。',
+    'blacklist+keys': 'Keysが扉の両隣も開けるので施錠マスが早く5以下に——以後、開ける扉ごとに囚人2体+1。',
+    'coin+collar': '直接の関係なし：Collarはほとんどの捕食に+1、Coinは毎朝双子に+2。',
+    'coin+shackles': '直接の関係なし：Coinは毎朝双子に+2、Shacklesは長い移動でランダム+1。',
+    'ravenous+rope':
+      '直接の関係なし：NooseはすべてのReplaceを格上げ；毎朝Ravenousの最上位囚人が両隣2体を除去（各40%で+1）。',
+    'collar+shackles': '直接の関係なし：Collarはほとんどの捕食に+1、Shacklesは長い移動でランダム+1。',
+    'coin+keys': 'Keysが扉の両隣も開ける：ブロックの囚人が増え、Coinの+2を受ける双子も増える。',
+  },
 };
 
 const zh: Dict = {
@@ -958,6 +1059,8 @@ const zh: Dict = {
   pairsNote: '这是排名，不是公式：棋盘和出现的刑具说了算。实战中发现的新卡牌和规则会更新本页。',
   pickH: '刑具选择',
   simDate: '最近一次模拟：{date}',
+  simCta: '想自己练习，或者测试自己的棋盘？',
+  simDiff: '它的部分数值与我们不同——游戏仍在被摸索，这很正常；我们的数值以实战卡牌为准。',
   pickHint: '点游戏给出的3件——结合已有刑具的最佳选择会亮起。',
   full: '已持有2个刑具——一局的上限（开局1个，目标1个）。',
   holding: '已有：',
@@ -973,7 +1076,6 @@ const zh: Dict = {
   doubtNote: '= 游戏中尚未完全确认；我们一直在实战确认。有卡牌截图或数据？请发给我们：',
   doubtIssue: 'GitHub Issue',
   doubtReddit: 'Reddit 讨论帖',
-  tierWorse: '不如不拿',
   tipBtn: '这个数字是什么意思？',
   tipH: '刑具档位',
   tipP: '我们的模拟中从第1天起持有该刑具的每局Rainbow，除以**无刑具**的一局（{base} Rainbow/局）。**≥{top}×** = Rainbow至少是{top}倍。',
@@ -1124,6 +1226,30 @@ const zh: Dict = {
     forged: '每天目的地−1。开门：50%再开一扇。得不偿失。',
     ironbox: '每天早上一格变成鼠窝（2天后出Rare Rat）。单独很弱；配Skewer/Coin很强。',
   },
+  pair: {
+    'maiden+rope':
+      '每次Replace都是Rare或更高，Rare吃到Maiden的+3就是Rainbow：满足Maiden平衡的Replace（空区总是满足）＝Rainbow。',
+    'coin+rope':
+      'Noose的Replace出Rare或Legendary，高稀有度上容易出双胞胎（同兽种+稀有度）——Legendary双胞胎吃到Coin的+2就是Rainbow。',
+    'maiden+scapegoat': '每次Replace移除另外2个囚犯，新囚犯高于原稀有度；区里人更少，更常满足Maiden的平衡（+3）。',
+    'maiden+stake': 'Stake让Replace低于Legendary的囚犯时40%变成Legendary；再触发Maiden的+3就是Rainbow。',
+    'blacklist+rope': '没有直接联动：Noose让每次Replace都是升级；锁着的格子≤5后，Blacklist每开一扇门给2个囚犯+1。',
+    'coin+ironbox': 'Iron Box整局不断孵出Rare Rat——双胞胎源源不断；Coin移除一个，给另一个+2（Ultimate）。',
+    'collar+rope': '没有直接联动：Noose升级每次Replace，Collar给大多数吞食+1。',
+    'rope+shackles': '没有直接联动：Noose升级每次Replace，Shackles在长距离移动（≥4格）时随机+1。',
+    'coin+maiden': '没有直接联动：Maiden靠Replace（+3），Coin靠每天早上的双胞胎（+2）。',
+    'blacklist+maiden': '没有直接联动：Maiden靠Replace（+3），Blacklist在锁着的格子≤5后每扇门都给。',
+    'collar+maiden': '没有直接联动：Maiden的+3来自Replace，Collar的+1来自吞食——一局两样都会用。',
+    'maiden+shackles': '没有直接联动：Maiden靠Replace（+3），Shackles靠长距离移动（随机+1）。',
+    'maiden+ravenous': '联动很弱：每天早上Ravenous的最高囚犯移除左右2个邻居（每个40%+1）；Maiden靠Replace（+3）。',
+    'coin+stake': 'Stake从Replace里造出Legendary；Legendary双胞胎（同兽种）是Coin的目标：+2＝Rainbow。',
+    'blacklist+keys': 'Keys把门两侧的格子也打开，锁着的格子很早就降到≤5——之后每开一扇门给2个囚犯+1。',
+    'coin+collar': '没有直接联动：Collar给大多数吞食+1，Coin每天早上给双胞胎+2。',
+    'coin+shackles': '没有直接联动：Coin每天早上给双胞胎+2，Shackles长距离移动时随机+1。',
+    'ravenous+rope': '没有直接联动：Noose升级每次Replace；每天早上Ravenous的最高囚犯移除左右2个邻居（每个40%+1）。',
+    'collar+shackles': '没有直接联动：Collar给大多数吞食+1，Shackles长距离移动时随机+1。',
+    'coin+keys': 'Keys把门两侧的格子也打开：区里囚犯更多，能吃到Coin +2的双胞胎也更多。',
+  },
 };
 
 const ru: Dict = {
@@ -1182,6 +1308,8 @@ const ru: Dict = {
     'Это рейтинг, а не рецепт: решают ваша доска и предложения. Новые карты и правила из живой игры обновляют страницу.',
   pickH: 'Выбор инструмента',
   simDate: 'Последняя симуляция: {date}',
+  simCta: 'Хотите потренироваться или проверить свою доску?',
+  simDiff: 'Его цифры местами расходятся с нашими — это естественно, пока игру ещё изучают; наши следуют живым картам.',
   pickHint: 'Нажмите 3 предложенных игрой — подсветится лучший с учётом того, что у вас уже есть.',
   full: 'У вас 2 инструмента — максимум за забег (1 в начале, 1 за цель).',
   holding: 'у вас:',
@@ -1200,7 +1328,6 @@ const ru: Dict = {
     '= в игре ещё не подтверждено полностью; продолжаем играть, чтобы проверить. Есть скриншот карты или цифры? Пишите:',
   doubtIssue: 'issue на GitHub',
   doubtReddit: 'ветка на Reddit',
-  tierWorse: 'хуже, чем без него',
   tipBtn: 'Что значит это число?',
   tipH: 'Ранги инструментов',
   tipP: 'Rainbow за забег в нашей симуляции с инструментом с 1-го дня, делённые на забег **без инструмента** ({base} Rainbow/забег). **≥{top}×** = минимум в {top} раза больше Rainbow.',
@@ -1356,6 +1483,41 @@ const ru: Dict = {
     ironbox:
       'Каждое утро клетка становится крысиным гнездом (Rare Rat через 2 дня). Слабо в одиночку; отлично со Skewer/Coin.',
   },
+  pair: {
+    'maiden+rope':
+      'Каждый Replace даёт Rare или выше, а +3 от Maiden на Rare — это уже Rainbow: каждый Replace, попавший в баланс Maiden (пустой блок — всегда), = Rainbow.',
+    'coin+rope':
+      'Replace с Noose даёт Rare или Legendary, поэтому близнецы (тот же зверь и редкость) появляются высоко — +2 от Coin на близнеце Legendary = Rainbow.',
+    'maiden+scapegoat':
+      'Каждый Replace убирает 2 других заключённых, а новый приходит выше старой редкости; в поредевшем блоке баланс Maiden срабатывает чаще (+3).',
+    'maiden+stake':
+      'Stake превращает 40% Replace заключённого ниже Legendary в Legendary; если на нём ещё срабатывает +3 от Maiden — это Rainbow.',
+    'blacklist+rope':
+      'Без прямой связи: Noose делает каждый Replace улучшением; при ≤5 запертых клетках Blacklist поднимает 2 заключённых за каждую дверь.',
+    'coin+ironbox':
+      'Iron Box весь забег выводит Rare Rat — близнецы идут постоянно; Coin убирает одного и даёт другому +2 (Ultimate).',
+    'collar+rope': 'Без прямой связи: Noose улучшает каждый Replace, Collar даёт +1 почти к каждому укусу.',
+    'rope+shackles':
+      'Без прямой связи: Noose улучшает каждый Replace, Shackles дают случайный +1 на длинных ходах (≥4 клетки).',
+    'coin+maiden': 'Без прямой связи: Maiden приносит на Replace (+3), Coin — на близнецах каждое утро (+2).',
+    'blacklist+maiden':
+      'Без прямой связи: Maiden приносит на Replace (+3), Blacklist — за каждую дверь при ≤5 запертых клетках.',
+    'collar+maiden':
+      'Без прямой связи: +3 от Maiden — с Replace, +1 от Collar — с укусов; в забеге нужны оба действия.',
+    'maiden+shackles': 'Без прямой связи: Maiden приносит на Replace (+3), Shackles — на длинных ходах (случайный +1).',
+    'maiden+ravenous':
+      'Связь слабая: каждое утро сильнейший у Ravenous убирает 2 соседей (40% на +1 за каждого); Maiden приносит на Replace (+3).',
+    'coin+stake': 'Stake делает Legendary из Replace; близнец Legendary (тот же зверь) — цель Coin: +2 = Rainbow.',
+    'blacklist+keys':
+      'Keys открывают и соседей двери, поэтому запертых клеток рано становится ≤5 — дальше каждая открытая дверь поднимает 2 заключённых.',
+    'coin+collar': 'Без прямой связи: Collar даёт +1 почти к каждому укусу, Coin — +2 близнецу каждое утро.',
+    'coin+shackles': 'Без прямой связи: Coin даёт +2 близнецу каждое утро, Shackles — случайный +1 на длинных ходах.',
+    'ravenous+rope':
+      'Без прямой связи: Noose улучшает каждый Replace; каждое утро сильнейший у Ravenous убирает 2 соседей (40% на +1 за каждого).',
+    'collar+shackles':
+      'Без прямой связи: Collar даёт +1 почти к каждому укусу, Shackles — случайный +1 на длинных ходах.',
+    'coin+keys': 'Keys открывают и соседей двери: больше заключённых в блоке — больше близнецов для +2 от Coin.',
+  },
 };
 
 // German: "Tier" means "animal", so rarity tiers are "Stufe"; "Tier" stays only for the instrument ranking.
@@ -1414,6 +1576,9 @@ const de: Dict = {
     'Ein Ranking, kein Rezept: dein Board und die Angebote entscheiden. Neue Karten und Regeln aus dem Live-Spiel aktualisieren diese Seite.',
   pickH: 'Instrument-Wahl',
   simDate: 'Letzte Simulation: {date}',
+  simCta: 'Willst du üben oder ein eigenes Board testen?',
+  simDiff:
+    'Seine Zahlen weichen stellenweise von unseren ab — normal, solange das Spiel noch erforscht wird; unsere folgen den Live-Karten.',
   pickHint: 'Tippe die 3 an, die das Spiel anbietet — das beste, mit dem, was du schon hast, leuchtet auf.',
   full: 'Du hast 2 Instrumente — das Maximum pro Run (1 zu Beginn, 1 vom Ziel).',
   holding: 'im Besitz:',
@@ -1432,7 +1597,6 @@ const de: Dict = {
     '= im Spiel noch nicht ganz bestätigt; wir spielen weiter, um es zu klären. Du hast einen Karten-Screenshot oder eine Zahl? Schick sie:',
   doubtIssue: 'GitHub-Issue',
   doubtReddit: 'Reddit-Thread',
-  tierWorse: 'schlechter als keins',
   tipBtn: 'Was bedeutet diese Zahl?',
   tipH: 'Instrument-Tiers',
   tipP: 'Rainbows pro Run in unserer Simulation mit dem Instrument ab Tag 1, geteilt durch einen Run **ohne Instrument** ({base} Rainbow/Run). **≥{top}×** = mindestens {top}-mal so viele Rainbows.',
@@ -1587,6 +1751,42 @@ const de: Dict = {
     forged: '−1 Ziel/Tag. Geöffnete Tür: 50 %, eine weitere zu öffnen. Kostet mehr, als es bringt.',
     ironbox:
       'Jeden Morgen wird eine Zelle zum Rattennest (Rare Rat in 2 Tagen). Allein schwach; stark mit Skewer/Coin.',
+  },
+  pair: {
+    'maiden+rope':
+      'Jedes Replace landet auf Rare oder besser, und Maidens +3 auf einem Rare ist schon Rainbow: jedes Replace, das Maidens Gleichgewicht trifft (ein leerer Block immer), ist ein Rainbow.',
+    'coin+rope':
+      'Noose-Replaces landen auf Rare oder Legendary, also entstehen Zwillinge (gleiche Bestie und Seltenheit) weit oben — Coins +2 auf einem Legendary-Zwilling ist Rainbow.',
+    'maiden+scapegoat':
+      'Jedes Replace räumt 2 andere Inmates ab, der neue kommt über der alten Seltenheit; der dünnere Block trifft Maidens Gleichgewicht öfter (+3).',
+    'maiden+stake':
+      'Stake macht aus 40 % der Replaces auf Inmates unter Legendary einen Legendary; zündet darauf noch Maidens +3, ist es Rainbow.',
+    'blacklist+rope':
+      'Kein direkter Bezug: Noose macht jedes Replace zum Upgrade; ab ≤5 verschlossenen Zellen hebt Blacklist pro Tür 2 Inmates.',
+    'coin+ironbox':
+      'Iron Box brütet den ganzen Run Rare Rats aus — ständig Zwillinge; Coin entfernt einen und gibt einem anderen +2 (Ultimate).',
+    'collar+rope': 'Kein direkter Bezug: Noose verbessert jedes Replace, Collar gibt den meisten Bissen +1.',
+    'rope+shackles':
+      'Kein direkter Bezug: Noose verbessert jedes Replace, Shackles geben auf langen Zügen (≥4 Zellen) zufällig +1.',
+    'coin+maiden': 'Kein direkter Bezug: Maiden zahlt bei Replaces (+3), Coin bei Zwillingen jeden Morgen (+2).',
+    'blacklist+maiden':
+      'Kein direkter Bezug: Maiden zahlt bei Replaces (+3), Blacklist bei jeder Tür ab ≤5 verschlossenen Zellen.',
+    'collar+maiden':
+      'Kein direkter Bezug: Maidens +3 kommt aus Replaces, Collars +1 aus Bissen — der Run nutzt beides.',
+    'maiden+shackles': 'Kein direkter Bezug: Maiden zahlt bei Replaces (+3), Shackles auf langen Zügen (zufällig +1).',
+    'maiden+ravenous':
+      "Kaum direkter Bezug: jeden Morgen räumt Ravenous' höchster Inmate seine 2 Nachbarn ab (je 40 % auf +1); Maiden zahlt bei Replaces (+3).",
+    'coin+stake':
+      'Stake macht aus Replaces Legendaries; ein Legendary-Zwilling (gleiche Bestie) ist ein Coin-Ziel: +2 = Rainbow.',
+    'blacklist+keys':
+      'Keys öffnen auch die Nachbarn einer Tür, also sinken die verschlossenen Zellen früh auf ≤5 — ab dann hebt jede geöffnete Tür 2 Inmates.',
+    'coin+collar': 'Kein direkter Bezug: Collar gibt den meisten Bissen +1, Coin jeden Morgen einem Zwilling +2.',
+    'coin+shackles':
+      'Kein direkter Bezug: Coin gibt jeden Morgen einem Zwilling +2, Shackles auf langen Zügen zufällig +1.',
+    'ravenous+rope':
+      "Kein direkter Bezug: Noose verbessert jedes Replace; jeden Morgen räumt Ravenous' höchster Inmate seine 2 Nachbarn ab (je 40 % auf +1).",
+    'collar+shackles': 'Kein direkter Bezug: Collar gibt den meisten Bissen +1, Shackles auf langen Zügen zufällig +1.',
+    'coin+keys': 'Keys öffnen auch die Nachbarn einer Tür: mehr Inmates im Block, mehr Zwillinge für Coins +2.',
   },
 };
 

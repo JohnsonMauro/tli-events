@@ -15,7 +15,7 @@ Dated: Astro 7.4.0, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/a
 ## Mobile layout
 
 - **A grid item with `min-width: auto` widens the page.** The calculator (`.calc-grid`) with fixed columns made the page 19 px too wide at 390 px. Use `minmax(0,1fr)` in `.grid2`/`.calc-grid`.
-- Test at 390 px on every page: `document.documentElement.scrollWidth === clientWidth`; to find the culprit, list text nodes whose `Range.getBoundingClientRect().right` passes the container.
+- 390 px on every page is checked by `pnpm test:e2e` (`e2e/pages.spec.ts`): `document.documentElement.scrollWidth <= clientWidth` **and** no `overflow-x: auto|scroll` box wider than itself — the play sheet's panes scroll on their own, so a too-wide child there never widens the page (a 600 px `min-width` passed the page-level check, verified 2026-10-17). The nav is excluded (it scrolls sideways on purpose). To find a culprit, list text nodes whose `Range.getBoundingClientRect().right` passes the container.
 
 - **The nav scrolls sideways on phones, so nothing absolute may live in the scroller.** `overflow-x:auto` also clips Y: the language dropdown was cut off. `Base.astro` splits the bar into `.links` (scrolls) and `.nav-end` (language `<details>` + theme icon, `flex:none`). The event pages' "All events" link was cut off there at 390 px, so since 2026-10-17 it lives at the top of the page content (`src/components/BackLink.astro`), not in the nav.
 
@@ -57,6 +57,9 @@ Dated: Astro 7.4.0, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/a
 - **Formatting must not change the page:** `astroCompressHTML` defaults to `'jsx'`, same as Astro 7. The first full format (2026-10-17) was checked against the previous build: identical markup on every page, `/_astro/` unchanged, only whitespace inside `<script is:inline>`/`<style>`. Repeat that comparison after changing the Prettier config.
 - **Pre-commit:** `.husky/pre-commit` runs `lint-staged --hide-all --concurrent false` (hide untracked files too, so `astro check` sees only what is committed; one glob at a time, so Prettier never rewrites a file ESLint is reading).
 
+- **Browser tests** (`pnpm test:e2e` = `astro build && playwright test`; @playwright/test 1.64, Oct 2026). `channel: 'chrome'` uses the installed Google Chrome (the GitHub runner has one too), so no Playwright browser download. The `webServer` is `astro preview --port 4329 --ignore-lock`: with `--ignore-lock` Astro 7's preview runs in the **foreground** (Playwright can stop it) and leaves any preview the owner has open alone. Run by lint-staged (last, only for site paths) and by the CI `lint` job. Whole suite ~8 s with the build.
+- **`<details>` saves its state on `toggle`, which fires a task after the click**: a test that reloads right after `click()` sees the old state. Poll the storage first (`expect.poll`).
+- **"Last simulation" comes from git** (`src/sheets/ss14/sim-time.ts`: the commit time of `engine_results.json`). The CI build job checks out with `fetch-depth: 0`; in a shallow clone `git log -- <file>` returns the one grafted commit's time for every file, so the module falls back to the export's UTC date (also when the export is uncommitted).
 - `astro build` doesn't type-check; the gate is `pnpm check`. **`astro check` rejects TypeScript 7** ("install TypeScript 6") → `typescript@6`. An endpoint using `node:fs` needs `@types/node`.
 - **`astro dev` and `astro preview` run in the background in Astro 7** and return the prompt; stop with `pnpm astro preview stop` / `pnpm astro dev stop` (`status`, `logs`). Before testing a port, `ss -ltn` to see who is listening.
 - Playwright (MCP) blocks `file://`: always test through `pnpm preview`.

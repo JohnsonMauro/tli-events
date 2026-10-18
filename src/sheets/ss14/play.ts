@@ -50,6 +50,31 @@ interface Numbers {
   pairs: Pair[];
 }
 
+// "Last simulation": the build's UTC instant in the reader's own time zone, labelled with that zone's offset.
+const simAt = document.querySelector<HTMLTimeElement>('time[data-sim]');
+if (simAt) showLocalTime(simAt);
+
+function showLocalTime(at: HTMLTimeElement) {
+  const when = new Date(at.dateTime);
+  if (Number.isNaN(when.getTime())) return;
+  const opts: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  };
+  const lang = document.documentElement.lang;
+  let text: string;
+  try {
+    text = new Intl.DateTimeFormat(lang, { ...opts, timeZoneName: 'shortOffset' }).format(when);
+  } catch {
+    // Browsers before 'shortOffset' (2021–22): the zone's short name instead.
+    text = new Intl.DateTimeFormat(lang, { ...opts, timeZoneName: 'short' }).format(when);
+  }
+  at.textContent = text;
+}
+
 const el = document.getElementById('play-data');
 const D: PlayData | null = el ? JSON.parse(el.textContent || 'null') : null;
 const grid = document.getElementById('tools');
@@ -304,7 +329,16 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     if (tierMeta?.dataset.tpl) tierMeta.textContent = fmt(tierMeta.dataset.tpl, { base: N.base.toFixed(2) });
   }
   const run = document.getElementById('run');
+  // "Strong pairs": one list per start card, rendered at build; show the marked one (none → no start card).
+  const pairLists = [...document.querySelectorAll<HTMLElement>('[data-pairs]')];
+  function showPairs() {
+    const start = pairLists.some((l) => l.dataset.pairs === R.start) ? R.start : '';
+    pairLists.forEach((l) => {
+      l.hidden = l.dataset.pairs !== start;
+    });
+  }
   function showRun() {
+    showPairs();
     run?.querySelectorAll<HTMLElement>('[data-start]').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.start === R.start));
     });

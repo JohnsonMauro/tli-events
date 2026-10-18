@@ -8,12 +8,15 @@ import { artSet } from '../../lib/images';
 import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
 import { DICT } from './i18n';
 import { DOUBT } from './tool-text';
+import { SIM_TIME } from './sim-time';
 import { ISSUES_URL } from '../../lib/project';
 // Live odds only (offer counts measured by the community analyzer, frozen at 2026-10-16).
 import data from '../../../events/SS14_Tartarus/data/tartarus_data.json';
 // Every number on the sheet: our own engine (events/SS14_Tartarus/engine, `tartarus export`).
 import engine from '../../../events/SS14_Tartarus/data/engine_results.json';
 import credits from '../../../events/SS14_Tartarus/credits.json';
+// CoffeeBns' Tartarus Simulator: where players can practice a board (its numbers differ from ours).
+const SIMULATOR_URL = 'https://blahdot3h.github.io/tartarus-simulator/';
 // The r/TorchlightInfinite thread where the play sheet is discussed: the other place to send prints and numbers.
 const REDDIT_URL = 'https://www.reddit.com/r/TorchlightInfinite/comments/1x839x1/comment/pha1kgm/';
 import './play.css';
@@ -48,10 +51,16 @@ interface Engine {
 }
 const E = engine as unknown as Engine;
 const base = E.base;
-// When our engine last ran (`tartarus export` → `generated`, YYYY-MM-DD), in the page's language.
-const simDate = new Intl.DateTimeFormat(hreflang(lang), { dateStyle: 'medium', timeZone: 'UTC' }).format(
-  new Date((engine as { generated: string }).generated + 'T00:00:00Z'),
-);
+// When our numbers were last published (./sim-time.ts): shown in the reader's own zone by ./play.ts. The build
+// renders UTC; without git history, only the export's UTC date.
+const simUtc = new Intl.DateTimeFormat(hreflang(lang), {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+  ...(SIM_TIME && { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }),
+}).format(new Date(SIM_TIME?.iso ?? (engine as { generated: string }).generated + 'T00:00:00Z'));
+const [simBefore, simAfter] = t.simDate.split('{date}');
 const TIERS = [
   ['S', 2.6],
   ['A', 1.9],
@@ -69,10 +78,7 @@ const tools = Object.entries(E.tools)
     art: A('tool-' + id, 'lg'),
     doubt: DOUBT.has(id),
   }));
-const groups = [
-  ...TIERS.map(([tier, min]) => ({ tier, note: `≥${min.toFixed(1)}×` })),
-  { tier: 'X', note: `<1× · ${t.tierWorse}` },
-]
+const groups = [...TIERS.map(([tier, min]) => ({ tier, note: `≥${min.toFixed(1)}×` })), { tier: 'X', note: '<1×' }]
   // Every group is rendered (empty ones hidden): ./play.ts moves the tiles when the run's choices change.
   .map((g) => ({ ...g, tools: tools.filter((x) => x.tier === g.tier) }));
 
@@ -106,27 +112,42 @@ const offers =
   (data.live as { toolOffers?: { n: number; counts: Record<string, number> } } | undefined)?.toolOffers ?? null;
 const offerRate = (id: string) => (offers && offers.n ? (offers.counts[id] ?? 0) / offers.n : null);
 const SHOWS_UP = 0.03;
+const PAIRS_SHOWN = 20;
+type PairId = keyof typeof t.pair;
+const pairText = (a: string, b: string) => {
+  const line = t.pair[[a, b].sort().join('+') as PairId];
+  return line ? [line] : null;
+};
 // Full card names: the part after ":" names the beast a beast-specific instrument works for.
 const short = (id: string) => E.tools[id]?.name ?? id;
-const builds = E.pairs
-  .slice()
-  .sort((x, y) => y[2] - x[2])
-  .filter(([a, b]) =>
-    [a, b].every((id) => {
-      const r = offerRate(id);
-      return r == null || r >= SHOWS_UP;
-    }),
-  )
-  .slice(0, 6)
-  .map(([a, b, v]) => ({
-    v,
-    x: v / base,
-    nameA: short(a),
-    nameB: short(b),
-    artA: A('tool-' + a),
-    artB: A('tool-' + b),
-    why: [t.tool[a as ToolId], t.tool[b as ToolId]].filter(Boolean),
-  }));
+const topPairs = (pairs: Pair[], pairsBase: number) =>
+  pairs
+    .slice()
+    .sort((x, y) => y[2] - x[2])
+    .filter(([a, b]) =>
+      [a, b].every((id) => {
+        const r = offerRate(id);
+        return r == null || r >= SHOWS_UP;
+      }),
+    )
+    .slice(0, PAIRS_SHOWN)
+    .map(([a, b, v]) => ({
+      v,
+      x: v / pairsBase,
+      nameA: short(a),
+      nameB: short(b),
+      artA: A('tool-' + a),
+      artB: A('tool-' + b),
+      // What the two do together; a pair with no line yet (new export, start-card pairs) falls back to each
+      // instrument's line.
+      why: pairText(a, b) ?? [t.tool[a as ToolId], t.tool[b as ToolId]].filter(Boolean),
+    }));
+// One list per start card (a start card changes the rules, so the pairs too); ./play.ts shows the one marked
+// in "Your run". '' = no start card. An objective has no pair numbers of its own.
+const pairLists = [
+  { start: '', base, builds: topPairs(E.pairs, base) },
+  ...Object.entries(E.byStart ?? {}).map(([start, x]) => ({ start, base: x.base, builds: topPairs(x.pairs, x.base) })),
+];
 
 // ---- incidents: no skip on any card seen (only Confirm) → the choice is stepping on a "!" cell ----
 // [id, card name, verdict, art id, source of the effect text]
@@ -214,11 +235,11 @@ const ladder = [
   </div>
   <div class="play">
     <section class="pane patterns" aria-labelledby="pat-h">
-      <h2 class="pane-h" id="pat-h">
-        {t.howToWin}
-      </h2>
-      <div class="run" id="run">
-        <h3 class="run-h">{t.runH}</h3>
+      {/* Each part folds (accordion); ./play.ts remembers which ones the viewer closed. */}
+      <details class="acc run" id="run" data-acc="run" open>
+        <summary>
+          <h2 class="run-h">{t.runH}</h2>
+        </summary>
         <p class="meta">{t.runHint}</p>
         <div class="run-row" role="group" aria-label={t.runStart}>
           <span class="run-l">{t.runStart}</span>
@@ -249,139 +270,193 @@ const ladder = [
             <b>Iron Law</b> — {t.ironlawP}
           </li>
         </ul>
-      </div>
-      <ol class="pat" style={`--step:${JSON.stringify(t.step)}`}>
-        <li>
-          <div class="pat-art">
-            <Art img={A('act-consume', 'md')} />
-          </div>
-          <div>
-            <b>{t.s1t}</b>
-            <p>
-              <Art img={A('fangs')} class="inl" /> <Fragment set:html={rich(t.s1p)} />
-            </p>
-          </div>
-        </li>
-        <li class="wide-li">
-          <div class="pat-head">
-            <b>{t.s2t}</b>
-          </div>
-          <div class="eats-grid">
-            {[
-              ['mammoth', ['lion', 'wolf']],
-              ['lion', ['wolf', 'rat']],
-              ['wolf', ['rat']],
-              ['rat', ['mammoth']],
-            ].map(([e, prey]) => (
-              <span class="row">
-                <Art img={A(e as string)} alt={e as string} />
-                <i>{t.eats}</i>
-                {(prey as string[]).map((p) => (
-                  <Art img={A(p)} alt={p} />
-                ))}
-              </span>
-            ))}
-          </div>
-          <p set:html={rich(t.s2p)} />
-          <ul class="exc">
-            {exceptions.map((x) => (
-              <li>
-                {x.art ? <Art img={x.art} /> : <span class="ph">?</span>}
-                <span>
-                  <b>{x.name}</b> <Fragment set:html={rich(x.text)} />
-                </span>
-              </li>
-            ))}
-          </ul>
-        </li>
-        <li>
-          <div class="pat-art pair">
-            <Art img={A('mammoth')} class="r4" />
-            <Art img={A('lion')} class="r4" />
-          </div>
-          <div>
-            <b>{t.s3t}</b>
-            <p set:html={rich(t.s3p)} />
-          </div>
-        </li>
-        <li class="wide-li">
-          <div class="pat-head">
-            <b>{t.s4t}</b>
-          </div>
-          <p set:html={rich(fmt(t.s4p, { pick: t.pickH }))} />
-        </li>
-        <li class="wide-li">
-          <div class="pat-head">
-            <b>{t.s5t}</b>
-            <span class="meta">{t.s5sub}</span>
-          </div>
-          <ol class="ladder">
-            {ladder.map(([img, b, e, cls]) => (
-              <li>
-                <Art img={A(img)} class={cls || undefined} />
-                <span>
-                  <b>{b}</b>
-                  <em>{e}</em>
-                </span>
-              </li>
-            ))}
-          </ol>
-          <p class="tip" set:html={rich(t.s5tip)} />
-        </li>
-        <li>
-          <div class="pat-art">
-            <Art img={A('office', 'md')} />
-          </div>
-          <div>
-            <b>{t.s6t}</b>
-            <p set:html={rich(t.s6p)} />
-          </div>
-        </li>
-        <li>
-          <div class="pat-art">
-            <Art img={A('tile-locked', 'md')} />
-          </div>
-          <div>
-            <b>{t.s7t}</b>
-            <p set:html={rich(t.s7p)} />
-          </div>
-        </li>
-      </ol>
-      <h2 class="pane-h builds-h">{t.pairsH}</h2>
-      <p class="meta">{fmt(t.pairsMeta, { base: base.toFixed(2) })}</p>
-      <ul class="builds">
-        {builds.map((b) => (
+      </details>
+      <details class="acc" data-acc="win" open>
+        <summary>
+          <h2 class="pane-h" id="pat-h">
+            {t.howToWin}
+          </h2>
+        </summary>
+        <ol class="pat" style={`--step:${JSON.stringify(t.step)}`}>
           <li>
-            <span class="duo">
-              {(
-                [
-                  [b.artA, b.nameA],
-                  [b.artB, b.nameB],
-                ] as const
-              ).map(([img, n]) => (img ? <Art img={img} /> : <span class="noimg">{n}</span>))}
-            </span>
+            <div class="pat-art">
+              <Art img={A('act-consume', 'md')} />
+            </div>
             <div>
-              <b>
-                {b.nameA} + {b.nameB}
-              </b>{' '}
-              <span class="val">
-                {b.v.toFixed(2)} · {b.x.toFixed(1)}×
-              </span>
-              {b.why.map((w) => (
-                <p>{w}</p>
-              ))}
+              <b>{t.s1t}</b>
+              <p>
+                <Art img={A('fangs')} class="inl" /> <Fragment set:html={rich(t.s1p)} />
+              </p>
             </div>
           </li>
+          <li class="wide-li">
+            <div class="pat-head">
+              <b>{t.s2t}</b>
+            </div>
+            <div class="eats-grid">
+              {[
+                ['mammoth', ['lion', 'wolf']],
+                ['lion', ['wolf', 'rat']],
+                ['wolf', ['rat']],
+                ['rat', ['mammoth']],
+              ].map(([e, prey]) => (
+                <span class="row">
+                  <Art img={A(e as string)} alt={e as string} />
+                  <i>{t.eats}</i>
+                  {(prey as string[]).map((p) => (
+                    <Art img={A(p)} alt={p} />
+                  ))}
+                </span>
+              ))}
+            </div>
+            <p set:html={rich(t.s2p)} />
+            <ul class="exc">
+              {exceptions.map((x) => (
+                <li>
+                  {x.art ? <Art img={x.art} /> : <span class="ph">?</span>}
+                  <span>
+                    <b>{x.name}</b> <Fragment set:html={rich(x.text)} />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </li>
+          <li>
+            <div class="pat-art pair">
+              <Art img={A('mammoth')} class="r4" />
+              <Art img={A('lion')} class="r4" />
+            </div>
+            <div>
+              <b>{t.s3t}</b>
+              <p set:html={rich(t.s3p)} />
+            </div>
+          </li>
+          <li class="wide-li">
+            <div class="pat-head">
+              <b>{t.s4t}</b>
+            </div>
+            <p set:html={rich(fmt(t.s4p, { pick: t.pickH }))} />
+          </li>
+          <li class="wide-li">
+            <div class="pat-head">
+              <b>{t.s5t}</b>
+              <span class="meta">{t.s5sub}</span>
+            </div>
+            <ol class="ladder">
+              {ladder.map(([img, b, e, cls]) => (
+                <li>
+                  <Art img={A(img)} class={cls || undefined} />
+                  <span>
+                    <b>{b}</b>
+                    <em>{e}</em>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <p class="tip" set:html={rich(t.s5tip)} />
+          </li>
+          <li>
+            <div class="pat-art">
+              <Art img={A('office', 'md')} />
+            </div>
+            <div>
+              <b>{t.s6t}</b>
+              <p set:html={rich(t.s6p)} />
+            </div>
+          </li>
+          <li>
+            <div class="pat-art">
+              <Art img={A('tile-locked', 'md')} />
+            </div>
+            <div>
+              <b>{t.s7t}</b>
+              <p set:html={rich(t.s7p)} />
+            </div>
+          </li>
+        </ol>
+      </details>
+      <details class="acc" data-acc="pairs">
+        <summary>
+          <h2 class="pane-h">{t.pairsH}</h2>
+        </summary>
+        {pairLists.map((l) => (
+          <div data-pairs={l.start} hidden={l.start !== ''}>
+            <p class="meta">{fmt(t.pairsMeta, { base: l.base.toFixed(2) })}</p>
+            <p class="meta">{t.pairsNote}</p>
+            <ul class="builds">
+              {l.builds.map((b) => (
+                <li>
+                  <div class="duo-col">
+                    <span class="duo">
+                      {(
+                        [
+                          [b.artA, b.nameA],
+                          [b.artB, b.nameB],
+                        ] as const
+                      ).map(([img, n]) => (img ? <Art img={img} /> : <span class="noimg">{n}</span>))}
+                    </span>
+                    <span class="val">
+                      {b.v.toFixed(2)} · {b.x.toFixed(1)}×
+                    </span>
+                  </div>
+                  <div>
+                    <b>
+                      {b.nameA} + {b.nameB}
+                    </b>
+                    {b.why.map((w) => (
+                      <p>{w}</p>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </ul>
-      <p class="meta">{t.pairsNote}</p>
+      </details>
     </section>
-
+    {/* Before first paint (no jump): the parts this viewer folded stay folded. Per-browser convenience only. */}
+    <script is:inline>
+      (() => {
+        const KEY = 'ss14-acc-v1';
+        let open = {};
+        try {
+          open = JSON.parse(localStorage.getItem(KEY) || '{}') || {};
+        } catch {}
+        document.querySelectorAll('details[data-acc]').forEach((d) => {
+          const id = d.dataset.acc;
+          if (typeof open[id] === 'boolean') d.open = open[id];
+          d.addEventListener('toggle', () => {
+            open[id] = d.open;
+            try {
+              localStorage.setItem(KEY, JSON.stringify(open));
+            } catch {}
+          });
+        });
+      })();
+    </script>
     <section class="pane tools-pane" aria-labelledby="tool-h">
       <h2 class="pane-h" id="tool-h">
         {t.pickH}
       </h2>
-      <p class="sim-date">{fmt(t.simDate, { date: simDate })}</p>
+      <p class="sim-date">
+        {simBefore}
+        {SIM_TIME ? (
+          <time datetime={SIM_TIME.iso} data-sim>
+            {simUtc}
+          </time>
+        ) : (
+          simUtc
+        )}
+        {simAfter}
+      </p>
+      <p class="sim-cta">
+        {t.simCta}{' '}
+        <a href={SIMULATOR_URL} target="_blank" rel="noopener noreferrer">
+          Tartarus Simulator
+        </a>{' '}
+        <span class="meta">(CoffeeBns)</span>
+        <span class="sim-diff">{t.simDiff}</span>
+      </p>
       <div id="pickOut" class="pick-out">
         <p class="meta">{t.pickHint}</p>
       </div>
@@ -541,7 +616,9 @@ const ladder = [
           <span class="tier tX">✕</span>
         </td>
         <td>&lt;1×</td>
-        <td>{t.tierWorse}</td>
+        <td>
+          &lt;{base.toFixed(2)} {t.perRun}
+        </td>
       </tr>
     </table>
     <p class="tp-sub">{fmt(t.tipNote, { pairs: t.pairsH })}</p>

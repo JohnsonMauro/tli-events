@@ -6,6 +6,15 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet: the link to CoffeeBns' Tartarus Simulator is back, at the top of the instrument ranking, with a note: its numbers differ from ours in places — natural while the game is still being figured out; ours follow the live cards.
+- SS14 play sheet: the lowest tier shows only its metric (<1×), without "worse than none" — a run always gets its instruments.
+- SS14 play sheet: "Strong pairs that show up" lists the top 20 pairs from our simulator (was 6), each with one line on what the two do together — whether they really combine or just add up; the notes now sit above the list.
+- SS14 play sheet: the left column folds — "Your run", "How to win" and "Strong pairs" open and close on their heading (pairs start closed), and the page remembers your choice in this browser. Each pair's numbers sit under its two pictures.
+- SS14 play sheet: "Strong pairs" follows the start card marked in "Your run" — Cage Fight, Iron Law and Tyranny each show their own top 20 (pairs we haven't explained yet show each instrument's line).
+- SS14 play sheet: "Last simulation" shows the date and time in your own time zone (it used to show the UTC date, a day ahead for part of the world).
+
 ## [1.3.0] - 2026-10-17
 
 ### Added
