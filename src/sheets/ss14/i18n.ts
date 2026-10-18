@@ -158,6 +158,7 @@ const en = {
   run: {
     cagefight: "Inmates eat prey of **their own rarity or lower**, and a bite **doesn't re-roll the beast**.",
     tyranny: 'At the office, whatever you pick, you also get **3 Instigates and 3 Bestows**.',
+    opulence: "Each Warden's Treasure gives **3 picks** in a row, and a Rainbow a pick makes brings 3 more.",
     king: 'At least 1 inmate reaches **Ultimate**.',
     walk: 'Move **18 tiles**.',
     consume: '**Consume** 4 times.',
@@ -383,6 +384,7 @@ const ptbr: Dict = {
   run: {
     cagefight: 'Os prisioneiros comem presas da **mesma raridade ou menor**, e comer **não troca a fera**.',
     tyranny: 'No office, seja qual for a escolha, você ganha também **3 Instigate e 3 Bestow**.',
+    opulence: "Cada Warden's Treasure dá **3 escolhas** seguidas, e um Rainbow feito por uma escolha traz mais 3.",
     king: 'Pelo menos 1 prisioneiro chega a **Ultimate**.',
     walk: 'Andar **18 casas**.',
     consume: '**Consume** 4 vezes.',
@@ -490,7 +492,7 @@ const ptbr: Dict = {
     skewer: 'Rats comem Rats da mesma raridade; +2 tiers extras por mordida de Rat (3 no total).',
     hook: 'Celas abertas nunca têm Normal.',
     saw: 'Após um Consume, 25% de +1 extra.',
-    collar: 'Cada mordida da corrente: 80% de +1 extra.',
+    collar: 'Cada mordida em sequência, da segunda em diante: 80% de +1 extra.',
     stake: '−1 destino/dia. Replace num prisioneiro abaixo de Legendary: 40% de trazer um Legendary.',
     guillotine:
       'Wolves também comem a presa de raridade menor e depois disparam Oppress: −5% de chance de subir por tier de diferença.',
@@ -524,7 +526,7 @@ const ptbr: Dict = {
       'Sem ligação direta: o Noose faz todo Replace ser melhoria; com ≤5 celas trancadas, a Blacklist sobe 2 prisioneiros por porta.',
     'coin+ironbox':
       'A Iron Box choca Rats Rare a run toda — gêmeos sem parar; a Coin remove um e dá +2 a outro (Ultimate).',
-    'collar+rope': 'Sem ligação direta: o Noose melhora todo Replace, o Collar dá +1 na maioria das mordidas.',
+    'collar+rope': 'Sem ligação direta: o Noose melhora todo Replace, o Collar dá +1 nas mordidas em sequência.',
     'rope+shackles':
       'Sem ligação direta: o Noose melhora todo Replace, as Shackles dão +1 aleatório em caminhadas longas (≥4 celas).',
     'coin+maiden': 'Sem ligação direta: a Maiden rende nos Replaces (+3), a Coin nos gêmeos toda manhã (+2).',
@@ -540,13 +542,13 @@ const ptbr: Dict = {
       'A Stake tira Legendaries dos Replaces; um gêmeo Legendary (mesma fera) é alvo da Coin: +2 = Rainbow.',
     'blacklist+keys':
       'As Keys abrem também os vizinhos da porta, então as celas trancadas caem para ≤5 cedo — daí em diante cada porta aberta sobe 2 prisioneiros.',
-    'coin+collar': 'Sem ligação direta: o Collar dá +1 na maioria das mordidas, a Coin +2 num gêmeo toda manhã.',
+    'coin+collar': 'Sem ligação direta: o Collar dá +1 nas mordidas em sequência, a Coin +2 num gêmeo toda manhã.',
     'coin+shackles':
       'Sem ligação direta: a Coin dá +2 num gêmeo toda manhã, as Shackles +1 aleatório em caminhadas longas.',
     'ravenous+rope':
       'Sem ligação direta: o Noose melhora todo Replace; toda manhã o prisioneiro de tier mais alto das Ravenous tira seus 2 vizinhos (40% de +1 cada).',
     'collar+shackles':
-      'Sem ligação direta: o Collar dá +1 na maioria das mordidas, as Shackles +1 aleatório em caminhadas longas.',
+      'Sem ligação direta: o Collar dá +1 nas mordidas em sequência, as Shackles +1 aleatório em caminhadas longas.',
     'coin+keys':
       'As Keys abrem também os vizinhos da porta: mais prisioneiros no bloco, mais gêmeos para o +2 da Coin.',
   },
@@ -681,6 +683,7 @@ const ko: Dict = {
   run: {
     cagefight: '죄수가 **같거나 낮은** 희귀도의 먹이를 먹고, 먹어도 **짐승이 바뀌지 않음**.',
     tyranny: '사무실에서 무엇을 고르든 **Instigate 3번과 Bestow 3번**이 추가됨.',
+    opulence: "Warden's Treasure마다 **3번 연속 선택**, 선택으로 만든 Rainbow는 3번 더.",
     king: '죄수 1명 이상이 **Ultimate** 도달.',
     walk: '**18칸** 이동.',
     consume: '**Consume** 4번.',
@@ -786,7 +789,7 @@ const ko: Dict = {
     skewer: 'Rat이 같은 희귀도 Rat을 먹음; Rat 한 입마다 추가 +2 티어 (총 3).',
     hook: '열린 칸에 Normal이 나오지 않음.',
     saw: 'Consume 후 25% 확률로 +1 추가.',
-    collar: '사슬의 매 입마다: 80% 확률로 +1 추가.',
+    collar: '연속으로 먹을 때 두 번째 입부터: 80% 확률로 +1 추가.',
     stake: '하루 목적지 −1. Legendary 미만 죄수를 Replace: 40% 확률로 Legendary.',
     guillotine: 'Wolf가 더 낮은 희귀도의 먹이도 먹고 Oppress 발동: 희귀도 차이 1티어마다 상승 확률 −5%.',
     dogtag: '순찰 중 연 문: 25% 확률로 그 죄수 +1.',
@@ -817,7 +820,7 @@ const ko: Dict = {
     'blacklist+rope': '직접 연결 없음: Noose는 모든 Replace를 업그레이드로; 잠긴 칸 ≤5부터 Blacklist가 문마다 2명 +1.',
     'coin+ironbox':
       'Iron Box가 판 내내 Rare Rat을 부화 — 쌍둥이가 계속 생김; Coin이 하나 제거하고 다른 하나 +2(Ultimate).',
-    'collar+rope': '직접 연결 없음: Noose는 모든 Replace 업그레이드, Collar는 대부분의 먹기에 +1.',
+    'collar+rope': '직접 연결 없음: Noose는 모든 Replace 업그레이드, Collar는 연속으로 먹을 때 두 번째부터 +1.',
     'rope+shackles': '직접 연결 없음: Noose는 모든 Replace 업그레이드, Shackles는 긴 이동(≥4칸)에 무작위 +1.',
     'coin+maiden': '직접 연결 없음: Maiden은 Replace에서(+3), Coin은 매일 아침 쌍둥이에서(+2).',
     'blacklist+maiden': '직접 연결 없음: Maiden은 Replace에서(+3), Blacklist는 잠긴 칸 ≤5부터 문마다.',
@@ -827,11 +830,11 @@ const ko: Dict = {
       '연결 약함: 매일 아침 Ravenous의 최상위 죄수가 양옆 2명 제거(각 40% +1); Maiden은 Replace에서(+3).',
     'coin+stake': 'Stake가 Replace로 Legendary를 만듦; Legendary 쌍둥이(같은 짐승)는 Coin 대상: +2 = Rainbow.',
     'blacklist+keys': 'Keys가 문의 양옆도 열어 잠긴 칸이 일찍 ≤5로 줄어듦 — 그때부터 여는 문마다 죄수 2명 +1.',
-    'coin+collar': '직접 연결 없음: Collar는 대부분의 먹기에 +1, Coin은 매일 아침 쌍둥이에 +2.',
+    'coin+collar': '직접 연결 없음: Collar는 연속으로 먹을 때 두 번째부터 +1, Coin은 매일 아침 쌍둥이에 +2.',
     'coin+shackles': '직접 연결 없음: Coin은 매일 아침 쌍둥이에 +2, Shackles는 긴 이동에 무작위 +1.',
     'ravenous+rope':
       '직접 연결 없음: Noose는 모든 Replace 업그레이드; 매일 아침 Ravenous의 최상위 죄수가 양옆 2명 제거(각 40% +1).',
-    'collar+shackles': '직접 연결 없음: Collar는 대부분의 먹기에 +1, Shackles는 긴 이동에 무작위 +1.',
+    'collar+shackles': '직접 연결 없음: Collar는 연속으로 먹을 때 두 번째부터 +1, Shackles는 긴 이동에 무작위 +1.',
     'coin+keys': 'Keys가 문의 양옆도 엶: 블록에 죄수가 많아지고 Coin +2를 받을 쌍둥이도 많아짐.',
   },
 };
@@ -965,6 +968,7 @@ const ja: Dict = {
   run: {
     cagefight: '囚人は**同じか低い**レアリティの獲物を食べ、食べても**獣が変わらない**。',
     tyranny: '事務室で何を選んでも、さらに**Instigate 3回とBestow 3回**。',
+    opulence: "Warden's Treasureごとに**3回連続で選択**、選択で生まれたRainbowはさらに3回。",
     king: '囚人1体以上が**Ultimate**に到達。',
     walk: '**18マス**移動。',
     consume: '**Consume**を4回。',
@@ -1071,7 +1075,7 @@ const ja: Dict = {
     skewer: 'Ratが同じレアリティのRatを食べる；Ratの一口ごとに追加+2ティア（計3）。',
     hook: '開いたマスにNormalが出ない。',
     saw: 'Consume後、25%で+1追加。',
-    collar: '連鎖の毎口：80%で+1追加。',
+    collar: '連続で食べる2口目以降：80%で+1追加。',
     stake: '1日の行き先−1。Legendary未満の囚人をReplace：40%でLegendary。',
     guillotine: 'Wolfが低いレアリティの獲物も食べ、その後Oppress発動：レアリティ差1ティアごとに上昇確率−5%。',
     dogtag: '巡回で開けた扉：25%でその囚人+1。',
@@ -1100,7 +1104,7 @@ const ja: Dict = {
     'maiden+stake': 'StakeはLegendary未満の囚人へのReplaceの40%をLegendaryに；そこにMaidenの+3も発動すればRainbow。',
     'blacklist+rope': '直接の関係なし：NooseはすべてのReplaceを格上げ；施錠マス5以下からBlacklistが扉ごとに2体+1。',
     'coin+ironbox': 'Iron Boxが回の間ずっとRareのRatを孵す——双子が途切れない；Coinが1体消して別の1体に+2（Ultimate）。',
-    'collar+rope': '直接の関係なし：NooseはすべてのReplaceを格上げ、Collarはほとんどの捕食に+1。',
+    'collar+rope': '直接の関係なし：NooseはすべてのReplaceを格上げ、Collarは連続捕食の2口目以降に+1。',
     'rope+shackles': '直接の関係なし：NooseはすべてのReplaceを格上げ、Shacklesは長い移動（4マス以上）でランダム+1。',
     'coin+maiden': '直接の関係なし：MaidenはReplaceで（+3）、Coinは毎朝の双子で（+2）。',
     'blacklist+maiden': '直接の関係なし：MaidenはReplaceで（+3）、Blacklistは施錠マス5以下から扉ごとに。',
@@ -1109,11 +1113,11 @@ const ja: Dict = {
     'maiden+ravenous': '関係は薄い：毎朝Ravenousの最上位囚人が両隣2体を除去（各40%で+1）；MaidenはReplaceで（+3）。',
     'coin+stake': 'StakeがReplaceからLegendaryを作る；Legendaryの双子（同じ獣）はCoinの対象：+2＝Rainbow。',
     'blacklist+keys': 'Keysが扉の両隣も開けるので施錠マスが早く5以下に——以後、開ける扉ごとに囚人2体+1。',
-    'coin+collar': '直接の関係なし：Collarはほとんどの捕食に+1、Coinは毎朝双子に+2。',
+    'coin+collar': '直接の関係なし：Collarは連続捕食の2口目以降に+1、Coinは毎朝双子に+2。',
     'coin+shackles': '直接の関係なし：Coinは毎朝双子に+2、Shacklesは長い移動でランダム+1。',
     'ravenous+rope':
       '直接の関係なし：NooseはすべてのReplaceを格上げ；毎朝Ravenousの最上位囚人が両隣2体を除去（各40%で+1）。',
-    'collar+shackles': '直接の関係なし：Collarはほとんどの捕食に+1、Shacklesは長い移動でランダム+1。',
+    'collar+shackles': '直接の関係なし：Collarは連続捕食の2口目以降に+1、Shacklesは長い移動でランダム+1。',
     'coin+keys': 'Keysが扉の両隣も開ける：ブロックの囚人が増え、Coinの+2を受ける双子も増える。',
   },
 };
@@ -1244,6 +1248,7 @@ const zh: Dict = {
   run: {
     cagefight: '囚犯吃**同档或更低**稀有度的猎物，吃完**兽种不变**。',
     tyranny: '在审讯室无论选什么，都额外获得**3次Instigate和3次Bestow**。',
+    opulence: "每个Warden's Treasure可**连选3次**，选择造出的Rainbow再给3次。",
     king: '至少1个囚犯达到**Ultimate**。',
     walk: '移动**18格**。',
     consume: '**Consume** 4次。',
@@ -1349,7 +1354,7 @@ const zh: Dict = {
     skewer: 'Rat可以吃同稀有度的Rat；Rat每口额外+2档（共3档）。',
     hook: '打开的格子不会出Normal。',
     saw: 'Consume后25%额外+1。',
-    collar: '连吃的每一口：80%额外+1。',
+    collar: '连吃时第二口起：80%额外+1。',
     stake: '每天目的地−1。Replace低于Legendary的囚犯：40%换来Legendary。',
     guillotine: 'Wolf也能吃更低稀有度的猎物，吃完后触发Oppress：稀有度每差1档，升档概率−5%。',
     dogtag: '巡逻开的门：25%该囚犯+1。',
@@ -1377,7 +1382,7 @@ const zh: Dict = {
     'maiden+stake': 'Stake让Replace低于Legendary的囚犯时40%变成Legendary；再触发Maiden的+3就是Rainbow。',
     'blacklist+rope': '没有直接联动：Noose让每次Replace都是升级；锁着的格子≤5后，Blacklist每开一扇门给2个囚犯+1。',
     'coin+ironbox': 'Iron Box整局不断孵出Rare Rat——双胞胎源源不断；Coin移除一个，给另一个+2（Ultimate）。',
-    'collar+rope': '没有直接联动：Noose升级每次Replace，Collar给大多数吞食+1。',
+    'collar+rope': '没有直接联动：Noose升级每次Replace，Collar在连吃第二口起+1。',
     'rope+shackles': '没有直接联动：Noose升级每次Replace，Shackles在长距离移动（≥4格）时随机+1。',
     'coin+maiden': '没有直接联动：Maiden靠Replace（+3），Coin靠每天早上的双胞胎（+2）。',
     'blacklist+maiden': '没有直接联动：Maiden靠Replace（+3），Blacklist在锁着的格子≤5后每扇门都给。',
@@ -1386,10 +1391,10 @@ const zh: Dict = {
     'maiden+ravenous': '联动很弱：每天早上Ravenous的最高囚犯移除左右2个邻居（每个40%+1）；Maiden靠Replace（+3）。',
     'coin+stake': 'Stake从Replace里造出Legendary；Legendary双胞胎（同兽种）是Coin的目标：+2＝Rainbow。',
     'blacklist+keys': 'Keys把门两侧的格子也打开，锁着的格子很早就降到≤5——之后每开一扇门给2个囚犯+1。',
-    'coin+collar': '没有直接联动：Collar给大多数吞食+1，Coin每天早上给双胞胎+2。',
+    'coin+collar': '没有直接联动：Collar在连吃第二口起+1，Coin每天早上给双胞胎+2。',
     'coin+shackles': '没有直接联动：Coin每天早上给双胞胎+2，Shackles长距离移动时随机+1。',
     'ravenous+rope': '没有直接联动：Noose升级每次Replace；每天早上Ravenous的最高囚犯移除左右2个邻居（每个40%+1）。',
-    'collar+shackles': '没有直接联动：Collar给大多数吞食+1，Shackles长距离移动时随机+1。',
+    'collar+shackles': '没有直接联动：Collar在连吃第二口起+1，Shackles长距离移动时随机+1。',
     'coin+keys': 'Keys把门两侧的格子也打开：区里囚犯更多，能吃到Coin +2的双胞胎也更多。',
   },
 };
@@ -1524,6 +1529,7 @@ const ru: Dict = {
   run: {
     cagefight: 'Заключённые едят добычу **своей редкости или ниже**, и укус **не меняет зверя**.',
     tyranny: 'В кабинете, что бы вы ни выбрали, вы получаете ещё **3 Instigate и 3 Bestow**.',
+    opulence: "Каждый Warden's Treasure даёт **3 выбора** подряд, а Rainbow от выбора — ещё 3.",
     king: 'Хотя бы 1 заключённый достигает **Ultimate**.',
     walk: 'Пройти **18 клеток**.',
     consume: '**Consume** 4 раза.',
@@ -1629,7 +1635,7 @@ const ru: Dict = {
     skewer: 'Rat ест Rat той же редкости; +2 доп. ранга за укус Rat (всего 3).',
     hook: 'В открытых клетках не бывает Normal.',
     saw: 'После Consume 25% на +1 доп.',
-    collar: 'Каждый укус цепочки: 80% на +1 сверху.',
+    collar: 'Каждый укус цепочки после первого: 80% на +1 сверху.',
     stake: '−1 вариант пути в день. Replace заключённого ниже Legendary: 40% получить Legendary.',
     guillotine:
       'Wolf ест и добычу ниже редкостью, затем срабатывает Oppress: −5% шанса повышения за каждый ранг разницы.',
@@ -1664,7 +1670,7 @@ const ru: Dict = {
       'Без прямой связи: Noose делает каждый Replace улучшением; при ≤5 запертых клетках Blacklist поднимает 2 заключённых за каждую дверь.',
     'coin+ironbox':
       'Iron Box весь забег выводит Rare Rat — близнецы идут постоянно; Coin убирает одного и даёт другому +2 (Ultimate).',
-    'collar+rope': 'Без прямой связи: Noose улучшает каждый Replace, Collar даёт +1 почти к каждому укусу.',
+    'collar+rope': 'Без прямой связи: Noose улучшает каждый Replace, Collar даёт +1 к укусам цепочки после первого.',
     'rope+shackles':
       'Без прямой связи: Noose улучшает каждый Replace, Shackles дают случайный +1 на длинных ходах (≥4 клетки).',
     'coin+maiden': 'Без прямой связи: Maiden приносит на Replace (+3), Coin — на близнецах каждое утро (+2).',
@@ -1678,12 +1684,12 @@ const ru: Dict = {
     'coin+stake': 'Stake делает Legendary из Replace; близнец Legendary (тот же зверь) — цель Coin: +2 = Rainbow.',
     'blacklist+keys':
       'Keys открывают и соседей двери, поэтому запертых клеток рано становится ≤5 — дальше каждая открытая дверь поднимает 2 заключённых.',
-    'coin+collar': 'Без прямой связи: Collar даёт +1 почти к каждому укусу, Coin — +2 близнецу каждое утро.',
+    'coin+collar': 'Без прямой связи: Collar даёт +1 к укусам цепочки после первого, Coin — +2 близнецу каждое утро.',
     'coin+shackles': 'Без прямой связи: Coin даёт +2 близнецу каждое утро, Shackles — случайный +1 на длинных ходах.',
     'ravenous+rope':
       'Без прямой связи: Noose улучшает каждый Replace; каждое утро сильнейший у Ravenous убирает 2 соседей (40% на +1 за каждого).',
     'collar+shackles':
-      'Без прямой связи: Collar даёт +1 почти к каждому укусу, Shackles — случайный +1 на длинных ходах.',
+      'Без прямой связи: Collar даёт +1 к укусам цепочки после первого, Shackles — случайный +1 на длинных ходах.',
     'coin+keys': 'Keys открывают и соседей двери: больше заключённых в блоке — больше близнецов для +2 от Coin.',
   },
 };
@@ -1820,6 +1826,8 @@ const de: Dict = {
     cagefight:
       'Insassen fressen Beute **gleicher oder niedrigerer** Seltenheit, und ein Biss **würfelt die Bestie nicht neu**.',
     tyranny: 'Im Office bekommst du, egal was du wählst, zusätzlich **3× Instigate und 3× Bestow**.',
+    opulence:
+      "Jeder Warden's Treasure gibt **3 Wahlen** hintereinander, und ein Rainbow aus einer Wahl bringt 3 weitere.",
     king: 'Mindestens 1 Insasse erreicht **Ultimate**.',
     walk: '**18 Felder** gehen.',
     consume: '4-mal **Consume**.',
@@ -1926,7 +1934,7 @@ const de: Dict = {
     skewer: 'Rats fressen Rats gleicher Seltenheit; +2 Extra-Stufen pro Rat-Biss (3 insgesamt).',
     hook: 'Geöffnete Zellen enthalten nie Normal.',
     saw: 'Nach einem Consume 25 % auf +1 extra.',
-    collar: 'Jeder Biss einer Kette: 80 % auf +1 extra.',
+    collar: 'Jeder Biss einer Kette ab dem zweiten: 80 % auf +1 extra.',
     stake: '−1 Ziel/Tag. Replace eines Insassen unter Legendary: 40 %, einen Legendary zu bringen.',
     guillotine:
       'Wolves fressen auch Beute niedrigerer Seltenheit und lösen danach Oppress aus: −5 % Aufstiegschance pro Stufe Unterschied.',
@@ -1961,7 +1969,7 @@ const de: Dict = {
       'Kein direkter Bezug: Noose macht jedes Replace zum Upgrade; ab ≤5 verschlossenen Zellen hebt Blacklist pro Tür 2 Insassen.',
     'coin+ironbox':
       'Iron Box brütet den ganzen Run Rare Rats aus — ständig Zwillinge; Coin entfernt einen und gibt einem anderen +2 (Ultimate).',
-    'collar+rope': 'Kein direkter Bezug: Noose verbessert jedes Replace, Collar gibt den meisten Bissen +1.',
+    'collar+rope': 'Kein direkter Bezug: Noose verbessert jedes Replace, Collar gibt Kettenbissen ab dem zweiten +1.',
     'rope+shackles':
       'Kein direkter Bezug: Noose verbessert jedes Replace, Shackles geben auf langen Zügen (≥4 Zellen) zufällig +1.',
     'coin+maiden': 'Kein direkter Bezug: Maiden zahlt bei Replaces (+3), Coin bei Zwillingen jeden Morgen (+2).',
@@ -1976,12 +1984,14 @@ const de: Dict = {
       'Stake macht aus Replaces Legendaries; ein Legendary-Zwilling (gleiche Bestie) ist ein Coin-Ziel: +2 = Rainbow.',
     'blacklist+keys':
       'Keys öffnen auch die Nachbarn einer Tür, also sinken die verschlossenen Zellen früh auf ≤5 — ab dann hebt jede geöffnete Tür 2 Insassen.',
-    'coin+collar': 'Kein direkter Bezug: Collar gibt den meisten Bissen +1, Coin jeden Morgen einem Zwilling +2.',
+    'coin+collar':
+      'Kein direkter Bezug: Collar gibt Kettenbissen ab dem zweiten +1, Coin jeden Morgen einem Zwilling +2.',
     'coin+shackles':
       'Kein direkter Bezug: Coin gibt jeden Morgen einem Zwilling +2, Shackles auf langen Zügen zufällig +1.',
     'ravenous+rope':
       "Kein direkter Bezug: Noose verbessert jedes Replace; jeden Morgen räumt Ravenous' höchster Insasse seine 2 Nachbarn ab (je 40 % auf +1).",
-    'collar+shackles': 'Kein direkter Bezug: Collar gibt den meisten Bissen +1, Shackles auf langen Zügen zufällig +1.',
+    'collar+shackles':
+      'Kein direkter Bezug: Collar gibt Kettenbissen ab dem zweiten +1, Shackles auf langen Zügen zufällig +1.',
     'coin+keys': 'Keys öffnen auch die Nachbarn einer Tür: mehr Insassen im Block, mehr Zwillinge für Coins +2.',
   },
 };
@@ -2117,6 +2127,8 @@ const fr: Dict = {
   run: {
     cagefight: 'Les détenus mangent des proies de **leur rareté ou moins**, et une bouchée **ne change pas la bête**.',
     tyranny: 'Au bureau, quel que soit votre choix, vous recevez aussi **3 Instigate et 3 Bestow**.',
+    opulence:
+      "Chaque Warden's Treasure donne **3 choix** d'affilée, et un Rainbow obtenu par un choix en apporte 3 de plus.",
     king: 'Au moins 1 détenu atteint **Ultimate**.',
     walk: 'Parcourir **18 cases**.',
     consume: '**Consume** 4 fois.',
@@ -2226,7 +2238,7 @@ const fr: Dict = {
     skewer: 'Les Rats mangent des Rats de même rareté ; +2 tiers en plus par bouchée de Rat (3 au total).',
     hook: 'Les cellules ouvertes ne contiennent jamais de Normal.',
     saw: 'Après un Consume, 25 % de +1 en plus.',
-    collar: "Chaque bouchée d'une chaîne : 80 % de +1 en plus.",
+    collar: "Chaque bouchée d'une chaîne à partir de la deuxième : 80 % de +1 en plus.",
     stake: "−1 destination/jour. Replace sur un détenu sous Legendary : 40 % d'amener un Legendary.",
     guillotine:
       "Les Wolves mangent aussi leur proie de rareté inférieure, puis déclenchent Oppress : −5 % de chance de montée par tier d'écart de rareté.",
@@ -2261,7 +2273,8 @@ const fr: Dict = {
       "Pas de lien direct : Noose fait de chaque Replace une amélioration ; dès qu'il reste ≤5 cellules fermées, Blacklist fait monter 2 détenus par porte.",
     'coin+ironbox':
       'Iron Box fait éclore des Rats Rare toute la run — une source continue de jumeaux ; Coin en retire un et donne +2 à un autre (Ultimate).',
-    'collar+rope': 'Pas de lien direct : Noose améliore chaque Replace, Collar ajoute +1 à la plupart des bouchées.',
+    'collar+rope':
+      'Pas de lien direct : Noose améliore chaque Replace, Collar ajoute +1 aux bouchées enchaînées après la première.',
     'rope+shackles':
       'Pas de lien direct : Noose améliore chaque Replace, Shackles donne un +1 au hasard sur les longs déplacements (≥4 cellules).',
     'coin+maiden':
@@ -2278,13 +2291,14 @@ const fr: Dict = {
       'Stake tire des Legendaries des Replaces ; un jumeau Legendary (même bête) est une cible de Coin : +2 = Rainbow.',
     'blacklist+keys':
       "Keys ouvre aussi les voisines d'une porte, donc les cellules fermées tombent tôt à ≤5 — dès lors, chaque porte que vous ouvrez fait monter 2 détenus.",
-    'coin+collar': 'Pas de lien direct : Collar ajoute +1 à la plupart des bouchées, Coin +2 à un jumeau chaque matin.',
+    'coin+collar':
+      'Pas de lien direct : Collar ajoute +1 aux bouchées enchaînées après la première, Coin +2 à un jumeau chaque matin.',
     'coin+shackles':
       'Pas de lien direct : Coin donne +2 à un jumeau chaque matin, Shackles un +1 au hasard sur les longs déplacements.',
     'ravenous+rope':
       'Pas de lien direct : Noose améliore chaque Replace ; chaque matin, le détenu le plus haut de Ravenous retire ses 2 voisins (40 % de +1 chacun).',
     'collar+shackles':
-      'Pas de lien direct : Collar ajoute +1 à la plupart des bouchées, Shackles un +1 au hasard sur les longs déplacements.',
+      'Pas de lien direct : Collar ajoute +1 aux bouchées enchaînées après la première, Shackles un +1 au hasard sur les longs déplacements.',
     'coin+keys':
       "Keys ouvre aussi les voisines d'une porte : plus de détenus sur le plateau, plus de jumeaux pour le +2 de Coin.",
   },
@@ -2420,6 +2434,7 @@ const pl: Dict = {
   run: {
     cagefight: 'Więźniowie zjadają ofiary **swojej lub niższej rzadkości**, a kęs **nie losuje bestii od nowa**.',
     tyranny: 'W Office, cokolwiek wybierzesz, dostajesz też **3 Instigate i 3 Bestow**.',
+    opulence: "Każdy Warden's Treasure daje **3 wybory** z rzędu, a Rainbow z wyboru daje 3 kolejne.",
     king: 'Co najmniej 1 więzień osiąga **Ultimate**.',
     walk: 'Przejdź **18 pól**.',
     consume: '**Consume** 4 razy.',
@@ -2525,7 +2540,7 @@ const pl: Dict = {
     skewer: 'Rats zjadają Rats tej samej rzadkości; +2 dodatkowe poziomy za kęs Rat (łącznie 3).',
     hook: 'Otwarte cele nigdy nie mają Normal.',
     saw: 'Po Consume 25% na dodatkowe +1.',
-    collar: 'Każdy kęs w łańcuchu: 80% na dodatkowe +1.',
+    collar: 'Każdy kęs w łańcuchu od drugiego: 80% na dodatkowe +1.',
     stake: '−1 cel ruchu/dzień. Replace więźnia poniżej Legendary: 40% na Legendary.',
     guillotine:
       'Wolves zjadają swoje ofiary też niższej rzadkości, potem wyzwalają Oppress: −5% szansy na awans za każdy poziom różnicy rzadkości.',
@@ -2559,7 +2574,8 @@ const pl: Dict = {
       'Brak bezpośredniego związku: Noose robi z każdego Replace ulepszenie; gdy zamkniętych cel jest ≤5, Blacklist podnosi 2 więźniów za każde drzwi.',
     'coin+ironbox':
       'Iron Box wylęga Rare Rats przez cały run — stały dopływ bliźniaków; Coin usuwa jednego i daje innemu +2 (Ultimate).',
-    'collar+rope': 'Brak bezpośredniego związku: Noose ulepsza każdy Replace, Collar dodaje +1 do większości kęsów.',
+    'collar+rope':
+      'Brak bezpośredniego związku: Noose ulepsza każdy Replace, Collar dodaje +1 do kęsów w łańcuchu od drugiego.',
     'rope+shackles':
       'Brak bezpośredniego związku: Noose ulepsza każdy Replace, Shackles dają losowe +1 przy długich ruchach (≥4 cele).',
     'coin+maiden':
@@ -2576,13 +2592,13 @@ const pl: Dict = {
     'blacklist+keys':
       'Keys otwierają też sąsiadów drzwi, więc zamkniętych cel szybko robi się ≤5 — odtąd każde otwarte drzwi podnoszą 2 więźniów.',
     'coin+collar':
-      'Brak bezpośredniego związku: Collar dodaje +1 do większości kęsów, Coin +2 bliźniakowi każdego ranka.',
+      'Brak bezpośredniego związku: Collar dodaje +1 do kęsów w łańcuchu od drugiego, Coin +2 bliźniakowi każdego ranka.',
     'coin+shackles':
       'Brak bezpośredniego związku: Coin +2 bliźniakowi każdego ranka, Shackles losowe +1 przy długich ruchach.',
     'ravenous+rope':
       'Brak bezpośredniego związku: Noose ulepsza każdy Replace; każdego ranka najwyższy więzień z Ravenous usuwa swoich 2 sąsiadów (po 40% na +1).',
     'collar+shackles':
-      'Brak bezpośredniego związku: Collar dodaje +1 do większości kęsów, Shackles losowe +1 przy długich ruchach.',
+      'Brak bezpośredniego związku: Collar dodaje +1 do kęsów w łańcuchu od drugiego, Shackles losowe +1 przy długich ruchach.',
     'coin+keys': 'Keys otwierają też sąsiadów drzwi: więcej więźniów na bloku, więcej bliźniaków dla +2 od Coin.',
   },
 };
@@ -2717,6 +2733,7 @@ const sv: Dict = {
   run: {
     cagefight: 'Interner äter byten av **sin egen sällsynthet eller lägre**, och ett bett **slumpar inte om besten**.',
     tyranny: 'På Office får du, vad du än väljer, också **3 Instigates och 3 Bestows**.',
+    opulence: "Varje Warden's Treasure ger **3 val** i rad, och en Rainbow från ett val ger 3 till.",
     king: 'Minst 1 intern når **Ultimate**.',
     walk: 'Gå **18 rutor**.',
     consume: '**Consume** 4 gånger.',
@@ -2823,7 +2840,7 @@ const sv: Dict = {
     skewer: 'Rats äter Rats av samma sällsynthet; +2 extra nivåer per Rat-bett (3 totalt).',
     hook: 'Öppnade celler har aldrig en Normal.',
     saw: 'Efter en Consume, 25 % på +1 extra.',
-    collar: 'Varje bett i en kedja: 80 % på +1 extra.',
+    collar: 'Varje bett i en kedja efter det första: 80 % på +1 extra.',
     stake: '−1 destination/dag. Replace på en intern under Legendary: 40 % att ge en Legendary.',
     guillotine:
       'Wolves äter även sitt byte på lägre sällsynthet och triggar sedan Oppress: −5 % uppgraderingschans per nivå i sällsynthetsskillnad.',
@@ -2857,7 +2874,8 @@ const sv: Dict = {
       'Ingen direkt koppling: Noose gör varje Replace till en uppgradering; när ≤5 celler är låsta höjer Blacklist 2 interner per dörr.',
     'coin+ironbox':
       'Iron Box kläcker Rare Rats hela runnen — ett stadigt flöde av tvillingar; Coin tar bort en och ger en annan +2 (Ultimate).',
-    'collar+rope': 'Ingen direkt koppling: Noose uppgraderar varje Replace, Collar ger +1 på de flesta bett.',
+    'collar+rope':
+      'Ingen direkt koppling: Noose uppgraderar varje Replace, Collar ger +1 på bett i en kedja efter det första.',
     'rope+shackles':
       'Ingen direkt koppling: Noose uppgraderar varje Replace, Shackles ger ett slumpat +1 på långa förflyttningar (≥4 celler).',
     'coin+maiden': 'Ingen direkt koppling: Maiden lönar sig på Replaces (+3), Coin på tvillingar varje morgon (+2).',
@@ -2873,13 +2891,14 @@ const sv: Dict = {
       'Stake gör Legendaries av Replaces; en Legendary-tvilling (samma best) är ett Coin-mål: +2 = Rainbow.',
     'blacklist+keys':
       'Keys öppnar också en dörrs grannar, så de låsta cellerna sjunker till ≤5 tidigt — därefter höjer varje dörr du öppnar 2 interner.',
-    'coin+collar': 'Ingen direkt koppling: Collar ger +1 på de flesta bett, Coin +2 till en tvilling varje morgon.',
+    'coin+collar':
+      'Ingen direkt koppling: Collar ger +1 på bett i en kedja efter det första, Coin +2 till en tvilling varje morgon.',
     'coin+shackles':
       'Ingen direkt koppling: Coin +2 till en tvilling varje morgon, Shackles ett slumpat +1 på långa förflyttningar.',
     'ravenous+rope':
       'Ingen direkt koppling: Noose uppgraderar varje Replace; med Ravenous rensar den högsta internen bort sina 2 grannar varje morgon (40 % på +1 var).',
     'collar+shackles':
-      'Ingen direkt koppling: Collar ger +1 på de flesta bett, Shackles ett slumpat +1 på långa förflyttningar.',
+      'Ingen direkt koppling: Collar ger +1 på bett i en kedja efter det första, Shackles ett slumpat +1 på långa förflyttningar.',
     'coin+keys': 'Keys öppnar också en dörrs grannar: fler interner i blocket, fler tvillingar för Coins +2.',
   },
 };
@@ -3014,6 +3033,7 @@ const es: Dict = {
   run: {
     cagefight: 'Los presos comen **su rareza o menor**, y una mordida **no vuelve a sortear la bestia**.',
     tyranny: 'En el office, elijas lo que elijas, también recibes **3 Instigate y 3 Bestow**.',
+    opulence: "Cada Warden's Treasure da **3 elecciones** seguidas, y un Rainbow hecho por una elección trae 3 más.",
     king: 'Al menos 1 preso llega a **Ultimate**.',
     walk: 'Avanza **18 casillas**.',
     consume: '**Consume** 4 veces.',
@@ -3123,7 +3143,7 @@ const es: Dict = {
     skewer: 'Los Rats comen Rats de la misma rareza; +2 tiers extra por mordida de Rat (3 en total).',
     hook: 'Las celdas abiertas nunca tienen un Normal.',
     saw: 'Tras un Consume, 25% de +1 extra.',
-    collar: 'Cada mordida de una cadena: 80% de +1 extra.',
+    collar: 'Cada mordida de una cadena a partir de la segunda: 80% de +1 extra.',
     stake: '−1 destino/día. Replace sobre un preso por debajo de Legendary: 40% de traer un Legendary.',
     guillotine:
       'Los Wolves también comen su presa de rareza menor y luego activan Oppress: −5% de probabilidad de subir por tier de diferencia.',
@@ -3157,7 +3177,8 @@ const es: Dict = {
       'Sin vínculo directo: Noose hace que cada Replace sea una mejora; con ≤5 celdas cerradas, Blacklist sube 2 presos por puerta.',
     'coin+ironbox':
       'Iron Box cría Rats Rare toda la run — gemelos sin parar; Coin quita uno y da +2 a otro (Ultimate).',
-    'collar+rope': 'Sin vínculo directo: Noose mejora cada Replace, Collar da +1 a la mayoría de las mordidas.',
+    'collar+rope':
+      'Sin vínculo directo: Noose mejora cada Replace, Collar da +1 a las mordidas en cadena a partir de la segunda.',
     'rope+shackles':
       'Sin vínculo directo: Noose mejora cada Replace, Shackles da un +1 aleatorio en caminatas largas (≥4 celdas).',
     'coin+maiden': 'Sin vínculo directo: Maiden rinde en los Replaces (+3), Coin en los gemelos cada mañana (+2).',
@@ -3173,13 +3194,14 @@ const es: Dict = {
       'Stake saca Legendaries de los Replaces; un gemelo Legendary (misma bestia) es objetivo de Coin: +2 = Rainbow.',
     'blacklist+keys':
       'Keys abre también los vecinos de una puerta, así que las celdas cerradas bajan a ≤5 pronto — desde entonces cada puerta que abres sube 2 presos.',
-    'coin+collar': 'Sin vínculo directo: Collar da +1 a la mayoría de las mordidas, Coin +2 a un gemelo cada mañana.',
+    'coin+collar':
+      'Sin vínculo directo: Collar da +1 a las mordidas en cadena a partir de la segunda, Coin +2 a un gemelo cada mañana.',
     'coin+shackles':
       'Sin vínculo directo: Coin da +2 a un gemelo cada mañana, Shackles un +1 aleatorio en caminatas largas.',
     'ravenous+rope':
       'Sin vínculo directo: Noose mejora cada Replace; cada mañana el preso de mayor tier de Ravenous quita a sus 2 vecinos (40% de +1 cada uno).',
     'collar+shackles':
-      'Sin vínculo directo: Collar da +1 a la mayoría de las mordidas, Shackles un +1 aleatorio en caminatas largas.',
+      'Sin vínculo directo: Collar da +1 a las mordidas en cadena a partir de la segunda, Shackles un +1 aleatorio en caminatas largas.',
     'coin+keys':
       'Keys abre también los vecinos de una puerta: más presos en el bloque, más gemelos para el +2 de Coin.',
   },

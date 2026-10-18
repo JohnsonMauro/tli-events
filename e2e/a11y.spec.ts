@@ -127,3 +127,22 @@ test('footer heart: starts paused with reduced motion', async ({ page }) => {
   await expect(page.locator('#heart')).toHaveAttribute('aria-pressed', 'true');
   expect(await heartBeats(page)).toBe(false);
 });
+
+// The touch dialog (instrument, incident and tier cards on a phone), open, in both themes.
+test.describe('touch dialog', () => {
+  test.use({ hasTouch: true });
+  for (const colorScheme of THEMES) {
+    test(`/ss14/ touch dialog in ${colorScheme} theme: no axe violations`, async ({ page }) => {
+      await open(page, '/ss14/', colorScheme);
+      for (const sel of ['#tools .tool[data-tool="coin"]', '.list li .ev', '[data-tip="tiers"]']) {
+        const el = page.locator(sel).first();
+        await el.scrollIntoViewIfNeeded();
+        await el.tap();
+        await expect(page.locator('#popdlg')).toBeVisible();
+        expect(await violations(page, '#popdlg')).toEqual([]);
+        await page.keyboard.press('Escape');
+        await expect(page.locator('#popdlg')).toBeHidden();
+      }
+    });
+  }
+});

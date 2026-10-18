@@ -236,7 +236,7 @@ test('tiers: the top row is S in every list, and letters never go up the list', 
     expect(idx, label).toEqual([...idx].sort((a, b) => a - b));
   };
   await check('alone');
-  for (const start of ['cagefight', 'ironlaw', 'tyranny']) {
+  for (const start of ['cagefight', 'ironlaw', 'tyranny', 'opulence']) {
     await page.locator(`#run [data-start="${start}"]`).click();
     await check(start);
   }
@@ -386,4 +386,92 @@ test('instrument rows: the art never sets the row height', async ({ page }) => {
     .locator('#tools .tool')
     .evaluateAll((rows) => [...new Set(rows.map((r) => Math.round(r.getBoundingClientRect().height)))]);
   expect(heights).toHaveLength(1);
+});
+
+// Touch: the card opens as a modal dialog (owner, 2026-10-18 — on a phone the tooltip covered the screen, could not
+// be closed or scrolled, and a tap beside it picked the row underneath).
+test.describe('touch: cards open as a dialog', () => {
+  test.use({ hasTouch: true, viewport: { width: 390, height: 844 } });
+
+  test('opens on a tap, closes by its button, Esc or a tap outside, and never picks the row under it', async ({
+    page,
+  }) => {
+    await page.goto(SHEET);
+    const dlg = page.locator('#popdlg');
+    const row = page.locator('#tools .tool[data-tool="coin"]');
+    await row.scrollIntoViewIfNeeded();
+
+    await row.tap();
+    await expect(dlg).toBeVisible();
+    await expect(page.locator('#pop')).toBeHidden();
+    await expect(dlg).toContainText("Kin's Coin of Fate");
+    await expect(dlg).toHaveAttribute('aria-label', /Coin/);
+    const close = dlg.getByRole('button', { name: 'Close' });
+    await close.tap();
+    await expect(dlg).toBeHidden();
+    // That tap took the Coin as the start pick: its row left the list, so focus lands on its chip in Holding.
+    await expect(page.locator('#held [data-drop="coin"]')).toBeFocused();
+    // A second instrument's row stays in the list: focus returns to that row.
+    const second = page.locator('#tools .tool[data-tool="keys"]');
+    await second.scrollIntoViewIfNeeded();
+    await second.tap();
+    await expect(dlg).toBeVisible();
+    await close.tap();
+    await expect(second).toBeFocused();
+
+    // Esc closes it too.
+    await page.locator('#tools .tool[data-tool="rope"]').tap();
+    await expect(dlg).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(dlg).toBeHidden();
+
+    // A tap on the backdrop closes it and reaches nothing under it.
+    const held = await page.locator('#held .chip').count();
+    await page.locator('.list li .ev').first().tap();
+    await expect(dlg).toBeVisible();
+    await page.touchscreen.tap(195, 830);
+    await expect(dlg).toBeHidden();
+    await expect(page.locator('#held .chip')).toHaveCount(held);
+  });
+
+  // After a tap the element stays :hover until the next tap elsewhere: hover styles live under
+  // (hover: hover) and (pointer: fine), so a tapped row doesn't stay lit.
+  test('a tapped row does not stay lit (no sticky hover)', async ({ page }) => {
+    await page.goto(SHEET);
+    const rows = page.locator('.list li .ev');
+    const bg = (i: number) => rows.nth(i).evaluate((el) => getComputedStyle(el).backgroundColor);
+    const calm = await bg(1);
+    await rows.nth(0).tap();
+    // Closed without another tap, so the row is still the last thing touched (and still :hover).
+    await page.locator('#popdlg').evaluate((d: HTMLDialogElement) => d.close());
+    await expect(page.locator('#popdlg')).toBeHidden();
+    expect(await rows.nth(0).evaluate((el) => el.matches(':hover'))).toBe(true);
+    expect(await bg(0)).toBe(calm);
+  });
+
+  test('a long card scrolls inside the dialog', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 640 });
+    await page.goto('/ss14/ru/');
+    await page.locator('#tools .tool').first().tap();
+    const dlg = page.locator('#popdlg');
+    await expect(dlg).toBeVisible();
+    const { scrollable, overflowY } = await dlg.evaluate((d) => ({
+      scrollable: d.scrollHeight > d.clientHeight,
+      overflowY: getComputedStyle(d).overflowY,
+    }));
+    expect(overflowY).toBe('auto');
+    if (scrollable) {
+      await dlg.evaluate((d) => d.scrollTo({ top: d.scrollHeight, behavior: 'instant' }));
+      expect(await dlg.evaluate((d) => d.scrollTop)).toBeGreaterThan(0);
+    }
+  });
+});
+
+// With a mouse, hover still lights the row (the media query only drops it on touch).
+test('mouse: hovering an incident row still lights it', async ({ page }) => {
+  await page.goto(SHEET);
+  const row = page.locator('.list li .ev').first();
+  const calm = await row.evaluate((el) => getComputedStyle(el).backgroundColor);
+  await row.hover();
+  await expect.poll(() => row.evaluate((el) => getComputedStyle(el).backgroundColor)).not.toBe(calm);
 });

@@ -8,6 +8,7 @@ import { artSet } from '../../lib/images';
 import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
 import { DICT } from './i18n';
 import { DOUBT, PAIR_LINKED, TOOL_LINKS } from './tool-text';
+import { INFO } from '../../components/event-info.i18n';
 import { SIM_TIME } from './sim-time';
 import { ISSUES_URL, REPO_URL } from '../../lib/project';
 // Live odds only (offer counts measured by the community analyzer, frozen at 2026-10-16).
@@ -125,6 +126,8 @@ const STARTS = [
   ['cagefight', 'Cage Fight', A('card-cagefight')],
   ['ironlaw', 'Iron Law', A('card-ironlaw')],
   ['tyranny', 'Tyranny', A('card-tyranny')],
+  // Text from a player's print quoted by the community simulator (2026-10-17); no print of ours, so no art yet.
+  ['opulence', 'Opulence', null],
 ] as const;
 const OBJECTIVES = [
   ['', t.runAny],
@@ -174,7 +177,7 @@ const startTips = STARTS.filter(([id]) => id).map(([id, name]) => ({
   id,
   name,
   art: A('card-' + id, 'md'),
-  does: id === 'ironlaw' ? t.ironlawP : t.run[id as 'cagefight' | 'tyranny'],
+  does: id === 'ironlaw' ? t.ironlawP : t.run[id as 'cagefight' | 'tyranny' | 'opulence'],
   picks: firstPicks(id),
 }));
 const objectiveTips = OBJECTIVES.filter(([id]) => id).map(([id, name]) => ({
@@ -706,6 +709,16 @@ const ladder = [
     <p class="tp-sub">{t.tipNote}</p>
   </template>
   <div class="tool-pop" id="pop" role="tooltip" hidden></div>
+  {/* Touch: the same content as a modal dialog — a close button, Esc, a tap outside closes it, it scrolls, and the
+      page under it can't be tapped by mistake (./play.ts). Mouse and keyboard keep the tooltip above. */}
+  <dialog class="tool-dlg" id="popdlg">
+    <button type="button" class="dlg-x" data-close aria-label={INFO[lang].close}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <div class="dlg-body"></div>
+  </dialog>
   <script type="application/json" id="play-data" set:html={json} />
 </Base>
 <script src="./play.ts"></script>

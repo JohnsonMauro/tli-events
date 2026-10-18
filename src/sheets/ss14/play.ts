@@ -344,18 +344,22 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     (document.getElementById('tip-' + btn.dataset.tip) as HTMLTemplateElement | null)?.innerHTML ?? '';
 
   let shownFor: HTMLElement | null = null;
-  function showPop(anchor: HTMLElement) {
-    pop.innerHTML = anchor.dataset.tool ? toolHtml(anchor) : anchor.dataset.ev ? evHtml(anchor) : tipHtml(anchor);
-    if (anchor.dataset.row) pop.querySelector(`[data-row="${anchor.dataset.row}"]`)?.classList.add('on');
+  /** The card for `anchor` (instrument, incident or explanation), written into `box`. */
+  function fill(box: HTMLElement, anchor: HTMLElement) {
+    box.innerHTML = anchor.dataset.tool ? toolHtml(anchor) : anchor.dataset.ev ? evHtml(anchor) : tipHtml(anchor);
+    if (anchor.dataset.row) box.querySelector(`[data-row="${anchor.dataset.row}"]`)?.classList.add('on');
     // The tier table's Rainbows per run follow the list on screen: start card, objective, pair with what you hold.
     const sc = listScale();
-    pop.querySelectorAll<HTMLElement>('[data-share]').forEach((td) => {
+    box.querySelectorAll<HTMLElement>('[data-share]').forEach((td) => {
       const share = Number(td.dataset.share);
       td.textContent = `${share ? '≥' : '>'}${(sc.base + share * (sc.best - sc.base)).toFixed(2)} ${T.perRun}`;
     });
-    pop.querySelectorAll<HTMLElement>('[data-floor]').forEach((td) => {
+    box.querySelectorAll<HTMLElement>('[data-floor]').forEach((td) => {
       td.textContent = `≤${sc.base.toFixed(2)} ${T.perRun}`;
     });
+  }
+  function showPop(anchor: HTMLElement) {
+    fill(pop, anchor);
     pop.hidden = false;
     shownFor = anchor;
     const r = anchor.getBoundingClientRect(),
@@ -375,6 +379,45 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     pop.hidden = true;
     shownFor = null;
   };
+
+  // Touch (and pen): a tooltip that covers the screen can't be scrolled or closed, and a tap beside it lands on the
+  // row underneath. There the same card opens as a modal dialog: close button, Esc, a tap outside closes it, it
+  // scrolls, the page under it is inert, and focus returns to the row on close (native <dialog>).
+  const dlg = document.getElementById('popdlg') as HTMLDialogElement | null;
+  const dlgBody = dlg?.querySelector<HTMLElement>('.dlg-body') ?? null;
+  let touch = false;
+  // The row that opened it: a pick re-sorts the list, and moving a node drops its focus, so the dialog can't
+  // restore it by itself.
+  let opener: HTMLElement | null = null;
+  function openDialog(anchor: HTMLElement) {
+    if (!dlg || !dlgBody) return showPop(anchor);
+    hidePop();
+    opener = anchor;
+    fill(dlgBody, anchor);
+    const title = dlgBody.querySelector('b')?.textContent?.trim();
+    if (title) dlg.setAttribute('aria-label', title);
+    if (!dlg.open) dlg.showModal();
+    dlg.scrollTop = 0;
+  }
+  dlg?.addEventListener('close', () => {
+    // Back to the row, or — when that tap took it as the start pick and its row left the list — to its chip in
+    // Holding, where it went.
+    const tool = opener?.dataset.tool;
+    const back =
+      opener?.isConnected && opener.offsetParent
+        ? opener
+        : tool
+          ? heldEl.querySelector<HTMLElement>(`[data-drop="${CSS.escape(tool)}"]`)
+          : null;
+    back?.focus({ preventScroll: true });
+    opener = null;
+  });
+  dlg?.addEventListener('click', (e) => {
+    if ((e.target as Element).closest('[data-close]')) return dlg.close();
+    // A tap on the backdrop: outside the dialog's own box.
+    const r = dlg.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+  });
   const target = (e: Event) =>
     (e.target as Element | null)?.closest<HTMLElement>('[data-tool],[data-ev],[data-tip]') ?? null;
 
@@ -389,7 +432,8 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   });
   document.addEventListener('focusin', (e) => {
     const a = target(e);
-    if (a) showPop(a);
+    // A tap focuses the button first: the dialog opens on its click instead.
+    if (a && !touch && !dlg?.contains(a)) showPop(a);
   });
   document.addEventListener('focusout', (e) => {
     if (target(e)) hidePop();
@@ -403,11 +447,21 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   // With a mouse, hover already opened it and the click keeps it open.
   let closeOnClick = false;
   document.addEventListener('pointerdown', (e) => {
+    touch = e.pointerType === 'touch' || e.pointerType === 'pen';
     const a = target(e);
     closeOnClick = !!a && shownFor === a && e.pointerType !== 'mouse';
   });
+  // Keys: back to the tooltip (a keyboard user after a tap).
+  document.addEventListener('keydown', () => {
+    touch = false;
+  });
   document.addEventListener('click', (e) => {
+    if (dlg?.contains(e.target as Node)) return;
     const a = target(e);
+    if (a && touch && (a.dataset.ev || a.dataset.tip)) {
+      openDialog(a);
+      return;
+    }
     if (!a) {
       hidePop();
       return;
@@ -445,7 +499,8 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     // The first pick re-sorts the whole list; after it, the row stays under the pointer.
     if (S.held.length) keepInPlace(`#tools [data-tool="${CSS.escape(id)}"]`, take);
     else take();
-    showPop(b);
+    if (touch) openDialog(b);
+    else showPop(b);
   });
   heldEl.addEventListener('click', (e) => {
     const x = (e.target as Element).closest<HTMLElement>('[data-drop]');

@@ -6,6 +6,22 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: the **Opulence** start card in "Your run" — each Warden's Treasure gives 3 picks in a row — with its own instrument ranking. Its text comes from a player's print shared with the community; we haven't printed it ourselves yet.
+
+### Changed
+
+- SS14 play sheet: 25 instrument pictures now come from clean live-client cards — the **Elephant-Foot Maul has a picture** for the first time, and the Iron Crown, Squirming Iron Box and Barbed Collar are sharp instead of blurry.
+- SS14 play sheet: the Iron Crown, Elephant-Foot Maul, Short-Chained Shackles and Barbed Collar lose their "not fully confirmed" mark — their cards are now known; only Filthy Claws keeps it.
+- SS14 play sheet: the **Barbed Collar** gives its extra tier only on bites in succession, from the second bite of a chain — as the game's Chinese card says (連吃) — instead of on every bite: its value drops from 2.82 to 1.77 Rainbows per run (#6 → #19).
+- SS14 play sheet: start cards' numbers now count the Warden's Treasures every real run gets, so Cage Fight, Iron Law and Tyranny show higher values than before.
+
+### Fixed
+
+- SS14 play sheet on phones: tapping an instrument, incident or the tier help opens the card as a proper dialog — a close button, Esc or a tap outside closes it, it scrolls, and a tap beside it no longer picks the row underneath (the card used to cover the screen with no way out).
+- Phones and tablets: a tapped row, link or button no longer stays highlighted after the tap (hover effects now apply only with a mouse).
+
 ## [1.10.3] - 2026-10-18
 
 ### Changed

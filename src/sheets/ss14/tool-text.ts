@@ -2,11 +2,9 @@
 // the card leaves open), so their value may move: the sheet marks them with "!" and asks players for
 // prints. Remove an id once a card settles it (images/INDEX.md, engine/README.md → "Open rules").
 export const DOUBT: ReadonlySet<string> = new Set([
-  'collar', // live card cut: every chain bite, or only after the first?
-  'claws', // only the tlidb tooltip; no full card
-  'shortchain', // Short-Chained Shackles: no card text seen
-  'crown', // Iron Crown: card text never seen
-  'maul', // Elephant-Foot Maul: never seen
+  // Filthy Claws: the card (print 110) only adds Scratch Marks; who may eat through that door is the Scratch Marks
+  // tooltip, seen only on tlidb (beta data) — never confirmed in play.
+  'claws',
 ]);
 
 // One-line English summaries shown next to each instrument's card text (other languages: `tool` in ./i18n.ts).
@@ -27,7 +25,7 @@ export const TOOL_TEXT = {
   skewer: 'Rats eat Rats of the same rarity; +2 extra tiers per Rat bite (3 in total).',
   hook: 'Opened cells never hold a Normal.',
   saw: 'After a consume, 25% for +1 extra.',
-  collar: 'Each bite of a chain: 80% for +1 extra.',
+  collar: 'Every bite after the first in a chain: 80% for +1 extra.',
   stake: '−1 destination/day. Replacing an inmate below Legendary: 40% to bring a Legendary.',
   guillotine:
     'Wolves also eat their prey at a lower rarity, then trigger Oppress: −5% upgrade chance per tier of rarity difference.',
@@ -67,7 +65,7 @@ export const PAIR_TEXT = {
     'No direct link: Noose makes every Replace an upgrade; once ≤5 cells are locked, Blacklist raises 2 inmates per door.',
   'coin+ironbox':
     'Iron Box hatches Rare Rats all run long — a steady supply of twins; Coin removes one and gives another +2 (Ultimate).',
-  'collar+rope': 'No direct link: Noose upgrades every Replace, Collar adds +1 to most bites.',
+  'collar+rope': 'No direct link: Noose upgrades every Replace, Collar adds +1 to chain bites after the first.',
   'rope+shackles': 'No direct link: Noose upgrades every Replace, Shackles gives a random +1 on long walks (≥4 cells).',
   'coin+maiden': 'No direct link: Maiden pays on Replaces (+3), Coin on twins each morning (+2).',
   'blacklist+maiden': 'No direct link: Maiden pays on Replaces (+3), Blacklist on every door once ≤5 cells are locked.',
@@ -79,11 +77,12 @@ export const PAIR_TEXT = {
     'Stake makes Legendaries out of Replaces; a Legendary twin (same beast) is a Coin target: +2 = Rainbow.',
   'blacklist+keys':
     'Keys opens the neighbours of a door too, so locked cells drop to ≤5 early — from then on every door you open raises 2 inmates.',
-  'coin+collar': 'No direct link: Collar adds +1 to most bites, Coin +2 to a twin each morning.',
+  'coin+collar': 'No direct link: Collar adds +1 to chain bites after the first, Coin +2 to a twin each morning.',
   'coin+shackles': 'No direct link: Coin +2 to a twin each morning, Shackles a random +1 on long walks.',
   'ravenous+rope':
     "No direct link: Noose upgrades every Replace; each morning Ravenous's top inmate clears its 2 neighbours (40% for +1 each).",
-  'collar+shackles': 'No direct link: Collar adds +1 to most bites, Shackles a random +1 on long walks.',
+  'collar+shackles':
+    'No direct link: Collar adds +1 to chain bites after the first, Shackles a random +1 on long walks.',
   'coin+keys': "Keys opens the neighbours of a door too: more inmates on the block, more twins for Coin's +2.",
 };
 
