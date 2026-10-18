@@ -25,10 +25,10 @@ export default defineConfig({
       name: 'Barlow Semi Condensed',
       cssVariable: '--font-sans',
       weights: [400, 500, 600, 700],
-      // No italics anywhere on the site; pt-BR fits in Latin, and the family has no Cyrillic/CJK
-      // (those pages fall back to the system font).
+      // No italics anywhere on the site; latin-ext is for Polish (loaded by unicode-range only where used), and the
+      // family has no Cyrillic/CJK (those pages fall back to the system font).
       styles: ['normal'],
-      subsets: ['latin'],
+      subsets: ['latin', 'latin-ext'],
       display: 'optional',
       fallbacks: ['system-ui', 'sans-serif'],
     },
@@ -42,8 +42,25 @@ export default defineConfig({
       display: 'swap',
       fallbacks: ['Impact', 'sans-serif'],
       options: {
+        // Two files split by unicode-range, as Google serves them: a page loads latin-ext only when it shows one of
+        // its letters (Polish ą ę ł ń ś ź ż ć). Same v30 source and 400–700 cut (2026-10-18).
         variants: [
-          { src: ['./src/assets/fonts/big-shoulders-stencil-display-latin.woff2'], weight: '400 700', style: 'normal' },
+          {
+            src: ['./src/assets/fonts/big-shoulders-stencil-display-latin.woff2'],
+            weight: '400 700',
+            style: 'normal',
+            unicodeRange: [
+              'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
+            ],
+          },
+          {
+            src: ['./src/assets/fonts/big-shoulders-stencil-display-latin-ext.woff2'],
+            weight: '400 700',
+            style: 'normal',
+            unicodeRange: [
+              'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF',
+            ],
+          },
         ],
       },
     },
@@ -53,7 +70,7 @@ export default defineConfig({
       cssVariable: '--font-mono',
       weights: [400, 500],
       styles: ['normal'],
-      subsets: ['latin', 'cyrillic'],
+      subsets: ['latin', 'latin-ext', 'cyrillic'],
       display: 'optional',
       fallbacks: ['ui-monospace', 'monospace'],
     },

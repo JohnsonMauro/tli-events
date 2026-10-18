@@ -6,6 +6,14 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet in **Spanish** (`/ss14/es/`), **Polish** (`/ss14/pl/`) and **Swedish** (`/ss14/sv/`) — Polish and Swedish reached 10 visits in our analytics. Polish letters use the site's own fonts (no system-font letters in the middle of a word).
+
+### Fixed
+
+- SS14 play sheet, Portuguese and Russian: Elephant-Foot Maul's line said Mammoths eat prey that counters them; they eat the prey they counter.
+
 ## [1.9.1] - 2026-10-18
 
 ### Changed

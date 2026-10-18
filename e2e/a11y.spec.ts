@@ -35,7 +35,18 @@ for (const { path } of pages) {
 for (const colorScheme of THEMES) {
   test(`/ss14/ in ${colorScheme} theme, folds and cards open: no axe violations`, async ({ page }) => {
     await open(page, '/ss14/', colorScheme);
-    await page.evaluate(() => document.querySelectorAll('details').forEach((d) => (d.open = true)));
+    // The language list is checked on its own: open, it drops over the page (10+ languages reach the run chips),
+    // which is how a dropdown works, not a target that is too small.
+    await page.evaluate(() => {
+      const langs = document.querySelector<HTMLDetailsElement>('.lang-select');
+      if (langs) langs.open = true;
+    });
+    expect(await violations(page, '.lang-select')).toEqual([]);
+    await page.evaluate(() => {
+      const langs = document.querySelector<HTMLDetailsElement>('.lang-select');
+      if (langs) langs.open = false;
+      document.querySelectorAll<HTMLDetailsElement>('main details').forEach((d) => (d.open = true));
+    });
     expect(await violations(page)).toEqual([]);
 
     // One card of each kind: instrument, start card, objective.

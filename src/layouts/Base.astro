@@ -1,10 +1,13 @@
 ---
-import { Font, getImage } from 'astro:assets';
+import { Font, fontData, getImage } from 'astro:assets';
 import '../styles/site.css';
 import { url } from '../lib/events';
 import Flag from '../components/Flag.astro';
 import { BUILD_ID } from '../lib/build';
 import { SITE_TEXT, langOfTag } from '../lib/i18n';
+// The heading face comes in two files (Latin, then latin-ext: astro.config.mjs); preload only the Latin one. The
+// `preload` filter can't tell them apart (a local font has no subset), so the link is written here.
+const displayLatin = fontData['--font-display']?.[0]?.src[0]?.url;
 
 interface Props {
   title: string;
@@ -80,7 +83,8 @@ const [footBefore, footAfter = ''] = site.madeWith.split('{heart}');
         { weight: '700', subset: 'latin' },
       ]}
     />
-    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-display" />
+    {displayLatin && <link rel="preload" href={displayLatin} as="font" type="font/woff2" crossorigin />}
     <Font cssVariable="--font-mono" />
     <script is:inline>
       // Apply the saved theme before paint (per-viewer convenience only).
