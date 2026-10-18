@@ -6,6 +6,11 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet: once you mark the instrument you took, **Instrument pick** lists every second instrument it pairs with — all 30, best first, with Rainbows per run — and rings the ones you marked as offered. Tap a row to take it as your second instrument right there (a run holds 2; tapping another row swaps it), no scrolling down to its tile. An instrument's card keeps its best 5.
+- SS14 play sheet: **Instrument pick** shows what you hold first, and one tap on the advice ("Take …") marks it as taken — no separate "I took it" button.
+
 ### Fixed
 
 - SS14 play sheet: the "Tartarus Simulator" link reads clearly in the light theme (its color was too faint against its box).

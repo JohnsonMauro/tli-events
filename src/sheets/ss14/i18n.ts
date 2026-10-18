@@ -93,7 +93,6 @@ const en = {
   perRun: 'Rainbows per run',
   withHeld: ' with what you hold',
   sim: '(simulated)',
-  tookIt: 'I took it',
   remove: 'remove',
   tierMeta:
     'Tier = how many Rainbows the instrument brings alone, against the others: it picks your first instrument. Hover (or tap) a tile for what it does and the best second one. Crown and Maul almost never show up live.',
@@ -307,7 +306,6 @@ const ptbr: Dict = {
   perRun: 'Rainbows por run',
   withHeld: ' com o que você tem',
   sim: '(simulado)',
-  tookIt: 'Peguei',
   remove: 'remover',
   tierMeta:
     'Tier = quantos Rainbows o instrumento rende sozinho, comparado aos outros: é ele que decide o primeiro instrumento. Passe o mouse (ou toque) num bloco para ver o que faz e o melhor segundo. Crown e Maul quase nunca aparecem ao vivo.',
@@ -590,7 +588,6 @@ const ko: Dict = {
   perRun: '판당 Rainbow',
   withHeld: ' (보유 도구와 함께)',
   sim: '(시뮬)',
-  tookIt: '골랐음',
   remove: '제거',
   tierMeta:
     '티어 = 도구 하나가 다른 도구들에 비해 가져오는 Rainbow 수: 첫 도구를 고르는 기준. 타일에 마우스를 올리거나 탭하면 효과와 최고의 두 번째 도구 표시. Crown과 Maul은 실전에서 거의 안 나옴.',
@@ -862,7 +859,6 @@ const ja: Dict = {
   perRun: '1回あたりRainbow',
   withHeld: '（所持品と合わせて）',
   sim: '（シミュ）',
-  tookIt: '取った',
   remove: '外す',
   tierMeta:
     'ティア = 刑具単体で他と比べてどれだけRainbowを生むか：最初の刑具を選ぶ基準。タイルにホバー（またはタップ）で効果と最高の2つ目。CrownとMaulは実戦ではほぼ出ない。',
@@ -1130,7 +1126,6 @@ const zh: Dict = {
   perRun: '每局Rainbow',
   withHeld: '（配合已有刑具）',
   sim: '（模拟）',
-  tookIt: '已拿',
   remove: '移除',
   tierMeta:
     '档位 = 单独持有该刑具时比其他刑具带来多少Rainbow：用来选第一个刑具。悬停（或点按）格子查看效果和最佳第二个。Crown和Maul实战中几乎不出现。',
@@ -1394,7 +1389,6 @@ const ru: Dict = {
   perRun: 'Rainbow за забег',
   withHeld: ' с тем, что у вас есть',
   sim: '(симуляция)',
-  tookIt: 'Взял',
   remove: 'убрать',
   tierMeta:
     'Ранг = сколько Rainbow даёт инструмент сам по себе, в сравнении с другими: по нему выбирают первый инструмент. Наведите (или нажмите) на плитку, чтобы увидеть эффект и лучший второй. Crown и Maul вживую почти не встречаются.',
@@ -1678,7 +1672,6 @@ const de: Dict = {
   perRun: 'Rainbows pro Run',
   withHeld: ' mit deinem Bestand',
   sim: '(simuliert)',
-  tookIt: 'Genommen',
   remove: 'entfernen',
   tierMeta:
     'Stufe = wie viele Rainbows das Instrument allein bringt, im Vergleich zu den anderen: danach wählst du das erste. Hover (oder tippen) auf eine Kachel zeigt den Effekt und das beste zweite. Crown und Maul tauchen live fast nie auf.',
@@ -1964,7 +1957,6 @@ const fr: Dict = {
   perRun: 'Rainbows par run',
   withHeld: ' avec ce que vous avez',
   sim: '(simulé)',
-  tookIt: "Je l'ai pris",
   remove: 'retirer',
   tierMeta:
     "Tier = combien de Rainbows l'instrument rapporte seul, face aux autres : c'est lui qui choisit votre premier instrument. Survolez (ou touchez) une tuile pour voir ce qu'elle fait et le meilleur second. Crown et Maul ne sortent presque jamais en direct.",

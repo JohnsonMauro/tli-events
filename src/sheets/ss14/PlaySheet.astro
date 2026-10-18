@@ -221,7 +221,6 @@ const ui = {
   perRun: t.perRun,
   withHeld: t.withHeld,
   sim: t.sim,
-  tookIt: t.tookIt,
   remove: t.remove,
   nothing: t.nothing,
   pickHint: t.pickHint,
@@ -500,14 +499,14 @@ const ladder = [
         <span class="meta">(CoffeeBns)</span>
         <span class="sim-diff">{t.simDiff}</span>
       </p>
-      <div id="pickOut" class="pick-out">
-        <p class="meta">{t.pickHint}</p>
-      </div>
       <div class="held-row">
         <span class="meta">{t.holding}</span>
         <span id="held">
           <span class="meta">{t.nothing}</span>
         </span>
+      </div>
+      <div id="pickOut" class="pick-out">
+        <p class="meta">{t.pickHint}</p>
       </div>
       <div class="tools" id="tools">
         {groups.map((g) => (

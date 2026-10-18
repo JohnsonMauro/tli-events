@@ -21,7 +21,6 @@ interface PlayData {
     | 'perRun'
     | 'withHeld'
     | 'sim'
-    | 'tookIt'
     | 'remove'
     | 'nothing'
     | 'pickHint'
@@ -167,38 +166,54 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
           )
           .join('')
       : `<span class="meta">${esc(T.nothing)}</span>`;
+    // Every partner the first instrument can get as the second, best first (the pane scrolls, the card can't).
+    // A run holds 2 at most: tapping a row takes it as the second, replacing the one taken before.
+    const second = S.held.length
+      ? `<div class="tp-sub tp-second held-pairs"><span>${esc(T.partners)}</span><small>${esc(T.partnersSub)}</small>${pairList(partners(S.held[0]), true)}</div>`
+      : '';
     if (!best) {
-      out.innerHTML = `<p class="meta">${esc(full() ? T.full : T.pickHint)}</p>`;
+      out.innerHTML = `<p class="meta">${esc(full() ? T.full : T.pickHint)}</p>` + second;
       return;
     }
     out.innerHTML =
-      `<div class="pick best"><div><b>${esc(fmt(T.take, { name: toolName(best) }))}</b><span>${score(best).toFixed(2)} ${esc(T.perRun)}${S.held.length ? esc(T.withHeld) : ''} ${esc(T.sim)}</span></div><button type="button" class="take" data-take="${esc(best)}">${esc(T.tookIt)}</button></div>` +
+      // One tap on the advice marks it as taken.
+      `<button type="button" class="pick best" data-take="${esc(best)}"><span class="pick-what"><b>${esc(fmt(T.take, { name: toolName(best) }))}</b><span class="pick-sub">${score(best).toFixed(2)} ${esc(T.perRun)}${S.held.length ? esc(T.withHeld) : ''} ${esc(T.sim)}</span></span></button>` +
       (rest.length
         ? `<p class="meta">${rest.map((id) => `${esc(toolName(id))} ${score(id).toFixed(2)}`).join(' · ')}</p>`
-        : '');
+        : '') +
+      second;
   }
 
   // ---------- info popover (fixed position: escapes the panes' scroll clipping) ----------
+  /** Every partner of `id` with Rainbows per run for the pair, best first. */
   const partners = (id: string): [string, number][] =>
     N.pairs
       .filter(([a, b]) => a === id || b === id)
       .map(([a, b, v]): [string, number] => [a === id ? b : a, v])
-      .sort((x, y) => y[1] - x[1])
-      .slice(0, 5);
+      .sort((x, y) => y[1] - x[1]);
+  // The card shows the best partners only (it never scrolls); the full list waits in Instrument pick once one is held.
+  const TOP_PARTNERS = 5;
+  /** Ring on a partner the player marked as offered in Instrument pick (same cue as the tile). */
+  const offeredCls = (id: string) => (S.offered.includes(id) ? ' class="off"' : '');
   /** The tile's image as already downloaded (currentSrc picks the srcset entry in use, so nothing is fetched again). */
   const toolImg = (id: string) => {
     const img = grid.querySelector<HTMLImageElement>(`[data-tool="${CSS.escape(id)}"] img`);
     return img ? img.currentSrc || img.src : '';
   };
   /** Pairs as a list, best first: partner art, its own tier, name, Rainbows per run with both. */
-  const pairList = (rows: [string, number | null][]) =>
+  /** `pickable`: each row is a button that takes the partner as the run's second instrument (Instrument pick). */
+  const pairList = (rows: [string, number | null][], pickable = false) =>
     `<ol class="tp-pairs">${rows
       .filter((r): r is [string, number] => r[1] != null)
       .sort((x, y) => y[1] - x[1])
       .map(([p, v]) => {
         const src = toolImg(p);
         const pt = tierOf(value(p));
-        return `<li>${src ? `<img src="${esc(src)}" alt="">` : '<span class="ph">?</span>'}<span class="tier t${pt}">${pt === 'X' ? '✕' : pt}</span><span class="pn">${esc(toolName(p))}</span><b>${v.toFixed(2)}</b></li>`;
+        const row = `${src ? `<img src="${esc(src)}" alt="">` : '<span class="ph">?</span>'}<span class="tier t${pt}">${pt === 'X' ? '✕' : pt}</span><span class="pn">${esc(toolName(p))}</span><b>${v.toFixed(2)}</b>`;
+        const taken = pickable && S.held[1] === p;
+        return pickable
+          ? `<li class="${taken ? 'held' : ''}${S.offered.includes(p) ? ' off' : ''}"><button type="button" data-second="${esc(p)}" aria-pressed="${taken}">${row}</button></li>`
+          : `<li${offeredCls(p)}>${row}</li>`;
       })
       .join('')}</ol>`;
 
@@ -222,7 +237,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       ${btn.dataset.doubt != null ? `<p class="tp-doubt"><span class="doubt" aria-hidden="true">!</span>${esc(T.doubt)}</p>` : ''}
       ${T.tool[id] ? `<p class="tp-what">${esc(T.tool[id])}</p>` : ''}
       ${withHeld.length ? `<div class="tp-sub"><span>${esc(T.withYou)}</span><small>${esc(T.partnersSub)}</small>${pairList(withHeld)}</div>` : ''}
-      <div class="tp-sub tp-second"><span>${esc(T.partners)}</span><small>${esc(T.partnersSub)}</small>${pairList(partners(id))}</div>`;
+      <div class="tp-sub tp-second"><span>${esc(T.partners)}</span>${withHeld.length ? '' : `<small>${esc(T.partnersSub)}</small>`}${pairList(partners(id).slice(0, TOP_PARTNERS))}</div>`;
   }
   // Incident details are rendered by the page into <template id="ev-ID"> (already in the page language).
   const evHtml = (btn: HTMLElement) =>
@@ -308,12 +323,25 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     const b = (e.target as Element).closest<HTMLElement>('[data-tool]'),
       id = b?.dataset.tool;
     if (!b || !id) return;
-    S.offered = S.offered.includes(id) ? S.offered.filter((x) => x !== id) : [...S.offered, id].slice(-3);
-    save();
+    toggleOffered(id);
     render();
     showPop(b);
   });
+  /** Marks or unmarks an instrument as offered (at most the 3 the game shows). */
+  const toggleOffered = (id: string) => {
+    S.offered = S.offered.includes(id) ? S.offered.filter((x) => x !== id) : [...S.offered, id].slice(-3);
+    save();
+  };
   out.addEventListener('click', (e) => {
+    const pick = (e.target as Element).closest<HTMLElement>('[data-second]')?.dataset.second;
+    if (pick && S.held[0]) {
+      S = { held: [S.held[0], pick], offered: [] };
+      save();
+      render();
+      // render() rebuilt the list: keep keyboard focus on the same row.
+      out.querySelector<HTMLElement>(`[data-second="${CSS.escape(pick)}"]`)?.focus({ preventScroll: true });
+      return;
+    }
     const id = (e.target as Element).closest<HTMLElement>('[data-take]')?.dataset.take;
     if (!id || full()) return;
     S = { held: S.held.includes(id) ? S.held : [...S.held, id], offered: [] };

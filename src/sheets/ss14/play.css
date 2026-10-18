@@ -522,14 +522,14 @@ main.wide {
   font-size: 14px;
   margin: 0 0 4px;
 }
-.pick div {
+.pick-what {
   flex: 1;
   min-width: 0;
 }
 .pick b {
   display: block;
 }
-.pick span {
+.pick-sub {
   font-size: 13px;
   color: var(--ink2);
 }
@@ -537,14 +537,22 @@ main.wide {
   outline: 2px solid var(--ok);
   outline-offset: -2px;
 }
-.take {
-  font: 600 13px var(--sans);
-  background: var(--ok);
-  color: #fff;
+/* the advice is the button: one tap marks it as taken */
+button.pick {
+  width: 100%;
   border: none;
-  border-radius: var(--radius);
-  padding: 6px 10px;
+  font: inherit;
+  font-size: 14px;
+  color: inherit;
+  text-align: left;
   cursor: pointer;
+}
+button.pick:hover {
+  background: color-mix(in srgb, var(--ok) 14%, var(--surface2));
+}
+button.pick:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .held-row {
   display: flex;
@@ -874,7 +882,7 @@ main.wide {
 }
 .tp-pairs li {
   display: grid;
-  grid-template-columns: 40px auto minmax(0, 1fr) auto;
+  grid-template-columns: 36px auto minmax(0, 1fr) auto;
   gap: 8px;
   align-items: center;
   background: var(--surface2);
@@ -887,8 +895,8 @@ main.wide {
 }
 .tp-pairs img,
 .tp-pairs .ph {
-  width: 40px;
-  height: 34px;
+  width: 36px;
+  height: 30px;
   object-fit: cover;
   border-radius: 3px;
   background: #1b1916;
@@ -911,6 +919,48 @@ main.wide {
   min-width: 22px;
   font-size: 14px;
   padding: 0 4px;
+}
+/* the first instrument's partners in Instrument pick: art 15% bigger than the card's, and each row is a button
+   that takes the partner as the second instrument (one tap; tapping another replaces it), no scrolling to the tiles */
+.held-pairs .tp-pairs li {
+  display: block;
+  padding: 0;
+}
+.held-pairs .tp-pairs button {
+  display: grid;
+  grid-template-columns: 41px auto minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 3px 8px 3px 3px;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.held-pairs .tp-pairs button:hover {
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface2));
+}
+.held-pairs .tp-pairs button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.held-pairs .tp-pairs img,
+.held-pairs .tp-pairs .ph {
+  width: 41px;
+  height: 35px;
+}
+/* offered in Instrument pick: the same ring as the marked tile */
+.tp-pairs li.off {
+  box-shadow: 0 0 0 2px var(--warn);
+}
+/* the second instrument taken from the list */
+.held-pairs .tp-pairs li.held {
+  box-shadow: 0 0 0 2px var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface2));
 }
 .tp-sub > span:first-child {
   display: block;

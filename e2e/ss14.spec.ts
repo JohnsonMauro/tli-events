@@ -68,6 +68,109 @@ test('instrument card: own rank (tier + position), then the best second instrume
   await expect(second.locator('li').first().locator('.tier')).toHaveText(/^[SABCD✕]$/);
 });
 
+// The owner's run (2026-10-18): Cage Fight, holding Crowded Beastcage, offered Felon's Dog Tag, Avenger's Casket and
+// Executioner's Blacklist — none in the card's top 5, so the pair they needed was not on the sheet.
+async function holdBeastcage(page: Page) {
+  await page.goto(SHEET);
+  await page.locator('#run [data-start="cagefight"]').click();
+  await page.locator('#tools .tool[data-tool="cage"]').click();
+  await page.locator('#pickOut [data-take="cage"]').click();
+  await expect(page.locator('#held .chip')).toHaveCount(1);
+}
+const heldPairs = (page: Page) => page.locator('#pickOut .held-pairs .tp-pairs li');
+
+test('instrument card: the best 5 partners only', async ({ page }) => {
+  await page.goto(SHEET);
+  await openCard(page, 'cage');
+  await expect(page.locator('#pop')).toBeVisible();
+  await expect(page.locator('#pop .tp-second .tp-pairs li')).toHaveCount(5);
+});
+
+test('Instrument pick: holding one lists every partner, best first', async ({ page }) => {
+  await holdBeastcage(page);
+  await expect(heldPairs(page)).toHaveCount(30);
+  const names = await heldPairs(page).locator('.pn').allTextContents();
+  expect(names).toContain("Avenger's Casket");
+  expect(names).not.toContain('Crowded Beastcage');
+  const values = (await heldPairs(page).locator('b').allTextContents()).map(Number);
+  expect(values).toEqual([...values].sort((a, b) => b - a));
+});
+
+// The card ignores the pointer (it never scrolls), so whatever passes the screen is lost. Russian runs longest.
+// Holding an instrument adds the "with what you hold" block, the usual state mid-run.
+for (const [width, height, lang, holding] of [
+  [390, 844, '', false],
+  ...['', 'pt-br/', 'de/', 'fr/', 'ko/', 'ja/', 'zh/', 'ru/'].map((l) => [360, 740, l, false] as const),
+  [360, 740, '', true],
+  [360, 740, 'ru/', true],
+] as const) {
+  const state = holding ? ', holding one' : '';
+  test(`instrument cards fit a ${width}×${height} screen (${lang || 'en/'}${state}): none gets cut`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto(SHEET + lang);
+    if (holding) {
+      for (const id of ['keys', 'muzzle', 'claws']) await page.locator(`#tools .tool[data-tool="${id}"]`).click();
+      await page.locator('#pickOut [data-take]').click();
+      await expect(page.locator('#held .chip')).toHaveCount(1);
+    }
+    const ids = await page
+      .locator('#tools .tool')
+      .evaluateAll((t) => t.map((b) => (b as HTMLElement).dataset.tool ?? ''));
+    const tooTall: string[] = [];
+    for (const id of ids) {
+      await openCard(page, id);
+      await expect(page.locator('#pop')).toBeVisible();
+      const { scroll, client } = await page
+        .locator('#pop')
+        .evaluate((p) => ({ scroll: p.scrollHeight, client: p.clientHeight }));
+      if (scroll > client + 1) tooTall.push(`${id} ${scroll}>${client}`);
+    }
+    expect(tooTall).toEqual([]);
+  });
+}
+
+test('Instrument pick: what you hold sits above the advice, and one tap on the advice takes it', async ({ page }) => {
+  await page.goto(SHEET);
+  const order = await page.evaluate(() => {
+    const held = document.querySelector('.held-row');
+    const out = document.getElementById('pickOut');
+    return held && out ? held.compareDocumentPosition(out) & Node.DOCUMENT_POSITION_FOLLOWING : 0;
+  });
+  expect(order).toBeTruthy();
+  await page.locator('#tools .tool[data-tool="maiden"]').click();
+  const advice = page.locator('#pickOut button.pick.best');
+  await expect(advice).toHaveAttribute('data-take', 'maiden');
+  await expect(page.locator('#pickOut button')).toHaveCount(1);
+  await advice.click();
+  await expect(page.locator('#held .chip')).toHaveText(/Severed Iron Maiden/);
+});
+
+test('Instrument pick: partners marked as offered get a ring in the held list', async ({ page }) => {
+  await holdBeastcage(page);
+  for (const id of ['dogtag', 'revenge', 'blacklist']) await page.locator(`#tools .tool[data-tool="${id}"]`).click();
+  const marked = await page.locator('#pickOut .held-pairs li.off .pn').allTextContents();
+  expect(marked.sort()).toEqual(["Avenger's Casket", "Executioner's Blacklist", "Felon's Dog Tag"]);
+});
+
+// A run holds 2 instruments: a tap on a row takes it as the second; a tap on another replaces it, never a third.
+test('Instrument pick: a tap on a partner takes it as the second instrument, another tap replaces it', async ({
+  page,
+}) => {
+  await holdBeastcage(page);
+  await page.locator('#pickOut [data-second="revenge"]').click();
+  await expect(page.locator('#held .chip')).toHaveCount(2);
+  await expect(page.locator('#held .chip').nth(1)).toHaveText(/Avenger's Casket/);
+  await expect(page.locator('#pickOut [data-second="revenge"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(heldPairs(page)).toHaveCount(30);
+  await page.locator('#pickOut [data-second="dogtag"]').click();
+  await expect(page.locator('#held .chip')).toHaveCount(2);
+  await expect(page.locator('#held .chip').nth(0)).toHaveText(/Crowded Beastcage/);
+  await expect(page.locator('#held .chip').nth(1)).toHaveText(/Felon's Dog Tag/);
+  await expect(page.locator('#pickOut .held-pairs li.held')).toHaveCount(1);
+});
+
 test('no "no instrument" baseline anywhere: a run always holds one', async ({ page }) => {
   await page.goto(SHEET);
   await openCard(page, 'rope');
