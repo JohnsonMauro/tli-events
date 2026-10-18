@@ -1,11 +1,12 @@
-// The SS14 play sheet's interactive parts (src/sheets/ss14): folds, pairs per start card, the instrument pick and
+// The SS14 play sheet's interactive parts (src/sheets/ss14): folds, the instrument pick and
 // "Last simulation" in the reader's time zone. Each test gets a fresh browser context (empty localStorage).
 import { readFileSync } from 'node:fs';
 
 import { expect, test, type Page } from '@playwright/test';
 
+import { PAIR_TEXT, TOOL_TEXT } from '../src/sheets/ss14/tool-text';
+
 const SHEET = '/ss14/';
-const visiblePairs = (page: Page) => page.locator('[data-pairs]:not([hidden])');
 // Opens an instrument's card by focus. Scroll first and focus without scrolling: a pane scroll closes the card.
 // Instant scroll: the page scrolls smoothly (site.css), and a scroll still running after the wait closed the card.
 async function openCard(page: Page, id: string) {
@@ -15,39 +16,41 @@ async function openCard(page: Page, id: string) {
   await tile.evaluate((el: HTMLElement) => el.focus({ preventScroll: true }));
 }
 
-test('folds: pairs start closed, open on the heading and stay open after reload', async ({ page }) => {
+test('folds: a fold closed on its heading stays closed after reload', async ({ page }) => {
   await page.goto(SHEET);
-  const pairs = page.locator('details[data-acc="pairs"]');
+  const win = page.locator('details[data-acc="win"]');
   await expect(page.locator('details[data-acc="run"]')).toHaveAttribute('open', '');
-  await expect(page.locator('details[data-acc="win"]')).toHaveAttribute('open', '');
-  await expect(pairs).not.toHaveAttribute('open', '');
+  await expect(win).toHaveAttribute('open', '');
 
-  await pairs.locator('summary').click();
-  await expect(pairs).toHaveAttribute('open', '');
+  await win.locator('summary').click();
+  await expect(win).not.toHaveAttribute('open', '');
   // The choice is saved on the `toggle` event, a task after the click.
-  await expect.poll(() => page.evaluate(() => localStorage.getItem('ss14-acc-v1'))).toContain('"pairs":true');
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('ss14-acc-v1'))).toContain('"win":false');
   await page.reload();
-  await expect(pairs).toHaveAttribute('open', '');
+  await expect(win).not.toHaveAttribute('open', '');
 });
 
-test('strong pairs: 20 per list, and the list follows the start card', async ({ page }) => {
+// The "Strong pairs" section moved into the list (owner, 2026-10-18): once one is held, every row says what its
+// pair with it does — the verdict from the engine's numbers (combo, clash or none), then why.
+test('instrument pick: with one held, every row tells what its pair with it does', async ({ page }) => {
   await page.goto(SHEET);
-  await page.locator('details[data-acc="pairs"] summary').click();
-  await expect(visiblePairs(page)).toHaveCount(1);
-  await expect(visiblePairs(page)).toHaveAttribute('data-pairs', '');
-  await expect(visiblePairs(page).locator('.builds li')).toHaveCount(20);
+  const why = (id: string) => page.locator(`#tools .tool[data-tool="${id}"] .why`);
+  await expect(page.locator('#tools .tool .why:not([hidden])')).toHaveCount(0);
 
-  for (const start of ['cagefight', 'ironlaw', 'tyranny']) {
-    await page.locator(`#run [data-start="${start}"]`).click();
-    await expect(visiblePairs(page)).toHaveAttribute('data-pairs', start);
-    await expect(visiblePairs(page).locator('.builds li')).toHaveCount(20);
-  }
-  // The marked start card survives a reload, and so does its list.
-  await page.reload();
-  await expect(visiblePairs(page)).toHaveAttribute('data-pairs', 'tyranny');
+  await page.locator('#tools .tool[data-tool="rope"]').click();
+  await expect(page.locator('#tools li:not([hidden]) .tool .why[hidden]')).toHaveCount(0);
+  // A combo with a hand-written line (Noose + Maiden, +5.46 at the 2026-10-18 export).
+  await expect(why('maiden').locator('strong.up')).toHaveText(/^Combo \+\d+\.\d\d$/);
+  await expect(why('maiden')).toContainText(PAIR_TEXT['maiden+rope']);
+  // A clash explained by the cards: both change what a Replace brings.
+  await expect(why('scapegoat').locator('strong.down')).toHaveText(/^Clash −\d+\.\d\d$/);
+  await expect(why('scapegoat')).toContainText('both change what a Replace brings');
+  // No combo: the line is what that instrument does.
+  await expect(why('cage').locator('strong')).toHaveText('No combo');
+  await expect(why('cage')).toContainText(TOOL_TEXT.cage);
 
-  await page.locator('#run [data-start=""]').click();
-  await expect(visiblePairs(page)).toHaveAttribute('data-pairs', '');
+  await page.locator('#held [data-drop]').click();
+  await expect(page.locator('#tools .tool .why:not([hidden])')).toHaveCount(0);
 });
 
 // One list does both picks (owner, 2026-10-18): the first tap is the start pick; no advice bar in between.
@@ -93,8 +96,8 @@ test('instrument card: alone, then paired with what you hold', async ({ page }) 
   await expect(ranks.nth(1).locator('small')).toHaveText('paired with Crowded Beastcage');
   await expect(ranks.nth(1).locator('b')).toHaveText(/^#\d+ of 30$/);
   // The pair's place matches the row's place in the list.
-  const row = await page.locator('#tools .tool[data-tool="revenge"] .rk').textContent();
-  await expect(ranks.nth(1).locator('b')).toHaveText(`#${row} of 30`);
+  const ids = await candidates(page).evaluateAll((t) => t.map((b) => (b as HTMLElement).dataset.tool ?? ''));
+  await expect(ranks.nth(1).locator('b')).toHaveText(`#${ids.indexOf('revenge') + 1} of 30`);
 });
 
 test('instrument card: the best 5 partners only', async ({ page }) => {
@@ -112,9 +115,6 @@ test('instrument pick: with one held, the list ranks the second by the pair with
   expect(ids).not.toContain('cage');
   const values = (await candidates(page).locator('.val').allTextContents()).map(Number);
   expect(values).toEqual([...values].sort((a, b) => b - a));
-  expect(await candidates(page).locator('.rk').allTextContents()).toEqual(
-    Array.from({ length: 30 }, (_, i) => String(i + 1)),
-  );
   // Casket + Beastcage under Cage Fight: the pair's value from the engine export, not the Casket alone.
   const pair = await page.evaluate(() => {
     const d = JSON.parse(document.getElementById('play-data')?.textContent ?? '{}');
@@ -189,17 +189,13 @@ test('instrument pick: a tap takes the second instrument, another tap swaps it',
 
 test('instruments: one list, best first, re-ranked for the start card', async ({ page }) => {
   await page.goto(SHEET);
-  const ranks = () => page.locator('#tools .tool .rk').allTextContents();
   const values = async () => (await page.locator('#tools .tool .val').allTextContents()).map(Number);
-  const n = await page.locator('#tools .tool').count();
-  expect(await ranks()).toEqual(Array.from({ length: n }, (_, i) => String(i + 1)));
   const before = await values();
   expect(before).toEqual([...before].sort((a, b) => b - a));
   await page.locator('#run [data-start="cagefight"]').click();
   const after = await values();
   expect(after).toEqual([...after].sort((a, b) => b - a));
   expect(after).not.toEqual(before);
-  expect(await ranks()).toEqual(Array.from({ length: n }, (_, i) => String(i + 1)));
 });
 
 // Picking the second must not move the list under the pointer: an earlier advice bar grew and slid the list ~40 px
@@ -320,7 +316,8 @@ test('your run: start cards and objectives open a card (what it does; best first
 
   await open('#run [data-start="tyranny"]');
   await expect(pop).toContainText('Tyranny');
-  await expect(pop.locator('.tp-doubt')).toHaveCount(1);
+  await expect(pop.locator('.tp-doubt')).toHaveCount(0);
+  await expect(pop.locator('.tp-head img')).toHaveCount(1);
 
   await open('#run [data-objective="walk"]');
   await expect(pop).toContainText('Prison Walk');

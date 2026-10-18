@@ -6,6 +6,12 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet: the instrument list drops the position numbers; in it and in the Warden's Treasure and incident lists, each row's art is bigger and fills the card's left edge, top to bottom.
+- SS14 play sheet: the Tyranny start card shows its art, from a live print; its "card text not seen yet" note is gone (the text matches what the sheet said).
+- SS14 play sheet: the "Strong pairs that show up" section is gone — the instrument list now does its job for every pair: once you take your first instrument, each candidate says what the two do together — **Combo** or **Clash** with the Rainbows per run the pair gains or loses against the two apart, and why; or **No combo** and what that instrument does.
+
 ## [1.8.1] - 2026-10-18
 
 ### Changed

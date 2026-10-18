@@ -86,3 +86,55 @@ export const PAIR_TEXT = {
   'collar+shackles': 'No direct link: Collar adds +1 to most bites, Shackles a random +1 on long walks.',
   'coin+keys': "Keys opens the neighbours of a door too: more inmates on the block, more twins for Coin's +2.",
 };
+
+// Pairs above whose line explains a link (the rest say "no direct link"). The sheet shows a line only when the
+// numbers in force agree: a link line for a combo, a "no direct link" line for a pair with no combo.
+export const PAIR_LINKED: ReadonlySet<string> = new Set([
+  'maiden+rope',
+  'coin+rope',
+  'maiden+scapegoat',
+  'maiden+stake',
+  'coin+ironbox',
+  'coin+stake',
+  'blacklist+keys',
+  'coin+keys',
+]);
+
+// What each instrument puts on the block (`gives`) and what it pays off on (`needs`), read from the cards above.
+// A pair with no hand-written line gets one from here: one's `gives` meeting the other's `needs` explains a combo;
+// `clear` against `full`/`twins`/`rats` (or `full` against `clear`) explains a clash. The verdict itself always
+// comes from the engine's numbers; a line is shown only when it agrees with them.
+export type Link = 'open' | 'full' | 'clear' | 'twins' | 'bites' | 'replace' | 'rats';
+export const TOOL_LINKS: Record<keyof typeof TOOL_TEXT, { gives: Link[]; needs: Link[] }> = {
+  crown: { gives: ['bites'], needs: ['full'] },
+  rope: { gives: ['replace'], needs: [] },
+  maul: { gives: ['bites'], needs: ['full'] },
+  scapegoat: { gives: ['clear', 'replace'], needs: ['full'] },
+  coin: { gives: ['clear'], needs: ['twins', 'full'] },
+  maiden: { gives: [], needs: ['replace', 'clear'] },
+  shackles: { gives: [], needs: [] },
+  blacklist: { gives: [], needs: ['open', 'full'] },
+  muzzle: { gives: [], needs: ['bites', 'clear'] },
+  ravenous: { gives: ['clear'], needs: ['full'] },
+  revenge: { gives: ['open', 'full', 'bites'], needs: ['bites'] },
+  skewer: { gives: ['bites'], needs: ['rats', 'full'] },
+  hook: { gives: [], needs: ['open'] },
+  saw: { gives: [], needs: ['bites', 'full'] },
+  collar: { gives: [], needs: ['bites', 'full'] },
+  stake: { gives: ['replace'], needs: [] },
+  guillotine: { gives: ['bites'], needs: [] },
+  dogtag: { gives: [], needs: [] }, // only the door the warden opens on patrol: other openings may not count
+  whip: { gives: [], needs: ['bites', 'full'] },
+  tongs: { gives: [], needs: ['replace', 'full'] },
+  claws: { gives: ['bites', 'open'], needs: [] },
+  trap: { gives: [], needs: [] },
+  keys: { gives: ['open', 'full'], needs: ['open'] },
+  cage: { gives: ['open', 'full'], needs: ['bites'] },
+  scales: { gives: [], needs: ['replace'] },
+  shortchain: { gives: ['open', 'full'], needs: [] },
+  fire: { gives: ['open', 'full', 'twins'], needs: ['open'] },
+  pestle: { gives: [], needs: [] },
+  axe: { gives: ['open', 'full'], needs: ['replace'] },
+  forged: { gives: ['open', 'full'], needs: ['open'] },
+  ironbox: { gives: ['full', 'twins', 'rats'], needs: [] },
+};

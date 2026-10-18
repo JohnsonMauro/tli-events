@@ -16,6 +16,10 @@ interface PlayData {
   byObjective: Record<string, { base: number; tools: Values }>;
   tiers: [string, number][];
   offers: { n: number; counts: Record<string, number> } | null;
+  /** What each instrument gives the block and pays off on (./tool-text.ts → TOOL_LINKS). */
+  links: Record<string, { gives: string[]; needs: string[] }>;
+  /** Pairs whose hand-written line explains a link (./tool-text.ts → PAIR_LINKED). */
+  linked: string[];
   ui: Record<
     | 'perRun'
     | 'remove'
@@ -29,9 +33,20 @@ interface PlayData {
     | 'rankOf'
     | 'rankAlone'
     | 'rankPair'
-    | 'doubt',
+    | 'doubt'
+    | 'combo'
+    | 'clashV'
+    | 'noCombo',
     string
-  > & { tool: Record<string, string> };
+  > & {
+    tool: Record<string, string>;
+    /** What two instruments do together, keyed by their ids sorted and joined with "+"; only some pairs have one. */
+    pair: Record<string, string>;
+    /** Templates ({a} gives, {b} pays off) for a combo, by what links them. */
+    link: Record<string, string>;
+    /** Templates for a clash: `clear` (a empties what b needs), `full` (a fills what b wants thin), `overlap`. */
+    clashWhy: Record<string, string>;
+  };
 }
 /** The run's instruments in the order taken: [start pick, objective reward]. */
 interface PickState {
@@ -49,6 +64,8 @@ interface Numbers {
   pairs: Pair[];
   /** Each instrument alone in the same runs as `pairs` (an objective's `tools` have rewards on, its pairs don't). */
   pairSolo: Values;
+  /** No instrument, in the same runs as `pairs`. */
+  pairBase: number;
 }
 
 // "Last simulation": the build's UTC instant in the reader's own time zone, labelled with that zone's offset.
@@ -114,13 +131,19 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     if (saved && typeof saved.start === 'string') R = { start: saved.start, objective: saved.objective || '' };
   } catch {}
   const soloDefaults = Object.fromEntries(Object.entries(D.tools).map(([id, x]) => [id, x.value]));
-  const defaults: Numbers = { base: D.base, tools: soloDefaults, pairs: D.pairs, pairSolo: soloDefaults };
+  const defaults: Numbers = {
+    base: D.base,
+    tools: soloDefaults,
+    pairs: D.pairs,
+    pairSolo: soloDefaults,
+    pairBase: D.base,
+  };
   /** A start card changes the rules, so it wins; an objective only through its reward (values with rewards on). */
   const numbers = (): Numbers => {
     const s = D.byStart[R.start];
-    if (s) return { ...s, pairSolo: s.tools };
+    if (s) return { ...s, pairSolo: s.tools, pairBase: s.base };
     const o = D.byObjective[R.objective];
-    if (o) return { base: o.base, tools: o.tools, pairs: D.pairs, pairSolo: soloDefaults };
+    if (o) return { base: o.base, tools: o.tools, pairs: D.pairs, pairSolo: soloDefaults, pairBase: D.base };
     return defaults;
   };
   let N = numbers();
@@ -157,6 +180,43 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   };
   const pairValue = (a: string, b: string) =>
     N.pairs.find(([x, y]) => (x === a && y === b) || (x === b && y === a))?.[2] ?? null;
+  // ---------- what a pair does together (a row's line once one is held) ----------
+  // The verdict comes from the numbers in force: what the pair gains over the two apart. The reason comes from
+  // the cards (TOOL_LINKS) and is shown only when it agrees with the verdict; a hand-written line wins.
+  const COMBO = 0.5; // Rainbows per run; below it either way the two just add up (./tool-text.ts → PAIR_TEXT)
+  const LINK_ORDER = ['rats', 'twins', 'replace', 'clear', 'bites', 'open', 'full']; // most telling first
+  const linked = new Set(D.linked);
+  const shortName = (id: string) => toolName(id).split(':')[0];
+  const gives = (id: string, l: string) => D.links[id]?.gives.includes(l) ?? false;
+  const needs = (id: string, l: string) => D.links[id]?.needs.includes(l) ?? false;
+  const why = (tpl: string | undefined, a: string, b: string) =>
+    tpl ? fmt(tpl, { a: shortName(a), b: shortName(b) }) : '';
+  const comboWhy = (a: string, b: string) => {
+    const l = LINK_ORDER.find((x) => gives(a, x) && needs(b, x));
+    return l ? why(T.link[l], a, b) : '';
+  };
+  const clashWhy = (a: string, b: string) => {
+    if (gives(a, 'clear') && ['full', 'twins', 'rats'].some((x) => needs(b, x))) return why(T.clashWhy.clear, a, b);
+    if (gives(a, 'full') && needs(b, 'clear')) return why(T.clashWhy.full, a, b);
+    if (gives(a, 'replace') && gives(b, 'replace')) return why(T.clashWhy.overlap, a, b);
+    return '';
+  };
+  /** A row's line with `first` held: verdict ('up' combo, 'down' clash, '' none) and what the two do together. */
+  const pairLine = (id: string, first: string) => {
+    const v = pairValue(id, first);
+    const key = [id, first].sort().join('+');
+    const hand = T.pair[key];
+    const gain = v == null ? 0 : v - ((N.pairSolo[id] ?? 0) + (N.pairSolo[first] ?? 0) - N.pairBase);
+    const signed = (gain > 0 ? '+' : '−') + Math.abs(gain).toFixed(2);
+    if (gain >= COMBO) {
+      const text = (linked.has(key) && hand) || comboWhy(first, id) || comboWhy(id, first);
+      return { kind: 'up', label: fmt(T.combo, { v: signed }), text };
+    }
+    if (gain <= -COMBO)
+      return { kind: 'down', label: fmt(T.clashV, { v: signed }), text: clashWhy(first, id) || clashWhy(id, first) };
+    return { kind: '', label: T.noCombo, text: (!linked.has(key) && hand) || T.tool[id] || '' };
+  };
+
   /** What a row is worth now: alone before the first pick; after it, the pair with the first instrument. */
   const rowValue = (id: string) => {
     const first = S.held[0];
@@ -174,20 +234,23 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     const rows = [...grid.querySelectorAll<HTMLElement>('.tool')].sort(
       (a, b) => rowValue(b.dataset.tool ?? '') - rowValue(a.dataset.tool ?? ''),
     );
-    let rank = 0;
     for (const b of rows) {
       const id = b.dataset.tool ?? '',
         li = b.parentElement,
         tier = tierIn(rowValue(id), scale),
         badge = b.querySelector('.tier'),
-        rk = b.querySelector('.rk'),
-        val = b.querySelector('.val');
+        val = b.querySelector('.val'),
+        line = b.querySelector<HTMLElement>('.why');
       // The first instrument is in Holding; its row leaves the list of candidates for the second.
       if (li) li.hidden = id === first;
+      if (line) {
+        const p = first && id !== first ? pairLine(id, first) : null;
+        line.hidden = !p;
+        line.innerHTML = p ? `<strong class="${p.kind}">${esc(p.label)}</strong> ${esc(p.text)}` : '';
+      }
       b.dataset.tier = tier;
       b.classList.toggle('held', id === second);
       b.setAttribute('aria-pressed', String(id === second));
-      if (rk && id !== first) rk.textContent = String(++rank);
       if (val) val.textContent = rowValue(id).toFixed(2);
       if (badge) {
         badge.className = `tier t${tier}`;
@@ -394,16 +457,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
 
   // ---------- your run: the choices re-rank the list (render) ----------
   const run = document.getElementById('run');
-  // "Strong pairs": one list per start card, rendered at build; show the marked one (none → no start card).
-  const pairLists = [...document.querySelectorAll<HTMLElement>('[data-pairs]')];
-  function showPairs() {
-    const start = pairLists.some((l) => l.dataset.pairs === R.start) ? R.start : '';
-    pairLists.forEach((l) => {
-      l.hidden = l.dataset.pairs !== start;
-    });
-  }
   function showRun() {
-    showPairs();
     run?.querySelectorAll<HTMLElement>('[data-start]').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.start === R.start));
     });

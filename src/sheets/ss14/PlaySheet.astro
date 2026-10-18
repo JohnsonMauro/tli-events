@@ -7,7 +7,7 @@ import { getEvent, eventLangs, url } from '../../lib/events';
 import { artSet } from '../../lib/images';
 import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
 import { DICT } from './i18n';
-import { DOUBT } from './tool-text';
+import { DOUBT, PAIR_LINKED, TOOL_LINKS } from './tool-text';
 import { SIM_TIME } from './sim-time';
 import { ISSUES_URL, REPO_URL } from '../../lib/project';
 // Live odds only (offer counts measured by the community analyzer, frozen at 2026-10-16).
@@ -40,7 +40,6 @@ const A = artSet(
 );
 
 // ---- instruments: our value → tier (vs. a run with no instrument), grouped by tier ----
-type ToolId = keyof typeof t.tool;
 type Pair = [string, string, number];
 type Values = Record<string, number>;
 interface Engine {
@@ -108,7 +107,7 @@ const tierIn = (v: number, b: number, best: number) =>
 const bestOf = (vals: number[]) => Math.max(...vals);
 const soloBest = bestOf(Object.values(E.tools).map((x) => x.value));
 const tierOf = (v: number) => tierIn(v, base, soloBest);
-// One list, best first: rank, art, tier, name, Rainbows per run. ./play.ts re-sorts it for the run's choices.
+// One list, best first: art, tier, name, Rainbows per run. ./play.ts re-sorts it for the run's choices.
 const tools = Object.entries(E.tools)
   .sort((a, b) => b[1].value - a[1].value)
   .map(([id, x]) => ({
@@ -116,7 +115,7 @@ const tools = Object.entries(E.tools)
     name: x.name,
     value: x.value,
     tier: tierOf(x.value),
-    art: A('tool-' + id, 'md'), // drawn at 65 px: the 80 px set stays sharp at 2×
+    art: A('tool-' + id, 'md'), // drawn at 83 px: the 80 px set (160 px at 2×) is close enough
     doubt: DOUBT.has(id),
   }));
 
@@ -125,7 +124,7 @@ const STARTS = [
   ['', t.runNone, null],
   ['cagefight', 'Cage Fight', A('card-cagefight')],
   ['ironlaw', 'Iron Law', A('card-ironlaw')],
-  ['tyranny', 'Tyranny', null],
+  ['tyranny', 'Tyranny', A('card-tyranny')],
 ] as const;
 const OBJECTIVES = [
   ['', t.runAny],
@@ -145,46 +144,13 @@ const exceptions = [
   ['tool-skewer', 'Skewered Rat Heads: Colossal Rat', t.exSkewer],
 ].map(([id, name, text]) => ({ name, text, art: id ? A(id) : null }));
 
-// ---- strong pairs that actually show up: our pair value, both instruments offered in ≥3% of live offers ----
+// ---- live offers: a start card's best first picks skip instruments seen in <3% of live offers ----
 const offers =
   (data.live as { toolOffers?: { n: number; counts: Record<string, number> } } | undefined)?.toolOffers ?? null;
 const offerRate = (id: string) => (offers && offers.n ? (offers.counts[id] ?? 0) / offers.n : null);
 const SHOWS_UP = 0.03;
-const PAIRS_SHOWN = 20;
-type PairId = keyof typeof t.pair;
-const pairText = (a: string, b: string) => {
-  const line = t.pair[[a, b].sort().join('+') as PairId];
-  return line ? [line] : null;
-};
 // Full card names: the part after ":" names the beast a beast-specific instrument works for.
 const short = (id: string) => E.tools[id]?.name ?? id;
-const topPairs = (pairs: Pair[]) =>
-  pairs
-    .slice()
-    .sort((x, y) => y[2] - x[2])
-    .filter(([a, b]) =>
-      [a, b].every((id) => {
-        const r = offerRate(id);
-        return r == null || r >= SHOWS_UP;
-      }),
-    )
-    .slice(0, PAIRS_SHOWN)
-    .map(([a, b, v]) => ({
-      v,
-      nameA: short(a),
-      nameB: short(b),
-      artA: A('tool-' + a),
-      artB: A('tool-' + b),
-      // What the two do together; a pair with no line yet (new export, start-card pairs) falls back to each
-      // instrument's line.
-      why: pairText(a, b) ?? [t.tool[a as ToolId], t.tool[b as ToolId]].filter(Boolean),
-    }));
-// One list per start card (a start card changes the rules, so the pairs too); ./play.ts shows the one marked
-// in "Your run". '' = no start card. An objective has no pair numbers of its own.
-const pairLists = [
-  { start: '', builds: topPairs(E.pairs) },
-  ...Object.entries(E.byStart ?? {}).map(([start, x]) => ({ start, builds: topPairs(x.pairs) })),
-];
 
 // ---- your run: a popover on each start card and objective chip (what it does; a start card's best first picks) ----
 const firstPicks = (start: string) => {
@@ -209,8 +175,6 @@ const startTips = STARTS.filter(([id]) => id).map(([id, name]) => ({
   name,
   art: A('card-' + id, 'md'),
   does: id === 'ironlaw' ? t.ironlawP : t.run[id as 'cagefight' | 'tyranny'],
-  // No print of Tyranny's card yet: the rule comes from players' reports.
-  seen: id !== 'tyranny',
   picks: firstPicks(id),
 }));
 const objectiveTips = OBJECTIVES.filter(([id]) => id).map(([id, name]) => ({
@@ -244,7 +208,7 @@ const events = [...EVENTS]
   .map(([id, name, artId, src]) => ({
     id,
     name,
-    art: artId ? A(artId) : null,
+    art: artId ? A(artId, 'md') : null, // row art drawn 56 px wide, up to ~70 tall: the 80 px set
     pop: artId ? A(artId, 'md') : null,
     src: SRC[src],
     // Rainbows per run against an average "!" (sign kept); null before the export measures incidents.
@@ -259,7 +223,7 @@ const gifts = [
   ['ring', 'Three-Headed Thumb Ring', t.gRingDo, t.gRing],
   ['wine', 'Crimson Vintage', t.gWineDo, t.gWine],
   ['brand', 'Brand of Original Sin', t.gBrandDo, t.gBrand],
-].map(([id, name, does, when]) => ({ name, does, when, art: A('gift-' + id) }));
+].map(([id, name, does, when]) => ({ name, does, when, art: A('gift-' + id, 'md') }));
 
 // Embedded for the client script; escape "<" so the JSON can never close the tag.
 const ui = {
@@ -277,6 +241,12 @@ const ui = {
   rankPair: t.rankPair,
   doubt: t.doubt,
   tool: t.tool,
+  pair: t.pair,
+  combo: t.combo,
+  clashV: t.clashV,
+  noCombo: t.noCombo,
+  link: t.link,
+  clashWhy: t.clashWhy,
 };
 const json = JSON.stringify({
   tools: E.tools,
@@ -286,6 +256,8 @@ const json = JSON.stringify({
   byObjective: E.byObjective ?? {},
   tiers: TIERS,
   offers,
+  links: TOOL_LINKS,
+  linked: [...PAIR_LINKED],
   ui,
 }).replace(/</g, '\\u003c');
 const ladder = [
@@ -464,42 +436,6 @@ const ladder = [
           </li>
         </ol>
       </details>
-      <details class="acc" data-acc="pairs">
-        <summary>
-          <h2 class="pane-h">{t.pairsH}</h2>
-        </summary>
-        {pairLists.map((l) => (
-          <div data-pairs={l.start} hidden={l.start !== ''}>
-            <p class="meta">{t.pairsMeta}</p>
-            <p class="meta">{t.pairsNote}</p>
-            <ul class="builds">
-              {l.builds.map((b) => (
-                <li>
-                  <div class="duo-col">
-                    <span class="duo">
-                      {(
-                        [
-                          [b.artA, b.nameA],
-                          [b.artB, b.nameB],
-                        ] as const
-                      ).map(([img, n]) => (img ? <Art img={img} /> : <span class="noimg">{n}</span>))}
-                    </span>
-                    <span class="val">{b.v.toFixed(2)}</span>
-                  </div>
-                  <div>
-                    <b>
-                      {b.nameA} + {b.nameB}
-                    </b>
-                    {b.why.map((w) => (
-                      <p>{w}</p>
-                    ))}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </details>
     </section>
     {/* Before first paint (no jump): the parts this viewer folded stay folded. Per-browser convenience only. */}
     <script is:inline>
@@ -570,7 +506,7 @@ const ladder = [
           </button>
         </div>
         <ol class="tool-list">
-          {tools.map((x, i) => (
+          {tools.map((x) => (
             <li>
               <button
                 type="button"
@@ -580,7 +516,6 @@ const ladder = [
                 data-doubt={x.doubt ? '' : undefined}
                 aria-describedby="pop"
               >
-                <span class="rk">{i + 1}</span>
                 <span class="pic">
                   {x.art ? (
                     <Art img={x.art} />
@@ -592,12 +527,16 @@ const ladder = [
                 </span>
                 <span class={`tier t${x.tier}`}>{x.tier}</span>
                 <span class="nm">
-                  {x.name}
-                  {x.doubt && (
-                    <span class="doubt" aria-hidden="true">
-                      !
-                    </span>
-                  )}
+                  <span class="nm-t">
+                    {x.name}
+                    {x.doubt && (
+                      <span class="doubt" aria-hidden="true">
+                        !
+                      </span>
+                    )}
+                  </span>
+                  {/* once one is held: what this one does with it (t.pair), filled by ./play.ts */}
+                  <small class="why" hidden></small>
                 </span>
                 <b class="val">{x.value.toFixed(2)}</b>
               </button>
@@ -606,6 +545,7 @@ const ladder = [
         </ol>
       </div>
       <p class="meta">{t.tierMeta}</p>
+      <p class="meta">{t.comboMeta}</p>
       <p class="doubt-note">
         <span class="doubt" aria-hidden="true">
           !
@@ -628,11 +568,15 @@ const ladder = [
       <ul class="list gifts">
         {gifts.map((g) => (
           <li>
-            <Art img={g.art} class="ic" />
-            <b>{g.name}</b>
-            <span class="does">{g.does}</span>
-            <span>
-              <em>{t.gWhen}</em> {g.when}
+            <span class="pic">
+              <Art img={g.art} />
+            </span>
+            <span class="txt">
+              <b>{g.name}</b>
+              <span class="does">{g.does}</span>
+              <span>
+                <em>{t.gWhen}</em> {g.when}
+              </span>
             </span>
           </li>
         ))}
@@ -645,11 +589,17 @@ const ladder = [
         {events.map((e) => (
           <li class={e.art ? '' : 'noart'}>
             <button type="button" class="ev" data-ev={e.id} aria-describedby="pop">
-              <Art img={e.art} class="ic" />
-              <b>
-                {e.name} {e.worth && <strong class={e.up ? 'up' : 'down'}>{e.worth}</strong>}
-              </b>
-              <span>{e.short}</span>
+              {e.art && (
+                <span class="pic">
+                  <Art img={e.art} />
+                </span>
+              )}
+              <span class="txt">
+                <b>
+                  {e.name} {e.worth && <strong class={e.up ? 'up' : 'down'}>{e.worth}</strong>}
+                </b>
+                <span>{e.short}</span>
+              </span>
             </button>
             <template id={`ev-${e.id}`}>
               <div class="tp-head">
@@ -693,14 +643,6 @@ const ladder = [
           <div class="tp-stats">{t.runStart}</div>
         </div>
       </div>
-      {!c.seen && (
-        <p class="tp-doubt">
-          <span class="doubt" aria-hidden="true">
-            !
-          </span>
-          {t.run.notSeen}
-        </p>
-      )}
       <p class="tp-what" set:html={rich(c.does)} />
       {c.picks.length > 0 && (
         <div class="tp-sub tp-second">
@@ -761,7 +703,7 @@ const ladder = [
         </td>
       </tr>
     </table>
-    <p class="tp-sub">{fmt(t.tipNote, { pairs: t.pairsH })}</p>
+    <p class="tp-sub">{t.tipNote}</p>
   </template>
   <div class="tool-pop" id="pop" role="tooltip" hidden></div>
   <script type="application/json" id="play-data" set:html={json} />
