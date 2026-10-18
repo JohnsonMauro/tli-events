@@ -5,7 +5,7 @@
 
 use serde_json::Value;
 
-use crate::model::Tool;
+use crate::model::{Incident, Tool};
 
 #[derive(Clone, Debug)]
 pub struct Params {
@@ -32,12 +32,15 @@ pub struct Params {
     pub incident_respawn: bool,
     /// Incident cards have only Confirm on live; true lets the policy skip.
     pub can_skip_incidents: bool,
-    /// From this rarity up Mammoths also eat Wolves and Lions eat Rats.
-    /// Open: the rules diagram and tlidb "Counter" draw them at every rarity,
-    /// live boards suggested Legendary+ (guide §4). 0 = always, 5 = never.
+    /// From this rarity up Mammoths also eat Wolves and Lions eat Rats. Every rarity: the
+    /// rules diagram and tlidb "Counter" draw no limit, and players' boards show the jaws
+    /// on these eaters below Legendary (269 with, 10 without; tartarus-simulator issue #5
+    /// and its tools/README, 2026-10-17). 0 = always, 5 = never.
     pub second_meal_from: u8,
     /// Most Rainbows a run can vault (rules: a limit exists; ~10 seen live).
     pub rainbow_cap: u8,
+    /// Forces the run's first incident triggered (export → `incidents`: what one "!" of each kind is worth).
+    pub first_incident: Option<Incident>,
     /// Lost Ring of Keys: card 80%, live 62.8% (n=199).
     pub keys_chance: f64,
     /// Agonizing Muzzle: most inmates left on the block (live card, 2026-10-17: "no
@@ -92,8 +95,9 @@ impl Default for Params {
             instigate_count: 1,
             incident_respawn: true,
             can_skip_incidents: false,
-            second_meal_from: 3,
+            second_meal_from: 0,
             rainbow_cap: 10,
+            first_incident: None,
             keys_chance: 0.628,
             muzzle_max: 4,
             maiden_any_time: false,

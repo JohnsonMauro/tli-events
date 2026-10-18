@@ -56,6 +56,8 @@ fn resolve_incident(st: &mut State, p: &Params, pol: &mut Greedy, mut ev: Option
     // Sewer Ratway can land on another incident; cap the cascade.
     for _ in 0..4 {
         let Some(inc) = ev else { return };
+        // What really fires decides the player's moves (a Sewer Ratway needs its destination).
+        let inc = rules::fires(st, inc);
         if !pol.accept_incident(st, p, inc) {
             return;
         }

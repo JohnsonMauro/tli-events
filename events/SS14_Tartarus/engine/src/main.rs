@@ -3,7 +3,7 @@
 use std::process::ExitCode;
 use std::time::Instant;
 
-use tartarus::model::{Objective, StartCard, Tool};
+use tartarus::model::{Incident, Objective, StartCard, Tool};
 use tartarus::params::Params;
 use tartarus::policy::Weights;
 use tartarus::run::{Setup, Summary, simulate};
@@ -328,6 +328,23 @@ fn values(tools: &[(Tool, Summary)]) -> serde_json::Value {
 /// Default (no start card, random objective, rewards off): base, instruments, pairs.
 /// `byStart`: the same per start card (each changes the rules). `byObjective`: with
 /// rewards on (an objective only matters through its reward), per objective.
+/// Incidents by the play sheet's ids (`EVENTS` in src/sheets/ss14/PlaySheet.astro).
+const INCIDENTS: [(&str, Incident); 13] = [
+    ("usurp", Incident::Usurpation(1)),
+    ("trickster", Incident::BehindClosedDoors),
+    ("convict", Incident::HighRiskConvict),
+    ("archenemy", Incident::Archenemy),
+    ("appetite", Incident::RavenousAppetite),
+    ("shared", Incident::SharedFortune),
+    ("freedom", Incident::TasteOfFreedom),
+    ("portion", Incident::ExtraPortion),
+    ("ratway", Incident::SewerRatway),
+    ("hunt", Incident::TreasureHunt),
+    ("crow", Incident::CrowWhispers),
+    ("chain", Incident::ChainReaction),
+    ("execution", Incident::Execution),
+];
+
 fn export(o: &Opts, data: &str, mut p: Params, w: &Weights, setup: Setup) -> Result<(), String> {
     let t0 = Instant::now();
     let mut tests = 0usize;
@@ -386,6 +403,20 @@ fn export(o: &Opts, data: &str, mut p: Params, w: &Weights, setup: Setup) -> Res
         );
     }
 
+    // What one "!" of each kind is worth: the full run with its first incident forced to that kind, against the
+    // full run (same seeds). Usurpation I starts its chain, so II-IV follow as the next incidents.
+    let mut incidents = serde_json::Map::new();
+    for (id, inc) in INCIDENTS {
+        let q = Params {
+            first_incident: Some(inc),
+            ..p.clone()
+        };
+        let s = simulate(&q, w, o.games, o.seed, setup);
+        tests += 1;
+        incidents.insert(id.into(), serde_json::json!(round3(s.mean() - full.mean())));
+    }
+    eprintln!(" {} incidents", INCIDENTS.len());
+
     let live: serde_json::Value = serde_json::from_str(data).map_err(|e| e.to_string())?;
     let out = serde_json::json!({
         "generated": today(),
@@ -417,6 +448,7 @@ fn export(o: &Opts, data: &str, mut p: Params, w: &Weights, setup: Setup) -> Res
         },
         "byStart": by_start,
         "byObjective": by_objective,
+        "incidents": incidents,
     });
     let text = serde_json::to_string_pretty(&out).map_err(|e| e.to_string())? + "\n";
     std::fs::write(&o.out, text).map_err(|e| format!("{}: {e}", o.out))?;

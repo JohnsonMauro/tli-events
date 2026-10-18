@@ -187,6 +187,7 @@ pub fn new_run(p: &Params, seed: u64, tools: u64, start_card: StartCard) -> Stat
         replaced_today: false,
         chain_next: false,
         usurp_stage: 1,
+        first_incident: p.first_incident,
         prey: None,
         pending_tools: 0,
         pending_treasures: 0,
@@ -814,13 +815,26 @@ pub fn roll_incident(st: &mut State) -> Incident {
         Incident::ExtraPortion,
     ];
     pool[..12].copy_from_slice(&base);
-    let n = if st.usurp_stage <= 4 {
-        pool[12] = Incident::Usurpation(st.usurp_stage);
+    // Only Usurpation I is ever drawn: once it fires, II-IV come as the next incidents triggered (`incident`).
+    let n = if st.usurp_stage == 1 {
+        pool[12] = Incident::Usurpation(1);
         13
     } else {
         12
     };
     pool[st.rng.below(n)]
+}
+
+/// The incident a "!" really sets off. Once Usurpation I fires, the next incidents triggered are II, III and IV
+/// in turn, whatever the "!" held (live cards 102-105: four in a row, day 14 to day 6); a stale Usurpation after
+/// IV draws again. `Params::first_incident` replaces the run's first one. Calling it twice changes nothing.
+pub fn fires(st: &mut State, inc: Incident) -> Incident {
+    let inc = st.first_incident.take().unwrap_or(inc);
+    match st.usurp_stage {
+        2..=4 => Incident::Usurpation(st.usurp_stage),
+        5 if matches!(inc, Incident::Usurpation(_)) => roll_incident(st),
+        _ => inc,
+    }
 }
 
 /// Applies an incident at the warden's cell. `ratway`: the cell Sewer Ratway
@@ -831,14 +845,13 @@ pub fn incident(
     inc: Incident,
     ratway: Option<usize>,
 ) -> Option<Incident> {
+    let inc = fires(st, inc);
     st.stats.incidents += 1;
     if st.objective == Objective::Undercurrents {
         advance_objective(st, p, 1);
     }
     let here = st.warden as usize;
-    // Usurpation I-III already places the next stage; any other incident is
-    // replaced by a new one elsewhere.
-    if p.incident_respawn && !matches!(inc, Incident::Usurpation(s) if s < 4) {
+    if p.incident_respawn {
         add_incident(st, Some(here));
     }
     let cur = st.inmate_at(here);
@@ -913,7 +926,7 @@ pub fn incident(
         Incident::Usurpation(stage) => {
             match stage {
                 1 => raise_random(st, p, 1, 1),
-                2 => raise_random(st, p, 2, 1),
+                2 => raise_random(st, p, 1, 2),
                 3 => raise_random(st, p, 2, 2),
                 _ => {
                     let all = Cells::collect(st.open_cells());
@@ -922,13 +935,8 @@ pub fn incident(
                     }
                 }
             }
-            // The next Usurpation takes its place and shows up behind a locked door.
+            // The card swaps the next stage into the incidents: it is the next one triggered (see above).
             st.usurp_stage = stage + 1;
-            if stage < 4
-                && let Some(c) = random_sealed(st)
-            {
-                st.cells[c].event = Some(Incident::Usurpation(stage + 1));
-            }
         }
         Incident::SewerRatway => {
             if let Some(dest) = ratway.filter(|&d| d != OFFICE) {
@@ -1086,9 +1094,10 @@ mod tests {
         assert!(!can_eat(&st, &p, m(MAMMOTH, 1), m(LION, 0)));
         assert!(!can_eat(&st, &p, m(LION, 1), m(MAMMOTH, 1)));
         assert!(can_eat(&st, &p, m(RAT, 2), m(MAMMOTH, 2)));
-        // Second meal from Legendary by default.
-        assert!(!can_eat(&st, &p, m(MAMMOTH, 2), m(WOLF, 2)));
-        assert!(can_eat(&st, &p, m(MAMMOTH, 3), m(WOLF, 3)));
+        // Second meals at every rarity by default.
+        assert!(can_eat(&st, &p, m(MAMMOTH, 0), m(WOLF, 0)));
+        assert!(can_eat(&st, &p, m(LION, 2), m(RAT, 2)));
+        assert!(!can_eat(&st, &p, m(MAMMOTH, 2), m(WOLF, 3)));
     }
 
     #[test]
@@ -1163,6 +1172,31 @@ mod tests {
         incident(&mut st, &p, Incident::ExtraPortion, None);
         let raised = (2..7).filter(|&n| st.cells[n].inmate.tier == 1).count();
         assert_eq!(raised, 3);
+    }
+
+    #[test]
+    fn usurpation_stages_follow_in_turn_and_ii_gives_two_tiers_to_one() {
+        let (mut st, mut p) = board(&[]);
+        p.incident_respawn = false;
+        for n in 2..7 {
+            put(&mut st, n, LION, 0);
+        }
+        st.warden = 2;
+        incident(&mut st, &p, Incident::Usurpation(1), None);
+        assert_eq!(st.usurp_stage, 2);
+        // The next incident triggered is II, whatever the "!" held: +2 tiers to one inmate (print 103).
+        let before: Vec<u8> = (2..7).map(|n| st.cells[n].inmate.tier).collect();
+        incident(&mut st, &p, Incident::ExtraPortion, None);
+        let gains: Vec<u8> = (2..7)
+            .zip(&before)
+            .map(|(n, b)| st.cells[n].inmate.tier - b)
+            .collect();
+        assert_eq!(gains.iter().filter(|&&g| g != 0).collect::<Vec<_>>(), [&2]);
+        assert_eq!(st.usurp_stage, 3);
+        // The chain is under way: no Usurpation is drawn any more.
+        for _ in 0..200 {
+            assert!(!matches!(roll_incident(&mut st), Incident::Usurpation(_)));
+        }
     }
 
     #[test]
