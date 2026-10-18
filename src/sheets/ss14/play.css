@@ -937,22 +937,19 @@ main.wide {
   grid-template-columns: minmax(0, 1fr);
   padding: 5px 8px;
 }
-.list li strong {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-left: 4px;
-  color: var(--ok);
-}
-.list li.v-depends strong,
-.tp-stats.v-depends strong {
-  color: var(--warn);
-}
+/* an incident's worth: Rainbows per run against an average "!" — green above it, red below */
+.list li strong,
 .tp-stats strong {
+  font: 700 12px var(--mono);
+  margin-left: 4px;
+}
+.list li strong.up,
+.tp-stats strong.up {
   color: var(--ok);
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.05em;
+}
+.list li strong.down,
+.tp-stats strong.down {
+  color: var(--bad);
 }
 .list li:has(> .ev) {
   padding: 0;

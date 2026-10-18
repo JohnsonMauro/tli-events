@@ -279,6 +279,20 @@ test('simulator box: our tests counted from the export, and a link to how the en
   await expect(box.locator('a[href$="/events/SS14_Tartarus/engine"]')).toHaveCount(1);
 });
 
+// Incidents (owner, 2026-10-18): ranked by what one "!" is worth, the number on the row instead of "go/depends".
+test('incidents: best first, each with its worth against an average "!"', async ({ page }) => {
+  const e = JSON.parse(readFileSync('events/SS14_Tartarus/data/engine_results.json', 'utf8'));
+  await page.goto(SHEET);
+  const rows = page.locator('.list li .ev');
+  const ids = await rows.evaluateAll((b) => b.map((x) => (x as HTMLElement).dataset.ev ?? ''));
+  const worths = ids.map((id) => e.incidents[id] as number);
+  expect(worths).toEqual([...worths].sort((a, b) => b - a));
+  expect(ids[0]).toBe('usurp');
+  const shown = await rows.locator('strong').allTextContents();
+  expect(shown).toEqual(worths.map((w) => (w > 0 ? '+' : '') + w.toFixed(2)));
+  await expect(page.locator('.list:has(.ev)')).not.toContainText(/\bdepends\b/i);
+});
+
 test('no "no instrument" baseline anywhere: a run always holds one', async ({ page }) => {
   await page.goto(SHEET);
   await openCard(page, 'rope');

@@ -220,34 +220,36 @@ const objectiveTips = OBJECTIVES.filter(([id]) => id).map(([id, name]) => ({
 }));
 
 // ---- incidents: no skip on any card seen (only Confirm) → the choice is stepping on a "!" cell ----
-// [id, card name, verdict, art id, source of the effect text]
+// [id, card name, art id, source of the effect text]; sorted by the engine's worth below
 const EVENTS = [
-  ['trickster', 'Behind Closed Doors', 'good', 'event-trickster', 'live'],
-  ['convict', 'High-Risk Convict', 'good', 'event-convict', 'live'],
-  ['archenemy', 'Archenemy', 'good', 'event-archenemy', 'live'],
-  ['appetite', 'Ravenous Appetite', 'good', 'event-appetite', 'live'],
-  ['shared', 'Shared Fortune', 'good', 'event-shared', 'live'],
-  ['freedom', 'Taste of Freedom', 'good', 'event-freedom', 'live'],
-  ['portion', 'Extra Portion', 'good', 'event-portion', 'live'],
-  ['ratway', 'Sewer Ratway', 'good', 'event-ratway', 'live'],
-  ['hunt', '"Treasure" Hunt', 'good', 'event-hunt', 'live'],
-  ['crow', 'Crow Whispers', 'good', 'event-crow', 'live'],
-  ['usurp', 'Usurpation I–IV', 'good', 'event-usurp', 'live'],
-  ['chain', 'Chain Reaction', 'depends', 'event-chain', 'vod'],
-  ['execution', 'Execution Efficiency', 'depends', 'event-execution', 'vod'],
+  ['trickster', 'Behind Closed Doors', 'event-trickster', 'live'],
+  ['convict', 'High-Risk Convict', 'event-convict', 'live'],
+  ['archenemy', 'Archenemy', 'event-archenemy', 'live'],
+  ['appetite', 'Ravenous Appetite', 'event-appetite', 'live'],
+  ['shared', 'Shared Fortune', 'event-shared', 'live'],
+  ['freedom', 'Taste of Freedom', 'event-freedom', 'live'],
+  ['portion', 'Extra Portion', 'event-portion', 'live'],
+  ['ratway', 'Sewer Ratway', 'event-ratway', 'live'],
+  ['hunt', '"Treasure" Hunt', 'event-hunt', 'live'],
+  ['crow', 'Crow Whispers', 'event-crow', 'live'],
+  ['usurp', 'Usurpation I–IV', 'event-usurp', 'live'],
+  ['chain', 'Chain Reaction', 'event-chain', 'vod'],
+  ['execution', 'Execution Efficiency', 'event-execution', 'vod'],
 ] as const;
 const SRC = { live: t.srcLive, vod: t.srcVod, sim: t.srcSim };
 // Best first by the engine's worth of one "!" (export → incidents); the order above until that export exists.
 const worth = (id: string) => (E.incidents ? (E.incidents[id] ?? -1e9) : 0); // finite: a stable sort
 const events = [...EVENTS]
   .sort((a, b) => worth(b[0]) - worth(a[0]))
-  .map(([id, name, v, artId, src]) => ({
+  .map(([id, name, artId, src]) => ({
     id,
     name,
-    v,
     art: artId ? A(artId) : null,
     pop: artId ? A(artId, 'md') : null,
     src: SRC[src],
+    // Rainbows per run against an average "!" (sign kept); null before the export measures incidents.
+    worth: E.incidents?.[id] == null ? null : (E.incidents[id] > 0 ? '+' : '') + E.incidents[id].toFixed(2),
+    up: (E.incidents?.[id] ?? 0) >= 0,
     ...t.inc[id],
   }));
 
@@ -641,11 +643,11 @@ const ladder = [
       <p class="meta">{t.incMeta}</p>
       <ul class="list">
         {events.map((e) => (
-          <li class={`v-${e.v}${e.art ? '' : ' noart'}`}>
+          <li class={e.art ? '' : 'noart'}>
             <button type="button" class="ev" data-ev={e.id} aria-describedby="pop">
               <Art img={e.art} class="ic" />
               <b>
-                {e.name} <strong>{e.v === 'good' ? t.go : t.depends}</strong>
+                {e.name} {e.worth && <strong class={e.up ? 'up' : 'down'}>{e.worth}</strong>}
               </b>
               <span>{e.short}</span>
             </button>
@@ -654,8 +656,13 @@ const ladder = [
                 {e.pop ? <Art img={e.pop} /> : <span></span>}
                 <div>
                   <b>{e.name}</b>
-                  <div class={`tp-stats v-${e.v}`}>
-                    <strong>{e.v === 'good' ? t.go : t.depends}</strong> · {t.src}: {e.src}
+                  <div class="tp-stats">
+                    {e.worth && (
+                      <>
+                        <strong class={e.up ? 'up' : 'down'}>{e.worth}</strong> {t.perRun} ·{' '}
+                      </>
+                    )}
+                    {t.src}: {e.src}
                   </div>
                 </div>
               </div>

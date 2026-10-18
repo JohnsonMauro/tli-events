@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet: each incident shows its worth — Rainbows per run against an average "!", green or red — instead of "go / depends"; Chain Reaction and Execution Efficiency say on the row when they help and when they hurt.
+
 ## [1.8.0] - 2026-10-18
 
 ### Added
