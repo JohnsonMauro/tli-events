@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-10-18
+
 ### Added
 
 - SS14 play sheet: **incidents ranked best first** by what one "!" of each kind is worth in our simulation — Usurpation leads by far (+1.49 Rainbows per run).
@@ -200,7 +202,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.7.1...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.7.1...v1.8.0
 [1.7.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.1...v1.7.0
 [1.6.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.0...v1.6.1
