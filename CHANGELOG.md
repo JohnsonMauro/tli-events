@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.7.1] - 2026-10-18
+
 ### Changed
 
 - The "new version" notice slides up from the bottom with a bigger **Reload**, and Reload now makes sure you see the new page: it refreshes the copy kept for slow connections first.
@@ -180,7 +182,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.7.1...HEAD
+[1.7.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.1...v1.7.0
 [1.6.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.5.0...v1.6.0
