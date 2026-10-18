@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.10.3] - 2026-10-18
+
 ### Changed
 
 - SS14 play sheet: every instrument picture is re-cut square and focused on the instrument, the whole object in view (framing chosen by the owner), and every instrument row has the same height.
@@ -248,7 +250,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.2...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.3...HEAD
+[1.10.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.2...v1.10.3
 [1.10.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.1...v1.10.2
 [1.10.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.1...v1.10.0
