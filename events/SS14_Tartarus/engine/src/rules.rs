@@ -1275,9 +1275,9 @@ mod tests {
     }
 
     #[test]
-    fn muzzle_needs_three_or_fewer_after_the_meal() {
-        // Eater + 2 others left = 3: +2 extra. Eater + 3 others = 4: none.
-        for (others, want) in [(2usize, 1 + 1 + 2), (3, 1 + 1)] {
+    fn muzzle_needs_four_or_fewer_after_the_meal() {
+        // Eater + 3 others left = 4: +2 extra. Eater + 4 others = 5: none.
+        for (others, want) in [(3usize, 1 + 1 + 2), (4, 1 + 1)] {
             let (mut st, p) = board(&[Tool::Muzzle]);
             put(&mut st, 2, WOLF, 1);
             put(&mut st, 3, RAT, 1);

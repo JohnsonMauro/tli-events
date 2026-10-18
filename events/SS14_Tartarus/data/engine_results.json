@@ -2,183 +2,183 @@
   "base": 1.394,
   "byObjective": {
     "consume": {
-      "base": 3.114,
+      "base": 3.116,
       "tools": {
-        "axe": 3.5,
-        "blacklist": 4.079,
-        "cage": 3.503,
-        "claws": 5.38,
-        "coin": 4.507,
-        "collar": 4.695,
-        "crown": 5.076,
-        "dogtag": 3.517,
-        "fire": 3.505,
-        "forged": 3.066,
-        "guillotine": 3.561,
-        "hook": 4.022,
-        "ironbox": 3.762,
-        "keys": 4.149,
-        "maiden": 4.315,
-        "maul": 4.752,
-        "muzzle": 3.47,
-        "pestle": 3.138,
-        "ravenous": 3.475,
-        "revenge": 3.819,
-        "rope": 4.779,
-        "saw": 3.607,
-        "scales": 3.215,
-        "scapegoat": 3.256,
-        "shackles": 4.06,
-        "shortchain": 3.524,
-        "skewer": 4.445,
-        "stake": 3.167,
-        "tongs": 4.994,
-        "trap": 3.768,
+        "axe": 3.493,
+        "blacklist": 4.084,
+        "cage": 3.5,
+        "claws": 5.399,
+        "coin": 4.527,
+        "collar": 4.696,
+        "crown": 5.086,
+        "dogtag": 3.518,
+        "fire": 3.501,
+        "forged": 3.058,
+        "guillotine": 3.57,
+        "hook": 4.028,
+        "ironbox": 3.755,
+        "keys": 4.132,
+        "maiden": 4.317,
+        "maul": 4.759,
+        "muzzle": 3.806,
+        "pestle": 3.14,
+        "ravenous": 3.492,
+        "revenge": 3.825,
+        "rope": 4.786,
+        "saw": 3.611,
+        "scales": 3.218,
+        "scapegoat": 3.277,
+        "shackles": 4.064,
+        "shortchain": 3.52,
+        "skewer": 4.452,
+        "stake": 3.17,
+        "tongs": 4.996,
+        "trap": 3.767,
         "whip": 3.148
       }
     },
     "doors": {
-      "base": 3.427,
+      "base": 3.433,
       "tools": {
-        "axe": 4.353,
-        "blacklist": 4.124,
-        "cage": 3.782,
-        "claws": 5.457,
-        "coin": 4.715,
-        "collar": 4.785,
-        "crown": 5.202,
-        "dogtag": 3.825,
-        "fire": 3.996,
-        "forged": 3.545,
-        "guillotine": 3.768,
-        "hook": 4.3,
-        "ironbox": 4.556,
-        "keys": 4.735,
-        "maiden": 4.737,
-        "maul": 4.905,
-        "muzzle": 3.785,
-        "pestle": 3.465,
-        "ravenous": 3.778,
-        "revenge": 4.044,
-        "rope": 5.137,
-        "saw": 3.837,
-        "scales": 3.561,
-        "scapegoat": 3.511,
-        "shackles": 4.37,
-        "shortchain": 3.979,
-        "skewer": 4.625,
-        "stake": 3.613,
-        "tongs": 5.23,
-        "trap": 4.122,
-        "whip": 3.408
+        "axe": 4.342,
+        "blacklist": 4.133,
+        "cage": 3.783,
+        "claws": 5.48,
+        "coin": 4.739,
+        "collar": 4.786,
+        "crown": 5.214,
+        "dogtag": 3.829,
+        "fire": 3.989,
+        "forged": 3.535,
+        "guillotine": 3.781,
+        "hook": 4.311,
+        "ironbox": 4.546,
+        "keys": 4.72,
+        "maiden": 4.744,
+        "maul": 4.918,
+        "muzzle": 4.148,
+        "pestle": 3.472,
+        "ravenous": 3.803,
+        "revenge": 4.051,
+        "rope": 5.149,
+        "saw": 3.847,
+        "scales": 3.567,
+        "scapegoat": 3.542,
+        "shackles": 4.379,
+        "shortchain": 3.972,
+        "skewer": 4.635,
+        "stake": 3.617,
+        "tongs": 5.233,
+        "trap": 4.12,
+        "whip": 3.41
       }
     },
     "king": {
-      "base": 3.574,
+      "base": 3.582,
       "tools": {
-        "axe": 4.288,
-        "blacklist": 4.322,
-        "cage": 3.919,
-        "claws": 5.638,
-        "coin": 4.918,
-        "collar": 4.921,
-        "crown": 5.344,
-        "dogtag": 3.998,
-        "fire": 4.04,
-        "forged": 3.571,
-        "guillotine": 3.946,
-        "hook": 4.5,
-        "ironbox": 4.494,
-        "keys": 4.711,
-        "maiden": 4.932,
-        "maul": 5.047,
-        "muzzle": 3.945,
-        "pestle": 3.614,
-        "ravenous": 3.95,
-        "revenge": 4.189,
-        "rope": 5.263,
-        "saw": 3.991,
-        "scales": 3.72,
-        "scapegoat": 3.598,
-        "shackles": 4.535,
-        "shortchain": 4.03,
-        "skewer": 4.779,
-        "stake": 3.756,
-        "tongs": 5.356,
-        "trap": 4.262,
-        "whip": 3.537
+        "axe": 4.277,
+        "blacklist": 4.334,
+        "cage": 3.921,
+        "claws": 5.662,
+        "coin": 4.944,
+        "collar": 4.925,
+        "crown": 5.357,
+        "dogtag": 4.005,
+        "fire": 4.034,
+        "forged": 3.56,
+        "guillotine": 3.962,
+        "hook": 4.511,
+        "ironbox": 4.482,
+        "keys": 4.694,
+        "maiden": 4.939,
+        "maul": 5.057,
+        "muzzle": 4.283,
+        "pestle": 3.62,
+        "ravenous": 3.979,
+        "revenge": 4.198,
+        "rope": 5.276,
+        "saw": 3.998,
+        "scales": 3.728,
+        "scapegoat": 3.631,
+        "shackles": 4.546,
+        "shortchain": 4.026,
+        "skewer": 4.789,
+        "stake": 3.761,
+        "tongs": 5.361,
+        "trap": 4.264,
+        "whip": 3.539
       }
     },
     "undercurrents": {
-      "base": 3.232,
+      "base": 3.236,
       "tools": {
-        "axe": 3.493,
-        "blacklist": 4.109,
-        "cage": 3.531,
-        "claws": 5.111,
-        "coin": 4.584,
-        "collar": 4.637,
-        "crown": 4.964,
-        "dogtag": 3.599,
-        "fire": 3.511,
-        "forged": 2.959,
-        "guillotine": 3.56,
-        "hook": 3.995,
-        "ironbox": 3.583,
-        "keys": 3.89,
-        "maiden": 4.408,
-        "maul": 4.68,
-        "muzzle": 3.527,
-        "pestle": 3.247,
-        "ravenous": 3.603,
-        "revenge": 3.82,
-        "rope": 4.868,
-        "saw": 3.637,
-        "scales": 3.326,
-        "scapegoat": 3.353,
-        "shackles": 4.146,
-        "shortchain": 3.485,
-        "skewer": 4.406,
-        "stake": 3.32,
+        "axe": 3.484,
+        "blacklist": 4.117,
+        "cage": 3.529,
+        "claws": 5.124,
+        "coin": 4.601,
+        "collar": 4.638,
+        "crown": 4.973,
+        "dogtag": 3.6,
+        "fire": 3.504,
+        "forged": 2.953,
+        "guillotine": 3.573,
+        "hook": 4.001,
+        "ironbox": 3.577,
+        "keys": 3.877,
+        "maiden": 4.411,
+        "maul": 4.687,
+        "muzzle": 3.834,
+        "pestle": 3.251,
+        "ravenous": 3.62,
+        "revenge": 3.829,
+        "rope": 4.875,
+        "saw": 3.642,
+        "scales": 3.329,
+        "scapegoat": 3.378,
+        "shackles": 4.153,
+        "shortchain": 3.481,
+        "skewer": 4.413,
+        "stake": 3.322,
         "tongs": 5.089,
-        "trap": 3.921,
+        "trap": 3.922,
         "whip": 3.171
       }
     },
     "walk": {
-      "base": 3.651,
+      "base": 3.663,
       "tools": {
-        "axe": 4.42,
-        "blacklist": 4.329,
+        "axe": 4.408,
+        "blacklist": 4.344,
         "cage": 3.995,
-        "claws": 5.643,
-        "coin": 4.932,
-        "collar": 4.956,
-        "crown": 5.37,
-        "dogtag": 4.035,
-        "fire": 4.142,
-        "forged": 3.681,
-        "guillotine": 3.989,
-        "hook": 4.537,
-        "ironbox": 4.631,
-        "keys": 4.8,
-        "maiden": 4.915,
-        "maul": 5.085,
-        "muzzle": 4.019,
-        "pestle": 3.686,
-        "ravenous": 3.987,
-        "revenge": 4.236,
-        "rope": 5.262,
-        "saw": 4.049,
-        "scales": 3.776,
-        "scapegoat": 3.629,
-        "shackles": 4.588,
-        "shortchain": 4.086,
-        "skewer": 4.799,
-        "stake": 3.804,
-        "tongs": 5.367,
-        "trap": 4.309,
-        "whip": 3.609
+        "claws": 5.666,
+        "coin": 4.96,
+        "collar": 4.961,
+        "crown": 5.387,
+        "dogtag": 4.042,
+        "fire": 4.136,
+        "forged": 3.669,
+        "guillotine": 4.007,
+        "hook": 4.555,
+        "ironbox": 4.618,
+        "keys": 4.783,
+        "maiden": 4.923,
+        "maul": 5.099,
+        "muzzle": 4.357,
+        "pestle": 3.698,
+        "ravenous": 4.018,
+        "revenge": 4.247,
+        "rope": 5.28,
+        "saw": 4.059,
+        "scales": 3.785,
+        "scapegoat": 3.664,
+        "shackles": 4.599,
+        "shortchain": 4.079,
+        "skewer": 4.812,
+        "stake": 3.808,
+        "tongs": 5.369,
+        "trap": 4.307,
+        "whip": 3.615
       }
     }
   },
@@ -197,19 +197,24 @@
           9.216
         ],
         [
+          "muzzle",
+          "claws",
+          8.238
+        ],
+        [
           "keys",
           "collar",
           8.063
         ],
         [
-          "muzzle",
-          "claws",
-          7.557
-        ],
-        [
           "keys",
           "crown",
           7.504
+        ],
+        [
+          "muzzle",
+          "keys",
+          7.209
         ],
         [
           "collar",
@@ -242,9 +247,34 @@
           6.733
         ],
         [
+          "muzzle",
+          "collar",
+          6.694
+        ],
+        [
+          "muzzle",
+          "maiden",
+          6.692
+        ],
+        [
+          "muzzle",
+          "cage",
+          6.659
+        ],
+        [
           "ironbox",
           "coin",
           6.652
+        ],
+        [
+          "muzzle",
+          "crown",
+          6.641
+        ],
+        [
+          "muzzle",
+          "maul",
+          6.64
         ],
         [
           "axe",
@@ -253,8 +283,13 @@
         ],
         [
           "muzzle",
-          "keys",
-          6.412
+          "hook",
+          6.523
+        ],
+        [
+          "muzzle",
+          "shortchain",
+          6.427
         ],
         [
           "maiden",
@@ -268,8 +303,18 @@
         ],
         [
           "muzzle",
-          "collar",
-          6.301
+          "skewer",
+          6.321
+        ],
+        [
+          "muzzle",
+          "shackles",
+          6.314
+        ],
+        [
+          "muzzle",
+          "axe",
+          6.307
         ],
         [
           "maiden",
@@ -285,11 +330,6 @@
           "axe",
           "crown",
           6.243
-        ],
-        [
-          "muzzle",
-          "crown",
-          6.235
         ],
         [
           "collar",
@@ -308,13 +348,18 @@
         ],
         [
           "muzzle",
-          "maul",
-          6.205
+          "forged",
+          6.203
+        ],
+        [
+          "revenge",
+          "muzzle",
+          6.177
         ],
         [
           "muzzle",
-          "maiden",
-          6.198
+          "dogtag",
+          6.165
         ],
         [
           "rope",
@@ -342,6 +387,11 @@
           6.092
         ],
         [
+          "muzzle",
+          "fire",
+          6.087
+        ],
+        [
           "crown",
           "claws",
           6.066
@@ -367,11 +417,6 @@
           6.043
         ],
         [
-          "muzzle",
-          "hook",
-          6.019
-        ],
-        [
           "fire",
           "collar",
           6.011
@@ -387,14 +432,24 @@
           5.985
         ],
         [
+          "muzzle",
+          "saw",
+          5.983
+        ],
+        [
+          "muzzle",
+          "coin",
+          5.979
+        ],
+        [
           "axe",
           "claws",
           5.976
         ],
         [
           "muzzle",
-          "cage",
-          5.934
+          "tongs",
+          5.96
         ],
         [
           "keys",
@@ -422,6 +477,11 @@
           5.876
         ],
         [
+          "muzzle",
+          "scales",
+          5.871
+        ],
+        [
           "ironbox",
           "claws",
           5.865
@@ -435,11 +495,6 @@
           "keys",
           "maiden",
           5.863
-        ],
-        [
-          "muzzle",
-          "skewer",
-          5.857
         ],
         [
           "rope",
@@ -483,8 +538,8 @@
         ],
         [
           "muzzle",
-          "shackles",
-          5.795
+          "rope",
+          5.78
         ],
         [
           "collar",
@@ -495,6 +550,11 @@
           "shortchain",
           "crown",
           5.757
+        ],
+        [
+          "muzzle",
+          "blacklist",
+          5.737
         ],
         [
           "revenge",
@@ -522,6 +582,11 @@
           5.713
         ],
         [
+          "muzzle",
+          "pestle",
+          5.708
+        ],
+        [
           "fire",
           "claws",
           5.701
@@ -540,11 +605,6 @@
           "skewer",
           "maiden",
           5.693
-        ],
-        [
-          "revenge",
-          "muzzle",
-          5.681
         ],
         [
           "tongs",
@@ -573,8 +633,13 @@
         ],
         [
           "muzzle",
-          "shortchain",
-          5.652
+          "guillotine",
+          5.656
+        ],
+        [
+          "muzzle",
+          "whip",
+          5.653
         ],
         [
           "hook",
@@ -603,13 +668,13 @@
         ],
         [
           "muzzle",
-          "axe",
-          5.633
+          "trap",
+          5.628
         ],
         [
           "muzzle",
-          "dogtag",
-          5.615
+          "ravenous",
+          5.625
         ],
         [
           "skewer",
@@ -657,11 +722,6 @@
           5.541
         ],
         [
-          "muzzle",
-          "coin",
-          5.506
-        ],
-        [
           "rope",
           "coin",
           5.506
@@ -670,16 +730,6 @@
           "cage",
           "maiden",
           5.489
-        ],
-        [
-          "muzzle",
-          "tongs",
-          5.473
-        ],
-        [
-          "muzzle",
-          "saw",
-          5.472
         ],
         [
           "keys",
@@ -725,11 +775,6 @@
           "fire",
           "skewer",
           5.415
-        ],
-        [
-          "muzzle",
-          "forged",
-          5.398
         ],
         [
           "rope",
@@ -783,8 +828,8 @@
         ],
         [
           "muzzle",
-          "fire",
-          5.339
+          "scapegoat",
+          5.334
         ],
         [
           "collar",
@@ -817,19 +862,9 @@
           5.304
         ],
         [
-          "muzzle",
-          "scales",
-          5.303
-        ],
-        [
           "forged",
           "cage",
           5.301
-        ],
-        [
-          "muzzle",
-          "rope",
-          5.299
         ],
         [
           "shortchain",
@@ -907,11 +942,6 @@
           5.188
         ],
         [
-          "muzzle",
-          "ravenous",
-          5.179
-        ],
-        [
           "fire",
           "axe",
           5.179
@@ -932,16 +962,6 @@
           5.17
         ],
         [
-          "muzzle",
-          "blacklist",
-          5.167
-        ],
-        [
-          "muzzle",
-          "pestle",
-          5.161
-        ],
-        [
           "shackles",
           "maul",
           5.155
@@ -952,11 +972,6 @@
           5.146
         ],
         [
-          "muzzle",
-          "whip",
-          5.144
-        ],
-        [
           "scales",
           "maiden",
           5.143
@@ -965,11 +980,6 @@
           "ironbox",
           "blacklist",
           5.142
-        ],
-        [
-          "muzzle",
-          "trap",
-          5.141
         ],
         [
           "fire",
@@ -1010,11 +1020,6 @@
           "blacklist",
           "claws",
           5.102
-        ],
-        [
-          "muzzle",
-          "guillotine",
-          5.089
         ],
         [
           "tongs",
@@ -1097,6 +1102,11 @@
           5.022
         ],
         [
+          "muzzle",
+          "stake",
+          5.018
+        ],
+        [
           "fire",
           "tongs",
           5.018
@@ -1140,11 +1150,6 @@
           "pestle",
           "maiden",
           5.001
-        ],
-        [
-          "muzzle",
-          "scapegoat",
-          4.996
         ],
         [
           "collar",
@@ -1597,6 +1602,11 @@
           4.616
         ],
         [
+          "muzzle",
+          "ironbox",
+          4.611
+        ],
+        [
           "fire",
           "coin",
           4.611
@@ -1737,11 +1747,6 @@
           4.51
         ],
         [
-          "muzzle",
-          "stake",
-          4.508
-        ],
-        [
           "skewer",
           "coin",
           4.508
@@ -1835,11 +1840,6 @@
           "skewer",
           "stake",
           4.396
-        ],
-        [
-          "muzzle",
-          "ironbox",
-          4.39
         ],
         [
           "blacklist",
@@ -2529,7 +2529,7 @@
         "keys": 5.425,
         "maiden": 5.005,
         "maul": 4.48,
-        "muzzle": 5.129,
+        "muzzle": 5.708,
         "pestle": 3.547,
         "ravenous": 3.478,
         "revenge": 4.31,
@@ -2745,6 +2745,11 @@
           6.544
         ],
         [
+          "muzzle",
+          "tongs",
+          6.538
+        ],
+        [
           "skewer",
           "crown",
           6.5
@@ -2763,11 +2768,6 @@
           "saw",
           "tongs",
           6.436
-        ],
-        [
-          "muzzle",
-          "tongs",
-          6.423
         ],
         [
           "coin",
@@ -2795,6 +2795,11 @@
           6.371
         ],
         [
+          "muzzle",
+          "crown",
+          6.356
+        ],
+        [
           "shackles",
           "crown",
           6.251
@@ -2808,6 +2813,11 @@
           "maiden",
           "claws",
           6.213
+        ],
+        [
+          "muzzle",
+          "claws",
+          6.208
         ],
         [
           "shackles",
@@ -2915,11 +2925,6 @@
           5.807
         ],
         [
-          "muzzle",
-          "crown",
-          5.803
-        ],
-        [
           "maiden",
           "maul",
           5.793
@@ -2995,19 +3000,24 @@
           5.631
         ],
         [
+          "muzzle",
+          "coin",
+          5.622
+        ],
+        [
           "rope",
           "ravenous",
           5.621
         ],
         [
+          "muzzle",
+          "rope",
+          5.619
+        ],
+        [
           "coin",
           "trap",
           5.603
-        ],
-        [
-          "muzzle",
-          "claws",
-          5.602
         ],
         [
           "guillotine",
@@ -3023,6 +3033,11 @@
           "dogtag",
           "blacklist",
           5.571
+        ],
+        [
+          "muzzle",
+          "blacklist",
+          5.547
         ],
         [
           "ravenous",
@@ -3120,11 +3135,6 @@
           5.393
         ],
         [
-          "muzzle",
-          "blacklist",
-          5.378
-        ],
-        [
           "keys",
           "coin",
           5.378
@@ -3133,6 +3143,11 @@
           "collar",
           "stake",
           5.377
+        ],
+        [
+          "muzzle",
+          "collar",
+          5.362
         ],
         [
           "shackles",
@@ -3148,6 +3163,11 @@
           "shortchain",
           "crown",
           5.304
+        ],
+        [
+          "muzzle",
+          "skewer",
+          5.282
         ],
         [
           "tongs",
@@ -3241,8 +3261,8 @@
         ],
         [
           "muzzle",
-          "rope",
-          5.151
+          "maul",
+          5.163
         ],
         [
           "maiden",
@@ -3315,11 +3335,6 @@
           5.006
         ],
         [
-          "muzzle",
-          "coin",
-          5.006
-        ],
-        [
           "scapegoat",
           "crown",
           4.99
@@ -3330,14 +3345,14 @@
           4.985
         ],
         [
+          "muzzle",
+          "scapegoat",
+          4.983
+        ],
+        [
           "revenge",
           "coin",
           4.972
-        ],
-        [
-          "muzzle",
-          "collar",
-          4.968
         ],
         [
           "cage",
@@ -3405,11 +3420,6 @@
           4.857
         ],
         [
-          "muzzle",
-          "skewer",
-          4.85
-        ],
-        [
           "guillotine",
           "coin",
           4.848
@@ -3418,6 +3428,11 @@
           "saw",
           "coin",
           4.839
+        ],
+        [
+          "muzzle",
+          "maiden",
+          4.836
         ],
         [
           "rope",
@@ -3480,11 +3495,6 @@
           4.734
         ],
         [
-          "muzzle",
-          "maul",
-          4.723
-        ],
-        [
           "shackles",
           "ravenous",
           4.718
@@ -3520,11 +3530,6 @@
           4.672
         ],
         [
-          "muzzle",
-          "scapegoat",
-          4.65
-        ],
-        [
           "collar",
           "whip",
           4.632
@@ -3533,6 +3538,11 @@
           "hook",
           "scapegoat",
           4.629
+        ],
+        [
+          "muzzle",
+          "shackles",
+          4.619
         ],
         [
           "scales",
@@ -3556,8 +3566,8 @@
         ],
         [
           "muzzle",
-          "maiden",
-          4.575
+          "ravenous",
+          4.594
         ],
         [
           "pestle",
@@ -3775,14 +3785,14 @@
           4.248
         ],
         [
-          "keys",
-          "maul",
+          "muzzle",
+          "trap",
           4.243
         ],
         [
-          "muzzle",
-          "shackles",
-          4.222
+          "keys",
+          "maul",
+          4.243
         ],
         [
           "keys",
@@ -3830,6 +3840,11 @@
           4.149
         ],
         [
+          "muzzle",
+          "hook",
+          4.146
+        ],
+        [
           "pestle",
           "maul",
           4.141
@@ -3843,6 +3858,11 @@
           "ironbox",
           "scapegoat",
           4.121
+        ],
+        [
+          "muzzle",
+          "guillotine",
+          4.118
         ],
         [
           "ravenous",
@@ -3860,11 +3880,6 @@
           4.086
         ],
         [
-          "muzzle",
-          "ravenous",
-          4.06
-        ],
-        [
           "revenge",
           "scapegoat",
           4.056
@@ -3875,11 +3890,6 @@
           4.052
         ],
         [
-          "muzzle",
-          "trap",
-          4.05
-        ],
-        [
           "rope",
           "shortchain",
           4.043
@@ -3888,6 +3898,11 @@
           "hook",
           "dogtag",
           4.042
+        ],
+        [
+          "revenge",
+          "muzzle",
+          4.025
         ],
         [
           "scales",
@@ -4000,6 +4015,11 @@
           3.88
         ],
         [
+          "muzzle",
+          "saw",
+          3.878
+        ],
+        [
           "pestle",
           "shackles",
           3.861
@@ -4040,11 +4060,6 @@
           3.771
         ],
         [
-          "muzzle",
-          "hook",
-          3.76
-        ],
-        [
           "hook",
           "cage",
           3.75
@@ -4055,6 +4070,11 @@
           3.74
         ],
         [
+          "muzzle",
+          "stake",
+          3.737
+        ],
+        [
           "revenge",
           "dogtag",
           3.732
@@ -4063,6 +4083,11 @@
           "guillotine",
           "stake",
           3.73
+        ],
+        [
+          "muzzle",
+          "dogtag",
+          3.726
         ],
         [
           "saw",
@@ -4083,16 +4108,6 @@
           "forged",
           "maul",
           3.66
-        ],
-        [
-          "muzzle",
-          "guillotine",
-          3.656
-        ],
-        [
-          "revenge",
-          "muzzle",
-          3.648
         ],
         [
           "guillotine",
@@ -4165,11 +4180,6 @@
           3.529
         ],
         [
-          "muzzle",
-          "saw",
-          3.527
-        ],
-        [
           "rope",
           "ironbox",
           3.511
@@ -4205,11 +4215,6 @@
           3.442
         ],
         [
-          "muzzle",
-          "stake",
-          3.437
-        ],
-        [
           "axe",
           "blacklist",
           3.43
@@ -4235,11 +4240,6 @@
           3.401
         ],
         [
-          "muzzle",
-          "dogtag",
-          3.394
-        ],
-        [
           "hook",
           "scales",
           3.394
@@ -4260,6 +4260,11 @@
           3.369
         ],
         [
+          "muzzle",
+          "scales",
+          3.361
+        ],
+        [
           "hook",
           "pestle",
           3.355
@@ -4268,6 +4273,11 @@
           "revenge",
           "scales",
           3.353
+        ],
+        [
+          "muzzle",
+          "whip",
+          3.344
         ],
         [
           "keys",
@@ -4280,9 +4290,19 @@
           3.325
         ],
         [
+          "muzzle",
+          "cage",
+          3.314
+        ],
+        [
           "shackles",
           "shortchain",
           3.314
+        ],
+        [
+          "muzzle",
+          "pestle",
+          3.308
         ],
         [
           "saw",
@@ -4380,24 +4400,9 @@
           3.068
         ],
         [
-          "muzzle",
-          "cage",
-          3.067
-        ],
-        [
-          "muzzle",
-          "whip",
-          3.055
-        ],
-        [
           "revenge",
           "keys",
           3.043
-        ],
-        [
-          "muzzle",
-          "scales",
-          3.023
         ],
         [
           "axe",
@@ -4418,11 +4423,6 @@
           "revenge",
           "shortchain",
           2.993
-        ],
-        [
-          "muzzle",
-          "pestle",
-          2.979
         ],
         [
           "fire",
@@ -4545,9 +4545,19 @@
           2.583
         ],
         [
+          "muzzle",
+          "fire",
+          2.581
+        ],
+        [
           "axe",
           "shackles",
           2.576
+        ],
+        [
+          "muzzle",
+          "shortchain",
+          2.567
         ],
         [
           "revenge",
@@ -4590,11 +4600,6 @@
           2.409
         ],
         [
-          "muzzle",
-          "fire",
-          2.407
-        ],
-        [
           "fire",
           "cage",
           2.398
@@ -4606,8 +4611,8 @@
         ],
         [
           "muzzle",
-          "shortchain",
-          2.375
+          "keys",
+          2.384
         ],
         [
           "saw",
@@ -4633,11 +4638,6 @@
           "cage",
           "shortchain",
           2.304
-        ],
-        [
-          "muzzle",
-          "keys",
-          2.283
         ],
         [
           "ironbox",
@@ -4695,6 +4695,11 @@
           2.1
         ],
         [
+          "muzzle",
+          "forged",
+          2.072
+        ],
+        [
           "forged",
           "dogtag",
           2.024
@@ -4710,14 +4715,14 @@
           1.966
         ],
         [
+          "muzzle",
+          "axe",
+          1.942
+        ],
+        [
           "keys",
           "fire",
           1.93
-        ],
-        [
-          "muzzle",
-          "forged",
-          1.92
         ],
         [
           "fire",
@@ -4755,11 +4760,6 @@
           1.779
         ],
         [
-          "muzzle",
-          "axe",
-          1.77
-        ],
-        [
           "scales",
           "forged",
           1.756
@@ -4773,6 +4773,11 @@
           "ironbox",
           "hook",
           1.699
+        ],
+        [
+          "muzzle",
+          "ironbox",
+          1.621
         ],
         [
           "keys",
@@ -4813,11 +4818,6 @@
           "keys",
           "ironbox",
           1.544
-        ],
-        [
-          "muzzle",
-          "ironbox",
-          1.542
         ],
         [
           "ironbox",
@@ -4892,7 +4892,7 @@
         "keys": 2.15,
         "maiden": 4.328,
         "maul": 4.292,
-        "muzzle": 2.986,
+        "muzzle": 3.324,
         "pestle": 2.668,
         "ravenous": 3.569,
         "revenge": 3.289,
@@ -4978,6 +4978,16 @@
           7.125
         ],
         [
+          "muzzle",
+          "claws",
+          7.011
+        ],
+        [
+          "muzzle",
+          "rope",
+          7.006
+        ],
+        [
           "tongs",
           "claws",
           6.966
@@ -5026,11 +5036,6 @@
           "rope",
           "hook",
           6.75
-        ],
-        [
-          "muzzle",
-          "rope",
-          6.685
         ],
         [
           "saw",
@@ -5089,8 +5094,8 @@
         ],
         [
           "muzzle",
-          "claws",
-          6.519
+          "crown",
+          6.469
         ],
         [
           "maiden",
@@ -5258,6 +5263,11 @@
           6.159
         ],
         [
+          "muzzle",
+          "coin",
+          6.142
+        ],
+        [
           "skewer",
           "shackles",
           6.137
@@ -5276,11 +5286,6 @@
           "tongs",
           "blacklist",
           6.117
-        ],
-        [
-          "muzzle",
-          "crown",
-          6.112
         ],
         [
           "tongs",
@@ -5303,6 +5308,11 @@
           6.088
         ],
         [
+          "muzzle",
+          "maiden",
+          6.076
+        ],
+        [
           "collar",
           "coin",
           6.075
@@ -5318,9 +5328,19 @@
           6.065
         ],
         [
+          "muzzle",
+          "tongs",
+          6.037
+        ],
+        [
           "maiden",
           "trap",
           6.034
+        ],
+        [
+          "muzzle",
+          "shackles",
+          6.006
         ],
         [
           "hook",
@@ -5345,6 +5365,11 @@
         [
           "revenge",
           "crown",
+          5.985
+        ],
+        [
+          "muzzle",
+          "maul",
           5.985
         ],
         [
@@ -5378,6 +5403,11 @@
           5.933
         ],
         [
+          "muzzle",
+          "collar",
+          5.918
+        ],
+        [
           "hook",
           "maiden",
           5.918
@@ -5403,6 +5433,11 @@
           5.889
         ],
         [
+          "muzzle",
+          "skewer",
+          5.885
+        ],
+        [
           "ravenous",
           "crown",
           5.874
@@ -5416,11 +5451,6 @@
           "hook",
           "trap",
           5.837
-        ],
-        [
-          "muzzle",
-          "tongs",
-          5.833
         ],
         [
           "guillotine",
@@ -5458,11 +5488,6 @@
           5.798
         ],
         [
-          "muzzle",
-          "maiden",
-          5.792
-        ],
-        [
           "scales",
           "claws",
           5.792
@@ -5471,6 +5496,11 @@
           "keys",
           "coin",
           5.79
+        ],
+        [
+          "muzzle",
+          "hook",
+          5.776
         ],
         [
           "saw",
@@ -5486,11 +5516,6 @@
           "revenge",
           "collar",
           5.763
-        ],
-        [
-          "muzzle",
-          "coin",
-          5.762
         ],
         [
           "cage",
@@ -5579,23 +5604,18 @@
         ],
         [
           "muzzle",
-          "shackles",
+          "scapegoat",
           5.658
+        ],
+        [
+          "muzzle",
+          "ravenous",
+          5.657
         ],
         [
           "guillotine",
           "shackles",
           5.654
-        ],
-        [
-          "muzzle",
-          "collar",
-          5.638
-        ],
-        [
-          "muzzle",
-          "maul",
-          5.637
         ],
         [
           "saw",
@@ -5635,11 +5655,6 @@
         [
           "revenge",
           "shackles",
-          5.557
-        ],
-        [
-          "muzzle",
-          "skewer",
           5.557
         ],
         [
@@ -5758,6 +5773,11 @@
           5.481
         ],
         [
+          "muzzle",
+          "blacklist",
+          5.466
+        ],
+        [
           "hook",
           "ravenous",
           5.46
@@ -5768,14 +5788,14 @@
           5.453
         ],
         [
-          "muzzle",
-          "scapegoat",
-          5.451
-        ],
-        [
           "collar",
           "cage",
           5.446
+        ],
+        [
+          "muzzle",
+          "guillotine",
+          5.439
         ],
         [
           "saw",
@@ -5808,6 +5828,11 @@
           5.414
         ],
         [
+          "muzzle",
+          "trap",
+          5.406
+        ],
+        [
           "saw",
           "hook",
           5.4
@@ -5816,11 +5841,6 @@
           "cage",
           "coin",
           5.398
-        ],
-        [
-          "muzzle",
-          "hook",
-          5.394
         ],
         [
           "scales",
@@ -5898,6 +5918,11 @@
           5.299
         ],
         [
+          "muzzle",
+          "dogtag",
+          5.298
+        ],
+        [
           "pestle",
           "collar",
           5.291
@@ -5908,14 +5933,14 @@
           5.288
         ],
         [
-          "muzzle",
-          "ravenous",
-          5.282
-        ],
-        [
           "shortchain",
           "coin",
           5.282
+        ],
+        [
+          "revenge",
+          "muzzle",
+          5.279
         ],
         [
           "keys",
@@ -5978,6 +6003,11 @@
           5.217
         ],
         [
+          "muzzle",
+          "saw",
+          5.21
+        ],
+        [
           "revenge",
           "trap",
           5.208
@@ -5993,11 +6023,6 @@
           5.204
         ],
         [
-          "muzzle",
-          "blacklist",
-          5.2
-        ],
-        [
           "shortchain",
           "claws",
           5.198
@@ -6011,11 +6036,6 @@
           "dogtag",
           "blacklist",
           5.197
-        ],
-        [
-          "muzzle",
-          "trap",
-          5.192
         ],
         [
           "collar",
@@ -6108,11 +6128,6 @@
           5.067
         ],
         [
-          "muzzle",
-          "guillotine",
-          5.059
-        ],
-        [
           "stake",
           "crown",
           5.037
@@ -6178,6 +6193,11 @@
           4.979
         ],
         [
+          "muzzle",
+          "scales",
+          4.978
+        ],
+        [
           "saw",
           "ravenous",
           4.977
@@ -6213,11 +6233,6 @@
           4.95
         ],
         [
-          "muzzle",
-          "dogtag",
-          4.947
-        ],
-        [
           "skewer",
           "shortchain",
           4.942
@@ -6246,11 +6261,6 @@
           "collar",
           "stake",
           4.926
-        ],
-        [
-          "revenge",
-          "muzzle",
-          4.923
         ],
         [
           "hook",
@@ -6299,8 +6309,8 @@
         ],
         [
           "muzzle",
-          "saw",
-          4.885
+          "pestle",
+          4.884
         ],
         [
           "shortchain",
@@ -6361,6 +6371,11 @@
           "cage",
           "ravenous",
           4.789
+        ],
+        [
+          "muzzle",
+          "cage",
+          4.788
         ],
         [
           "skewer",
@@ -6433,11 +6448,6 @@
           4.636
         ],
         [
-          "muzzle",
-          "scales",
-          4.629
-        ],
-        [
           "guillotine",
           "cage",
           4.611
@@ -6493,11 +6503,6 @@
           4.561
         ],
         [
-          "muzzle",
-          "pestle",
-          4.555
-        ],
-        [
           "shortchain",
           "trap",
           4.552
@@ -6531,11 +6536,6 @@
           "blacklist",
           "stake",
           4.491
-        ],
-        [
-          "muzzle",
-          "cage",
-          4.49
         ],
         [
           "saw",
@@ -6603,6 +6603,11 @@
           4.318
         ],
         [
+          "muzzle",
+          "stake",
+          4.309
+        ],
+        [
           "fire",
           "guillotine",
           4.309
@@ -6626,6 +6631,11 @@
           "rope",
           "axe",
           4.254
+        ],
+        [
+          "muzzle",
+          "fire",
+          4.248
         ],
         [
           "tongs",
@@ -6688,6 +6698,11 @@
           4.178
         ],
         [
+          "muzzle",
+          "shortchain",
+          4.136
+        ],
+        [
           "axe",
           "trap",
           4.135
@@ -6728,11 +6743,6 @@
           4.04
         ],
         [
-          "muzzle",
-          "fire",
-          4.033
-        ],
-        [
           "shackles",
           "whip",
           4.027
@@ -6746,11 +6756,6 @@
           "tongs",
           "forged",
           4.017
-        ],
-        [
-          "muzzle",
-          "stake",
-          4.007
         ],
         [
           "ironbox",
@@ -6773,6 +6778,11 @@
           3.966
         ],
         [
+          "muzzle",
+          "keys",
+          3.965
+        ],
+        [
           "ironbox",
           "guillotine",
           3.957
@@ -6786,11 +6796,6 @@
           "dogtag",
           "shortchain",
           3.936
-        ],
-        [
-          "muzzle",
-          "shortchain",
-          3.906
         ],
         [
           "whip",
@@ -6833,11 +6838,6 @@
           3.849
         ],
         [
-          "muzzle",
-          "keys",
-          3.845
-        ],
-        [
           "scapegoat",
           "stake",
           3.844
@@ -6873,6 +6873,11 @@
           3.797
         ],
         [
+          "muzzle",
+          "whip",
+          3.786
+        ],
+        [
           "blacklist",
           "whip",
           3.779
@@ -6891,6 +6896,11 @@
           "scales",
           "stake",
           3.724
+        ],
+        [
+          "muzzle",
+          "axe",
+          3.723
         ],
         [
           "whip",
@@ -6958,6 +6968,11 @@
           3.611
         ],
         [
+          "muzzle",
+          "ironbox",
+          3.609
+        ],
+        [
           "ironbox",
           "dogtag",
           3.587
@@ -6973,11 +6988,6 @@
           3.533
         ],
         [
-          "muzzle",
-          "ironbox",
-          3.527
-        ],
-        [
           "keys",
           "fire",
           3.517
@@ -6986,16 +6996,6 @@
           "forged",
           "ravenous",
           3.509
-        ],
-        [
-          "muzzle",
-          "whip",
-          3.506
-        ],
-        [
-          "muzzle",
-          "axe",
-          3.495
         ],
         [
           "ironbox",
@@ -7163,6 +7163,11 @@
           2.877
         ],
         [
+          "muzzle",
+          "forged",
+          2.837
+        ],
+        [
           "axe",
           "stake",
           2.713
@@ -7176,11 +7181,6 @@
           "whip",
           "stake",
           2.668
-        ],
-        [
-          "muzzle",
-          "forged",
-          2.66
         ],
         [
           "ironbox",
@@ -7255,7 +7255,7 @@
         "keys": 3.696,
         "maiden": 5.432,
         "maul": 5.17,
-        "muzzle": 4.548,
+        "muzzle": 4.887,
         "pestle": 4.122,
         "ravenous": 4.734,
         "revenge": 4.483,
@@ -7312,6 +7312,11 @@
       "tongs",
       "claws",
       4.603
+    ],
+    [
+      "muzzle",
+      "claws",
+      4.38
     ],
     [
       "maiden",
@@ -7394,6 +7399,11 @@
       4.075
     ],
     [
+      "muzzle",
+      "crown",
+      4.062
+    ],
+    [
       "rope",
       "shackles",
       3.965
@@ -7462,11 +7472,6 @@
       "tongs",
       "collar",
       3.766
-    ],
-    [
-      "muzzle",
-      "claws",
-      3.758
     ],
     [
       "shackles",
@@ -7549,11 +7554,6 @@
       3.605
     ],
     [
-      "muzzle",
-      "crown",
-      3.599
-    ],
-    [
       "collar",
       "maul",
       3.599
@@ -7584,6 +7584,11 @@
       3.533
     ],
     [
+      "muzzle",
+      "rope",
+      3.515
+    ],
+    [
       "coin",
       "maul",
       3.475
@@ -7609,6 +7614,11 @@
       3.415
     ],
     [
+      "muzzle",
+      "tongs",
+      3.411
+    ],
+    [
       "collar",
       "coin",
       3.407
@@ -7617,6 +7627,11 @@
       "blacklist",
       "trap",
       3.404
+    ],
+    [
+      "muzzle",
+      "coin",
+      3.394
     ],
     [
       "saw",
@@ -7669,6 +7684,11 @@
       3.316
     ],
     [
+      "muzzle",
+      "skewer",
+      3.306
+    ],
+    [
       "hook",
       "claws",
       3.306
@@ -7692,6 +7712,16 @@
       "rope",
       "trap",
       3.28
+    ],
+    [
+      "muzzle",
+      "maul",
+      3.273
+    ],
+    [
+      "muzzle",
+      "maiden",
+      3.271
     ],
     [
       "dogtag",
@@ -7729,6 +7759,11 @@
       3.243
     ],
     [
+      "muzzle",
+      "collar",
+      3.24
+    ],
+    [
       "skewer",
       "blacklist",
       3.236
@@ -7737,11 +7772,6 @@
       "saw",
       "tongs",
       3.232
-    ],
-    [
-      "muzzle",
-      "tongs",
-      3.228
     ],
     [
       "maiden",
@@ -7839,6 +7869,11 @@
       3.114
     ],
     [
+      "muzzle",
+      "scapegoat",
+      3.113
+    ],
+    [
       "collar",
       "stake",
       3.103
@@ -7884,11 +7919,6 @@
       3.076
     ],
     [
-      "muzzle",
-      "rope",
-      3.068
-    ],
-    [
       "stake",
       "maul",
       3.067
@@ -7922,11 +7952,6 @@
       "stake",
       "claws",
       3.034
-    ],
-    [
-      "muzzle",
-      "maiden",
-      3.033
     ],
     [
       "collar",
@@ -7974,11 +7999,6 @@
       2.974
     ],
     [
-      "muzzle",
-      "coin",
-      2.962
-    ],
-    [
       "saw",
       "collar",
       2.958
@@ -8004,19 +8024,9 @@
       2.936
     ],
     [
-      "muzzle",
-      "skewer",
-      2.931
-    ],
-    [
       "scapegoat",
       "maul",
       2.93
-    ],
-    [
-      "muzzle",
-      "collar",
-      2.923
     ],
     [
       "axe",
@@ -8034,19 +8044,14 @@
       2.911
     ],
     [
-      "muzzle",
-      "scapegoat",
-      2.901
-    ],
-    [
-      "muzzle",
-      "maul",
-      2.9
-    ],
-    [
       "pestle",
       "crown",
       2.888
+    ],
+    [
+      "muzzle",
+      "blacklist",
+      2.886
     ],
     [
       "keys",
@@ -8139,6 +8144,11 @@
       2.823
     ],
     [
+      "muzzle",
+      "shackles",
+      2.822
+    ],
+    [
       "hook",
       "shackles",
       2.819
@@ -8157,6 +8167,11 @@
       "guillotine",
       "coin",
       2.804
+    ],
+    [
+      "muzzle",
+      "ravenous",
+      2.802
     ],
     [
       "collar",
@@ -8304,11 +8319,6 @@
       2.683
     ],
     [
-      "muzzle",
-      "blacklist",
-      2.676
-    ],
-    [
       "cage",
       "maul",
       2.676
@@ -8389,9 +8399,19 @@
       2.57
     ],
     [
+      "muzzle",
+      "hook",
+      2.569
+    ],
+    [
       "pestle",
       "collar",
       2.568
+    ],
+    [
+      "muzzle",
+      "guillotine",
+      2.56
     ],
     [
       "scales",
@@ -8489,9 +8509,9 @@
       2.498
     ],
     [
+      "revenge",
       "muzzle",
-      "shackles",
-      2.488
+      2.494
     ],
     [
       "saw",
@@ -8559,11 +8579,6 @@
       2.418
     ],
     [
-      "muzzle",
-      "ravenous",
-      2.418
-    ],
-    [
       "skewer",
       "pestle",
       2.416
@@ -8577,6 +8592,11 @@
       "pestle",
       "maul",
       2.414
+    ],
+    [
+      "muzzle",
+      "trap",
+      2.403
     ],
     [
       "cage",
@@ -8644,6 +8664,11 @@
       2.345
     ],
     [
+      "muzzle",
+      "saw",
+      2.343
+    ],
+    [
       "blacklist",
       "ravenous",
       2.335
@@ -8699,6 +8724,11 @@
       2.295
     ],
     [
+      "muzzle",
+      "dogtag",
+      2.288
+    ],
+    [
       "revenge",
       "guillotine",
       2.28
@@ -8739,19 +8769,9 @@
       2.235
     ],
     [
-      "muzzle",
-      "hook",
-      2.231
-    ],
-    [
       "revenge",
       "saw",
       2.22
-    ],
-    [
-      "muzzle",
-      "trap",
-      2.214
     ],
     [
       "shortchain",
@@ -8764,6 +8784,11 @@
       2.21
     ],
     [
+      "muzzle",
+      "stake",
+      2.19
+    ],
+    [
       "shackles",
       "cage",
       2.188
@@ -8772,16 +8797,6 @@
       "blacklist",
       "whip",
       2.173
-    ],
-    [
-      "muzzle",
-      "guillotine",
-      2.164
-    ],
-    [
-      "revenge",
-      "muzzle",
-      2.158
     ],
     [
       "pestle",
@@ -8854,6 +8869,11 @@
       2.059
     ],
     [
+      "muzzle",
+      "scales",
+      2.055
+    ],
+    [
       "axe",
       "blacklist",
       2.053
@@ -8877,11 +8897,6 @@
       "guillotine",
       "dogtag",
       2.039
-    ],
-    [
-      "muzzle",
-      "saw",
-      2.038
     ],
     [
       "saw",
@@ -8924,6 +8939,11 @@
       1.994
     ],
     [
+      "muzzle",
+      "whip",
+      1.988
+    ],
+    [
       "ironbox",
       "maiden",
       1.988
@@ -8935,8 +8955,13 @@
     ],
     [
       "muzzle",
-      "dogtag",
-      1.978
+      "pestle",
+      1.982
+    ],
+    [
+      "muzzle",
+      "cage",
+      1.961
     ],
     [
       "whip",
@@ -8977,11 +9002,6 @@
       "fire",
       "shackles",
       1.916
-    ],
-    [
-      "muzzle",
-      "stake",
-      1.906
     ],
     [
       "hook",
@@ -9094,11 +9114,6 @@
       1.755
     ],
     [
-      "muzzle",
-      "scales",
-      1.746
-    ],
-    [
       "revenge",
       "fire",
       1.736
@@ -9129,16 +9144,6 @@
       1.727
     ],
     [
-      "muzzle",
-      "whip",
-      1.726
-    ],
-    [
-      "muzzle",
-      "cage",
-      1.717
-    ],
-    [
       "guillotine",
       "shortchain",
       1.702
@@ -9147,11 +9152,6 @@
       "saw",
       "keys",
       1.701
-    ],
-    [
-      "muzzle",
-      "pestle",
-      1.697
     ],
     [
       "scales",
@@ -9199,6 +9199,11 @@
       1.644
     ],
     [
+      "muzzle",
+      "shortchain",
+      1.625
+    ],
+    [
       "ironbox",
       "maul",
       1.623
@@ -9212,6 +9217,11 @@
       "ironbox",
       "shackles",
       1.589
+    ],
+    [
+      "muzzle",
+      "fire",
+      1.55
     ],
     [
       "hook",
@@ -9304,14 +9314,14 @@
       1.444
     ],
     [
-      "muzzle",
-      "shortchain",
-      1.442
-    ],
-    [
       "guillotine",
       "axe",
       1.44
+    ],
+    [
+      "muzzle",
+      "keys",
+      1.438
     ],
     [
       "pestle",
@@ -9334,11 +9344,6 @@
       1.402
     ],
     [
-      "muzzle",
-      "fire",
-      1.394
-    ],
-    [
       "guillotine",
       "forged",
       1.392
@@ -9347,11 +9352,6 @@
       "revenge",
       "ironbox",
       1.367
-    ],
-    [
-      "muzzle",
-      "keys",
-      1.349
     ],
     [
       "keys",
@@ -9394,9 +9394,19 @@
       1.315
     ],
     [
+      "muzzle",
+      "axe",
+      1.263
+    ],
+    [
       "axe",
       "stake",
       1.259
+    ],
+    [
+      "muzzle",
+      "forged",
+      1.254
     ],
     [
       "keys",
@@ -9450,18 +9460,13 @@
     ],
     [
       "muzzle",
-      "forged",
-      1.107
+      "ironbox",
+      1.114
     ],
     [
       "keys",
       "fire",
       1.106
-    ],
-    [
-      "muzzle",
-      "axe",
-      1.101
     ],
     [
       "fire",
@@ -9492,11 +9497,6 @@
       "forged",
       "whip",
       1.033
-    ],
-    [
-      "muzzle",
-      "ironbox",
-      1.032
     ],
     [
       "forged",
@@ -9609,7 +9609,7 @@
     "incidentRespawn": true,
     "instigateCount": 1,
     "maidenAnyTime": false,
-    "muzzleMax": 3,
+    "muzzleMax": 4,
     "oppressBase": 1.0,
     "oppressStep": 0.05,
     "rainbowCap": 10,
@@ -9618,10 +9618,10 @@
     "tuskPersists": true
   },
   "run": {
-    "mean": 3.406,
+    "mean": 3.415,
     "median": 3,
     "se": 0.006,
-    "zeroShare": 0.039
+    "zeroShare": 0.038
   },
   "seed": "LAB",
   "tools": {
@@ -9708,7 +9708,7 @@
     "muzzle": {
       "name": "Raging Beast's Agonizing Muzzle",
       "se": 0.005,
-      "value": 1.691
+      "value": 1.987
     },
     "pestle": {
       "name": "Iron Pestle",

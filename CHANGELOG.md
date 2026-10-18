@@ -6,6 +6,11 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Fixed
+
+- SS14 play sheet: Raging Beast's Agonizing Muzzle gives its +2 when **4 or fewer** inmates are left after the meal (the live card), not 3 — every number and pair with it is recalculated; with Cage Fight it is now the best first instrument.
+- SS14 play sheet: Agonizing Muzzle, Burning Stake, Crowded Beastcage, Avenger's Casket and Searing Branding Iron lose the "!" (not confirmed): their full cards are read now, and match the sheet. The Branding Iron's line adds that the cell with the copy opens. Fanged Guillotine loses it too: the game never prints Oppress's base chance, and the sheet keeps reading it as 100% (−5% per tier of gap).
+
 ## [1.6.0] - 2026-10-18
 
 ### Added

@@ -40,8 +40,8 @@ pub struct Params {
     pub rainbow_cap: u8,
     /// Lost Ring of Keys: card 80%, live 62.8% (n=199).
     pub keys_chance: f64,
-    /// Agonizing Muzzle: most inmates left on the block (VOD card print 34: "no more
-    /// than 3 inmates on the board, after Devouring"; community sim 4).
+    /// Agonizing Muzzle: most inmates left on the block (live card, 2026-10-17: "no
+    /// more than 4 Inmates on the field, after Consuming"; the VOD card, print 34, said 3).
     pub muzzle_max: u8,
     /// Severed Iron Maiden: the live card (print 88) gives "+3 ... to the Inmate
     /// after this Replacement" → false = after a Replace only (card, community
@@ -95,7 +95,7 @@ impl Default for Params {
             second_meal_from: 3,
             rainbow_cap: 10,
             keys_chance: 0.628,
-            muzzle_max: 3,
+            muzzle_max: 4,
             maiden_any_time: false,
             skewer_extra: 2,
             oppress_base: 1.0,

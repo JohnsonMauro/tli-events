@@ -13,7 +13,7 @@ cargo build --release
 ./target/release/tartarus eval  --tool rope,maiden              # a set held from day 1
 ./target/release/tartarus export                                # everything the play sheet reads → ../data/engine_results.json (~30 min at 12 threads)
 ./target/release/tartarus eval  --start cagefight --objective walk  # a start card and a fixed objective
-./target/release/tartarus eval  --set muzzle_max=4 --set oppress_base=0.9
+./target/release/tartarus eval  --set muzzle_max=3 --set oppress_base=0.9
 cargo test --release                                            # rules tests
 ```
 
@@ -44,9 +44,9 @@ Each is a rule no source settles yet (see `tli-events.local-context/watchlist/ss
 | Key | Default | Why open |
 |---|---|---|
 | `second_meal_from` | 3 (Legendary) | rules diagram + tlidb "Counter" draw second meals at every rarity; live boards suggested Legendary+ |
-| `muzzle_max` | 3 | VOD card (print 34): "no more than 3 inmates on the board, after Devouring"; community sim 4; no live print |
+| `muzzle_max` | 4 | live card (2026-10-17): "no more than 4 Inmates on the field, after Consuming"; the VOD card (print 34) said 3 |
 | `maiden_any_time` | false | live card (print 88): "+3 additional Rarity Tiers to the Inmate after this Replacement" — after a Replace only, as the community sim does. `true` = checked whenever the warden's inmate changes |
-| `oppress_base`, `oppress_step` | 1.0, 0.05 | tlidb gives −5%/tier; base chance not printed |
+| `oppress_base`, `oppress_step` | 1.0, 0.05 | tlidb gives −5%/tier; base chance not printed — kept at 1.0, not watched by hand (owner's call, 2026-10-18) |
 | `skewer_extra` | 2 | live card print 78 (+2); VOD and community sim +1 |
 | `collar_first_bite` | true | live card (print 72): "When an Inmate Chain Consumes, 80%" — no "after the first"; community sim: bites after the first |
 | `tusk_persists` | true | tlidb: Tusk goes "when there is no Inmate in this room"; content creator ALannister (2026-10-17): it stays through Replaces and clears only when the cell empties (eaten or Chromatic). The community sim agrees. `false` = gone after one Replace |
@@ -62,10 +62,10 @@ Not modelled yet: Opulence, Tartarus Rumors, the riot itself, the contract chall
 
 Our own, simple and explicit: a board value (`w_tier` per rarity, `w_rainbow`, `w_event`, `w_objective`, `w_chain`, `w_tusk`) scores every bite, Replace and Hunt analytically; patrols, treasures and incident choices are played out on copies with the hidden doors and the dice re-rolled (`samples` copies per option), so it never sees what the player can't. The weights are a first guess — tune with `eval`. `w_tusk` (12): a Tusk cell kept is worth that much, and a Mammoth half of it while holding Iron Tongs, so the player stops eating them (ALannister's play); it lifts Tongs 2.87 → 3.05 and changes nothing without Tongs.
 
-## Results (2026-10-17, 100k runs per test, seed LAB, `export`)
+## Results (2026-10-18, 100k runs per test, seed LAB, `export`)
 
 - No instrument **1.394** Rainbows/run (rewards off); full run with rewards **3.41** (median 3, zero in 4%); live runs (n=114, before most of these rules were known) mean 2.04, median 2.
 - Best solos: Iron Crown 3.05, Iron Tongs 3.05, Filthy Claws 3.02, Severed Iron Maiden 2.79, Hangman's Noose 2.73. Best pair: Noose + Maiden.
-- Start cards (`byStart`, rewards off): **Cage Fight** base 3.54, top Lost Ring of Keys 5.43, Agonizing Muzzle 5.13, Claws 5.05; **Iron Law** base 2.68, top Tongs 6.33, Crown 5.22, Blacklist 5.22; **Tyranny** base 4.13, top Noose 6.38, Claws 5.77, Crown 5.63.
-- Objectives (`byObjective`, rewards on): base 3.11 (Survival of the Fittest) to 3.65 (Prison Walk); the top five is the same in all (Claws, Tongs, Crown, Noose, Maul) — an objective moves the values, barely the order.
-- Card readings this engine follows where the community sim differs: Skewer +2, Oppress, Muzzle ≤3, Collar on every chain bite, Instigate 1, the incident refill, Shared Fortune, Archenemy, Extra Portion. Rule changes moved Maiden (after a Replace only: 4.19 → 2.79 with the refill) and Tongs (Tusk stays: 1.88 → 3.05 with the refill and the Tusk-keeping player).
+- Start cards (`byStart`, rewards off): **Cage Fight** base 3.54, top Agonizing Muzzle 5.71, Lost Ring of Keys 5.42, Claws 5.05; **Iron Law** base 2.67, top Tongs 6.33, Crown 5.22, Blacklist 5.22; **Tyranny** base 4.12, top Noose 6.38, Claws 5.77, Crown 5.63.
+- Objectives (`byObjective`, rewards on): base 3.12 (Survival of the Fittest) to 3.66 (Prison Walk); the top five is the same in all (Claws, Tongs, Crown, Noose, Maul) — an objective moves the values, barely the order.
+- Card readings this engine follows where the community sim differs: Skewer +2, Oppress, Collar on every chain bite, Instigate 1, the incident refill, Shared Fortune, Archenemy, Extra Portion. Rule changes moved Muzzle (≤4 inmates, live card: 1.69 → 1.99 solo, Cage Fight 5.13 → 5.71), Maiden (after a Replace only: 4.19 → 2.79 with the refill) and Tongs (Tusk stays: 1.88 → 3.05 with the refill and the Tusk-keeping player).

@@ -2,14 +2,8 @@
 // the card leaves open), so their value may move: the sheet marks them with "!" and asks players for
 // prints. Remove an id once a card settles it (images/INDEX.md, engine/README.md → "Open rules").
 export const DOUBT: ReadonlySet<string> = new Set([
-  'muzzle', // only the preview video's card (≤3 inmates); no live print
   'collar', // live card cut: every chain bite, or only after the first?
-  'guillotine', // Oppress: −5% per tier of difference, base chance not printed
   'claws', // only the tlidb tooltip; no full card
-  'revenge', // Avenger's Casket: effect cut on every print
-  'stake', // Burning Stake: effect cut on every print
-  'cage', // Crowded Beastcage: effect cut
-  'fire', // Searing Branding Iron: end of the effect cut
   'shortchain', // Short-Chained Shackles: no card text seen
   'crown', // Iron Crown: card text never seen
   'maul', // Elephant-Foot Maul: never seen
@@ -27,7 +21,7 @@ export const TOOL_TEXT = {
     'After a Replace, if as many inmates are above the new one as below → +3 tiers. An empty block always qualifies.',
   shackles: 'Walking ≥4 cells: 40% for +1 tier on a random inmate.',
   blacklist: 'With ≤5 locked cells, each opened door: 2 random inmates +1.',
-  muzzle: 'A consume leaving ≤3 inmates on the block: +2 tiers.',
+  muzzle: 'A consume leaving ≤4 inmates on the block: +2 tiers.',
   ravenous: 'Each morning the top inmate removes its 2 ring neighbours; 40% for +1 per removal.',
   revenge: 'After a consume, 30% to open a cell holding a meal for the eater at its new tier.',
   skewer: 'Rats eat Rats of the same rarity; +2 extra tiers per Rat bite (3 in total).',
@@ -48,7 +42,7 @@ export const TOOL_TEXT = {
   cage: 'After an inmate is eaten, 40% for its cell to reopen with a new inmate.',
   scales: 'After a Replace, 80% to reveal the best inmate behind the doors.',
   shortchain: 'Walking ≤3 cells: 50% to open a random cell.',
-  fire: 'Opened door: 35% to copy its inmate into a sealed cell.',
+  fire: 'Opened door: 35% to copy its inmate into a sealed cell, which opens.',
   pestle: 'Replace keeps the beast and only re-rolls rarity.',
   axe: 'A Replace that rolls higher opens 2 random cells.',
   forged: '−1 destination/day. Opened door: 50% to open one more. Loses more than it gains.',
