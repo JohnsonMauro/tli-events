@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-10-18
+
 ### Changed
 
 - SS14 play sheet: once you mark the instrument you took, **Instrument pick** lists every second instrument it pairs with — all 30, best first, with Rainbows per run — and rings the ones you marked as offered. Tap a row to take it as your second instrument right there (a run holds 2; tapping another row swaps it), no scrolling down to its tile. An instrument's card keeps its best 5.
@@ -170,7 +172,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.1...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.1...v1.7.0
 [1.6.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.4.0...v1.5.0
