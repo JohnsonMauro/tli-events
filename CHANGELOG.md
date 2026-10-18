@@ -6,6 +6,24 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: **incidents ranked best first** by what one "!" of each kind is worth in our simulation — Usurpation leads by far (+1.49 Rainbows per run).
+
+### Changed
+
+- SS14 play sheet: new numbers for players' finding that Mammoths eat Wolves and Lions eat Rats at **every rarity**, not only from Legendary — **Elephant-Foot Maul is now the best instrument alone** (from #11), and Agonizing Muzzle, Barbed Collar and Blood-Stained Trap rise too.
+
+- SS14 play sheet: the Tartarus Simulator box also tells about ours — a helper next to it, with the number of tests and simulated runs behind the page's numbers and a link to how our engine works.
+- SS14 play sheet: **tiers are cut on the list in front of you** — S is at least 85% of what the best instrument adds, down to E for no gain — so every start card, objective and second-pick list has its own S. The old cut (a multiple of a bare run, from the community simulator) left a start card's best instrument at B or C. An instrument's card shows both rankings: alone, and — once you hold one — as the second, paired with it.
+- SS14 play sheet: the instruments are **one ranked list**, best first — rank, art, tier and Rainbows per run on each row — instead of a grid split by tier, re-ranked for your start card or objective. **A tap takes your start instrument**; the list then re-ranks by the pair with it, and a tap takes your second (another tap swaps it). The "tap the 3 offered" advice bar is gone.
+
+### Fixed
+
+- SS14 play sheet: picking no longer makes the list jump under your finger — the advice bar above it used to grow and push the list down, so the next tap landed on another instrument.
+- SS14 play sheet: **Usurpation** reads as the chain it is — once I fires, your next incidents are II, III and IV in turn — and II is +2 tiers to one inmate (it said +1 to two). From the live cards; it shows its art too.
+- SS14 play sheet: Crow Whispers shows its art (the raven in the warden's office), from the live card.
+
 ## [1.7.1] - 2026-10-18
 
 ### Changed

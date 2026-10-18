@@ -88,6 +88,8 @@ CROPS = [
     ("event-hunt", "60_live_incident_treasure_hunt.webp", (240, 128, 1118, 1118), "\"Treasure\" Hunt"),
     ("event-freedom", "61_live_incident_taste_of_freedom.webp", (240, 128, 1118, 1118), "Taste of Freedom"),
     ("event-portion", "93_live_incident_extra_portion.webp", (240, 128, 1118, 1118), "Extra Portion"),
+    ("event-crow", "97_live_incident_crow_whispers.webp", (240, 128, 1118, 1118), "Crow Whispers"),
+    ("event-usurp", "102_live_incident_usurpation_1.webp", (240, 128, 1118, 1118), "Usurpation I-III (IV shows Liliah and Lilim)"),
     ("event-ratway", "62_live_incident_sewer_ratway.webp", (240, 128, 1118, 1118), "Sewer Ratway"),
     ("event-convict", "64_live_incident_high_risk_convict.webp", (240, 128, 1118, 1118), "High-Risk Convict (same art as Taste of Freedom)"),
     ("event-appetite", "68_live_incident_ravenous_appetite.webp", (240, 128, 1118, 1118), "Ravenous Appetite"),

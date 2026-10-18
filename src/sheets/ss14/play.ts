@@ -17,26 +17,25 @@ interface PlayData {
   tiers: [string, number][];
   offers: { n: number; counts: Record<string, number> } | null;
   ui: Record<
-    | 'take'
     | 'perRun'
-    | 'withHeld'
-    | 'sim'
     | 'remove'
     | 'nothing'
     | 'pickHint'
-    | 'full'
+    | 'pickSecond'
     | 'offered'
     | 'withYou'
     | 'partners'
     | 'partnersSub'
     | 'rankOf'
+    | 'rankAlone'
+    | 'rankPair'
     | 'doubt',
     string
   > & { tool: Record<string, string> };
 }
+/** The run's instruments in the order taken: [start pick, objective reward]. */
 interface PickState {
   held: string[];
-  offered: string[];
 }
 /** What this run got: a start card id and an objective id ('' = not marked). */
 interface RunState {
@@ -48,6 +47,8 @@ interface Numbers {
   base: number;
   tools: Values;
   pairs: Pair[];
+  /** Each instrument alone in the same runs as `pairs` (an objective's `tools` have rewards on, its pairs don't). */
+  pairSolo: Values;
 }
 
 // "Last simulation": the build's UTC instant in the reader's own time zone, labelled with that zone's offset.
@@ -92,12 +93,12 @@ if (D && grid && out && heldEl && pop) init(D, grid, out, heldEl, pop);
 function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElement, pop: HTMLElement) {
   const T = D.ui;
 
-  // Per-viewer convenience only: what this player holds and was offered, kept in this browser.
+  // Per-viewer convenience only: what this player holds, kept in this browser.
   const KEY = 'ss14-pick-v1';
-  let S: PickState = { held: [], offered: [] };
+  let S: PickState = { held: [] };
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
-    if (saved && Array.isArray(saved.held)) S = { held: saved.held, offered: saved.offered || [] };
+    if (saved && Array.isArray(saved.held)) S = { held: saved.held.slice(0, 2) };
   } catch {}
   const save = () => {
     try {
@@ -112,25 +113,43 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     const saved = JSON.parse(localStorage.getItem(RUN_KEY) || 'null');
     if (saved && typeof saved.start === 'string') R = { start: saved.start, objective: saved.objective || '' };
   } catch {}
-  const defaults: Numbers = {
-    base: D.base,
-    tools: Object.fromEntries(Object.entries(D.tools).map(([id, x]) => [id, x.value])),
-    pairs: D.pairs,
-  };
+  const soloDefaults = Object.fromEntries(Object.entries(D.tools).map(([id, x]) => [id, x.value]));
+  const defaults: Numbers = { base: D.base, tools: soloDefaults, pairs: D.pairs, pairSolo: soloDefaults };
   /** A start card changes the rules, so it wins; an objective only through its reward (values with rewards on). */
   const numbers = (): Numbers => {
     const s = D.byStart[R.start];
-    if (s) return s;
+    if (s) return { ...s, pairSolo: s.tools };
     const o = D.byObjective[R.objective];
-    if (o) return { base: o.base, tools: o.tools, pairs: D.pairs };
+    if (o) return { base: o.base, tools: o.tools, pairs: D.pairs, pairSolo: soloDefaults };
     return defaults;
   };
   let N = numbers();
 
   const toolName = (id: string) => D.tools[id]?.name ?? id;
   const value = (id: string) => N.tools[id] ?? D.tools[id]?.value ?? 0;
-  /** Tier for the current numbers (cut against their no-instrument run). */
-  const tierOf = (v: number) => D.tiers.find(([, min]) => v / N.base >= min)?.[0] ?? 'X';
+  /** A list's scale: what its rows are measured against, and its best row. */
+  interface Scale {
+    base: number;
+    best: number;
+  }
+  /** Tier = share of the best row's gain over `base` (PlaySheet.astro → TIERS); E = no gain. */
+  const tierIn = (v: number, sc: Scale) =>
+    v <= sc.base || sc.best <= sc.base
+      ? 'E'
+      : (D.tiers.find(([, share]) => (v - sc.base) / (sc.best - sc.base) >= share)?.[0] ?? 'D');
+  /** Instruments alone, for the run's choices. */
+  const soloScale = (): Scale => ({ base: N.base, best: Math.max(...Object.keys(D.tools).map((id) => value(id))) });
+  /** Second instruments: the pair with `first`, against `first` alone in the same runs as the pairs. */
+  const pairScale = (first: string): Scale => ({
+    base: N.pairSolo[first] ?? value(first),
+    best: Math.max(
+      ...Object.keys(D.tools)
+        .filter((id) => id !== first)
+        .map((id) => pairValue(id, first) ?? 0),
+    ),
+  });
+  /** The scale of the list on screen. */
+  const listScale = () => (S.held[0] ? pairScale(S.held[0]) : soloScale());
   /** Position among all instruments for the current numbers (1 = best), for "#5 of 31". */
   const rankOf = (id: string) => {
     const ids = Object.keys(D.tools);
@@ -138,26 +157,45 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   };
   const pairValue = (a: string, b: string) =>
     N.pairs.find(([x, y]) => (x === a && y === b) || (x === b && y === a))?.[2] ?? null;
-  /** Rainbow/run of taking `id` now: best pair with something held, else its solo value. */
-  const score = (id: string) => {
-    const own = S.held.filter((h) => h !== id);
-    const solo = value(id);
-    return own.length ? Math.max(...own.map((h) => pairValue(id, h) ?? solo)) : solo;
+  /** What a row is worth now: alone before the first pick; after it, the pair with the first instrument. */
+  const rowValue = (id: string) => {
+    const first = S.held[0];
+    return first ? (pairValue(id, first) ?? value(id)) : value(id);
   };
+  const head = grid.querySelector('.tool-head > span');
+  const list = grid.querySelector('.tool-list');
 
-  // A run gives 2 instruments at most: 1 at the start, 1 from the objective.
-  const MAX_HELD = 2;
-  const full = () => S.held.length >= MAX_HELD;
-
+  // A run gives 2 instruments: 1 at the start, 1 from the objective. One list does both picks: before the first,
+  // it is ranked alone and a tap takes the start pick; after it, ranked by the pair with it and a tap takes
+  // (or swaps) the second.
   function render() {
-    const [best, ...rest] = full() ? [] : S.offered.slice().sort((a, b) => score(b) - score(a));
-    grid.querySelectorAll<HTMLElement>('.tool').forEach((b) => {
-      const id = b.dataset.tool ?? '';
-      b.classList.toggle('on', S.offered.includes(id));
-      b.classList.toggle('held', S.held.includes(id));
-      b.classList.toggle('best', id === best);
-      b.setAttribute('aria-pressed', String(S.offered.includes(id)));
-    });
+    const [first, second] = S.held;
+    const scale = listScale();
+    const rows = [...grid.querySelectorAll<HTMLElement>('.tool')].sort(
+      (a, b) => rowValue(b.dataset.tool ?? '') - rowValue(a.dataset.tool ?? ''),
+    );
+    let rank = 0;
+    for (const b of rows) {
+      const id = b.dataset.tool ?? '',
+        li = b.parentElement,
+        tier = tierIn(rowValue(id), scale),
+        badge = b.querySelector('.tier'),
+        rk = b.querySelector('.rk'),
+        val = b.querySelector('.val');
+      // The first instrument is in Holding; its row leaves the list of candidates for the second.
+      if (li) li.hidden = id === first;
+      b.dataset.tier = tier;
+      b.classList.toggle('held', id === second);
+      b.setAttribute('aria-pressed', String(id === second));
+      if (rk && id !== first) rk.textContent = String(++rank);
+      if (val) val.textContent = rowValue(id).toFixed(2);
+      if (badge) {
+        badge.className = `tier t${tier}`;
+        badge.textContent = tier;
+      }
+      if (li) list?.append(li);
+    }
+    if (head) head.textContent = first ? T.partnersSub : T.perRun;
     heldEl.innerHTML = S.held.length
       ? S.held
           .map(
@@ -166,22 +204,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
           )
           .join('')
       : `<span class="meta">${esc(T.nothing)}</span>`;
-    // Every partner the first instrument can get as the second, best first (the pane scrolls, the card can't).
-    // A run holds 2 at most: tapping a row takes it as the second, replacing the one taken before.
-    const second = S.held.length
-      ? `<div class="tp-sub tp-second held-pairs"><span>${esc(T.partners)}</span><small>${esc(T.partnersSub)}</small>${pairList(partners(S.held[0]), true)}</div>`
-      : '';
-    if (!best) {
-      out.innerHTML = `<p class="meta">${esc(full() ? T.full : T.pickHint)}</p>` + second;
-      return;
-    }
-    out.innerHTML =
-      // One tap on the advice marks it as taken.
-      `<button type="button" class="pick best" data-take="${esc(best)}"><span class="pick-what"><b>${esc(fmt(T.take, { name: toolName(best) }))}</b><span class="pick-sub">${score(best).toFixed(2)} ${esc(T.perRun)}${S.held.length ? esc(T.withHeld) : ''} ${esc(T.sim)}</span></span></button>` +
-      (rest.length
-        ? `<p class="meta">${rest.map((id) => `${esc(toolName(id))} ${score(id).toFixed(2)}`).join(' · ')}</p>`
-        : '') +
-      second;
+    out.innerHTML = `<p class="meta">${esc(first ? fmt(T.pickSecond, { name: toolName(first) }) : T.pickHint)}</p>`;
   }
 
   // ---------- info popover (fixed position: escapes the panes' scroll clipping) ----------
@@ -193,29 +216,39 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       .sort((x, y) => y[1] - x[1]);
   // The card shows the best partners only (it never scrolls); the full list waits in Instrument pick once one is held.
   const TOP_PARTNERS = 5;
-  /** Ring on a partner the player marked as offered in Instrument pick (same cue as the tile). */
-  const offeredCls = (id: string) => (S.offered.includes(id) ? ' class="off"' : '');
   /** The tile's image as already downloaded (currentSrc picks the srcset entry in use, so nothing is fetched again). */
   const toolImg = (id: string) => {
     const img = grid.querySelector<HTMLImageElement>(`[data-tool="${CSS.escape(id)}"] img`);
     return img ? img.currentSrc || img.src : '';
   };
   /** Pairs as a list, best first: partner art, its own tier, name, Rainbows per run with both. */
-  /** `pickable`: each row is a button that takes the partner as the run's second instrument (Instrument pick). */
-  const pairList = (rows: [string, number | null][], pickable = false) =>
+  const pairList = (rows: [string, number | null][]) =>
     `<ol class="tp-pairs">${rows
       .filter((r): r is [string, number] => r[1] != null)
       .sort((x, y) => y[1] - x[1])
       .map(([p, v]) => {
         const src = toolImg(p);
-        const pt = tierOf(value(p));
-        const row = `${src ? `<img src="${esc(src)}" alt="">` : '<span class="ph">?</span>'}<span class="tier t${pt}">${pt === 'X' ? '✕' : pt}</span><span class="pn">${esc(toolName(p))}</span><b>${v.toFixed(2)}</b>`;
-        const taken = pickable && S.held[1] === p;
-        return pickable
-          ? `<li class="${taken ? 'held' : ''}${S.offered.includes(p) ? ' off' : ''}"><button type="button" data-second="${esc(p)}" aria-pressed="${taken}">${row}</button></li>`
-          : `<li${offeredCls(p)}>${row}</li>`;
+        const pt = tierIn(value(p), soloScale());
+        return `<li>${src ? `<img src="${esc(src)}" alt="">` : '<span class="ph">?</span>'}<span class="tier t${pt}">${pt}</span><span class="pn">${esc(toolName(p))}</span><b>${v.toFixed(2)}</b></li>`;
       })
       .join('')}</ol>`;
+
+  /** One ranking: tier badge, place, and which list it is (alone, or paired with what you hold). */
+  const rankHtml = (tier: string, place: string, label: string) =>
+    `<div class="tp-rank"><span class="tier t${esc(tier)}">${esc(tier)}</span><div><b>${esc(place)}</b><small>${esc(label)}</small></div></div>`;
+  /** The second ranking, once an instrument is held: this one as the second, by the pair with the first. */
+  const pairRank = (id: string) => {
+    const first = S.held[0];
+    const v = first && id !== first ? pairValue(id, first) : null;
+    if (!first || v == null) return '';
+    const others = Object.keys(D.tools).filter((x) => x !== first);
+    const n = 1 + others.filter((x) => (pairValue(x, first) ?? -Infinity) > v).length;
+    return rankHtml(
+      tierIn(v, pairScale(first)),
+      fmt(T.rankOf, { n, total: others.length }),
+      fmt(T.rankPair, { name: toolName(first) }),
+    );
+  };
 
   // An instrument's card, as a player reads it: its own rank (tier + position) decides the first pick; the best
   // second instrument (pairs, with each partner's tier) decides the run. No multiplier: the tiers are cut against a
@@ -223,7 +256,8 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   function toolHtml(btn: HTMLElement) {
     const id = btn.dataset.tool ?? '',
       t = D.tools[id],
-      tier = btn.dataset.tier ?? '',
+      // The card describes the instrument itself: its own tier and place alone, whatever the list is ranking.
+      tier = tierIn(value(id), soloScale()),
       src = toolImg(id);
     const offers = D.offers?.n ? D.offers : null;
     const off = offers ? (offers.counts[id] || 0) / offers.n : null;
@@ -232,7 +266,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       .map((h): [string, number | null] => [h, pairValue(id, h)])
       .filter(([, v]) => v != null);
     return `<div class="tp-head">${src ? `<img src="${esc(src)}" alt="">` : '<span></span>'}<div><b>${esc(t.name)}</b>
-        <div class="tp-rank"><span class="tier t${esc(tier)}">${tier === 'X' ? '✕' : esc(tier)}</span><b>${esc(fmt(T.rankOf, rankOf(id)))}</b></div>
+        <div class="tp-ranks">${rankHtml(tier, fmt(T.rankOf, rankOf(id)), T.rankAlone)}${pairRank(id)}</div>
         ${offers && off != null ? `<div class="tp-stats">${esc(fmt(T.offered, { p: Math.round(off * 100), n: offers.n }))}</div>` : ''}</div></div>
       ${btn.dataset.doubt != null ? `<p class="tp-doubt"><span class="doubt" aria-hidden="true">!</span>${esc(T.doubt)}</p>` : ''}
       ${T.tool[id] ? `<p class="tp-what">${esc(T.tool[id])}</p>` : ''}
@@ -250,12 +284,14 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   function showPop(anchor: HTMLElement) {
     pop.innerHTML = anchor.dataset.tool ? toolHtml(anchor) : anchor.dataset.ev ? evHtml(anchor) : tipHtml(anchor);
     if (anchor.dataset.row) pop.querySelector(`[data-row="${anchor.dataset.row}"]`)?.classList.add('on');
-    // The tier table's Rainbows per run follow the run's start card and objective.
-    pop.querySelectorAll<HTMLElement>('[data-min]').forEach((td) => {
-      td.textContent = `≥${(Number(td.dataset.min) * N.base).toFixed(2)} ${T.perRun}`;
+    // The tier table's Rainbows per run follow the list on screen: start card, objective, pair with what you hold.
+    const sc = listScale();
+    pop.querySelectorAll<HTMLElement>('[data-share]').forEach((td) => {
+      const share = Number(td.dataset.share);
+      td.textContent = `${share ? '≥' : '>'}${(sc.base + share * (sc.best - sc.base)).toFixed(2)} ${T.perRun}`;
     });
-    pop.querySelectorAll<HTMLElement>('[data-max]').forEach((td) => {
-      td.textContent = `<${(Number(td.dataset.max) * N.base).toFixed(2)} ${T.perRun}`;
+    pop.querySelectorAll<HTMLElement>('[data-floor]').forEach((td) => {
+      td.textContent = `≤${sc.base.toFixed(2)} ${T.perRun}`;
     });
     pop.hidden = false;
     shownFor = anchor;
@@ -319,34 +355,34 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     }
     closeOnClick = false;
   });
+  /** Runs `change` — which can resize the advice above — and scrolls by the shift, so the row the player
+   * clicked (found again by `selector`, it may be re-rendered) stays under the pointer: otherwise the next
+   * click lands on another row. */
+  function keepInPlace(selector: string, change: () => void) {
+    const top = document.querySelector(selector)?.getBoundingClientRect().top;
+    change();
+    const now = document.querySelector<HTMLElement>(selector);
+    const delta = top == null || !now ? 0 : now.getBoundingClientRect().top - top;
+    if (!delta || !now) return;
+    let box = now.parentElement;
+    while (box && !(/auto|scroll/.test(getComputedStyle(box).overflowY) && box.scrollHeight > box.clientHeight))
+      box = box.parentElement;
+    (box ?? window).scrollBy({ top: delta, behavior: 'instant' });
+  }
   grid.addEventListener('click', (e) => {
     const b = (e.target as Element).closest<HTMLElement>('[data-tool]'),
       id = b?.dataset.tool;
-    if (!b || !id) return;
-    toggleOffered(id);
-    render();
-    showPop(b);
-  });
-  /** Marks or unmarks an instrument as offered (at most the 3 the game shows). */
-  const toggleOffered = (id: string) => {
-    S.offered = S.offered.includes(id) ? S.offered.filter((x) => x !== id) : [...S.offered, id].slice(-3);
-    save();
-  };
-  out.addEventListener('click', (e) => {
-    const pick = (e.target as Element).closest<HTMLElement>('[data-second]')?.dataset.second;
-    if (pick && S.held[0]) {
-      S = { held: [S.held[0], pick], offered: [] };
+    if (!b || !id || id === S.held[0]) return;
+    const take = () => {
+      // No start pick yet: this is it. Then: the second, swapped by a tap on another row, dropped by a second tap.
+      S = { held: !S.held.length ? [id] : S.held[1] === id ? [S.held[0]] : [S.held[0], id] };
       save();
       render();
-      // render() rebuilt the list: keep keyboard focus on the same row.
-      out.querySelector<HTMLElement>(`[data-second="${CSS.escape(pick)}"]`)?.focus({ preventScroll: true });
-      return;
-    }
-    const id = (e.target as Element).closest<HTMLElement>('[data-take]')?.dataset.take;
-    if (!id || full()) return;
-    S = { held: S.held.includes(id) ? S.held : [...S.held, id], offered: [] };
-    save();
-    render();
+    };
+    // The first pick re-sorts the whole list; after it, the row stays under the pointer.
+    if (S.held.length) keepInPlace(`#tools [data-tool="${CSS.escape(id)}"]`, take);
+    else take();
+    showPop(b);
   });
   heldEl.addEventListener('click', (e) => {
     const x = (e.target as Element).closest<HTMLElement>('[data-drop]');
@@ -356,21 +392,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     render();
   });
 
-  // ---------- your run: the choices re-tier the grid ----------
-  /** Moves every tile into its tier for the current numbers, best first, and hides empty tiers. */
-  function retier() {
-    const tiles = [...grid.querySelectorAll<HTMLElement>('.tool')].sort(
-      (a, b) => value(b.dataset.tool ?? '') - value(a.dataset.tool ?? ''),
-    );
-    for (const b of tiles) {
-      const tier = tierOf(value(b.dataset.tool ?? ''));
-      b.dataset.tier = tier;
-      grid.querySelector(`[data-group="${tier}"] .tool-grid`)?.append(b);
-    }
-    grid.querySelectorAll<HTMLElement>('[data-group]').forEach((g) => {
-      g.hidden = !g.querySelector('.tool');
-    });
-  }
+  // ---------- your run: the choices re-rank the list (render) ----------
   const run = document.getElementById('run');
   // "Strong pairs": one list per start card, rendered at build; show the marked one (none → no start card).
   const pairLists = [...document.querySelectorAll<HTMLElement>('[data-pairs]')];
@@ -399,10 +421,8 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     } catch {}
     N = numbers();
     showRun();
-    retier();
     render();
   });
   showRun();
-  if (N !== defaults) retier();
   render();
 }

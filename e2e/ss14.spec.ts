@@ -1,5 +1,7 @@
 // The SS14 play sheet's interactive parts (src/sheets/ss14): folds, pairs per start card, the instrument pick and
 // "Last simulation" in the reader's time zone. Each test gets a fresh browser context (empty localStorage).
+import { readFileSync } from 'node:fs';
+
 import { expect, test, type Page } from '@playwright/test';
 
 const SHEET = '/ss14/';
@@ -48,12 +50,15 @@ test('strong pairs: 20 per list, and the list follows the start card', async ({ 
   await expect(visiblePairs(page)).toHaveAttribute('data-pairs', '');
 });
 
-test('instrument pick: tapping 3 offered lights up a pick', async ({ page }) => {
+// One list does both picks (owner, 2026-10-18): the first tap is the start pick; no advice bar in between.
+test('instrument pick: the first tap takes the start pick', async ({ page }) => {
   await page.goto(SHEET);
-  const tiles = page.locator('#tools .tool');
-  for (const i of [0, 1, 2]) await tiles.nth(i).click();
-  await expect(page.locator('#pickOut .pick.best')).toBeVisible();
-  await expect(page.locator('#tools .tool.best')).toHaveCount(1);
+  await page.locator('#tools .tool[data-tool="rope"]').click();
+  await expect(page.locator('#held .chip')).toHaveCount(1);
+  await expect(page.locator('#held .chip')).toHaveText(/Hangman's Noose/);
+  await expect(page.locator('#tools .tool[data-tool="rope"]')).toBeHidden();
+  await expect(page.locator('#pickOut button')).toHaveCount(0);
+  await expect(page.locator('#pickOut')).toContainText("Hangman's Noose");
 });
 
 test('instrument card: own rank (tier + position), then the best second instrument with tiers', async ({ page }) => {
@@ -61,11 +66,11 @@ test('instrument card: own rank (tier + position), then the best second instrume
   await openCard(page, 'rope');
   const pop = page.locator('#pop');
   await expect(pop).toBeVisible();
-  await expect(pop.locator('.tp-rank .tier')).toHaveText(/^[SABCD✕]$/);
+  await expect(pop.locator('.tp-rank .tier')).toHaveText(/^[SABCDE]$/);
   await expect(pop.locator('.tp-rank b')).toHaveText(/^#\d+ of \d+$/);
   const second = pop.locator('.tp-second');
   await expect(second).toContainText('Best second instrument');
-  await expect(second.locator('li').first().locator('.tier')).toHaveText(/^[SABCD✕]$/);
+  await expect(second.locator('li').first().locator('.tier')).toHaveText(/^[SABCDE]$/);
 });
 
 // The owner's run (2026-10-18): Cage Fight, holding Crowded Beastcage, offered Felon's Dog Tag, Avenger's Casket and
@@ -74,10 +79,23 @@ async function holdBeastcage(page: Page) {
   await page.goto(SHEET);
   await page.locator('#run [data-start="cagefight"]').click();
   await page.locator('#tools .tool[data-tool="cage"]').click();
-  await page.locator('#pickOut [data-take="cage"]').click();
   await expect(page.locator('#held .chip')).toHaveCount(1);
 }
-const heldPairs = (page: Page) => page.locator('#pickOut .held-pairs .tp-pairs li');
+const candidates = (page: Page) => page.locator('#tools li:not([hidden]) .tool');
+
+// Two rankings (owner, 2026-10-18): the instrument alone, and — once one is held — as the second, by the pair.
+test('instrument card: alone, then paired with what you hold', async ({ page }) => {
+  await holdBeastcage(page);
+  await openCard(page, 'revenge');
+  const ranks = page.locator('#pop .tp-rank');
+  await expect(ranks).toHaveCount(2);
+  await expect(ranks.nth(0).locator('small')).toHaveText('alone');
+  await expect(ranks.nth(1).locator('small')).toHaveText('paired with Crowded Beastcage');
+  await expect(ranks.nth(1).locator('b')).toHaveText(/^#\d+ of 30$/);
+  // The pair's place matches the row's place in the list.
+  const row = await page.locator('#tools .tool[data-tool="revenge"] .rk').textContent();
+  await expect(ranks.nth(1).locator('b')).toHaveText(`#${row} of 30`);
+});
 
 test('instrument card: the best 5 partners only', async ({ page }) => {
   await page.goto(SHEET);
@@ -86,14 +104,26 @@ test('instrument card: the best 5 partners only', async ({ page }) => {
   await expect(page.locator('#pop .tp-second .tp-pairs li')).toHaveCount(5);
 });
 
-test('Instrument pick: holding one lists every partner, best first', async ({ page }) => {
+test('instrument pick: with one held, the list ranks the second by the pair with it', async ({ page }) => {
   await holdBeastcage(page);
-  await expect(heldPairs(page)).toHaveCount(30);
-  const names = await heldPairs(page).locator('.pn').allTextContents();
-  expect(names).toContain("Avenger's Casket");
-  expect(names).not.toContain('Crowded Beastcage');
-  const values = (await heldPairs(page).locator('b').allTextContents()).map(Number);
+  await expect(candidates(page)).toHaveCount(30);
+  const ids = await candidates(page).evaluateAll((t) => t.map((b) => (b as HTMLElement).dataset.tool ?? ''));
+  expect(ids).toContain('revenge');
+  expect(ids).not.toContain('cage');
+  const values = (await candidates(page).locator('.val').allTextContents()).map(Number);
   expect(values).toEqual([...values].sort((a, b) => b - a));
+  expect(await candidates(page).locator('.rk').allTextContents()).toEqual(
+    Array.from({ length: 30 }, (_, i) => String(i + 1)),
+  );
+  // Casket + Beastcage under Cage Fight: the pair's value from the engine export, not the Casket alone.
+  const pair = await page.evaluate(() => {
+    const d = JSON.parse(document.getElementById('play-data')?.textContent ?? '{}');
+    const row = d.byStart.cagefight.pairs.find(
+      (p: [string, string, number]) => p.includes('cage') && p.includes('revenge'),
+    );
+    return row[2].toFixed(2);
+  });
+  await expect(page.locator('#tools .tool[data-tool="revenge"] .val')).toHaveText(pair);
 });
 
 // The card ignores the pointer (it never scrolls), so whatever passes the screen is lost. Russian runs longest.
@@ -111,8 +141,7 @@ for (const [width, height, lang, holding] of [
     await page.setViewportSize({ width, height });
     await page.goto(SHEET + lang);
     if (holding) {
-      for (const id of ['keys', 'muzzle', 'claws']) await page.locator(`#tools .tool[data-tool="${id}"]`).click();
-      await page.locator('#pickOut [data-take]').click();
+      await page.locator('#tools .tool[data-tool="keys"]').click();
       await expect(page.locator('#held .chip')).toHaveCount(1);
     }
     const ids = await page
@@ -131,7 +160,7 @@ for (const [width, height, lang, holding] of [
   });
 }
 
-test('Instrument pick: what you hold sits above the advice, and one tap on the advice takes it', async ({ page }) => {
+test('instrument pick: what you hold sits above the hint', async ({ page }) => {
   await page.goto(SHEET);
   const order = await page.evaluate(() => {
     const held = document.querySelector('.held-row');
@@ -139,36 +168,115 @@ test('Instrument pick: what you hold sits above the advice, and one tap on the a
     return held && out ? held.compareDocumentPosition(out) & Node.DOCUMENT_POSITION_FOLLOWING : 0;
   });
   expect(order).toBeTruthy();
-  await page.locator('#tools .tool[data-tool="maiden"]').click();
-  const advice = page.locator('#pickOut button.pick.best');
-  await expect(advice).toHaveAttribute('data-take', 'maiden');
-  await expect(page.locator('#pickOut button')).toHaveCount(1);
-  await advice.click();
-  await expect(page.locator('#held .chip')).toHaveText(/Severed Iron Maiden/);
-});
-
-test('Instrument pick: partners marked as offered get a ring in the held list', async ({ page }) => {
-  await holdBeastcage(page);
-  for (const id of ['dogtag', 'revenge', 'blacklist']) await page.locator(`#tools .tool[data-tool="${id}"]`).click();
-  const marked = await page.locator('#pickOut .held-pairs li.off .pn').allTextContents();
-  expect(marked.sort()).toEqual(["Avenger's Casket", "Executioner's Blacklist", "Felon's Dog Tag"]);
 });
 
 // A run holds 2 instruments: a tap on a row takes it as the second; a tap on another replaces it, never a third.
-test('Instrument pick: a tap on a partner takes it as the second instrument, another tap replaces it', async ({
-  page,
-}) => {
+test('instrument pick: a tap takes the second instrument, another tap swaps it', async ({ page }) => {
   await holdBeastcage(page);
-  await page.locator('#pickOut [data-second="revenge"]').click();
+  await page.locator('#tools .tool[data-tool="revenge"]').click();
   await expect(page.locator('#held .chip')).toHaveCount(2);
   await expect(page.locator('#held .chip').nth(1)).toHaveText(/Avenger's Casket/);
-  await expect(page.locator('#pickOut [data-second="revenge"]')).toHaveAttribute('aria-pressed', 'true');
-  await expect(heldPairs(page)).toHaveCount(30);
-  await page.locator('#pickOut [data-second="dogtag"]').click();
+  await expect(page.locator('#tools .tool[data-tool="revenge"]')).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('#tools .tool[data-tool="dogtag"]').click();
   await expect(page.locator('#held .chip')).toHaveCount(2);
   await expect(page.locator('#held .chip').nth(0)).toHaveText(/Crowded Beastcage/);
   await expect(page.locator('#held .chip').nth(1)).toHaveText(/Felon's Dog Tag/);
-  await expect(page.locator('#pickOut .held-pairs li.held')).toHaveCount(1);
+  await expect(page.locator('#tools .tool.held')).toHaveCount(1);
+  // A second tap on the taken one drops it.
+  await page.locator('#tools .tool[data-tool="dogtag"]').click();
+  await expect(page.locator('#held .chip')).toHaveCount(1);
+});
+
+test('instruments: one list, best first, re-ranked for the start card', async ({ page }) => {
+  await page.goto(SHEET);
+  const ranks = () => page.locator('#tools .tool .rk').allTextContents();
+  const values = async () => (await page.locator('#tools .tool .val').allTextContents()).map(Number);
+  const n = await page.locator('#tools .tool').count();
+  expect(await ranks()).toEqual(Array.from({ length: n }, (_, i) => String(i + 1)));
+  const before = await values();
+  expect(before).toEqual([...before].sort((a, b) => b - a));
+  await page.locator('#run [data-start="cagefight"]').click();
+  const after = await values();
+  expect(after).toEqual([...after].sort((a, b) => b - a));
+  expect(after).not.toEqual(before);
+  expect(await ranks()).toEqual(Array.from({ length: n }, (_, i) => String(i + 1)));
+});
+
+// Picking the second must not move the list under the pointer: an earlier advice bar grew and slid the list ~40 px
+// down, so the next tap hit another row (owner, 2026-10-18).
+for (const [width, height] of [
+  [1440, 900],
+  [390, 844],
+] as const) {
+  test(`instruments: a clicked row stays under the pointer (${width}px)`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto(SHEET);
+    await page.locator('#tools .tool').first().click(); // the start pick re-sorts the list
+    const ids = await page
+      .locator('#tools li:not([hidden]) .tool')
+      .evaluateAll((t) => t.slice(0, 6).map((b) => (b as HTMLElement).dataset.tool ?? ''));
+    for (const id of ids) {
+      const row = page.locator(`#tools .tool[data-tool="${id}"]`);
+      await row.scrollIntoViewIfNeeded();
+      const before = (await row.boundingBox())?.y ?? 0;
+      await row.click();
+      const after = (await row.boundingBox())?.y ?? 0;
+      expect(Math.abs(after - before), id).toBeLessThan(4);
+    }
+  });
+}
+
+// Tiers are cut on the list in force (owner, 2026-10-18): the old multiple-of-a-bare-run cut left a start card's
+// best instrument at B or C. Now the top row is S in every list, and the letters only go down the list.
+test('tiers: the top row is S in every list, and letters never go up the list', async ({ page }) => {
+  await page.goto(SHEET);
+  const ORDER = 'SABCDE';
+  const check = async (label: string) => {
+    const tiers = await page
+      .locator('#tools li:not([hidden]) .tool')
+      .evaluateAll((t) => t.map((b) => (b as HTMLElement).dataset.tier ?? ''));
+    expect(tiers[0], label).toBe('S');
+    const idx = tiers.map((x) => ORDER.indexOf(x));
+    expect(idx, label).toEqual([...idx].sort((a, b) => a - b));
+  };
+  await check('alone');
+  for (const start of ['cagefight', 'ironlaw', 'tyranny']) {
+    await page.locator(`#run [data-start="${start}"]`).click();
+    await check(start);
+  }
+  await page.locator('#tools li:not([hidden]) .tool').first().click();
+  await check('pair with the first pick');
+  // An objective's values have rewards on and its pairs don't: measured against each other, every row read E (then ✕).
+  await page.locator('#held .chip').click();
+  await page.locator('#run [data-start=""]').click();
+  await page.locator('#run [data-objective="walk"]').click();
+  await page.locator('#tools li:not([hidden]) .tool').first().click();
+  await check('objective, pair with the first pick');
+});
+
+// Our method in the open (owner, 2026-10-18): the simulator box counts the tests the export ran.
+test('simulator box: our tests counted from the export, and a link to how the engine works', async ({ page }) => {
+  interface Ex {
+    tools: object;
+    pairs: unknown[];
+    byStart: Record<string, { tools: object; pairs: unknown[] }>;
+    byObjective: Record<string, { tools: object }>;
+    incidents?: object;
+  }
+  const e: Ex = JSON.parse(readFileSync('events/SS14_Tartarus/data/engine_results.json', 'utf8'));
+  const n = (o: object) => Object.keys(o).length;
+  const tests =
+    1 +
+    n(e.tools) +
+    e.pairs.length +
+    Object.values(e.byStart).reduce((t, x) => t + 1 + n(x.tools) + x.pairs.length, 0) +
+    1 +
+    Object.values(e.byObjective).reduce((t, x) => t + 1 + n(x.tools), 0) +
+    n(e.incidents ?? {});
+  await page.goto(SHEET);
+  const box = page.locator('.sim-cta');
+  await expect(box).toContainText(`${tests.toLocaleString('en')} tests`);
+  await expect(box.locator('a[href$="/events/SS14_Tartarus/engine"]')).toHaveCount(1);
 });
 
 test('no "no instrument" baseline anywhere: a run always holds one', async ({ page }) => {
@@ -194,7 +302,7 @@ test('your run: start cards and objectives open a card (what it does; best first
   await expect(pop).toContainText('Cage Fight');
   await expect(pop.locator('.tp-doubt')).toHaveCount(0);
   await expect(pop.locator('.tp-second li')).toHaveCount(3);
-  await expect(pop.locator('.tp-second li .tier').first()).toHaveText(/^[SABCD✕]$/);
+  await expect(pop.locator('.tp-second li .tier').first()).toHaveText(/^[SABCDE]$/);
 
   await open('#run [data-start="tyranny"]');
   await expect(pop).toContainText('Tyranny');

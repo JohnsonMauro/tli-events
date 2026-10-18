@@ -9,7 +9,7 @@ import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
 import { DICT } from './i18n';
 import { DOUBT } from './tool-text';
 import { SIM_TIME } from './sim-time';
-import { ISSUES_URL } from '../../lib/project';
+import { ISSUES_URL, REPO_URL } from '../../lib/project';
 // Live odds only (offer counts measured by the community analyzer, frozen at 2026-10-16).
 import data from '../../../events/SS14_Tartarus/data/tartarus_data.json';
 // Every number on the sheet: our own engine (events/SS14_Tartarus/engine, `tartarus export`).
@@ -17,6 +17,8 @@ import engine from '../../../events/SS14_Tartarus/data/engine_results.json';
 import credits from '../../../events/SS14_Tartarus/credits.json';
 // CoffeeBns' Tartarus Simulator: where players can practice a board (its numbers differ from ours).
 const SIMULATOR_URL = 'https://blahdot3h.github.io/tartarus-simulator/';
+// Our engine's README: what it simulates, its sources and open rules.
+const ENGINE_URL = `${REPO_URL}/tree/main/events/SS14_Tartarus/engine`;
 // The r/TorchlightInfinite thread where the play sheet is discussed: the other place to send prints and numbers.
 const REDDIT_URL = 'https://www.reddit.com/r/TorchlightInfinite/comments/1x839x1/comment/pha1kgm/';
 import './play.css';
@@ -48,9 +50,38 @@ interface Engine {
   // Per start card (rules change) and per objective (rewards on); absent before the first full export.
   byStart?: Record<string, { base: number; tools: Values; pairs: Pair[] }>;
   byObjective?: Record<string, { base: number; tools: Values }>;
+  // What one "!" of each kind is worth, in Rainbows per run over an average one; absent before that export.
+  incidents?: Record<string, number>;
+  gamesPerTest: number;
 }
 const E = engine as unknown as Engine;
 const base = E.base;
+// Our method in numbers, counted the way `tartarus export` runs it: alone + pairs (pairs per start card at half
+// the games), per start card, the full run, per objective, per incident.
+const G = E.gamesPerTest;
+const starts = Object.values(E.byStart ?? {});
+const objectives = Object.values(E.byObjective ?? {});
+const nIncidents = Object.keys(E.incidents ?? {}).length;
+const nTools = Object.keys(E.tools).length;
+const simTests =
+  1 +
+  nTools +
+  E.pairs.length +
+  starts.reduce((n, x) => n + 1 + Object.keys(x.tools).length + x.pairs.length, 0) +
+  1 +
+  objectives.reduce((n, x) => n + 1 + Object.keys(x.tools).length, 0) +
+  nIncidents;
+const simRuns =
+  G * (1 + nTools + E.pairs.length) +
+  starts.reduce((n, x) => n + G * (1 + Object.keys(x.tools).length) + (G / 2) * x.pairs.length, 0) +
+  G +
+  objectives.reduce((n, x) => n + G * (1 + Object.keys(x.tools).length), 0) +
+  G * nIncidents;
+const num = new Intl.NumberFormat(hreflang(lang));
+const simOurs = fmt(t.simOurs, {
+  tests: num.format(simTests),
+  runs: new Intl.NumberFormat(hreflang(lang), { notation: 'compact', maximumFractionDigits: 0 }).format(simRuns),
+});
 // When our numbers were last published (./sim-time.ts): shown in the reader's own zone by ./play.ts. The build
 // renders UTC; without git history, only the export's UTC date.
 const simUtc = new Intl.DateTimeFormat(hreflang(lang), {
@@ -61,28 +92,33 @@ const simUtc = new Intl.DateTimeFormat(hreflang(lang), {
   ...(SIM_TIME && { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }),
 }).format(new Date(SIM_TIME?.iso ?? (engine as { generated: string }).generated + 'T00:00:00Z'));
 const [simBefore, simAfter] = t.simDate.split('{date}');
+// Tier = how close an instrument comes to the best one: the share of the best one's gain over a run that holds
+// nothing (never shown, every run holds one). Cut on the list in force, so every start card, objective and pair
+// list has its own S. E = no gain. (Until 2026-10-18 the cut was a multiple of that run, 2.6×/1.9×/…, taken from
+// the community simulator: with a start card the top instrument read B or C.)
 const TIERS = [
-  ['S', 2.6],
-  ['A', 1.9],
-  ['B', 1.5],
-  ['C', 1.2],
-  ['D', 1],
+  ['S', 0.85],
+  ['A', 0.65],
+  ['B', 0.45],
+  ['C', 0.25],
+  ['D', 0],
 ] as const;
-const tierOf = (v: number) => TIERS.find(([, min]) => v / base >= min)?.[0] ?? 'X';
+const tierIn = (v: number, b: number, best: number) =>
+  v <= b || best <= b ? 'E' : (TIERS.find(([, share]) => (v - b) / (best - b) >= share)?.[0] ?? 'D');
+const bestOf = (vals: number[]) => Math.max(...vals);
+const soloBest = bestOf(Object.values(E.tools).map((x) => x.value));
+const tierOf = (v: number) => tierIn(v, base, soloBest);
+// One list, best first: rank, art, tier, name, Rainbows per run. ./play.ts re-sorts it for the run's choices.
 const tools = Object.entries(E.tools)
   .sort((a, b) => b[1].value - a[1].value)
   .map(([id, x]) => ({
     id,
     name: x.name,
+    value: x.value,
     tier: tierOf(x.value),
-    art: A('tool-' + id, 'lg'),
+    art: A('tool-' + id, 'md'), // drawn at 65 px: the 80 px set stays sharp at 2×
     doubt: DOUBT.has(id),
   }));
-// Tiers are cut on Rainbows per run against a run with no instrument (TIERS), but the page never shows that run:
-// every real run holds an instrument. Players read the letter (first pick) and the pairs (second pick).
-const groups = [...TIERS.map(([tier]) => ({ tier })), { tier: 'X' }]
-  // Every group is rendered (empty ones hidden): ./play.ts moves the tiles when the run's choices change.
-  .map((g) => ({ ...g, tools: tools.filter((x) => x.tier === g.tier) }));
 
 // ---- your run: start card (from Viktor, changes the rules) and objective; the numbers follow ----
 const STARTS = [
@@ -151,7 +187,6 @@ const pairLists = [
 ];
 
 // ---- your run: a popover on each start card and objective chip (what it does; a start card's best first picks) ----
-const tierAt = (v: number, b: number) => TIERS.find(([, min]) => v / b >= min)?.[0] ?? 'X';
 const firstPicks = (start: string) => {
   const x = E.byStart?.[start];
   if (!x) return [];
@@ -162,7 +197,12 @@ const firstPicks = (start: string) => {
     })
     .sort((a, b) => b[1] - a[1])
     .slice(0, 3)
-    .map(([id, v]) => ({ name: short(id), v, tier: tierAt(v, x.base), art: A('tool-' + id) }));
+    .map(([id, v]) => ({
+      name: short(id),
+      v,
+      tier: tierIn(v, x.base, bestOf(Object.values(x.tools))),
+      art: A('tool-' + id),
+    }));
 };
 const startTips = STARTS.filter(([id]) => id).map(([id, name]) => ({
   id,
@@ -191,21 +231,25 @@ const EVENTS = [
   ['portion', 'Extra Portion', 'good', 'event-portion', 'live'],
   ['ratway', 'Sewer Ratway', 'good', 'event-ratway', 'live'],
   ['hunt', '"Treasure" Hunt', 'good', 'event-hunt', 'live'],
-  ['crow', 'Crow Whispers', 'good', '', 'sim'],
-  ['usurp', 'Usurpation I–IV', 'good', '', 'sim'],
+  ['crow', 'Crow Whispers', 'good', 'event-crow', 'live'],
+  ['usurp', 'Usurpation I–IV', 'good', 'event-usurp', 'live'],
   ['chain', 'Chain Reaction', 'depends', 'event-chain', 'vod'],
   ['execution', 'Execution Efficiency', 'depends', 'event-execution', 'vod'],
 ] as const;
 const SRC = { live: t.srcLive, vod: t.srcVod, sim: t.srcSim };
-const events = EVENTS.map(([id, name, v, artId, src]) => ({
-  id,
-  name,
-  v,
-  art: artId ? A(artId) : null,
-  pop: artId ? A(artId, 'md') : null,
-  src: SRC[src],
-  ...t.inc[id],
-}));
+// Best first by the engine's worth of one "!" (export → incidents); the order above until that export exists.
+const worth = (id: string) => (E.incidents ? (E.incidents[id] ?? -1e9) : 0); // finite: a stable sort
+const events = [...EVENTS]
+  .sort((a, b) => worth(b[0]) - worth(a[0]))
+  .map(([id, name, v, artId, src]) => ({
+    id,
+    name,
+    v,
+    art: artId ? A(artId) : null,
+    pop: artId ? A(artId, 'md') : null,
+    src: SRC[src],
+    ...t.inc[id],
+  }));
 
 // ---- Warden's Treasure: what each one does (live cards, images/89) and the board where it wins ----
 const gifts = [
@@ -217,19 +261,18 @@ const gifts = [
 
 // Embedded for the client script; escape "<" so the JSON can never close the tag.
 const ui = {
-  take: t.take,
   perRun: t.perRun,
-  withHeld: t.withHeld,
-  sim: t.sim,
   remove: t.remove,
   nothing: t.nothing,
   pickHint: t.pickHint,
-  full: t.full,
+  pickSecond: t.pickSecond,
   offered: t.offered,
   withYou: t.withYou,
   partners: t.partners,
   partnersSub: t.partnersSub,
   rankOf: t.rankOf,
+  rankAlone: t.rankAlone,
+  rankPair: t.rankPair,
   doubt: t.doubt,
   tool: t.tool,
 };
@@ -498,6 +541,12 @@ const ladder = [
         </a>{' '}
         <span class="meta">(CoffeeBns)</span>
         <span class="sim-diff">{t.simDiff}</span>
+        <span class="sim-diff">
+          {simOurs}{' '}
+          <a href={ENGINE_URL} target="_blank" rel="noopener noreferrer">
+            {t.simHow}
+          </a>
+        </span>
       </p>
       <div class="held-row">
         <span class="meta">{t.holding}</span>
@@ -509,55 +558,50 @@ const ladder = [
         <p class="meta">{t.pickHint}</p>
       </div>
       <div class="tools" id="tools">
-        {groups.map((g) => (
-          <section class="tier-group" aria-label={`Tier ${g.tier}`} data-group={g.tier} hidden={!g.tools.length}>
-            <h3 class="tier-h">
-              <span class={`tier t${g.tier}`}>{g.tier === 'X' ? '✕' : g.tier}</span>
-              <span class="rule"></span>
+        <div class="tool-head">
+          <span>{t.perRun}</span>
+          <button type="button" class="tier-info" data-tip="tiers" aria-label={t.tipBtn} aria-describedby="pop">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9.5" />
+              <path d="M12 11v6M12 7.5v.5" />
+            </svg>
+          </button>
+        </div>
+        <ol class="tool-list">
+          {tools.map((x, i) => (
+            <li>
               <button
                 type="button"
-                class="tier-info"
-                data-tip="tiers"
-                data-row={g.tier}
-                aria-label={t.tipBtn}
+                class="tool"
+                data-tool={x.id}
+                data-tier={x.tier}
+                data-doubt={x.doubt ? '' : undefined}
                 aria-describedby="pop"
               >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9.5" />
-                  <path d="M12 11v6M12 7.5v.5" />
-                </svg>
-              </button>
-            </h3>
-            <div class="tool-grid">
-              {g.tools.map((x) => (
-                <button
-                  type="button"
-                  class="tool"
-                  data-tool={x.id}
-                  data-tier={x.tier}
-                  data-doubt={x.doubt ? '' : undefined}
-                  aria-describedby="pop"
-                >
+                <span class="rk">{i + 1}</span>
+                <span class="pic">
+                  {x.art ? (
+                    <Art img={x.art} />
+                  ) : (
+                    <span class="noart" aria-hidden="true">
+                      ?
+                    </span>
+                  )}
+                </span>
+                <span class={`tier t${x.tier}`}>{x.tier}</span>
+                <span class="nm">
+                  {x.name}
                   {x.doubt && (
                     <span class="doubt" aria-hidden="true">
                       !
                     </span>
                   )}
-                  <span class="pic">
-                    {x.art ? (
-                      <Art img={x.art} />
-                    ) : (
-                      <span class="noart" aria-hidden="true">
-                        ?
-                      </span>
-                    )}
-                  </span>
-                  <span class="nm">{x.name}</span>
-                </button>
-              ))}
-            </div>
-          </section>
-        ))}
+                </span>
+                <b class="val">{x.value.toFixed(2)}</b>
+              </button>
+            </li>
+          ))}
+        </ol>
       </div>
       <p class="meta">{t.tierMeta}</p>
       <p class="doubt-note">
@@ -659,7 +703,7 @@ const ladder = [
             {c.picks.map((p) => (
               <li>
                 {p.art ? <Art img={p.art} /> : <span class="ph">?</span>}
-                <span class={`tier t${p.tier}`}>{p.tier === 'X' ? '✕' : p.tier}</span>
+                <span class={`tier t${p.tier}`}>{p.tier}</span>
                 <span class="pn">{p.name}</span>
                 <b>{p.v.toFixed(2)}</b>
               </li>
@@ -689,23 +733,24 @@ const ladder = [
       <Fragment set:html={rich(t.tipP)} />
     </p>
     <table class="tip-tiers">
-      {TIERS.map(([tier, min]) => (
+      {/* ./play.ts rewrites the numbers for the list in force: start card, objective, or the pair with what you hold */}
+      {TIERS.map(([tier, share]) => (
         <tr data-row={tier}>
           <td>
             <span class={`tier t${tier}`}>{tier}</span>
           </td>
-          {/* ./play.ts rewrites it for the run's start card and objective (their own no-instrument run) */}
-          <td data-min={min}>
-            ≥{(min * base).toFixed(2)} {t.perRun}
+          <td data-share={share}>
+            {share ? '≥' : '>'}
+            {(base + share * (soloBest - base)).toFixed(2)} {t.perRun}
           </td>
         </tr>
       ))}
-      <tr data-row="X">
+      <tr data-row="E">
         <td>
-          <span class="tier tX">✕</span>
+          <span class="tier tE">E</span>
         </td>
-        <td data-max="1">
-          &lt;{base.toFixed(2)} {t.perRun}
+        <td data-floor>
+          ≤{base.toFixed(2)} {t.perRun}
         </td>
       </tr>
     </table>
