@@ -36,7 +36,9 @@ interface PlayData {
     | 'doubt'
     | 'combo'
     | 'clashV'
-    | 'noCombo',
+    | 'noCombo'
+    | 'findCount'
+    | 'findNone',
     string
   > & {
     tool: Record<string, string>;
@@ -225,6 +227,48 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   const head = grid.querySelector('.tool-head > span');
   const list = grid.querySelector('.tool-list');
 
+  // ---------- search: hides the rows whose name doesn't match; the ranking stays as it is ----------
+  const findEl = document.querySelector<HTMLInputElement>('#toolFind');
+  const findOut = document.getElementById('findOut');
+  /** Lower case, no accents, apostrophes or punctuation: "kins coin" finds "Kin's Coin of Fate". */
+  const norm = (s: string) =>
+    s
+      .normalize('NFD')
+      .replace(/[̀-ͯ'’]/g, '')
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, ' ');
+  /** Every word typed must be in the name, in any order. */
+  const matches = (id: string, words: string[]) => {
+    const name = norm(toolName(id));
+    return words.every((w) => name.includes(w));
+  };
+  function applyFind() {
+    const words = norm(findEl?.value ?? '')
+      .split(' ')
+      .filter(Boolean);
+    let shown = 0,
+      total = 0;
+    for (const b of grid.querySelectorAll<HTMLElement>('.tool')) {
+      const id = b.dataset.tool ?? '',
+        li = b.parentElement;
+      // The first instrument is in Holding; its row leaves the list of candidates for the second.
+      const candidate = id !== S.held[0],
+        hit = candidate && matches(id, words);
+      if (li) li.hidden = !hit;
+      if (candidate) total++;
+      if (hit) shown++;
+    }
+    if (findOut) findOut.textContent = !words.length ? '' : shown ? fmt(T.findCount, { n: shown, total }) : T.findNone;
+  }
+  findEl?.addEventListener('input', applyFind);
+  findEl?.addEventListener('keydown', (e) => {
+    // Esc empties the field in every browser (Chrome does it natively, Firefox doesn't).
+    if (e.key === 'Escape' && findEl.value) {
+      findEl.value = '';
+      applyFind();
+    }
+  });
+
   // A run gives 2 instruments: 1 at the start, 1 from the objective. One list does both picks: before the first,
   // it is ranked alone and a tap takes the start pick; after it, ranked by the pair with it and a tap takes
   // (or swaps) the second.
@@ -241,8 +285,6 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
         badge = b.querySelector('.tier'),
         val = b.querySelector('.val'),
         line = b.querySelector<HTMLElement>('.why');
-      // The first instrument is in Holding; its row leaves the list of candidates for the second.
-      if (li) li.hidden = id === first;
       if (line) {
         const p = first && id !== first ? pairLine(id, first) : null;
         line.hidden = !p;
@@ -258,12 +300,13 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       }
       if (li) list?.append(li);
     }
+    applyFind();
     if (head) head.textContent = first ? T.partnersSub : T.perRun;
     heldEl.innerHTML = S.held.length
       ? S.held
           .map(
             (id) =>
-              `<button type="button" class="chip" data-drop="${esc(id)}" title="${esc(T.remove)}">${esc(toolName(id))} ✕</button>`,
+              `<button type="button" class="chip" data-drop="${esc(id)}" title="${esc(T.remove)}">${chipImg(id)}${esc(toolName(id))} ✕</button>`,
           )
           .join('')
       : `<span class="meta">${esc(T.nothing)}</span>`;
@@ -283,6 +326,13 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   const toolImg = (id: string) => {
     const img = grid.querySelector<HTMLImageElement>(`[data-tool="${CSS.escape(id)}"] img`);
     return img ? img.currentSrc || img.src : '';
+  };
+  /** The held instrument's art in its Holding chip (decorative: the name follows). */
+  const chipImg = (id: string) => {
+    const src = toolImg(id);
+    return src
+      ? `<img src="${esc(src)}" alt="" width="22" height="22">`
+      : '<span class="ph" aria-hidden="true">?</span>';
   };
   /** Pairs as a list, best first: partner art, its own tier, name, Rainbows per run with both. */
   const pairList = (rows: [string, number | null][]) =>

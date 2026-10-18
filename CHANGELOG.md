@@ -6,6 +6,14 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: a search field above the instrument list — type part of a name ("mammoth", "kins coin") and only those rows stay, still ranked; Esc brings the whole list back.
+
+### Changed
+
+- SS14 play sheet: what you hold and what to tap next now share one box above the instrument list, and each held instrument shows its art next to its name.
+
 ## [1.11.0] - 2026-10-18
 
 ### Added

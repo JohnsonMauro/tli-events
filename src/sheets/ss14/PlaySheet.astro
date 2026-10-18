@@ -248,6 +248,8 @@ const ui = {
   combo: t.combo,
   clashV: t.clashV,
   noCombo: t.noCombo,
+  findCount: t.findCount,
+  findNone: t.findNone,
   link: t.link,
   clashWhy: t.clashWhy,
 };
@@ -489,17 +491,36 @@ const ladder = [
           </a>
         </span>
       </p>
-      <div class="held-row">
-        <span class="meta">{t.holding}</span>
-        <span id="held">
-          <span class="meta">{t.nothing}</span>
-        </span>
-      </div>
-      <div id="pickOut" class="pick-out">
-        <p class="meta">{t.pickHint}</p>
+      {/* one box: what you hold and what to tap next go together */}
+      <div class="pick-box">
+        <div class="held-row">
+          <span class="meta">{t.holding}</span>
+          <span id="held">
+            <span class="meta">{t.nothing}</span>
+          </span>
+        </div>
+        <div id="pickOut" class="pick-out">
+          <p class="meta">{t.pickHint}</p>
+        </div>
       </div>
       <div class="tools" id="tools">
         <div class="tool-head">
+          {/* narrows the list by name (./play.ts); the names are the English client's, in every language */}
+          <search class="find">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m15.5 15.5 5 5" />
+            </svg>
+            <input
+              type="search"
+              id="toolFind"
+              aria-label={t.find}
+              placeholder={t.find}
+              aria-controls="toolList"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </search>
           <span>{t.perRun}</span>
           <button type="button" class="tier-info" data-tip="tiers" aria-label={t.tipBtn} aria-describedby="pop">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -508,7 +529,8 @@ const ladder = [
             </svg>
           </button>
         </div>
-        <ol class="tool-list">
+        <p id="findOut" class="find-out" role="status"></p>
+        <ol class="tool-list" id="toolList">
           {tools.map((x) => (
             <li>
               <button

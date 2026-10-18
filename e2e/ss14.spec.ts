@@ -160,7 +160,8 @@ for (const [width, height, lang, holding] of [
   });
 }
 
-test('instrument pick: what you hold sits above the hint', async ({ page }) => {
+// What you hold and what to tap next help each other: one box, holding first (owner, 2026-10-18).
+test('instrument pick: what you hold sits above the hint, in the same box', async ({ page }) => {
   await page.goto(SHEET);
   const order = await page.evaluate(() => {
     const held = document.querySelector('.held-row');
@@ -168,7 +169,63 @@ test('instrument pick: what you hold sits above the hint', async ({ page }) => {
     return held && out ? held.compareDocumentPosition(out) & Node.DOCUMENT_POSITION_FOLLOWING : 0;
   });
   expect(order).toBeTruthy();
+  await expect(page.locator('.pick-box .held-row')).toHaveCount(1);
+  await expect(page.locator('.pick-box #pickOut')).toHaveCount(1);
 });
+
+test('instrument pick: the Holding chip shows the instrument art left of its name', async ({ page }) => {
+  await page.goto(SHEET);
+  await page.locator('#tools .tool[data-tool="rope"]').click();
+  const chip = page.locator('#held .chip');
+  await expect(chip.locator('img')).toHaveAttribute('alt', '');
+  expect(await chip.locator('img').getAttribute('src')).toBeTruthy();
+  await expect(chip).toHaveAccessibleName(/^Hangman's Noose/);
+  const [img, chipBox] = [await chip.locator('img').boundingBox(), await chip.boundingBox()];
+  expect(img && chipBox && img.x - chipBox.x).toBeLessThan(6);
+});
+
+// The search narrows the list by name (owner, 2026-10-18): case, apostrophes and word order don't matter, the
+// ranking stays, the row held as the first never comes back, and the result is announced (role="status").
+test('instrument search: narrows the list by name, Esc brings every row back', async ({ page }) => {
+  await page.goto(SHEET);
+  const find = page.getByRole('searchbox', { name: 'Search instruments' });
+  const shown = () =>
+    page.locator('#tools li:not([hidden]) .tool').evaluateAll((b: HTMLElement[]) => b.map((x) => x.dataset.tool));
+  const all = await shown();
+  await expect(page.locator('#findOut')).toHaveAttribute('role', 'status');
+  await expect(page.locator('#findOut')).toHaveText('');
+
+  await find.fill('MAMMOTH');
+  expect((await shown()).sort()).toEqual(['maul', 'tongs']);
+  await expect(page.locator('#findOut')).toHaveText(`Showing 2 of ${all.length}`);
+  await find.fill('coin kins');
+  expect(await shown()).toEqual(['coin']);
+  await find.fill('zzz');
+  expect(await shown()).toEqual([]);
+  await expect(page.locator('#findOut')).toHaveText('No instrument by that name.');
+  await find.press('Escape');
+  await expect(find).toHaveValue('');
+  expect(await shown()).toEqual(all);
+  await expect(page.locator('#findOut')).toHaveText('');
+
+  // A pick re-renders the list and keeps the search; the held one stays out of it.
+  await find.fill('noose');
+  await page.locator('#tools .tool[data-tool="rope"]').click();
+  await expect(page.locator('#held .chip')).toHaveText(/Hangman's Noose/);
+  expect(await shown()).toEqual([]);
+  await expect(page.locator('#findOut')).toHaveText('No instrument by that name.');
+});
+
+// The search row sits centered between the hint above and the list below (owner, 2026-10-18).
+for (const width of [1440, 390]) {
+  test(`instrument search: centered between the hint and the list (${width}px)`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(SHEET);
+    const box = (s: string) => page.locator(s).evaluate((el) => el.getBoundingClientRect().toJSON() as DOMRect);
+    const [hint, head, list] = [await box('.pick-box'), await box('.tool-head'), await box('.tool-list')];
+    expect(Math.abs(head.top - hint.bottom - (list.top - head.bottom))).toBeLessThanOrEqual(1);
+  });
+}
 
 // A run holds 2 instruments: a tap on a row takes it as the second; a tap on another replaces it, never a third.
 test('instrument pick: a tap takes the second instrument, another tap swaps it', async ({ page }) => {

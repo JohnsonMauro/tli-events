@@ -443,18 +443,19 @@ main.wide {
   font-size: 14px;
   color: var(--ink2);
 }
-/* instrument pick */
-.pick-out {
-  min-height: 58px;
-}
-/* how to use the pick: a callout, not loose text */
-.pick-out > .meta {
-  margin: 0;
+/* instrument pick — what you hold and what to tap next: one callout, not loose text */
+.pick-box {
+  display: grid;
+  gap: 6px;
+  margin: 6px 0 0;
   padding: 8px 10px;
   border: 1px dashed var(--accent);
   border-left: 4px solid var(--accent);
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--accent) 8%, var(--surface2));
+}
+.pick-out > .meta {
+  margin: 0;
   font: 600 13px/1.4 var(--sans);
   color: var(--ink);
 }
@@ -463,16 +464,13 @@ main.wide {
   flex-wrap: wrap;
   gap: 6px;
   align-items: center;
-  margin: 6px 0 8px;
-  padding: 6px 8px;
-  border-radius: var(--radius);
-  background: var(--surface2);
 }
 .held-row > .meta {
   font: 700 11px var(--sans);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  /* toward --ink: plain --accent is 4.43:1 on the box's tint in the light theme */
+  color: color-mix(in srgb, var(--accent) 75%, var(--ink));
 }
 #held > .meta {
   font: italic 13px var(--sans);
@@ -498,28 +496,100 @@ main.wide {
   gap: 4px;
 }
 .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font: 600 12px var(--sans);
   background: var(--surface2);
   color: var(--ink);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 2px 8px;
+  border-radius: 14px;
+  padding: 2px 8px 2px 2px;
   cursor: pointer;
 }
+/* the instrument's art, left of its name */
+.chip img,
+.chip .ph {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.chip .ph {
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--ink2);
+}
 .tools {
-  margin: 6px 0;
+  margin: 0 0 6px;
 }
 /* one ranked list, best first: rank · art · tier · name · Rainbows per run */
 .tool-head {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
   gap: 6px;
-  margin: 0 0 4px;
+  /* the same gap above (to the hint) and below (to the list) */
+  margin: 10px 0;
   font: 600 11px var(--mono);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--ink2);
+}
+/* search: left of the column label; on a narrow pane it takes its own line above it */
+.find {
+  position: relative;
+  flex: 1 1 13rem;
+  min-width: 0;
+  margin-right: auto;
+}
+.find svg {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  translate: 0 -50%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+.find input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 31px;
+  padding: 0 8px 0 28px;
+  /* --ink2, not --line: a field's edge needs 3:1 against the pane (WCAG 1.4.11) */
+  border: 1px solid var(--ink2);
+  border-radius: var(--radius);
+  background: var(--surface2);
+  color: var(--ink);
+  /* 16px: iOS zooms the page into any smaller field */
+  font: 16px var(--sans);
+  text-transform: none;
+  letter-spacing: normal;
+}
+.find input::placeholder {
+  color: var(--ink2);
+  opacity: 1;
+}
+.find input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+.find-out {
+  margin: 0 0 4px;
+  font: 600 13px var(--sans);
+  color: var(--ink2);
+}
+.find-out:empty {
+  margin: 0;
 }
 .tool-list {
   list-style: none;

@@ -88,6 +88,9 @@ const en = {
   holding: 'holding:',
   nothing: 'nothing yet',
   perRun: 'Rainbows per run',
+  find: 'Search instruments',
+  findCount: 'Showing {n} of {total}',
+  findNone: 'No instrument by that name.',
   remove: 'remove',
   tierMeta:
     'Tier = how close the instrument comes to the best one in the list (S = the top); once you hold one, how close the pair comes to the best pair. Hover (or tap) a row for what it does and the best second one. Crown and Maul almost never show up live.',
@@ -315,6 +318,9 @@ const ptbr: Dict = {
   holding: 'com você:',
   nothing: 'nada ainda',
   perRun: 'Rainbows por run',
+  find: 'Buscar instrumento',
+  findCount: 'Mostrando {n} de {total}',
+  findNone: 'Nenhum instrumento com esse nome.',
   remove: 'remover',
   tierMeta:
     'Tier = o quanto o instrumento chega perto do melhor da lista (S = o topo); com um na mão, o quanto o par chega perto do melhor par. Passe o mouse (ou toque) numa linha para ver o que faz e o melhor segundo. Crown e Maul quase nunca aparecem ao vivo.',
@@ -614,6 +620,9 @@ const ko: Dict = {
   holding: '보유:',
   nothing: '아직 없음',
   perRun: '판당 Rainbow',
+  find: '도구 검색',
+  findCount: '{total}개 중 {n}개 표시',
+  findNone: '그런 이름의 도구는 없습니다.',
   remove: '제거',
   tierMeta:
     '티어 = 목록에서 최고 도구에 얼마나 가까운지 (S = 최상위); 도구를 하나 가지면 최고 조합에 얼마나 가까운지. 줄에 마우스를 올리거나 탭하면 효과와 최고의 두 번째 도구 표시. Crown과 Maul은 실전에서 거의 안 나옴.',
@@ -899,6 +908,9 @@ const ja: Dict = {
   holding: '所持：',
   nothing: 'まだなし',
   perRun: '1回あたりRainbow',
+  find: '拷問具を検索',
+  findCount: '{total}個中{n}個を表示',
+  findNone: 'その名前の拷問具はありません。',
   remove: '外す',
   tierMeta:
     'ティア = リスト内の最上位の刑具にどれだけ近いか（S = 最上位）；1つ持つと、最高のペアにどれだけ近いか。行にホバー（またはタップ）で効果と最高の2つ目。CrownとMaulは実戦ではほぼ出ない。',
@@ -1182,6 +1194,9 @@ const zh: Dict = {
   holding: '已有：',
   nothing: '暂无',
   perRun: '每局Rainbow',
+  find: '搜索刑具',
+  findCount: '显示{n}个，共{total}个',
+  findNone: '没有叫这个名字的刑具。',
   remove: '移除',
   tierMeta:
     '档位 = 与列表中最好的刑具有多接近（S = 最高）；持有一个后，与最佳组合有多接近。悬停（或点按）一行查看效果和最佳第二个。Crown和Maul实战中几乎不出现。',
@@ -1459,6 +1474,9 @@ const ru: Dict = {
   holding: 'у вас:',
   nothing: 'пока ничего',
   perRun: 'Rainbow за забег',
+  find: 'Найти инструмент',
+  findCount: 'Показано {n} из {total}',
+  findNone: 'Инструмента с таким названием нет.',
   remove: 'убрать',
   tierMeta:
     'Ранг = насколько инструмент близок к лучшему в списке (S — вершина); когда один уже взят — насколько пара близка к лучшей паре. Наведите (или нажмите) на строку, чтобы увидеть эффект и лучший второй. Crown и Maul вживую почти не встречаются.',
@@ -1756,6 +1774,9 @@ const de: Dict = {
   holding: 'im Besitz:',
   nothing: 'noch nichts',
   perRun: 'Rainbows pro Run',
+  find: 'Instrument suchen',
+  findCount: '{n} von {total} angezeigt',
+  findNone: 'Kein Instrument mit diesem Namen.',
   remove: 'entfernen',
   tierMeta:
     'Stufe = wie nah das Instrument an das beste der Liste herankommt (S = die Spitze); hältst du eins, wie nah das Paar an das beste Paar herankommt. Hover (oder tippen) auf eine Zeile zeigt den Effekt und das beste zweite. Crown und Maul tauchen live fast nie auf.',
@@ -2057,6 +2078,9 @@ const fr: Dict = {
   holding: 'en main :',
   nothing: "rien pour l'instant",
   perRun: 'Rainbows par run',
+  find: 'Chercher un instrument',
+  findCount: '{n} sur {total} affichés',
+  findNone: 'Aucun instrument de ce nom.',
   remove: 'retirer',
   tierMeta:
     "Tier = à quel point l'instrument approche le meilleur de la liste (S = le sommet) ; une fois l'un en main, à quel point la paire approche la meilleure paire. Survolez (ou touchez) une ligne pour voir ce qu'elle fait et le meilleur second. Crown et Maul ne sortent presque jamais en direct.",
@@ -2365,6 +2389,9 @@ const pl: Dict = {
   holding: 'masz:',
   nothing: 'jeszcze nic',
   perRun: 'Rainbowy na run',
+  find: 'Szukaj instrumentu',
+  findCount: 'Widoczne: {n} z {total}',
+  findNone: 'Brak instrumentu o tej nazwie.',
   remove: 'usuń',
   tierMeta:
     'Tier = jak blisko instrument jest najlepszego z listy (S = szczyt); gdy już jakiś masz, jak blisko para jest najlepszej pary. Najedź (lub stuknij) na wiersz, by zobaczyć, co robi, i najlepszy drugi. Crown i Maul prawie nigdy nie pojawiają się na żywo.',
@@ -2664,6 +2691,9 @@ const sv: Dict = {
   holding: 'du har:',
   nothing: 'inget än',
   perRun: 'Rainbows per run',
+  find: 'Sök instrument',
+  findCount: 'Visar {n} av {total}',
+  findNone: 'Inget instrument med det namnet.',
   remove: 'ta bort',
   tierMeta:
     'Tier = hur nära instrumentet kommer det bästa i listan (S = toppen); när du har ett, hur nära paret kommer det bästa paret. Hovra (eller tryck) på en rad för vad det gör och det bästa andra. Crown och Maul dyker nästan aldrig upp live.',
@@ -2964,6 +2994,9 @@ const es: Dict = {
   holding: 'en mano:',
   nothing: 'nada aún',
   perRun: 'Rainbows por run',
+  find: 'Buscar instrumento',
+  findCount: 'Mostrando {n} de {total}',
+  findNone: 'Ningún instrumento con ese nombre.',
   remove: 'quitar',
   tierMeta:
     'Tier = cuánto se acerca el instrumento al mejor de la lista (S = el máximo); con uno en mano, cuánto se acerca el par al mejor par. Pasa el cursor (o toca) por una fila para ver qué hace y el mejor segundo. Crown y Maul casi nunca aparecen en vivo.',
