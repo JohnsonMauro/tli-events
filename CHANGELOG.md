@@ -6,6 +6,30 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: **Your run** at the top of "How to win" — mark the start card (Cage Fight, Iron Law, Tyranny; they come from Viktor, a map boss) and the objective, and the instrument ranking re-sorts for them. Mode and Compass notes moved there from the right column.
+- SS14 play sheet: the date of the last simulation above the instrument ranking.
+- SS14 play sheet: the **Extra Portion** incident (up to 3 random inmates +1), seen on the live client.
+- SS14 play sheet: game art for Cage Fight, and a summary for Filthy Claws.
+
+### Changed
+
+- SS14 play sheet: **every number now comes from our own simulator**, which follows the live cards (incidents refill, Extra Portion, Oppress, Skewer +2, Maiden after a Replace, the Tusk staying, and more) — the tiers, pairs and recommendations change accordingly.
+- SS14 play sheet: "!" now marks instruments whose rule isn't fully confirmed in the game yet (cut or unseen card).
+- SS14 play sheet: the instrument pick stops at 2 held instruments, the most a run gives (1 at the start, 1 from the objective).
+- SS14 play sheet: each Warden's Treasure shows what it does (from the live cards) next to when to take it.
+- SS14 play sheet: step 4 points to the instrument ranking instead of naming three instruments; the pick's instructions, what you hold and the tier note stand out.
+- SS14 play sheet: Agonizing Muzzle reads ≤3 inmates and Barbed Collar every chain bite, as their cards say.
+
+### Removed
+
+- SS14 play sheet: the link to the community Tartarus Simulator — its rules and numbers lag the live game.
+
+### Fixed
+
+- SS14 play sheet: Severed Iron Maiden is no longer marked "!" — its full live card confirms it fires after a Replace, as the sheet already said.
+
 ## [1.2.0] - 2026-10-17
 
 ### Added

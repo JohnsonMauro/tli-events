@@ -59,6 +59,7 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `event-shared` | Shared Fortune | [59_live_incident_shared_fortune.webp](../images/59_live_incident_shared_fortune.webp) | 240,128 1118×1118 |
 | `event-hunt` | "Treasure" Hunt | [60_live_incident_treasure_hunt.webp](../images/60_live_incident_treasure_hunt.webp) | 240,128 1118×1118 |
 | `event-freedom` | Taste of Freedom | [61_live_incident_taste_of_freedom.webp](../images/61_live_incident_taste_of_freedom.webp) | 240,128 1118×1118 |
+| `event-portion` | Extra Portion | [93_live_incident_extra_portion.webp](../images/93_live_incident_extra_portion.webp) | 240,128 1118×1118 |
 | `event-ratway` | Sewer Ratway | [62_live_incident_sewer_ratway.webp](../images/62_live_incident_sewer_ratway.webp) | 240,128 1118×1118 |
 | `event-convict` | High-Risk Convict (same art as Taste of Freedom) | [64_live_incident_high_risk_convict.webp](../images/64_live_incident_high_risk_convict.webp) | 240,128 1118×1118 |
 | `event-appetite` | Ravenous Appetite | [68_live_incident_ravenous_appetite.webp](../images/68_live_incident_ravenous_appetite.webp) | 240,128 1118×1118 |
@@ -69,3 +70,4 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `compass-2` | Mercury Shackles compass | [42_live_entry_mode_compass.webp](../images/42_live_entry_mode_compass.webp) | 2031,260 144×213 |
 | `compass-3` | Redgold Shackles compass | [42_live_entry_mode_compass.webp](../images/42_live_entry_mode_compass.webp) | 2197,260 144×213 |
 | `card-ironlaw` | Iron Law | [46_live_start_card_iron_law.webp](../images/46_live_start_card_iron_law.webp) | 1174,208 199×199 |
+| `card-cagefight` | Cage Fight | [95_live_start_card_cage_fight.webp](../images/95_live_start_card_cage_fight.webp) | 271,58 145×145 |

@@ -9,10 +9,11 @@ import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
 import { DICT } from './i18n';
 import { DOUBT } from './tool-text';
 import { ISSUES_URL } from '../../lib/project';
+// Live odds only (offer counts measured by the community analyzer, frozen at 2026-10-16).
 import data from '../../../events/SS14_Tartarus/data/tartarus_data.json';
+// Every number on the sheet: our own engine (events/SS14_Tartarus/engine, `tartarus export`).
+import engine from '../../../events/SS14_Tartarus/data/engine_results.json';
 import credits from '../../../events/SS14_Tartarus/credits.json';
-// CoffeeBns' Tartarus simulator: the source of the tier values, and where players can practice.
-const SIMULATOR_URL = 'https://blahdot3h.github.io/tartarus-simulator/';
 // The r/TorchlightInfinite thread where the play sheet is discussed: the other place to send prints and numbers.
 const REDDIT_URL = 'https://www.reddit.com/r/TorchlightInfinite/comments/1x839x1/comment/pha1kgm/';
 import './play.css';
@@ -33,9 +34,24 @@ const A = artSet(
   import.meta.glob<{ default: ImageMetadata }>('../../../events/SS14_Tartarus/art/*.webp', { eager: true }),
 );
 
-// ---- instruments: sim value → tier (vs. a run with no instrument), grouped by tier ----
+// ---- instruments: our value → tier (vs. a run with no instrument), grouped by tier ----
 type ToolId = keyof typeof t.tool;
-const base = data.baseNoTools;
+type Pair = [string, string, number];
+type Values = Record<string, number>;
+interface Engine {
+  base: number;
+  tools: Record<string, { name: string; value: number }>;
+  pairs: Pair[];
+  // Per start card (rules change) and per objective (rewards on); absent before the first full export.
+  byStart?: Record<string, { base: number; tools: Values; pairs: Pair[] }>;
+  byObjective?: Record<string, { base: number; tools: Values }>;
+}
+const E = engine as unknown as Engine;
+const base = E.base;
+// When our engine last ran (`tartarus export` → `generated`, YYYY-MM-DD), in the page's language.
+const simDate = new Intl.DateTimeFormat(hreflang(lang), { dateStyle: 'medium', timeZone: 'UTC' }).format(
+  new Date((engine as { generated: string }).generated + 'T00:00:00Z'),
+);
 const TIERS = [
   ['S', 2.6],
   ['A', 1.9],
@@ -44,14 +60,12 @@ const TIERS = [
   ['D', 1],
 ] as const;
 const tierOf = (v: number) => TIERS.find(([, min]) => v / base >= min)?.[0] ?? 'X';
-// A tool the simulator lists without a solo value (new, not simulated yet) has no `value` at all: kept off the grid.
-const tools = Object.entries(data.tools as Record<string, { name: string; value?: number | null }>)
-  .filter(([, x]) => x.value != null)
-  .sort((a, b) => (b[1].value as number) - (a[1].value as number))
+const tools = Object.entries(E.tools)
+  .sort((a, b) => b[1].value - a[1].value)
   .map(([id, x]) => ({
     id,
     name: x.name,
-    tier: tierOf(x.value as number),
+    tier: tierOf(x.value),
     art: A('tool-' + id, 'lg'),
     doubt: DOUBT.has(id),
   }));
@@ -59,26 +73,42 @@ const groups = [
   ...TIERS.map(([tier, min]) => ({ tier, note: `≥${min.toFixed(1)}×` })),
   { tier: 'X', note: `<1× · ${t.tierWorse}` },
 ]
-  .map((g) => ({ ...g, tools: tools.filter((x) => x.tier === g.tier) }))
-  .filter((g) => g.tools.length);
+  // Every group is rendered (empty ones hidden): ./play.ts moves the tiles when the run's choices change.
+  .map((g) => ({ ...g, tools: tools.filter((x) => x.tier === g.tier) }));
 
-// ---- exceptions to "same rarity only" (instrument/card texts in data/tartarus_data.json and images/INDEX.md) ----
+// ---- your run: start card (from Viktor, changes the rules) and objective; the numbers follow ----
+const STARTS = [
+  ['', t.runNone, null],
+  ['cagefight', 'Cage Fight', A('card-cagefight')],
+  ['ironlaw', 'Iron Law', A('card-ironlaw')],
+  ['tyranny', 'Tyranny', null],
+] as const;
+const OBJECTIVES = [
+  ['', t.runAny],
+  ['king', 'King of the Caged'],
+  ['walk', 'Prison Walk'],
+  ['consume', 'Survival of the Fittest'],
+  ['undercurrents', 'Undercurrents'],
+  ['doors', 'Behind Cell Doors'],
+] as const;
+
+// ---- exceptions to "same rarity only" (card texts in images/INDEX.md) ----
 const exceptions = [
   ['tool-guillotine', 'Fanged Guillotine: Alpha Wolf', t.exGuillotine],
   ['tool-maul', 'Elephant-Foot Maul: Mammoth', t.exMaul],
-  ['', 'Cage Fight', t.exCage],
+  ['card-cagefight', 'Cage Fight', t.exCage],
   ['tool-crown', 'Iron Crown of the Prison King: Berserk Lion', t.exCrown],
   ['tool-skewer', 'Skewered Rat Heads: Colossal Rat', t.exSkewer],
 ].map(([id, name, text]) => ({ name, text, art: id ? A(id) : null }));
 
-// ---- strong pairs that actually show up: sim pair value, both instruments offered in ≥3% of live offers ----
+// ---- strong pairs that actually show up: our pair value, both instruments offered in ≥3% of live offers ----
 const offers =
   (data.live as { toolOffers?: { n: number; counts: Record<string, number> } } | undefined)?.toolOffers ?? null;
 const offerRate = (id: string) => (offers && offers.n ? (offers.counts[id] ?? 0) / offers.n : null);
 const SHOWS_UP = 0.03;
 // Full card names: the part after ":" names the beast a beast-specific instrument works for.
-const short = (id: string) => (data.tools as Record<string, { name: string }>)[id]?.name ?? id;
-const builds = (data.pairs as [string, string, number][])
+const short = (id: string) => E.tools[id]?.name ?? id;
+const builds = E.pairs
   .slice()
   .sort((x, y) => y[2] - x[2])
   .filter(([a, b]) =>
@@ -107,6 +137,7 @@ const EVENTS = [
   ['appetite', 'Ravenous Appetite', 'good', 'event-appetite', 'live'],
   ['shared', 'Shared Fortune', 'good', 'event-shared', 'live'],
   ['freedom', 'Taste of Freedom', 'good', 'event-freedom', 'live'],
+  ['portion', 'Extra Portion', 'good', 'event-portion', 'live'],
   ['ratway', 'Sewer Ratway', 'good', 'event-ratway', 'live'],
   ['hunt', '"Treasure" Hunt', 'good', 'event-hunt', 'live'],
   ['crow', 'Crow Whispers', 'good', '', 'sim'],
@@ -125,13 +156,13 @@ const events = EVENTS.map(([id, name, v, artId, src]) => ({
   ...t.inc[id],
 }));
 
-// ---- Warden's Treasure: what the board looks like when each one wins ----
+// ---- Warden's Treasure: what each one does (live cards, images/89) and the board where it wins ----
 const gifts = [
-  ['horn', 'Brass Horn of Strife', t.gHorn],
-  ['ring', 'Three-Headed Thumb Ring', t.gRing],
-  ['wine', 'Crimson Vintage', t.gWine],
-  ['brand', 'Brand of Original Sin', t.gBrand],
-].map(([id, name, when]) => ({ name, when, art: A('gift-' + id) }));
+  ['horn', 'Brass Horn of Strife', t.gHornDo, t.gHorn],
+  ['ring', 'Three-Headed Thumb Ring', t.gRingDo, t.gRing],
+  ['wine', 'Crimson Vintage', t.gWineDo, t.gWine],
+  ['brand', 'Brand of Original Sin', t.gBrandDo, t.gBrand],
+].map(([id, name, does, when]) => ({ name, does, when, art: A('gift-' + id) }));
 
 // Embedded for the client script; escape "<" so the JSON can never close the tag.
 const ui = {
@@ -143,15 +174,24 @@ const ui = {
   remove: t.remove,
   nothing: t.nothing,
   pickHint: t.pickHint,
+  full: t.full,
   xNone: t.xNone,
   offered: t.offered,
-  card: t.card,
   withYou: t.withYou,
   partners: t.partners,
   doubt: t.doubt,
   tool: t.tool,
 };
-const json = JSON.stringify({ tools: data.tools, pairs: data.pairs, base, offers, ui }).replace(/</g, '\\u003c');
+const json = JSON.stringify({
+  tools: E.tools,
+  pairs: E.pairs,
+  base,
+  byStart: E.byStart ?? {},
+  byObjective: E.byObjective ?? {},
+  tiers: TIERS,
+  offers,
+  ui,
+}).replace(/</g, '\\u003c');
 const ladder = [
   ['act-consume', t.l1b, t.l1e, ''],
   ['incident', t.l2b, t.l2e, 'tall'],
@@ -177,6 +217,39 @@ const ladder = [
       <h2 class="pane-h" id="pat-h">
         {t.howToWin}
       </h2>
+      <div class="run" id="run">
+        <h3 class="run-h">{t.runH}</h3>
+        <p class="meta">{t.runHint}</p>
+        <div class="run-row" role="group" aria-label={t.runStart}>
+          <span class="run-l">{t.runStart}</span>
+          {STARTS.map(([id, name, art]) => (
+            <button type="button" class="opt" data-start={id} aria-pressed={id === '' ? 'true' : 'false'}>
+              {art && <Art img={art} class="inl" />}
+              {name}
+            </button>
+          ))}
+        </div>
+        <p class="meta run-note">{t.viktor}</p>
+        <div class="run-row" role="group" aria-label={t.runObjective}>
+          <span class="run-l">{t.runObjective}</span>
+          {OBJECTIVES.map(([id, name]) => (
+            <button type="button" class="opt" data-objective={id} aria-pressed={id === '' ? 'true' : 'false'}>
+              {name}
+            </button>
+          ))}
+        </div>
+        <ul class="run-facts">
+          <li>
+            <b>Regular Sentence</b> <span class="meta">{t.regularTag}</span> — {t.regularP}
+          </li>
+          <li>
+            <Art img={A('compass-3')} class="inl" /> <b>{t.compassB}</b> — {t.compassP}
+          </li>
+          <li>
+            <b>Iron Law</b> — {t.ironlawP}
+          </li>
+        </ul>
+      </div>
       <ol class="pat" style={`--step:${JSON.stringify(t.step)}`}>
         <li>
           <div class="pat-art">
@@ -231,19 +304,11 @@ const ladder = [
             <p set:html={rich(t.s3p)} />
           </div>
         </li>
-        <li>
-          <div class="pat-art">
-            <Art img={A('tool-rope', 'md')} />
-          </div>
-          <div>
+        <li class="wide-li">
+          <div class="pat-head">
             <b>{t.s4t}</b>
-            <p>{t.s4p}</p>
-            <ul class="rules-mini">
-              <li set:html={rich(t.s4coin)} />
-              <li set:html={rich(t.s4rope)} />
-              <li set:html={rich(t.s4saw)} />
-            </ul>
           </div>
+          <p set:html={rich(fmt(t.s4p, { pick: t.pickH }))} />
         </li>
         <li class="wide-li">
           <div class="pat-head">
@@ -316,6 +381,7 @@ const ladder = [
       <h2 class="pane-h" id="tool-h">
         {t.pickH}
       </h2>
+      <p class="sim-date">{fmt(t.simDate, { date: simDate })}</p>
       <div id="pickOut" class="pick-out">
         <p class="meta">{t.pickHint}</p>
       </div>
@@ -327,7 +393,7 @@ const ladder = [
       </div>
       <div class="tools" id="tools">
         {groups.map((g) => (
-          <section class="tier-group" aria-label={`Tier ${g.tier}`}>
+          <section class="tier-group" aria-label={`Tier ${g.tier}`} data-group={g.tier} hidden={!g.tools.length}>
             <h3 class="tier-h">
               <span class={`tier t${g.tier}`}>{g.tier === 'X' ? '✕' : g.tier}</span>
               <span class="rule"></span>
@@ -377,7 +443,9 @@ const ladder = [
           </section>
         ))}
       </div>
-      <p class="meta">{fmt(t.tierMeta, { base: base.toFixed(2) })}</p>
+      <p class="meta" id="tierMeta" data-tpl={t.tierMeta}>
+        {fmt(t.tierMeta, { base: base.toFixed(2) })}
+      </p>
       <p class="doubt-note">
         <span class="doubt" aria-hidden="true">
           !
@@ -393,23 +461,19 @@ const ladder = [
           </a>
         </span>
       </p>
-      <p class="sim-cta">
-        {t.simCta}{' '}
-        <a href={SIMULATOR_URL} target="_blank" rel="noopener noreferrer">
-          Tartarus Simulator
-        </a>{' '}
-        <span class="meta">(CoffeeBns)</span>
-      </p>
     </section>
 
-    <aside class="pane side" aria-label={`${t.treasureH} · ${t.incH} · ${t.startH}`}>
+    <aside class="pane side" aria-label={`${t.treasureH} · ${t.incH}`}>
       <h2 class="pane-h">{t.treasureH}</h2>
-      <ul class="list">
+      <ul class="list gifts">
         {gifts.map((g) => (
           <li>
             <Art img={g.art} class="ic" />
             <b>{g.name}</b>
-            <span>{g.when}</span>
+            <span class="does">{g.does}</span>
+            <span>
+              <em>{t.gWhen}</em> {g.when}
+            </span>
           </li>
         ))}
       </ul>
@@ -452,25 +516,6 @@ const ladder = [
             </template>
           </li>
         ))}
-      </ul>
-      <h2 class="pane-h">{t.startH}</h2>
-      <ul class="list">
-        <li class="noart">
-          <b>
-            Regular Sentence <strong>{t.regularTag}</strong>
-          </b>
-          <span>{t.regularP}</span>
-        </li>
-        <li>
-          <Art img={A('compass-3')} class="ic" />
-          <b>{t.compassB}</b>
-          <span>{t.compassP}</span>
-        </li>
-        <li>
-          <Art img={A('card-ironlaw')} class="ic" />
-          <b>Iron Law</b>
-          <span>{t.ironlawP}</span>
-        </li>
       </ul>
     </aside>
   </div>

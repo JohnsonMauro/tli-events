@@ -44,6 +44,96 @@ main.wide {
   vertical-align: -0.15em;
 }
 
+/* when our engine last ran: above the instrument ranking */
+.sim-date {
+  display: inline-block;
+  margin: 0 0 6px;
+  padding: 3px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  color: var(--ink);
+  font: 700 12px var(--sans);
+  letter-spacing: 0.02em;
+}
+
+/* your run: start card and objective, the numbers follow (./play.ts) */
+.run {
+  margin: 0 0 12px;
+  padding: 8px 10px 10px;
+  border-radius: var(--radius);
+  background: var(--surface2);
+}
+.run-h {
+  margin: 0;
+  font: 600 13px var(--sans);
+  color: var(--ink2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.run .meta {
+  margin: 2px 0 6px;
+}
+.run-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+.run-l {
+  flex: 0 0 100%;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 28px;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink2);
+  font: 600 12px var(--sans);
+  cursor: pointer;
+}
+.opt:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.opt[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+  color: var(--ink);
+}
+.opt:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.run .run-note {
+  margin: 4px 0 0;
+}
+.run-facts {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 6px 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--ink2);
+}
+.run-facts b {
+  color: var(--ink);
+}
+.run-facts .meta {
+  font: inherit;
+  color: var(--warn);
+}
+
 /* patterns */
 .pat {
   list-style: none;
@@ -332,6 +422,17 @@ main.wide {
 .pick-out {
   min-height: 58px;
 }
+/* how to use the pick: a callout, not loose text */
+.pick-out > .meta {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px dashed var(--accent);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface2));
+  font: 600 13px/1.4 var(--sans);
+  color: var(--ink);
+}
 .pick {
   display: flex;
   gap: 8px;
@@ -372,7 +473,34 @@ main.wide {
   flex-wrap: wrap;
   gap: 6px;
   align-items: center;
-  margin: 4px 0 6px;
+  margin: 6px 0 8px;
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  background: var(--surface2);
+}
+.held-row > .meta {
+  font: 700 11px var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+#held > .meta {
+  font: italic 13px var(--sans);
+}
+/* what a tier means: an info note under the grid */
+#tierMeta {
+  margin: 8px 0 0;
+  padding: 6px 8px 6px 10px;
+  border-left: 3px solid var(--line);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--surface2);
+  font: 13px/1.4 var(--sans);
+  color: var(--ink2);
+}
+#tierMeta::before {
+  content: 'ⓘ ';
+  color: var(--accent);
+  font-weight: 700;
 }
 #held {
   display: flex;
@@ -719,6 +847,18 @@ main.wide {
   font-size: 13px;
   color: var(--ink2);
 }
+.list.gifts li .ic {
+  grid-row: span 3;
+  align-self: start;
+}
+.list.gifts li .does {
+  color: var(--ink);
+}
+.list.gifts li em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--accent);
+}
 .list li.noart {
   grid-template-columns: minmax(0, 1fr);
   padding: 5px 8px;
@@ -801,13 +941,3 @@ main.wide {
 }
 
 /* link to the simulator the tiers come from */
-.sim-cta {
-  margin: 8px 0 0;
-  padding: 8px 10px;
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--accent) 10%, var(--surface2));
-  font-size: 14px;
-}
-.sim-cta a {
-  font-weight: 700;
-}

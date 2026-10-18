@@ -192,6 +192,9 @@ Typical run (optimal strategy, with rewards): ~21 doors, ~9 Replaces, ~5 consume
 | **Execution** | executioner eliminates prisoners; gains tiers | Count: gain > losses? |
 | **Shared Fortune** [LIVE, not in the sim] | +1 tier to the current prisoner per prisoner with the same beast | Good with many of the same beast |
 | **Archenemy** [LIVE, not in the sim] | opens 1 random cell whose prisoner is guaranteed to be a Consumable target for the current prisoner | Accept (a sure meal; best on your strongest eater) |
+| **Extra Portion** [LIVE, not in the sim] | up to 3 random prisoners +1 tier (print 93) | Accept (free tiers) |
+
+**The board always holds at least one incident:** a run starts with one, and a triggered incident is replaced by a new one on another cell (prints 92 → 94) [LIVE, owner's play 2026-10-17]. Instigate adds 1 on top of that. The sim has no such refill (it adds 2 on Instigate when the board has none, a case that doesn't happen).
 
 **No skip [LIVE + VOD]:** every incident card seen (8, plus Archenemy on 2026-10-17) has only *Confirm* — the decision columns above come from the simulator. In the game, decide before stepping on a "!" cell.
 
@@ -215,7 +218,7 @@ Values = Rainbows/run holding the instrument from day 1, with no other rewards. 
 | A | Elephant-Foot Maul: Mammoth | 2.16 | Mammoth eats its counter prey at a higher rarity; rises to 2 tiers above the meal (Normal eating a Legendary Lion = Rainbow) |
 | A | Scapegoat's Guillotine | 2.16 | Replace with ≥2 others: removes 2 random ones and the new one comes in above the replaced rarity |
 | A | Kin's Coin of Fate | 2.09 | Every morning, if 2+ identical prisoners (beast+rarity): 60% → remove 1, another +2 |
-| A | Severed Iron Maiden | 2.03 | After a Replace, if # above = # below the new one's rarity → +3 tiers |
+| A | Severed Iron Maiden | 2.03 | After a Replace, if # above = # below the new one's rarity → +3 tiers (live card, print 88: "to the Inmate after this Replacement") |
 | B | Long-Chained Shackles | 1.82 | Walking ≥4 cells: 40% for +1 tier on a prisoner |
 | B | Executioner's Blacklist | 1.72 | With ≤5 locked cells, each door opened: 2 prisoners +1 |
 | B | Raging Beast's Agonizing Muzzle | 1.70 | Consume with ≤4 prisoners in the block afterwards: +2 tiers |
@@ -274,7 +277,7 @@ The beast-specific instruments (name with ": Berserk Lion", ": Mammoth", ": Colo
 
 | Lever | Data | Source |
 |---|---|---|
-| Each Rainbow + each prisoner left on the board → 1 Warden's Cache of its quality | higher rarity = better loot | [OFFICIAL tooltip] |
+| Each Rainbow + each prisoner left on the board → 1 Warden's Cache of its quality; defeat that inmate in the Riot to unlock it | higher rarity = better loot | [OFFICIAL tooltip, print 87] |
 | **Darkiron Shackles** (compass) | +10% caches | [tlidb beta] |
 | **Mercury Shackles** | +30% caches; monsters −45% damage taken | [tlidb beta] |
 | **Redgold Shackles** | +80% caches; monsters −70% damage taken | [tlidb beta] |

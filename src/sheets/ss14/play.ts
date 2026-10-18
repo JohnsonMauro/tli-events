@@ -1,17 +1,20 @@
-/* Client script for /ss14/ (all languages) — the instrument pick and the info popover for instruments and incidents. */
-// Data is embedded by the page as <script type="application/json" id="play-data">: { tools, pairs, base, offers, ui }.
-// `ui` holds the page language's strings (./i18n.ts).
+/* Client script for /ss14/ (all languages) — your run's choices, the instrument pick and the info popover. */
+// Data is embedded by the page as <script type="application/json" id="play-data">: our engine's numbers
+// (default, per start card, per objective), the tier thresholds, live offer counts and `ui` strings (./i18n.ts).
 
 interface Tool {
   name: string;
   value: number;
-  text?: string;
 }
 type Pair = [string, string, number];
+type Values = Record<string, number>;
 interface PlayData {
   tools: Record<string, Tool>;
   pairs: Pair[];
   base: number;
+  byStart: Record<string, { base: number; tools: Values; pairs: Pair[] }>;
+  byObjective: Record<string, { base: number; tools: Values }>;
+  tiers: [string, number][];
   offers: { n: number; counts: Record<string, number> } | null;
   ui: Record<
     | 'take'
@@ -22,9 +25,9 @@ interface PlayData {
     | 'remove'
     | 'nothing'
     | 'pickHint'
+    | 'full'
     | 'xNone'
     | 'offered'
-    | 'card'
     | 'withYou'
     | 'partners'
     | 'doubt',
@@ -34,6 +37,17 @@ interface PlayData {
 interface PickState {
   held: string[];
   offered: string[];
+}
+/** What this run got: a start card id and an objective id ('' = not marked). */
+interface RunState {
+  start: string;
+  objective: string;
+}
+/** The numbers in force for the run's choices. */
+interface Numbers {
+  base: number;
+  tools: Values;
+  pairs: Pair[];
 }
 
 const el = document.getElementById('play-data');
@@ -66,18 +80,45 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     } catch {}
   };
 
+  // The run's choices, also kept in this browser only.
+  const RUN_KEY = 'ss14-run-v1';
+  let R: RunState = { start: '', objective: '' };
+  try {
+    const saved = JSON.parse(localStorage.getItem(RUN_KEY) || 'null');
+    if (saved && typeof saved.start === 'string') R = { start: saved.start, objective: saved.objective || '' };
+  } catch {}
+  const defaults: Numbers = {
+    base: D.base,
+    tools: Object.fromEntries(Object.entries(D.tools).map(([id, x]) => [id, x.value])),
+    pairs: D.pairs,
+  };
+  /** A start card changes the rules, so it wins; an objective only through its reward (values with rewards on). */
+  const numbers = (): Numbers => {
+    const s = D.byStart[R.start];
+    if (s) return s;
+    const o = D.byObjective[R.objective];
+    if (o) return { base: o.base, tools: o.tools, pairs: D.pairs };
+    return defaults;
+  };
+  let N = numbers();
+
   const toolName = (id: string) => D.tools[id]?.name ?? id;
+  const value = (id: string) => N.tools[id] ?? D.tools[id]?.value ?? 0;
   const pairValue = (a: string, b: string) =>
-    D.pairs.find(([x, y]) => (x === a && y === b) || (x === b && y === a))?.[2] ?? null;
-  /** Sim Rainbow/run of taking `id` now: best pair with something held, else its solo value. */
+    N.pairs.find(([x, y]) => (x === a && y === b) || (x === b && y === a))?.[2] ?? null;
+  /** Rainbow/run of taking `id` now: best pair with something held, else its solo value. */
   const score = (id: string) => {
     const own = S.held.filter((h) => h !== id);
-    const solo = D.tools[id].value;
+    const solo = value(id);
     return own.length ? Math.max(...own.map((h) => pairValue(id, h) ?? solo)) : solo;
   };
 
+  // A run gives 2 instruments at most: 1 at the start, 1 from the objective.
+  const MAX_HELD = 2;
+  const full = () => S.held.length >= MAX_HELD;
+
   function render() {
-    const [best, ...rest] = S.offered.slice().sort((a, b) => score(b) - score(a));
+    const [best, ...rest] = full() ? [] : S.offered.slice().sort((a, b) => score(b) - score(a));
     grid.querySelectorAll<HTMLElement>('.tool').forEach((b) => {
       const id = b.dataset.tool ?? '';
       b.classList.toggle('on', S.offered.includes(id));
@@ -94,7 +135,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
           .join('')
       : `<span class="meta">${esc(T.nothing)}</span>`;
     if (!best) {
-      out.innerHTML = `<p class="meta">${esc(T.pickHint)}</p>`;
+      out.innerHTML = `<p class="meta">${esc(full() ? T.full : T.pickHint)}</p>`;
       return;
     }
     out.innerHTML =
@@ -106,7 +147,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
 
   // ---------- info popover (fixed position: escapes the panes' scroll clipping) ----------
   const partners = (id: string): [string, number][] =>
-    D.pairs
+    N.pairs
       .filter(([a, b]) => a === id || b === id)
       .map(([a, b, v]): [string, number] => [a === id ? b : a, v])
       .sort((x, y) => y[1] - x[1])
@@ -123,7 +164,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       .sort((x, y) => y[1] - x[1])
       .map(([p, v]) => {
         const src = toolImg(p);
-        return `<li>${src ? `<img src="${esc(src)}" alt="">` : '<span class="ph">?</span>'}<span class="pn">${esc(toolName(p))}</span><b>${v.toFixed(2)}</b><em>${(v / D.base).toFixed(1)}×</em></li>`;
+        return `<li>${src ? `<img src="${esc(src)}" alt="">` : '<span class="ph">?</span>'}<span class="pn">${esc(toolName(p))}</span><b>${v.toFixed(2)}</b><em>${(v / N.base).toFixed(1)}×</em></li>`;
       })
       .join('')}</ol>`;
 
@@ -131,6 +172,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     const id = btn.dataset.tool ?? '',
       t = D.tools[id],
       tier = btn.dataset.tier ?? '',
+      v = value(id),
       src = toolImg(id);
     const offers = D.offers?.n ? D.offers : null;
     const off = offers ? (offers.counts[id] || 0) / offers.n : null;
@@ -139,11 +181,10 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       .map((h): [string, number | null] => [h, pairValue(id, h)])
       .filter(([, v]) => v != null);
     return `<div class="tp-head">${src ? `<img src="${esc(src)}" alt="">` : '<span></span>'}<div><b>${esc(t.name)}</b>
-        <div class="tp-stats"><span class="tier t${esc(tier)}">${tier === 'X' ? '✕' : esc(tier)}</span> <b>${t.value.toFixed(2)}</b> ${esc(T.perRun)} · ${(t.value / D.base).toFixed(1)}${esc(T.xNone)}</div>
+        <div class="tp-stats"><span class="tier t${esc(tier)}">${tier === 'X' ? '✕' : esc(tier)}</span> <b>${v.toFixed(2)}</b> ${esc(T.perRun)} · ${(v / N.base).toFixed(1)}${esc(T.xNone)}</div>
         ${offers && off != null ? `<div class="tp-stats">${esc(fmt(T.offered, { p: Math.round(off * 100), n: offers.n }))}</div>` : ''}</div></div>
       ${btn.dataset.doubt != null ? `<p class="tp-doubt"><span class="doubt" aria-hidden="true">!</span>${esc(T.doubt)}</p>` : ''}
       ${T.tool[id] ? `<p class="tp-what">${esc(T.tool[id])}</p>` : ''}
-      ${t.text ? `<p class="tp-sub"><span>${esc(T.card)}</span>${esc(t.text)}</p>` : ''}
       ${withHeld.length ? `<div class="tp-sub"><span>${esc(T.withYou)}</span>${pairList(withHeld)}</div>` : ''}
       <div class="tp-sub"><span>${esc(T.partners)}</span>${pairList(partners(id))}</div>`;
   }
@@ -231,7 +272,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   });
   out.addEventListener('click', (e) => {
     const id = (e.target as Element).closest<HTMLElement>('[data-take]')?.dataset.take;
-    if (!id) return;
+    if (!id || full()) return;
     S = { held: S.held.includes(id) ? S.held : [...S.held, id], offered: [] };
     save();
     render();
@@ -243,5 +284,48 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     save();
     render();
   });
+
+  // ---------- your run: the choices re-tier the grid ----------
+  const tierOf = (v: number) => D.tiers.find(([, min]) => v / N.base >= min)?.[0] ?? 'X';
+  const tierMeta = document.getElementById('tierMeta');
+  /** Moves every tile into its tier for the current numbers, best first, and hides empty tiers. */
+  function retier() {
+    const tiles = [...grid.querySelectorAll<HTMLElement>('.tool')].sort(
+      (a, b) => value(b.dataset.tool ?? '') - value(a.dataset.tool ?? ''),
+    );
+    for (const b of tiles) {
+      const tier = tierOf(value(b.dataset.tool ?? ''));
+      b.dataset.tier = tier;
+      grid.querySelector(`[data-group="${tier}"] .tool-grid`)?.append(b);
+    }
+    grid.querySelectorAll<HTMLElement>('[data-group]').forEach((g) => {
+      g.hidden = !g.querySelector('.tool');
+    });
+    if (tierMeta?.dataset.tpl) tierMeta.textContent = fmt(tierMeta.dataset.tpl, { base: N.base.toFixed(2) });
+  }
+  const run = document.getElementById('run');
+  function showRun() {
+    run?.querySelectorAll<HTMLElement>('[data-start]').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.start === R.start));
+    });
+    run?.querySelectorAll<HTMLElement>('[data-objective]').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.objective === R.objective));
+    });
+  }
+  run?.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest<HTMLElement>('[data-start],[data-objective]');
+    if (!b) return;
+    if (b.dataset.start != null) R = { ...R, start: b.dataset.start };
+    if (b.dataset.objective != null) R = { ...R, objective: b.dataset.objective };
+    try {
+      localStorage.setItem(RUN_KEY, JSON.stringify(R));
+    } catch {}
+    N = numbers();
+    showRun();
+    retier();
+    render();
+  });
+  showRun();
+  if (N !== defaults) retier();
   render();
 }

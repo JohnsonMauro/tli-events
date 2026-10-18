@@ -1,16 +1,18 @@
-// Instruments whose sources disagree, so their tier may be off: the sheet marks them with "!" and asks
-// players for prints or numbers. Remove an id once a card or a measurement settles it.
+// Instruments whose rule is not fully confirmed in the game (cut card, card never seen, or a number
+// the card leaves open), so their value may move: the sheet marks them with "!" and asks players for
+// prints. Remove an id once a card settles it (images/INDEX.md, engine/README.md → "Open rules").
 export const DOUBT: ReadonlySet<string> = new Set([
-  'maiden', // card shows no Replace trigger; the effect is cut; the sim fires it after a Replace
-  'collar', // card: every chain bite; the sim: only bites after the first
-  'muzzle', // preview card: ≤3 inmates; the sim: ≤4; no live print yet
-  'guillotine', // live card triggers Oppress; the sim gives a sure +1
-  'skewer', // live card +2; the sim +1
-  'tongs', // the Tusk stays through Replaces; the sim's player doesn't farm it (our engine: 2.38 vs 1.09)
-  'trap', // the sim values it 2.22, our engine 1.46
-  'claws', // the sim 2.15, our engine 2.69
-  'blacklist', // the sim 1.57, our engine 1.99
-  'revenge', // the effect is cut on every print; the sim 1.53, our engine 1.35
+  'muzzle', // only the preview video's card (≤3 inmates); no live print
+  'collar', // live card cut: every chain bite, or only after the first?
+  'guillotine', // Oppress: −5% per tier of difference, base chance not printed
+  'claws', // only the tlidb tooltip; no full card
+  'revenge', // Avenger's Casket: effect cut on every print
+  'stake', // Burning Stake: effect cut on every print
+  'cage', // Crowded Beastcage: effect cut
+  'fire', // Searing Branding Iron: end of the effect cut
+  'shortchain', // Short-Chained Shackles: no card text seen
+  'crown', // Iron Crown: card text never seen
+  'maul', // Elephant-Foot Maul: never seen
 ]);
 
 // One-line English summaries shown next to each instrument's card text (other languages: `tool` in ./i18n.ts).
@@ -25,21 +27,22 @@ export const TOOL_TEXT = {
     'After a Replace, if as many inmates are above the new one as below → +3 tiers. An empty block always qualifies.',
   shackles: 'Walking ≥4 cells: 40% for +1 tier on a random inmate.',
   blacklist: 'With ≤5 locked cells, each opened door: 2 random inmates +1.',
-  muzzle: 'A consume leaving ≤4 inmates on the block: +2 tiers.',
+  muzzle: 'A consume leaving ≤3 inmates on the block: +2 tiers.',
   ravenous: 'Each morning the top inmate removes its 2 ring neighbours; 40% for +1 per removal.',
   revenge: 'After a consume, 30% to open a cell holding a meal for the eater at its new tier.',
-  skewer:
-    'Rats eat Rats of the same rarity; +2 extra tiers per Rat bite (3 in total). Live card — the sim still counts +1, so its tier is low.',
+  skewer: 'Rats eat Rats of the same rarity; +2 extra tiers per Rat bite (3 in total).',
   hook: 'Opened cells never hold a Normal.',
   saw: 'After a consume, 25% for +1 extra.',
-  collar: 'Each chain bite after the 1st: 80% for +1 extra.',
+  collar: 'Each bite of a chain: 80% for +1 extra.',
   stake: '−1 destination/day. Replacing an inmate below Legendary: 40% to bring a Legendary.',
   guillotine:
-    'Wolves also eat their prey at a lower rarity, then trigger Oppress: −5% upgrade chance per tier of rarity difference (the sim still counts a sure +1).',
+    'Wolves also eat their prey at a lower rarity, then trigger Oppress: −5% upgrade chance per tier of rarity difference.',
   dogtag: 'Door opened on patrol: 25% for that inmate to rise +1.',
   whip: '−1 destination/day. Each bite: 35% for +1 extra.',
   tongs:
-    "Each morning a Mammoth gets a Tusk; every Replace there raises 4 inmates, and the Tusk stays until the cell empties. Keep Mammoths, never eat the inmate of a Tusk cell — the sim doesn't farm Tusks, so its tier is low.",
+    'Each morning a Mammoth gets a Tusk; every Replace there raises 4 inmates, and the Tusk stays until the cell empties. Keep Mammoths, never eat the inmate of a Tusk cell.',
+  claws:
+    'Each morning Scratch Marks go on a random locked cell (its rarity shows); a Wolf of that rarity eats through the door for +3.',
   trap: "With the warden on a Lion's cell, Hunt joins the day's choices: a Prey mark on an inmate the Lion can eat; both +1 each morning for 3 rounds (ends if either leaves or changes beast).",
   keys: 'Opened door: 80% (card; 63% measured live) to also open both neighbours.',
   cage: 'After an inmate is eaten, 40% for its cell to reopen with a new inmate.',

@@ -3,7 +3,7 @@
 The team's strategy base for Torchlight: Infinite (XD Games) seasonal events, published as an Astro site on GitHub Pages (public repo `JohnsonMauro/tli-events`). **Everything is in English** — the team plays the English client, so mechanic/item names match the game exactly; Chinese terms stay in parentheses where useful.
 Exception: the SS14 play sheet (`/ss14/`) is also published in pt-BR, de, ko, ja, zh and ru for other players — texts in `src/sheets/ss14/i18n.ts`; game names (instruments, incidents, actions, rarities) stay in English there too.
 
-**Product principle:** players have little time between runs, so a play sheet **synthesizes**: short text, patterns over prose, one screen where possible. Anything that needs testing or deep detail links out to the community simulator ([Tartarus Simulator](https://blahdot3h.github.io/tartarus-simulator/) by CoffeeBns for SS14) instead of being explained on the page.
+**Product principle:** players have little time between runs, so a play sheet **synthesizes**: short text, patterns over prose, one screen where possible. The numbers come from our own simulator (SS14: `events/SS14_Tartarus/engine`), never from a community one (owner's call, 2026-10-17: the community Tartarus Simulator's rules lag the live cards and its board reader misses incidents on open cells).
 
 ## Layout
 
