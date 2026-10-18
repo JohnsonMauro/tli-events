@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.6.1] - 2026-10-18
+
 ### Fixed
 
 - SS14 play sheet: Raging Beast's Agonizing Muzzle gives its +2 when **4 or fewer** inmates are left after the meal (the live card), not 3 — every number and pair with it is recalculated; with Cage Fight it is now the best first instrument.
@@ -158,7 +160,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.1...HEAD
+[1.6.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.3.0...v1.4.0
