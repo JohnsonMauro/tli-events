@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.9.1] - 2026-10-18
+
 ### Changed
 
 - Footer: the heart beats for as long as the page is open, no longer just three times on load; tap it to pause it (it stays paused in your browser, and starts paused if your system asks for reduced motion).
@@ -220,7 +222,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.1...HEAD
+[1.9.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.9.0...v1.9.1
 [1.9.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.8.1...v1.9.0
 [1.8.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.7.1...v1.8.0
