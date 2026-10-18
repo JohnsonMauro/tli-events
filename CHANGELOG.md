@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-10-18
+
 ### Added
 
 - SS14 play sheet: the **Opulence** start card in "Your run" — each Warden's Treasure gives 3 picks in a row — with its own instrument ranking. Its text comes from a player's print shared with the community; we haven't printed it ourselves yet.
@@ -266,7 +268,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.3...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.11.0...HEAD
+[1.11.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.3...v1.11.0
 [1.10.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.2...v1.10.3
 [1.10.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.1...v1.10.2
 [1.10.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.0...v1.10.1
