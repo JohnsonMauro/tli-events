@@ -116,7 +116,7 @@ All from this engine, 100,000 runs per test (pairs per start card: 50,000):
 
 - `base`, `tools`, `pairs` — no start card, rewards off: each instrument alone and every pair (31 instruments, 465 pairs).
 - `run` — the full run with rewards on.
-- `byStart.<card>` — its own base, instrument values and pairs (a start card changes the rules).
+- `byStart.<card>` — its own base, instrument values and pairs (a start card changes the rules), with Warden's Treasures on (`treasures`; no instrument picks): Opulence only acts through them.
 - `byObjective.<id>` — rewards on and that objective fixed (an objective only matters through its reward).
 - `incidents` — what one "!" of each kind is worth: the full run with its first incident forced to that kind, minus the full run (same seeds). Usurpation I brings its chain.
 
@@ -161,17 +161,18 @@ A rule no source settles yet is a **parameter**, not code: when a new screenshot
 | `maiden_any_time` | false | live card (print 88): "+3 additional Rarity Tiers to the Inmate after this Replacement" — after a Replace only. `true` = checked whenever the warden's inmate changes |
 | `oppress_base`, `oppress_step` | 1.0, 0.05 | tlidb gives −5%/tier; base chance not printed — kept at 1.0, not watched by hand (owner's call, 2026-10-18) |
 | `skewer_extra` | 2 | live card print 78 (+2); VOD and community sim +1 |
-| `collar_first_bite` | true | live card (print 72): "When an Inmate Chain Consumes, 80%" — no "after the first"; community sim: bites after the first |
+| `collar_first_bite` | false | Chinese live card (print 112): 囚犯連吃時, "when an Inmate eats in succession" — the first bite isn't one; the game's own language wins over the EN "When an Inmate Chain Consumes" (print 72) (owner's call, 2026-10-18) |
 | `tusk_persists` | true | tlidb: Tusk goes "when there is no Inmate in this room"; content creator ALannister (2026-10-17): it stays through Replaces and clears only when the cell empties (eaten or Chromatic). `false` = gone after one Replace |
 | `instigate_count` | 1 | in-game rules text (community sim uses 2) |
-| `incident_respawn` | true | the team's play (2026-10-17, prints 92-94): a run starts with at least one incident, and a triggered incident is replaced by a new one elsewhere |
+| `incident_respawn` | true | the team's play (2026-10-17, prints 92-94): a run starts with at least one incident, and a triggered incident is replaced by a new one elsewhere. The community simulator's telemetry (2026-10-17: 28% of first boards with none, new ones at random ~1 every 8 days) is not used: it is read from the game log by a third-party tool whose completeness nobody can check, while the rule above is what the owner saw in play (owner's call, 2026-10-18) |
 | `can_skip_incidents` | false | live cards have only Confirm |
+| `treasures` | false (true for `byStart`) | Warden's Treasures without the instrument picks: the export's start-card numbers include them, since **Opulence** acts only through them. Opulence (start card): each Treasure is 3 picks in a row — text from a player's print quoted by the community simulator (2026-10-17), not printed by us; used on the owner's call (2026-10-18) |
 | `rainbow_cap` | 10 | confirmed in play (2026-10-17); one run in ~70 reaches it |
 | `execution_same_tier` | false | card: lower-tier prey |
 
 Settled by prints and built in (no parameter): **Usurpation** is a chain — once I fires, the next incidents triggered are II, III and IV in turn, and II is +2 tiers to one inmate (prints 102–105, 2026-10-18).
 
-Not modelled yet: Opulence, Tartarus Rumors, the riot itself, the contract challenge, events in open cells appearing on their own. Incidents are drawn uniformly (no live rate per incident). Morning effects run in a fixed order (prey, nests, Iron Box, Tongs, Claws, Coin, Ravenous Chains); the game's order isn't documented.
+Not modelled yet: Tartarus Rumors, the riot itself, the contract challenge, events in open cells appearing on their own. Incidents are drawn uniformly (no live rate per incident). Morning effects run in a fixed order (prey, nests, Iron Box, Tongs, Claws, Coin, Ravenous Chains); the game's order isn't documented.
 
 </details>
 
@@ -192,14 +193,15 @@ Simple and explicit: a board value (`w_tier` per rarity, `w_rainbow`, `w_event`,
 
 ## Results
 
-<sub>2026-10-18 · 100,000 runs per test (2,162 tests) · seed `LAB` · `export`</sub>
+<sub>2026-10-18 · 100,000 runs per test (2,659 tests) · seed `LAB` · `export`</sub>
 
-- No instrument **1.486** Rainbows/run (rewards off); full run with rewards **3.51** (median 3, zero in 3%); live runs (n=114, before most of these rules were known) mean 2.04, median 2.
+- No instrument **1.486** Rainbows/run (rewards off); full run with rewards **3.30** (median 3, zero in 3.6%); live runs (n=114, before most of these rules were known) mean 2.04, median 2.
 - Best solos: **Elephant-Foot Maul 3.23**, Filthy Claws 3.14, Iron Crown 3.13, Iron Tongs 3.12, Severed Iron Maiden 2.87. Best pair: Hangman's Noose + Severed Iron Maiden 9.63. (Maul and Crown are rare in live offers.)
-- Start cards (`byStart`, rewards off): **Cage Fight** base 3.54, top Agonizing Muzzle 5.72, Lost Ring of Keys 5.41, Claws 5.06; **Iron Law** base 2.69, top Tongs 6.26, Maul 5.27, Crown 5.25; **Tyranny** base 4.98, top Noose 7.05, Claws 6.46, Maul 6.26.
-- Objectives (`byObjective`, rewards on): base 3.25 (Survival of the Fittest) to 3.75 (Prison Walk); Maul, Claws, Crown and Tongs lead in every one — an objective moves the values, barely the order.
+- Start cards (`byStart`, rewards off, Warden's Treasures on): **Cage Fight** base 4.75, top Raging Beast's Agonizing Muzzle 7.41, Iron Crown of the Prison King 6.99, Lost Ring of Keys 6.92; **Iron Law** base 3.50, top Iron Tongs of Lust 8.05, Elephant-Foot Maul 7.31, Iron Crown of the Prison King 6.49; **Tyranny** base 5.93, top Elephant-Foot Maul 7.73, Iron Tongs of Lust 7.56, Hangman's Noose 7.48; **Opulence** base 2.98, top Elephant-Foot Maul 7.89, Iron Tongs of Lust 7.55, Kin's Coin of Fate 6.89. Against no start card with Treasures (1.81, `eval --rewards off --set treasures=true`): Opulence +1.16, Iron Law +1.69, Cage Fight +2.94, Tyranny +4.12 — Opulence is the weakest start card here.
+- Objectives (`byObjective`, rewards on): base 3.06 (Survival of the Fittest) to 3.52 (Prison Walk); Maul, Claws, Crown and Tongs lead in every one — an objective moves the values, barely the order.
 - Incidents (one "!" against an ordinary one): **Usurpation +1.49** (its chain I→IV), Behind Closed Doors +0.19, Extra Portion +0.17, High-Risk Convict +0.04, Ravenous Appetite +0.01; the rest cost a little — Taste of Freedom −0.07, Shared Fortune −0.18, Chain Reaction −0.20, Archenemy −0.23, Sewer Ratway −0.25, Execution Efficiency −0.29, Crow Whispers −0.37, "Treasure" Hunt −0.41 (they show or move, they don't raise).
+- What moved later on 2026-10-18: the Barbed Collar's +1 only on bites in succession (Chinese card 連吃, print 112) dropped it 2.82 → 1.77 (#6 → #19) and its pairs up to −1.77; the full run 3.51 → 3.30 (it shows up in 13% of offers). Start cards now count Treasures; Opulence added. Every other solo value unchanged (same seed).
 - What moved on 2026-10-18: second meals at every rarity (players' boards) lifted Maul 2.49 → 3.23 (#11 → #1), Muzzle 1.99 → 2.41, Collar 2.59 → 2.82, Blood-Stained Trap 2.02 → 2.34; Usurpation as a chain with II = +2 to one inmate.
-- Card readings this engine follows where the community sim differs: Skewer +2, Oppress, Collar on every chain bite, Instigate 1, the incident refill, Shared Fortune, Archenemy, Extra Portion, Usurpation's chain, second meals at every rarity. Earlier rule changes moved Muzzle (≤4 inmates: Cage Fight 5.13 → 5.71), Maiden (after a Replace only: 4.19 → 2.79) and Tongs (Tusk stays: 1.88 → 3.05).
+- Card readings this engine follows where the community sim differs: Skewer +2, Oppress, Instigate 1, the incident refill, Shared Fortune, Archenemy, Extra Portion, Usurpation's chain, second meals at every rarity. Earlier rule changes moved Muzzle (≤4 inmates: Cage Fight 5.13 → 5.71), Maiden (after a Replace only: 4.19 → 2.79) and Tongs (Tusk stays: 1.88 → 3.05).
 
 <sub>Game art © XD Games, used to explain the game. The engine is the TLI Events team's own work.</sub>

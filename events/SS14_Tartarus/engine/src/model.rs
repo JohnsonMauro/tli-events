@@ -205,14 +205,18 @@ pub enum StartCard {
     CageFight,
     IronLaw,
     Tyranny,
+    /// "You can make 2 additional choices when obtaining Warden's Treasure" (a player's print, quoted by the
+    /// community simulator, 2026-10-17 — not printed by us; owner's call 2026-10-18 to use it).
+    Opulence,
 }
 
 impl StartCard {
-    pub const ALL: [StartCard; 4] = [
+    pub const ALL: [StartCard; 5] = [
         StartCard::None,
         StartCard::CageFight,
         StartCard::IronLaw,
         StartCard::Tyranny,
+        StartCard::Opulence,
     ];
     pub fn id(self) -> &'static str {
         match self {
@@ -220,6 +224,7 @@ impl StartCard {
             StartCard::CageFight => "cagefight",
             StartCard::IronLaw => "ironlaw",
             StartCard::Tyranny => "tyranny",
+            StartCard::Opulence => "opulence",
         }
     }
     pub fn from_id(id: &str) -> Option<StartCard> {

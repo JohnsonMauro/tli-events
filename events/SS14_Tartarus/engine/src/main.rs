@@ -23,7 +23,7 @@ options:
   --data PATH      tartarus_data.json for the live odds (default ../data/tartarus_data.json)
   --rewards on|off start pick, objective pick and Warden's Treasures
   --tool ID[,ID]   instruments held from day 1 (eval)
-  --start CARD     cagefight | ironlaw | tyranny
+  --start CARD     cagefight | ironlaw | tyranny | opulence
   --objective ID   king | walk | consume | undercurrents | doors (default: random, as in the game)
   --set KEY=VALUE  any rule (params.rs) or policy weight (w_tier, w_rainbow, w_event, w_objective, w_chain, samples)
   --out PATH       export: where to write the results";
@@ -326,7 +326,8 @@ fn values(tools: &[(Tool, Summary)]) -> serde_json::Value {
 
 /// Every number the play sheet shows, from our engine.
 /// Default (no start card, random objective, rewards off): base, instruments, pairs.
-/// `byStart`: the same per start card (each changes the rules). `byObjective`: with
+/// `byStart`: the same per start card (each changes the rules), with Warden's Treasures on (Opulence only acts
+/// through them). `byObjective`: with
 /// rewards on (an objective only matters through its reward), per objective.
 /// Incidents by the play sheet's ids (`EVENTS` in src/sheets/ss14/PlaySheet.astro).
 const INCIDENTS: [(&str, Incident); 13] = [
@@ -370,13 +371,17 @@ fn export(o: &Opts, data: &str, mut p: Params, w: &Weights, setup: Setup) -> Res
     eprintln!(" {} pairs", pair_list.len());
 
     let mut by_start = serde_json::Map::new();
+    let with_treasures = Params {
+        treasures: true,
+        ..p.clone()
+    };
     for card in StartCard::ALL.into_iter().filter(|&c| c != StartCard::None) {
         let s = Setup {
             start_card: card,
             ..setup
         };
-        let (b, t) = solo(&p, w, o.games, o.seed, s);
-        let pr = pairs(&p, w, o.games / 2, o.seed, s);
+        let (b, t) = solo(&with_treasures, w, o.games, o.seed, s);
+        let pr = pairs(&with_treasures, w, o.games / 2, o.seed, s);
         tests += 1 + t.len() + pr.len();
         eprintln!(" start {}", card.id());
         by_start.insert(

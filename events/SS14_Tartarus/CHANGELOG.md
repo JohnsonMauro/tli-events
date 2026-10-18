@@ -212,3 +212,13 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 ## 2026-10-18 — Tyranny card printed (LIVE)
 
 - **Tyranny** first print (`images/106`, the owner's run): "Automatically triggers Instigate and Bestow 3 additional times each time you stop at the Interrogation Room". Matches our engine (`rules::office`: +3 of each on top of the choice) and the sheet, which had followed players' reports; no number changes. The sheet now shows its card art and drops the "card not seen" note.
+
+## 2026-10-18 — TW live cards (prints 107–131), Collar re-read, Opulence modelled (LIVE + ENGINE)
+
+- **25 instrument cards from the Traditional Chinese live client** (`images/107`–`131`, a player's screenshots in 惡魔貓's sheet "SS14 塔羅斯困獸賽季機制Tier表", video BV1j8nV6XE7s): first live text of the **Iron Crown** (113: the Lion eats any inmate of its rarity, +2 more) and the **Elephant-Foot Maul** (121: the Mammoth eats higher-rarity inmates it counters, rising to the meal's rarity +2) — both match our engine — and the site's art for these 25.
+- **Barbed Collar** (112): `囚犯連吃時，有80%機率觸發` — "when an inmate eats **in succession**". The first bite isn't one: the Chinese card (the game's own language) wins over the EN "When an Inmate Chain Consumes" (owner's call). Engine default `collar_first_bite` true → false.
+- **Short-Chained Shackles**: "50% when moving no more than 3 tiles: opens 1 cell" — the community simulator's transcription of a player's print and Chu_B's Korean video (2026-10-17, 15:08) agree; matches our engine.
+- **Opulence** (start card): "You can make 2 additional choices when obtaining Warden's Treasure" — a player's print quoted by the community simulator (2026-10-17; a log of that run: 7 Rainbows, 21 picks). Not printed by us; modelled on the owner's call: each Treasure is 3 picks, and a Rainbow a pick makes brings 3 more.
+- **Incidents**: the community simulator's log telemetry (28% of first boards with no incident, new ones at random) is not used — read from the game log by a third-party tool whose completeness nobody can check; our rule (at least one on the board, refilled) is what the owner saw in play (owner's call).
+- **Re-export** (2,659 tests × 100,000 runs): Collar 2.82 → **1.77** (#6 → #19), its pairs down up to −1.77; full run 3.51 → 3.30. Start cards now include Warden's Treasures (Opulence acts only through them): Cage Fight 4.75, Iron Law 3.50, Tyranny 5.94, **Opulence 2.98** — against 1.81 with no start card, Opulence adds +1.16, the least of the four. Other solo values unchanged.
+

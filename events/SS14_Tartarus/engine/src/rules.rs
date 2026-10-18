@@ -300,8 +300,13 @@ pub fn promote(st: &mut State, p: &Params, n: usize, by: u8, reroll: bool) {
     if tier >= RAINBOW {
         if st.vault < p.rainbow_cap {
             st.vault += 1;
-            if p.rewards {
-                st.pending_treasures += 1;
+            if p.rewards || p.treasures {
+                // Opulence: each Treasure is 3 picks in a row; a Rainbow a pick makes comes back here for 3 more.
+                st.pending_treasures += if st.start_card == StartCard::Opulence {
+                    3
+                } else {
+                    1
+                };
             }
             seal(st, p, n);
             return;
@@ -1270,6 +1275,52 @@ mod tests {
         assert!(st.cells[5].is_sealed() && st.cells[6].is_sealed());
     }
 
+    /// Treasures pending after a Supreme Lion eats a Supreme Wolf (a Rainbow), for a start card and the flags.
+    fn treasures_after_a_rainbow(card: StartCard, rewards: bool, treasures: bool) -> u8 {
+        let (_, mut p) = board(&[]);
+        p.rewards = rewards;
+        p.treasures = treasures;
+        let mut st = new_run(&p, 1, 0, card);
+        put(&mut st, 5, LION, 4);
+        put(&mut st, 6, WOLF, 4);
+        st.warden = 5;
+        bite(
+            &mut st,
+            &p,
+            5,
+            Meal {
+                cell: 6,
+                scratch: false,
+            },
+            false,
+        );
+        assert_eq!(st.vault, 1);
+        st.pending_treasures
+    }
+
+    #[test]
+    fn opulence_gives_three_treasure_picks_a_rainbow() {
+        // Opulence: "2 additional choices when obtaining Warden's Treasure" → 3 picks.
+        assert_eq!(
+            treasures_after_a_rainbow(StartCard::Opulence, true, false),
+            3
+        );
+        assert_eq!(treasures_after_a_rainbow(StartCard::None, true, false), 1);
+        // `treasures` alone (the export's start cards): Treasures without the instrument picks.
+        assert_eq!(
+            treasures_after_a_rainbow(StartCard::Opulence, false, true),
+            3
+        );
+        assert_eq!(
+            treasures_after_a_rainbow(StartCard::Tyranny, false, true),
+            1
+        );
+        assert_eq!(
+            treasures_after_a_rainbow(StartCard::Opulence, false, false),
+            0
+        );
+    }
+
     #[test]
     fn replace_and_consume_share_the_day() {
         let (mut st, p) = board(&[]);
@@ -1333,9 +1384,10 @@ mod tests {
         }
     }
 
-    #[test]
-    fn collar_can_fire_on_the_first_bite() {
-        let (_, p) = board(&[]);
+    /// Share of 2,000 bites (Wolf on a Rat, both Magic) that got the Collar's extra tier.
+    fn collar_rate(first_bite: bool, chained: bool) -> f64 {
+        let (_, mut p) = board(&[]);
+        p.collar_first_bite = first_bite;
         let mut extra = 0;
         for seed in 0..2_000 {
             let (mut st, _) = board(&[Tool::Collar]);
@@ -1353,13 +1405,28 @@ mod tests {
                     cell: 3,
                     scratch: false,
                 },
-                false,
+                chained,
             );
             if st.cells[2].inmate.tier == 3 {
                 extra += 1;
             }
         }
-        assert!((extra as f64 / 2_000.0 - 0.8).abs() < 0.03, "{extra}");
+        extra as f64 / 2_000.0
+    }
+
+    #[test]
+    fn collar_fires_on_chained_bites_only_by_default() {
+        // Chinese live card (print 112): 囚犯連吃時 — "when an Inmate eats in succession", 80%.
+        assert_eq!(collar_rate(false, false), 0.0, "first bite");
+        assert!(
+            (collar_rate(false, true) - 0.8).abs() < 0.03,
+            "chained bite"
+        );
+        // The other reading (every bite, the EN card's "Chain Consumes" taken loosely) stays a parameter.
+        assert!(
+            (collar_rate(true, false) - 0.8).abs() < 0.03,
+            "first bite, collar_first_bite=true"
+        );
     }
 
     #[test]

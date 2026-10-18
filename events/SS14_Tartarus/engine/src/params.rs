@@ -57,8 +57,9 @@ pub struct Params {
     pub oppress_step: f64,
     /// Scratch Marks extra tiers (tlidb: +2 on top of the bite's +1).
     pub scratch_extra: u8,
-    /// Barbed Collar (live card print 72: "When an Inmate Chain Consumes"): true =
-    /// every bite of a consume, false = bites after the first (community sim).
+    /// Barbed Collar: false = only bites in succession, after the first (Chinese live card,
+    /// print 112: 囚犯連吃時, the game's own language — owner's call 2026-10-18); true = every
+    /// bite of a consume (the EN card's "When an Inmate Chain Consumes" read loosely).
     pub collar_first_bite: bool,
     /// Execution takes lower-rarity prey (card); true = same rarity too.
     pub execution_same_tier: bool,
@@ -72,6 +73,9 @@ pub struct Params {
     pub tusk_persists: bool,
     /// Run rewards: a start pick, the objective's pick, a Warden's Treasure per Rainbow.
     pub rewards: bool,
+    /// Warden's Treasures alone, without the instrument picks (`rewards` implies them). The export turns it on
+    /// for the start cards, since Opulence only acts through them.
+    pub treasures: bool,
     pub start_picks: u8,
     /// Weight of each instrument in an offer (live offer counts + 1, by `Tool as usize`).
     pub offer_weights: Vec<f64>,
@@ -105,13 +109,14 @@ impl Default for Params {
             oppress_base: 1.0,
             oppress_step: 0.05,
             scratch_extra: 2,
-            collar_first_bite: true,
+            collar_first_bite: false,
             execution_same_tier: false,
             prey_rounds: 3,
             nest_days: 2,
             tusk_count: 4,
             tusk_persists: true,
             rewards: true,
+            treasures: false,
             start_picks: 1,
             offer_weights: vec![1.0; n],
             tool_value: vec![1.0; n],
@@ -232,6 +237,7 @@ impl Params {
             "tusk_count" => self.tusk_count = f()? as u8,
             "tusk_persists" => self.tusk_persists = b()?,
             "rewards" => self.rewards = b()?,
+            "treasures" => self.treasures = b()?,
             "start_picks" => self.start_picks = f()? as u8,
             _ => return Err(format!("--set: unknown key `{k}`")),
         }
