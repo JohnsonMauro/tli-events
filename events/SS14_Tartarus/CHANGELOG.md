@@ -222,3 +222,7 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - **Incidents**: the community simulator's log telemetry (28% of first boards with no incident, new ones at random) is not used — read from the game log by a third-party tool whose completeness nobody can check; our rule (at least one on the board, refilled) is what the owner saw in play (owner's call).
 - **Re-export** (2,659 tests × 100,000 runs): Collar 2.82 → **1.77** (#6 → #19), its pairs down up to −1.77; full run 3.51 → 3.30. Start cards now include Warden's Treasures (Opulence acts only through them): Cage Fight 4.75, Iron Law 3.50, Tyranny 5.94, **Opulence 2.98** — against 1.81 with no start card, Opulence adds +1.16, the least of the four. Other solo values unchanged.
 
+
+## 2026-10-18 — new incident: Transfer of Convicts (LIVE)
+
+- **Transfer of Convicts** (`images/132`, the owner's run): "Replicate the Inmate in the current cell into a random unopened cell". **New** — not in our engine, our sheet, the community simulator or tlidb. Same wording as the Searing Branding Iron's effect (print 100) but without its "(does not trigger other effects)". Open: whether the copy's cell opens (the Branding Iron's does, print 101), whether that cell's effects fire, and its share of the incident pool. Engine and sheet not updated yet.
