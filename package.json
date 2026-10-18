@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test:e2e": "astro build && playwright test",
     "data": "for s in events/*/scripts/update_data.py; do python3 -I \"$s\" || exit 1; done",
     "prepare": "husky"
   },
@@ -21,6 +22,7 @@
     "@astrojs/check": "0.9.10",
     "@eslint/css": "2.0.1",
     "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
     "@types/node": "24.19.2",
     "eslint": "10.12.0",
     "eslint-plugin-astro": "3.2.1",

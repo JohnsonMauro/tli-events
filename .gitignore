@@ -14,3 +14,7 @@ target/
 
 # OS files
 .DS_Store
+
+# Playwright (pnpm test:e2e)
+test-results/
+playwright-report/

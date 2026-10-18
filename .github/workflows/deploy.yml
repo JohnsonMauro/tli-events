@@ -54,6 +54,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm format:check
       - run: pnpm check
+      # Browser checks on the built site; Google Chrome comes with the runner (playwright.config.ts → channel).
+      - run: pnpm test:e2e
 
   build:
     needs: [update-data, lint]
@@ -67,6 +69,8 @@ jobs:
         with:
           # Latest commit on the branch, including one just pushed by update-data.
           ref: ${{ github.ref }}
+          # Full history: the SS14 play sheet dates "Last simulation" by the commit of engine_results.json.
+          fetch-depth: 0
       - name: Set SITE and BASE_PATH for GitHub Pages
         run: |
           owner="${GITHUB_REPOSITORY_OWNER,,}"

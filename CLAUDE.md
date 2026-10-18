@@ -12,6 +12,7 @@ events/                       one self-contained folder per event — the worksp
   README.md                   method, sources, how to add an event  ← read before researching
   _template/                  skeleton to copy for a new event (skipped by the site)
   SS14_Tartarus/              SS14 event (guide, changelog, data, images, scripts)
+e2e/                          Playwright checks on the built site (playwright.config.ts; `pnpm test:e2e`)
 src/                          Astro 7 site — publishes the event list and each event's play sheet
   content.config.ts           `guides` (events/*/*_GUIDE.md, frontmatter = event card)
   lib/                        site-wide modules, no markup
@@ -61,7 +62,7 @@ The site follows [SemVer](https://semver.org/spec/v2.0.0.html). The version live
 - Research method and source access live in `events/README.md`; event-specific context in `events/<Dir>/CLAUDE.md`.
 - Don't invent numbers: no source → write "no data" and list it under Gaps.
 - Generated files (`data/*.json`, `*.csv`, snapshots) only via the script — never edit by hand.
-- Code style is enforced, not described: ESLint (`eslint.config.js`) and Prettier (`prettier.config.js`) run on staged files in the pre-commit hook (husky + lint-staged, plus `astro check`); `pnpm install` activates the hook. Never skip it with `--no-verify`.
-- Before calling something done: clean `pnpm build`, `pnpm check`, `pnpm lint` and `pnpm format:check`; look at the pages in a browser (`pnpm preview`, which runs in the background — stop it with `pnpm astro preview stop`) and test at 390 px (see the `astro-site` skill).
+- Code style is enforced, not described: ESLint (`eslint.config.js`) and Prettier (`prettier.config.js`) run on staged files in the pre-commit hook (husky + lint-staged, plus `astro check`, plus `pnpm test:e2e` when the commit touches the site); `pnpm install` activates the hook. Never skip it with `--no-verify`.
+- Before calling something done: `pnpm check`, `pnpm lint`, `pnpm format:check` and `pnpm test:e2e` (builds, then Playwright on every page at 390 and 1440 px: no sideways scroll, no console errors, no glued words, the SS14 sheet's interactive parts — `e2e/`). A new interactive behavior gets its test in `e2e/` in the same change. Don't open a browser to re-check what the tests cover; the owner judges the look. Open one only to debug a failing test or when asked.
 - CHANGELOG is append-only with absolute dates; automatic and manual entries coexist.
 - Research scratch files go to the session scratchpad, not the event folder.
