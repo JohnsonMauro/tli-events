@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.12.0] - 2026-10-18
+
 ### Added
 
 - SS14 play sheet: a search field above the instrument list — type part of a name ("mammoth", "kins coin") and only those rows stay, still ranked; Esc brings the whole list back.
@@ -276,7 +278,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.11.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.12.0...HEAD
+[1.12.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.3...v1.11.0
 [1.10.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.2...v1.10.3
 [1.10.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.1...v1.10.2
