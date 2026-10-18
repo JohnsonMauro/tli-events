@@ -6,6 +6,14 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- The "new version" notice slides up from the bottom with a bigger **Reload**, and Reload now makes sure you see the new page: it refreshes the copy kept for slow connections first.
+
+### Fixed
+
+- The notice's Reload button reads clearly in the dark theme (its text was too faint on the orange).
+
 ## [1.7.0] - 2026-10-18
 
 ### Changed

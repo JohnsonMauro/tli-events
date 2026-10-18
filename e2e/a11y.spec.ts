@@ -51,6 +51,16 @@ for (const colorScheme of THEMES) {
   });
 }
 
+// The "new version" notice only shows after a deploy, so axe never saw it: its Reload read 2.8:1 in the dark theme.
+for (const colorScheme of THEMES) {
+  test(`"new version" notice in ${colorScheme} theme: no axe violations`, async ({ page }) => {
+    await open(page, '/', colorScheme);
+    await page.locator('#update-toast').evaluate((el: HTMLElement) => (el.hidden = false));
+    await page.waitForTimeout(400); // past the slide-in
+    expect(await violations(page, '#update-toast')).toEqual([]);
+  });
+}
+
 // WCAG 2.2.2 Pause, Stop, Hide (A), which axe does not check: motion that starts on its own and runs next to other
 // content must stop within 5 s (or offer a pause). Decoration is not exempt, and reduced motion is not the answer.
 const MAX_MOTION_MS = 5000;

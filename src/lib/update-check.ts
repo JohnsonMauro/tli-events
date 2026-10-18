@@ -15,11 +15,31 @@ async function liveBuild(): Promise<string | null> {
   return doc.querySelector<HTMLMetaElement>(META)?.content ?? null;
 }
 
+// Reload that is sure to show the new page: the service worker answers a slow navigation (over 3 s) from its page
+// cache, so put the fresh copy there first; then reload. Offline or with no cache, it is a plain reload.
+async function reloadFresh() {
+  const url = location.href.split('#')[0];
+  try {
+    const res = await fetch(url, { cache: 'reload' });
+    if (res.ok && 'caches' in window) {
+      const names = (await caches.keys()).filter((k) => k.startsWith('tli-pages-'));
+      await Promise.all(names.map(async (n) => (await caches.open(n)).put(url, res.clone())));
+    }
+  } catch {
+    // Network or storage failed: the reload below still asks the server first.
+  }
+  location.reload();
+}
+
 export function watchForUpdates() {
   const mine = document.querySelector<HTMLMetaElement>(META)?.content;
   const toast = document.getElementById('update-toast');
   if (!mine || !toast) return;
-  toast.querySelector('button')?.addEventListener('click', () => location.reload());
+  const button = toast.querySelector('button');
+  button?.addEventListener('click', () => {
+    button.disabled = true;
+    void reloadFresh();
+  });
 
   let last = 0;
   const check = async () => {

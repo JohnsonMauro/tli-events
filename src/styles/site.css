@@ -409,41 +409,60 @@ a.back svg {
   stroke-linejoin: round;
 }
 
-/* ---- "new version" notice (src/lib/update-check.ts) ---- */
+/* ---- "new version" notice (src/lib/update-check.ts): slides up from the bottom, text over one big Reload ---- */
 .update-toast {
   position: fixed;
   left: 50%;
-  bottom: 48px;
+  bottom: max(16px, env(safe-area-inset-bottom));
   z-index: 50;
   transform: translateX(-50%);
-  width: max-content;
-  max-width: calc(100% - 32px);
+  width: min(520px, calc(100% - 32px));
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 8px 8px 8px 14px;
+  gap: 10px;
+  padding: 14px 16px;
   border: 1px solid var(--accent);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: 0 6px 24px rgb(0 0 0 / 25%);
-  font: 600 14px var(--sans);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 35%);
+  font: 600 15px/1.4 var(--sans);
   color: var(--ink);
+  text-align: center;
+  animation: toast-up 280ms ease-out;
+}
+@keyframes toast-up {
+  from {
+    transform: translate(-50%, calc(100% + 16px));
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .update-toast {
+    animation: none;
+  }
 }
 .update-toast[hidden] {
   display: none;
 }
 .update-toast button {
   flex: none;
-  padding: 6px 12px;
+  min-width: 120px;
+  padding: 9px 22px;
   border: 0;
   border-radius: var(--radius);
   background: var(--accent);
-  color: #fff;
-  font: 700 13px var(--sans);
+  /* --surface, not white: white on the dark theme's accent is 2.8:1; --surface holds 5.9:1 (light) and 6.1:1 (dark) */
+  color: var(--surface);
+  font: 700 15px var(--sans);
   cursor: pointer;
 }
 .update-toast button:hover {
   filter: brightness(1.1);
+}
+.update-toast button:disabled {
+  cursor: progress;
+  opacity: 0.8;
 }
 .update-toast button:focus-visible {
   outline: 2px solid var(--ink);
