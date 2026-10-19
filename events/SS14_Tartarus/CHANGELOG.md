@@ -242,3 +242,47 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 
 - **Filthy Claws** live EN card (`images/136`): same text as prints 66 and 110. **Scratch Marks** tooltip (`images/137`), until now tlidb only: it shows the rarity of the inmate in the cell; "Alpha Wolf can Consume Inmates of the same rarity in rooms with Scratch Marks. +2 additional Rarity Tiers after Consuming"; the mark goes when the room opens. **Any beast** of the Wolf's rarity, not only Rats — matches the engine (+1 bite + `scratch_extra` 2, mark cleared on opening). Claws loses its "!" on the sheet.
 - **On a live board** (`images/138–141`, the owner's run with Kin's Coin + Claws): marks land each morning on a locked cell, show a "?" with the rarity's glow (white, then purple), and can land on a cell locked the day before — as the engine plays them.
+
+## 2026-10-19 — simulator 20261017d → 20261018p (automatic)
+
+- Odds `eventChancePct`: 5 → None
+- Odds `doubleEatTier`: 3 → 0
+- Value Gaoler's Execution Axe: 0.893 → 1.622 Rainbows/run
+- Value Executioner's Blacklist: 1.566 → 2.251 Rainbows/run
+- Value Crowded Beastcage: 0.984 → 1.998 Rainbows/run
+- Value Filthy Claws: Alpha Wolf: 2.143 → 3.05 Rainbows/run
+- Value Kin's Coin of Fate: 1.963 → 2.772 Rainbows/run
+- Value Maddened Beast's Barbed Collar: 1.264 → 2.325 Rainbows/run
+- Value Iron Crown of the Prison King: Berserk Lion: 2.654 → 3.45 Rainbows/run
+- Value Felon's Dog Tag: 1.151 → 2.089 Rainbows/run
+- Value Searing Branding Iron: 0.921 → 1.782 Rainbows/run
+- Value Forged Key: 0.779 → 1.347 Rainbows/run
+- Value Fanged Guillotine: Alpha Wolf: 1.209 → 2.126 Rainbows/run
+- Value Sorting Hook: 1.287 → 2.307 Rainbows/run
+- Value Squirming Iron Box: Colossal Rat: 0.568 → 1.111 Rainbows/run
+- Value Lost Ring of Keys: 1.106 → 1.866 Rainbows/run
+- Value Severed Iron Maiden: 2.014 → 2.735 Rainbows/run
+- Value Elephant-Foot Maul: Mammoth: 2.04 → 3.564 Rainbows/run
+- Rule changed — Raging Beast's Agonizing Muzzle: "When 4 or fewer inmates are on the block after the meal, a consume gains +2 extra tiers." → "When 4 or fewer inmates are on the block before a consume (its meal included), the consume gains +2 extra tiers."
+- Value Raging Beast's Agonizing Muzzle: 1.649 → 2.404 Rainbows/run
+- Value Iron Pestle: 0.886 → 1.804 Rainbows/run
+- Value Ferocious Beast's Ravenous Chains: 1.529 → 2.316 Rainbows/run
+- Value Avenger's Casket: 1.528 → 2.433 Rainbows/run
+- Value Hangman's Noose: 2.17 → 3.267 Rainbows/run
+- Value Rusty Saw: 1.272 → 2.291 Rainbows/run
+- Value Warden's Scales: 0.948 → 1.873 Rainbows/run
+- Value Scapegoat's Guillotine: 2.032 → 2.689 Rainbows/run
+- Value Long-Chained Shackles: 1.751 → 2.7 Rainbows/run
+- Value Short-Chained Shackles: 0.948 → 1.752 Rainbows/run
+- Value Skewered Rat Heads: Colossal Rat: 1.471 → 2.361 Rainbows/run
+- Value Burning Stake: 1.321 → 2.035 Rainbows/run
+- Value Iron Tongs of Lust: Mammoth: 1.091 → 2.079 Rainbows/run
+- Value Blood-Stained Trap: Berserk Lion: 2.217 → 3.603 Rainbows/run
+- Value Barbed Whip: 1.171 → 1.884 Rainbows/run
+- New events: Extra Portion
+- Rainbows/run (tuned strategy): 3.4709 → 4.6625
+- The simulator's guide no longer has `challenge`
+- New engine parameter: `eventActionChance` = 4
+- New engine parameter: `eventMorningChance` = 5
+- New engine parameter: `eventStartChance` = 72
+- New engine parameter: `eventWalkChance` = 9
