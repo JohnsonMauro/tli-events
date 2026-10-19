@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.18.3] - 2026-10-19
+
 ### Changed
 
 - SS14 play sheet: dropped "Start cards come from Viktor, the map boss" in every language — as we now understand it, start cards show up at random.
@@ -361,7 +363,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.2...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.3...HEAD
+[1.18.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.2...v1.18.3
 [1.18.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.1...v1.18.2
 [1.18.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.0...v1.18.1
 [1.18.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.17.1...v1.18.0
