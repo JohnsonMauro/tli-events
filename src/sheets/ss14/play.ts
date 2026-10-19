@@ -230,22 +230,30 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   // ---------- search: hides the rows whose name doesn't match; the ranking stays as it is ----------
   const findEl = document.querySelector<HTMLInputElement>('#toolFind');
   const findOut = document.getElementById('findOut');
-  /** Lower case, no accents, apostrophes or punctuation: "kins coin" finds "Kin's Coin of Fate". */
-  const norm = (s: string) =>
-    s
-      .normalize('NFD')
-      .replace(/[̀-ͯ'’]/g, '')
-      .toLowerCase()
-      .replace(/[^\p{L}\p{N}]+/gu, ' ');
-  /** Every word typed must be in the name, in any order. */
-  const matches = (id: string, words: string[]) => {
-    const name = norm(toolName(id));
-    return words.every((w) => name.includes(w));
+  /** No accents or apostrophes, lower case: "kins" finds "Kin's". */
+  const plain = (s: string) => s.normalize('NFD').replace(/[̀-ͯ'’]/gu, '').toLowerCase();
+  /** Words only: "kins coin" finds "Kin's Coin of Fate". */
+  const norm = (s: string) => plain(s).replace(/[^\p{L}\p{N}]+/gu, ' ');
+  /** The field as a regex (case-insensitive) when it has regex syntax and compiles, so "tongs|maul" finds both
+   * and "^iron" only names that start with Iron; null for plain words or a regex still being typed. */
+  const toRegex = (q: string) => {
+    if (!/[\\^$.|?*+()[\]{}]/.test(q)) return null;
+    try {
+      return new RegExp(q, 'iu');
+    } catch {
+      return null;
+    }
+  };
+  /** A regex matches the name (also without accents and apostrophes); plain words must all be in it, any order. */
+  const matches = (id: string, words: string[], re: RegExp | null) => {
+    const name = toolName(id);
+    if (re) return re.test(name) || re.test(plain(name));
+    return words.length > 0 && words.every((w) => norm(name).includes(w));
   };
   function applyFind() {
-    const words = norm(findEl?.value ?? '')
-      .split(' ')
-      .filter(Boolean);
+    const q = (findEl?.value ?? '').trim();
+    const words = norm(q).split(' ').filter(Boolean),
+      re = toRegex(q);
     let shown = 0,
       total = 0;
     for (const b of grid.querySelectorAll<HTMLElement>('.tool')) {
@@ -253,12 +261,12 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
         li = b.parentElement;
       // The first instrument is in Holding; its row leaves the list of candidates for the second.
       const candidate = id !== S.held[0],
-        hit = candidate && matches(id, words);
+        hit = candidate && (!q || matches(id, words, re));
       if (li) li.hidden = !hit;
       if (candidate) total++;
       if (hit) shown++;
     }
-    if (findOut) findOut.textContent = !words.length ? '' : shown ? fmt(T.findCount, { n: shown, total }) : T.findNone;
+    if (findOut) findOut.textContent = !q ? '' : shown ? fmt(T.findCount, { n: shown, total }) : T.findNone;
   }
   findEl?.addEventListener('input', applyFind);
   findEl?.addEventListener('keydown', (e) => {

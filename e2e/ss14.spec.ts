@@ -200,6 +200,23 @@ test('instrument search: narrows the list by name, Esc brings every row back', a
   await expect(page.locator('#findOut')).toHaveText(`Showing 2 of ${all.length}`);
   await find.fill('coin kins');
   expect(await shown()).toEqual(['coin']);
+  // A regex finds more than one at a time (owner, 2026-10-18); the placeholder says so.
+  await expect(find).toHaveAttribute('placeholder', /regex.*\|/);
+  await find.fill('tongs|NOOSE');
+  expect((await shown()).sort()).toEqual(['rope', 'tongs']);
+  const iron = await page
+    .locator('#tools .tool')
+    .evaluateAll((b: HTMLElement[]) =>
+      b.filter((x) => x.querySelector('.nm-t')?.textContent?.trim().startsWith('Iron')).map((x) => x.dataset.tool),
+    );
+  await find.fill('^iron');
+  expect((await shown()).sort()).toEqual(iron.sort());
+  // Not a regex yet (mid-typing): plain words only, and no error.
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await find.fill('maul (');
+  expect(await shown()).toEqual(['maul']);
+  expect(errors).toEqual([]);
   await find.fill('zzz');
   expect(await shown()).toEqual([]);
   await expect(page.locator('#findOut')).toHaveText('No instrument by that name.');

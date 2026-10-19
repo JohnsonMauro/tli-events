@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: the instrument search takes a regex, to see several at once — `tongs|maul` shows both, `^iron` only names that start with Iron; the field's placeholder says so. Plain words work as before.
+
 ## [1.12.0] - 2026-10-18
 
 ### Added
