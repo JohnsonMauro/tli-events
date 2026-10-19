@@ -177,9 +177,38 @@ test('instrument pick: the Holding chip shows the instrument art left of its nam
   const chip = page.locator('#held .chip');
   await expect(chip.locator('img')).toHaveAttribute('alt', '');
   expect(await chip.locator('img').getAttribute('src')).toBeTruthy();
-  await expect(chip).toHaveAccessibleName(/^Hangman's Noose/);
+  await expect(chip.locator('.chip-name')).toHaveAccessibleName("Hangman's Noose");
   const [img, chipBox] = [await chip.locator('img').boundingBox(), await chip.boundingBox()];
   expect(img && chipBox && img.x - chipBox.x).toBeLessThan(6);
+});
+
+// The held instrument's row leaves the list, so its card opens from its name in Holding (owner, 2026-10-19); the ✕
+// is a button of its own.
+test("instrument pick: the held instrument's name opens its card (hover and keyboard focus)", async ({ page }) => {
+  await page.goto(SHEET);
+  await page.locator('#tools .tool[data-tool="rope"]').click();
+  await page.mouse.move(0, 0);
+  await expect(page.locator('#pop')).toBeHidden();
+  const name = page.locator('#held .chip-name');
+  // Instant scroll first: the page scrolls smoothly, and a pane scroll still running after the hover closes the card.
+  await name.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  await page.waitForTimeout(200);
+  await name.hover();
+  await expect(page.locator('#pop')).toBeVisible();
+  await expect(page.locator('#pop .tp-head b').first()).toHaveText("Hangman's Noose");
+  await page.mouse.move(0, 0);
+  await expect(page.locator('#pop')).toBeHidden();
+  await name.focus();
+  await expect(page.locator('#pop .tp-head b').first()).toHaveText("Hangman's Noose");
+});
+
+test('instrument pick: ✕ drops the held instrument and focus lands on the list', async ({ page }) => {
+  await page.goto(SHEET);
+  await page.locator('#tools .tool[data-tool="rope"]').click();
+  const drop = page.getByRole('button', { name: "remove: Hangman's Noose" });
+  await drop.click();
+  await expect(page.locator('#held .chip')).toHaveCount(0);
+  await expect(page.locator('#toolList li:not([hidden]) .tool').first()).toBeFocused();
 });
 
 // The search narrows the list by name (owner, 2026-10-18): case, apostrophes and word order don't matter, the
@@ -551,8 +580,8 @@ test.describe('touch: cards open as a dialog', () => {
     const close = dlg.getByRole('button', { name: 'Close' });
     await close.tap();
     await expect(dlg).toBeHidden();
-    // That tap took the Coin as the start pick: its row left the list, so focus lands on its chip in Holding.
-    await expect(page.locator('#held [data-drop="coin"]')).toBeFocused();
+    // That tap took the Coin as the start pick: its row left the list, so focus lands on its name in Holding.
+    await expect(page.locator('#held .chip-name[data-tool="coin"]')).toBeFocused();
     // A second instrument's row stays in the list: focus returns to that row.
     const second = page.locator('#tools .tool[data-tool="keys"]');
     await second.scrollIntoViewIfNeeded();
@@ -589,6 +618,25 @@ test.describe('touch: cards open as a dialog', () => {
     await expect(page.locator('#popdlg')).toBeHidden();
     expect(await rows.nth(0).evaluate((el) => el.matches(':hover'))).toBe(true);
     expect(await bg(0)).toBe(calm);
+  });
+
+  test("a tap on the held instrument's name opens its card; closing it goes back to the name", async ({ page }) => {
+    await page.goto(SHEET);
+    await page.locator('#tools .tool[data-tool="rope"]').tap();
+    const dlg = page.locator('#popdlg');
+    await expect(dlg).toBeVisible();
+    await dlg.locator('[data-close]').tap();
+    await expect(dlg).toBeHidden();
+    const name = page.locator('#held .chip-name');
+    await name.tap();
+    await expect(dlg).toBeVisible();
+    // The card itself, not just the dialog's label (it would still name the row's card opened before).
+    await expect(dlg.locator('.dlg-body .tp-what')).toContainText('Replace never brings Normal/Magic');
+    await expect(dlg).toHaveAttribute('aria-label', "Hangman's Noose");
+    // Still held: tapping the name never drops it.
+    await expect(page.locator('#held .chip')).toHaveCount(1);
+    await dlg.locator('[data-close]').tap();
+    await expect(name).toBeFocused();
   });
 
   test('a long card scrolls inside the dialog', async ({ page }) => {

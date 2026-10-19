@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: the instrument you hold opens its card from its name in Holding — hover, keyboard focus or a tap — since its row leaves the list once taken. Removing it is now its own ✕ button, so a tap on the name never drops it.
+
 ## [1.17.1] - 2026-10-19
 
 ### Fixed

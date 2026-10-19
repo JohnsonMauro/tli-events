@@ -319,12 +319,15 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     }
     applyFind();
     if (head) head.textContent = first ? T.partnersSub : T.perRun;
+    // Each held instrument: its name opens its card (hover, focus or tap, like a row of the list, whose row it left),
+    // and its own ✕ button drops it.
     heldEl.innerHTML = S.held.length
       ? S.held
-          .map(
-            (id) =>
-              `<button type="button" class="chip" data-drop="${esc(id)}" title="${esc(T.remove)}">${chipImg(id)}${esc(toolName(id))} ✕</button>`,
-          )
+          .map((id) => {
+            const doubt = grid.querySelector<HTMLElement>(`.tool[data-tool="${CSS.escape(id)}"]`)?.dataset.doubt;
+            const label = `${T.remove}: ${toolName(id)}`;
+            return `<span class="chip"><button type="button" class="chip-name" data-tool="${esc(id)}"${doubt != null ? ' data-doubt=""' : ''} aria-describedby="pop">${chipImg(id)}${esc(toolName(id))}</button><button type="button" class="chip-x" data-drop="${esc(id)}" aria-label="${esc(label)}" title="${esc(label)}">✕</button></span>`;
+          })
           .join('')
       : `<span class="meta">${esc(T.nothing)}</span>`;
     out.innerHTML = `<p class="meta">${esc(first ? fmt(T.pickSecond, { name: toolName(first) }) : T.pickHint)}</p>`;
@@ -474,7 +477,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       opener?.isConnected && opener.offsetParent
         ? opener
         : tool
-          ? heldEl.querySelector<HTMLElement>(`[data-drop="${CSS.escape(tool)}"]`)
+          ? heldEl.querySelector<HTMLElement>(`[data-tool="${CSS.escape(tool)}"]`)
           : null;
     back?.focus({ preventScroll: true });
     opener = null;
@@ -570,11 +573,24 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     else showPop(b);
   });
   heldEl.addEventListener('click', (e) => {
+    // The name: its card, as a dialog on touch (a mouse already has it from hover, a keyboard from focus).
+    const name = (e.target as Element).closest<HTMLElement>('.chip-name');
+    if (name) {
+      if (touch) openDialog(name);
+      else showPop(name);
+      return;
+    }
     const x = (e.target as Element).closest<HTMLElement>('[data-drop]');
     if (!x) return;
     S = { ...S, held: S.held.filter((h) => h !== x.dataset.drop) };
     save();
+    hidePop();
     render();
+    // The ✕ went away with its chip: focus the other held instrument, or the top of the list to pick again.
+    (
+      heldEl.querySelector<HTMLElement>('.chip-name') ??
+      grid.querySelector<HTMLElement>('#toolList li:not([hidden]) .tool')
+    )?.focus({ preventScroll: true });
   });
 
   // ---------- your run: the choices re-rank the list (render) ----------

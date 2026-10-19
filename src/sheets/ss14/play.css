@@ -549,17 +549,50 @@ main.wide {
   flex-wrap: wrap;
   gap: 4px;
 }
+/* a held instrument: its name opens its card, ✕ drops it — two buttons in one pill */
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font: 600 12px var(--sans);
   background: var(--surface2);
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 2px 8px 2px 2px;
+}
+.chip button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: 600 12px var(--sans);
   cursor: pointer;
+}
+.chip-name {
+  gap: 6px;
+  padding: 0 4px 0 2px;
+  border-radius: 14px 0 0 14px;
+  cursor: help;
+}
+.chip-x {
+  justify-content: center;
+  min-width: 26px;
+  padding: 0 6px 0 2px;
+  border-radius: 0 14px 14px 0;
+  color: var(--ink2);
+}
+.chip button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chip-name:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .chip-x:hover {
+    color: var(--ink);
+  }
 }
 /* the instrument's art, left of its name */
 .chip img,
