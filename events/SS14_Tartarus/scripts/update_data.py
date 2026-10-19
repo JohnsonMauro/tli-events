@@ -5,7 +5,7 @@ Downloads the simulator's data files and its live telemetry (rates.json:
 odds measured from boards players shared) as text only, nothing is executed.
 Extracts odds, rules, instrument values and pair combos, then writes:
 
-  data/tartarus_data.json        data for the Astro site (src/pages/ss14)
+  data/tartarus_data.json        data for the Astro site (src/sheets/ss14)
   data/snapshots/sim_<stamp>_<ver>.json  frozen copy whenever something changed
   instrument_combos.csv          all solos + pairs, sorted
   CHANGELOG.md                   appends a dated entry when something changed
@@ -28,6 +28,9 @@ SNAP = os.path.join(DATA, "snapshots")
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36"
 TIERS = ["Normal", "Magic", "Rare", "Legendary", "Supreme", "Rainbow"]
 TOOL_DELTA = 0.05  # Rainbows/run change worth logging
+# Sections of the simulator's guide-data.js kept for the record (nothing on the site reads them). Each is optional:
+# upstream dropped `challenge` in 20261018p, and a missing key broke every run until 2026-10-19.
+GUIDE_KEYS = ("headline", "habits", "stairs", "compare", "challenge")
 
 
 RATES = "https://raw.githubusercontent.com/blahdot3h/tartarus-simulator/HEAD/beta/data/rates.json"
@@ -141,11 +144,9 @@ def build():
         "startCards": entries(block(engine, "START_EVENTS")),
         "gifts": {g["id"]: {**entries(block(engine, "GIFTS")).get(g["id"], {}), "value": round(g["value"], 3)}
                   for g in guide["gifts"] if g["id"] in entries(block(engine, "GIFTS"))},
-        "headline": guide["headline"],
-        "habits": guide["habits"],
-        "stairs": guide["stairs"],
-        "compare": guide["compare"],
-        "challenge": {k: guide["challenge"][k] for k in ("headline", "habits") if k in guide["challenge"]},
+        **{k: guide[k] for k in GUIDE_KEYS if guide.get(k) is not None and k != "challenge"},
+        **({"challenge": {k: guide["challenge"][k] for k in ("headline", "habits") if k in guide["challenge"]}}
+           if guide.get("challenge") else {}),
     }
 
 
@@ -173,9 +174,12 @@ def diff(old, new):
     ntop = new["pairs"][0] if new["pairs"] else None
     if otop and ntop and otop[:2] != ntop[:2]:
         notes.append(f"Best pair changed: {otop} → {ntop}")
-    oh, nh = old["headline"]["rainbowsPerRun"], new["headline"]["rainbowsPerRun"]
-    if abs(oh - nh) >= TOOL_DELTA:
+    oh, nh = (old.get("headline") or {}).get("rainbowsPerRun"), (new.get("headline") or {}).get("rainbowsPerRun")
+    if oh is not None and nh is not None and abs(oh - nh) >= TOOL_DELTA:
         notes.append(f"Rainbows/run (tuned strategy): {oh} → {nh}")
+    for k in GUIDE_KEYS:
+        if old.get(k) and not new.get(k):
+            notes.append(f"The simulator's guide no longer has `{k}`")
     ol, nl = old.get("live") or {}, new.get("live") or {}
     p = lambda x: "new" if x is None else f"{x * 100:.1f}%"
     for key in ("doorTiers", "doorBeasts", "replaceTiers"):
