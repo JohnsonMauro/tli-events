@@ -109,8 +109,9 @@ const bestOf = (vals: number[]) => Math.max(...vals);
 const soloBest = bestOf(Object.values(E.tools).map((x) => x.value));
 const tierOf = (v: number) => tierIn(v, base, soloBest);
 // One list, best first: art, tier, name, Rainbows per run. ./play.ts re-sorts it for the run's choices.
+// Ties go by name, here and there, so the order never depends on what was picked before.
 const tools = Object.entries(E.tools)
-  .sort((a, b) => b[1].value - a[1].value)
+  .sort((a, b) => b[1].value - a[1].value || a[1].name.localeCompare(b[1].name, 'en'))
   .map(([id, x]) => ({
     id,
     name: x.name,
@@ -250,6 +251,7 @@ const ui = {
   noCombo: t.noCombo,
   findCount: t.findCount,
   findNone: t.findNone,
+  resetDone: t.resetDone,
   link: t.link,
   clashWhy: t.clashWhy,
 };
@@ -284,6 +286,17 @@ const ladder = [
   <EventInfo slot="nav" lang={lang} method={t.method} credits={credits as Credit[]} />
   <div class="sheet-top">
     <BackLink href={url()} label={t.back} />
+    {/* clears Your run and the instruments held (./play.ts) */}
+    <span class="reset-wrap">
+      <button type="button" id="resetRun" class="reset" aria-label={t.resetLabel} title={t.resetLabel}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 12a8 8 0 1 0 2.3-5.7" />
+          <path d="M4 4v4h4" />
+        </svg>
+        {t.reset}
+      </button>
+      <span id="resetOut" class="reset-out" role="status"></span>
+    </span>
   </div>
   <div class="play">
     <section class="pane patterns" aria-labelledby="pat-h">

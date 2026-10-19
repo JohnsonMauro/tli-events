@@ -93,6 +93,9 @@ const en = {
   findCount: 'Showing {n} of {total}',
   findNone: 'No instrument by that name.',
   remove: 'remove',
+  reset: 'Reset',
+  resetLabel: 'Reset: clear the start card, objective and instruments',
+  resetDone: 'Cleared.',
   tierMeta:
     'Tier = how close the instrument comes to the best one in the list (S = the top); once you hold one, how close the pair comes to the best pair. Hover (or tap) a row for what it does and the best second one. Crown and Maul almost never show up live.',
   doubt:
@@ -324,6 +327,9 @@ const ptbr: Dict = {
   findCount: 'Mostrando {n} de {total}',
   findNone: 'Nenhum instrumento com esse nome.',
   remove: 'remover',
+  reset: 'Limpar',
+  resetLabel: 'Limpar: carta de início, objetivo e instrumentos',
+  resetDone: 'Tudo limpo.',
   tierMeta:
     'Tier = o quanto o instrumento chega perto do melhor da lista (S = o topo); com um na mão, o quanto o par chega perto do melhor par. Passe o mouse (ou toque) numa linha para ver o que faz e o melhor segundo. Crown e Maul quase nunca aparecem ao vivo.',
   doubt:
@@ -627,6 +633,9 @@ const ko: Dict = {
   findCount: '{total}개 중 {n}개 표시',
   findNone: '그런 이름의 도구는 없습니다.',
   remove: '제거',
+  reset: '초기화',
+  resetLabel: '초기화: 시작 카드, 목표, 도구 선택 해제',
+  resetDone: '초기화했습니다.',
   tierMeta:
     '티어 = 목록에서 최고 도구에 얼마나 가까운지 (S = 최상위); 도구를 하나 가지면 최고 조합에 얼마나 가까운지. 줄에 마우스를 올리거나 탭하면 효과와 최고의 두 번째 도구 표시. Crown과 Maul은 실전에서 거의 안 나옴.',
   doubt:
@@ -916,6 +925,9 @@ const ja: Dict = {
   findCount: '{total}個中{n}個を表示',
   findNone: 'その名前の拷問具はありません。',
   remove: '外す',
+  reset: 'リセット',
+  resetLabel: 'リセット：開始カード・目標・拷問具の選択を解除',
+  resetDone: 'リセットしました。',
   tierMeta:
     'ティア = リスト内の最上位の刑具にどれだけ近いか（S = 最上位）；1つ持つと、最高のペアにどれだけ近いか。行にホバー（またはタップ）で効果と最高の2つ目。CrownとMaulは実戦ではほぼ出ない。',
   doubt:
@@ -1203,6 +1215,9 @@ const zh: Dict = {
   findCount: '显示{n}个，共{total}个',
   findNone: '没有叫这个名字的刑具。',
   remove: '移除',
+  reset: '重置',
+  resetLabel: '重置：清除开局卡、目标和刑具',
+  resetDone: '已重置。',
   tierMeta:
     '档位 = 与列表中最好的刑具有多接近（S = 最高）；持有一个后，与最佳组合有多接近。悬停（或点按）一行查看效果和最佳第二个。Crown和Maul实战中几乎不出现。',
   doubt: '游戏中尚未完全确认（卡牌被截断或规则未定）：数值可能变动。我们一直在实战确认。',
@@ -1484,6 +1499,9 @@ const ru: Dict = {
   findCount: 'Показано {n} из {total}',
   findNone: 'Инструмента с таким названием нет.',
   remove: 'убрать',
+  reset: 'Сбросить',
+  resetLabel: 'Сбросить: стартовая карта, цель и инструменты',
+  resetDone: 'Сброшено.',
   tierMeta:
     'Ранг = насколько инструмент близок к лучшему в списке (S — вершина); когда один уже взят — насколько пара близка к лучшей паре. Наведите (или нажмите) на строку, чтобы увидеть эффект и лучший второй. Crown и Maul вживую почти не встречаются.',
   doubt:
@@ -1785,6 +1803,9 @@ const de: Dict = {
   findCount: '{n} von {total} angezeigt',
   findNone: 'Kein Instrument mit diesem Namen.',
   remove: 'entfernen',
+  reset: 'Zurücksetzen',
+  resetLabel: 'Zurücksetzen: Startkarte, Ziel und Instrumente leeren',
+  resetDone: 'Zurückgesetzt.',
   tierMeta:
     'Stufe = wie nah das Instrument an das beste der Liste herankommt (S = die Spitze); hältst du eins, wie nah das Paar an das beste Paar herankommt. Hover (oder tippen) auf eine Zeile zeigt den Effekt und das beste zweite. Crown und Maul tauchen live fast nie auf.',
   doubt:
@@ -2090,6 +2111,9 @@ const fr: Dict = {
   findCount: '{n} sur {total} affichés',
   findNone: 'Aucun instrument de ce nom.',
   remove: 'retirer',
+  reset: 'Réinitialiser',
+  resetLabel: 'Réinitialiser : carte de départ, objectif et instruments',
+  resetDone: 'Réinitialisé.',
   tierMeta:
     "Tier = à quel point l'instrument approche le meilleur de la liste (S = le sommet) ; une fois l'un en main, à quel point la paire approche la meilleure paire. Survolez (ou touchez) une ligne pour voir ce qu'elle fait et le meilleur second. Crown et Maul ne sortent presque jamais en direct.",
   doubt:
@@ -2402,6 +2426,9 @@ const pl: Dict = {
   findCount: 'Widoczne: {n} z {total}',
   findNone: 'Brak instrumentu o tej nazwie.',
   remove: 'usuń',
+  reset: 'Wyczyść',
+  resetLabel: 'Wyczyść: karta startowa, cel i instrumenty',
+  resetDone: 'Wyczyszczono.',
   tierMeta:
     'Tier = jak blisko instrument jest najlepszego z listy (S = szczyt); gdy już jakiś masz, jak blisko para jest najlepszej pary. Najedź (lub stuknij) na wiersz, by zobaczyć, co robi, i najlepszy drugi. Crown i Maul prawie nigdy nie pojawiają się na żywo.',
   doubt:
@@ -2705,6 +2732,9 @@ const sv: Dict = {
   findCount: 'Visar {n} av {total}',
   findNone: 'Inget instrument med det namnet.',
   remove: 'ta bort',
+  reset: 'Återställ',
+  resetLabel: 'Återställ: startkort, mål och instrument',
+  resetDone: 'Återställt.',
   tierMeta:
     'Tier = hur nära instrumentet kommer det bästa i listan (S = toppen); när du har ett, hur nära paret kommer det bästa paret. Hovra (eller tryck) på en rad för vad det gör och det bästa andra. Crown och Maul dyker nästan aldrig upp live.',
   doubt:
@@ -3009,6 +3039,9 @@ const es: Dict = {
   findCount: 'Mostrando {n} de {total}',
   findNone: 'Ningún instrumento con ese nombre.',
   remove: 'quitar',
+  reset: 'Reiniciar',
+  resetLabel: 'Reiniciar: carta inicial, objetivo e instrumentos',
+  resetDone: 'Reiniciado.',
   tierMeta:
     'Tier = cuánto se acerca el instrumento al mejor de la lista (S = el máximo); con uno en mano, cuánto se acerca el par al mejor par. Pasa el cursor (o toca) por una fila para ver qué hace y el mejor segundo. Crown y Maul casi nunca aparecen en vivo.',
   doubt:

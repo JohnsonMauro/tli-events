@@ -6,6 +6,14 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: a Reset button centered above the panes starts a new run in one tap — no start card, no objective, no instruments held.
+
+### Fixed
+
+- SS14 play sheet: instruments with the same Rainbows per run (Executioner's Blacklist and Agonizing Muzzle) now always list in name order; before, their order could swap after a pick.
+
 ## [1.13.0] - 2026-10-18
 
 ### Added

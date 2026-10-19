@@ -38,7 +38,8 @@ interface PlayData {
     | 'clashV'
     | 'noCombo'
     | 'findCount'
-    | 'findNone',
+    | 'findNone'
+    | 'resetDone',
     string
   > & {
     tool: Record<string, string>;
@@ -283,9 +284,12 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   function render() {
     const [first, second] = S.held;
     const scale = listScale();
-    const rows = [...grid.querySelectorAll<HTMLElement>('.tool')].sort(
-      (a, b) => rowValue(b.dataset.tool ?? '') - rowValue(a.dataset.tool ?? ''),
-    );
+    // Ties by name (as the page renders it): the order never depends on what was picked before.
+    const rows = [...grid.querySelectorAll<HTMLElement>('.tool')].sort((a, b) => {
+      const x = a.dataset.tool ?? '',
+        y = b.dataset.tool ?? '';
+      return rowValue(y) - rowValue(x) || toolName(x).localeCompare(toolName(y), 'en');
+    });
     for (const b of rows) {
       const id = b.dataset.tool ?? '',
         li = b.parentElement,
@@ -589,6 +593,29 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     N = numbers();
     showRun();
     render();
+  });
+
+  // ---------- reset: a new run — no start card, no objective, nothing held ----------
+  const resetOut = document.getElementById('resetOut');
+  let resetTimer = 0;
+  document.getElementById('resetRun')?.addEventListener('click', () => {
+    S = { held: [] };
+    save();
+    R = { start: '', objective: '' };
+    try {
+      localStorage.setItem(RUN_KEY, JSON.stringify(R));
+    } catch {}
+    N = numbers();
+    hidePop();
+    showRun();
+    render();
+    // Said beside the button (and by screen readers: role="status"), then cleared.
+    if (!resetOut) return;
+    resetOut.textContent = T.resetDone;
+    clearTimeout(resetTimer);
+    resetTimer = window.setTimeout(() => {
+      resetOut.textContent = '';
+    }, 3000);
   });
   showRun();
   render();

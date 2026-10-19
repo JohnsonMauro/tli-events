@@ -244,6 +244,47 @@ for (const width of [1440, 390]) {
   });
 }
 
+// Reset, centered above the panes (owner, 2026-10-18): a new run — no start card, no objective, nothing held.
+test('reset: clears Your run and the instruments held, and says so', async ({ page }) => {
+  await page.goto(SHEET);
+  const order = () => page.locator('#tools .tool').evaluateAll((b: HTMLElement[]) => b.map((x) => x.dataset.tool));
+  const fresh = await order();
+  await page.locator('#run [data-start="cagefight"]').click();
+  await page.locator('#run [data-objective]:not([data-objective=""])').first().click();
+  await page.locator('#tools .tool[data-tool="rope"]').click();
+  await page.locator('#tools .tool[data-tool="maiden"]').click();
+  await expect(page.locator('#held .chip')).toHaveCount(2);
+
+  const reset = page.getByRole('button', { name: /^Reset/ });
+  await reset.click();
+  await expect(page.locator('#held .chip')).toHaveCount(0);
+  await expect(page.locator('#run [data-start=""]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#run [data-objective=""]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#tools li[hidden]')).toHaveCount(0);
+  expect(await order()).toEqual(fresh);
+  await expect(page.locator('#resetOut')).toHaveText('Cleared.');
+  await expect(page.locator('#resetOut')).toHaveAttribute('role', 'status');
+  await expect(page.locator('#resetOut')).toHaveText('', { timeout: 5000 });
+
+  await page.reload();
+  await expect(page.locator('#held .chip')).toHaveCount(0);
+  await expect(page.locator('#run [data-start=""]')).toHaveAttribute('aria-pressed', 'true');
+});
+
+for (const width of [1440, 390]) {
+  test(`reset: centered on the page, clear of the back link (${width}px)`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(SHEET);
+    const [back, reset] = [
+      await page.locator('.sheet-top .back').boundingBox(),
+      await page.locator('#resetRun').boundingBox(),
+    ];
+    if (!back || !reset) throw new Error('missing');
+    expect(reset.x).toBeGreaterThanOrEqual(back.x + back.width);
+    if (width > 760) expect(Math.abs(reset.x + reset.width / 2 - width / 2)).toBeLessThanOrEqual(12);
+  });
+}
+
 // A run holds 2 instruments: a tap on a row takes it as the second; a tap on another replaces it, never a third.
 test('instrument pick: a tap takes the second instrument, another tap swaps it', async ({ page }) => {
   await holdBeastcage(page);
