@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.14.0] - 2026-10-18
+
 ### Added
 
 - SS14 play sheet: a Reset button centered above the panes starts a new run in one tap — no start card, no objective, no instruments held.
@@ -292,7 +294,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.13.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.14.0...HEAD
+[1.14.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.13.0...v1.14.0
 [1.13.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.10.3...v1.11.0
