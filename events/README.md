@@ -9,7 +9,7 @@ One folder per seasonal event. Each folder is self-contained: guide, changelog, 
 ## Adding a new event
 
 1. `cp -r events/_template events/SS<nn>_<Name>`
-2. Rename `MECHANIC_GUIDE.md` to `<MECHANIC>_GUIDE.md` and fill the frontmatter (event card: `slug`, `code`, `name`, `nameCn`, `mechanic`, `launched`, `summary`). That puts the event's card on the site's list.
+2. Rename `MECHANIC_GUIDE.md` to `<MECHANIC>_GUIDE.md` and fill the frontmatter (event card: `slug`, `code`, `name`, `nameCn`, `mechanic`, `launched`, `summary`, and optionally `i18n` — the card's `mechanic` and `summary` in the other site languages; a missing language shows English). That puts the event's card on the site's list, in every language.
 3. Research with the method below and fill the guide, `CHANGELOG.md` and `images/INDEX.md`.
 4. Optional: `scripts/update_data.py` following `scripts/README.md` — then the 6-hourly workflow keeps the data and changelog fresh.
 5. The event page: `src/pages/<slug>/index.astro` (see SS14's play sheet). Until it exists the card on the list is not linked. Every event page carries `<EventInfo slot="nav">` (`src/components/EventInfo.astro`): a short methodology in each language plus `credits.json` — **always thank the YouTube/Bilibili creators used and link their channel** (resolve the channel from the video itself, e.g. `yt-dlp --print channel_url`; Bilibili via the video page's `__INITIAL_STATE__.videoData.owner`).

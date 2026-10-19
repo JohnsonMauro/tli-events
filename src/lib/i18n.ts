@@ -38,7 +38,18 @@ export const rich = (s: string) =>
 /** Site-wide strings (src/layouts/Base.astro): the "new version" notice and the footer ({heart} = the heart icon). */
 export const SITE_TEXT: Record<
   Lang,
-  { newVersion: string; reload: string; madeWith: string; love: string; pause: string }
+  {
+    newVersion: string;
+    reload: string;
+    madeWith: string;
+    love: string;
+    pause: string;
+    /** The translation offer (src/lib/lang-offer.ts), shown in this language to readers of it. */
+    offer: string;
+    offerGo: string;
+    offerNever: string;
+    offerClose: string;
+  }
 > = {
   en: {
     newVersion: 'A new version of this page is out.',
@@ -46,6 +57,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, made with {heart}',
     love: 'love',
     pause: 'Pause the heart animation',
+    offer: 'This page is also in English.',
+    offerGo: 'Read in English',
+    offerNever: "Don't show again",
+    offerClose: 'Close',
   },
   'pt-br': {
     newVersion: 'Saiu uma versão nova desta página.',
@@ -53,6 +68,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, feito com {heart}',
     love: 'amor',
     pause: 'Pausar a animação do coração',
+    offer: 'Esta página também está em português.',
+    offerGo: 'Ler em português',
+    offerNever: 'Não mostrar mais',
+    offerClose: 'Fechar',
   },
   de: {
     newVersion: 'Eine neue Version dieser Seite ist da.',
@@ -60,6 +79,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, gemacht mit {heart}',
     love: 'Liebe',
     pause: 'Herz-Animation anhalten',
+    offer: 'Diese Seite gibt es auch auf Deutsch.',
+    offerGo: 'Auf Deutsch lesen',
+    offerNever: 'Nicht mehr anzeigen',
+    offerClose: 'Schließen',
   },
   es: {
     newVersion: 'Hay una versión nueva de esta página.',
@@ -67,6 +90,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, hecho con {heart}',
     love: 'amor',
     pause: 'Pausar la animación del corazón',
+    offer: 'Esta página también está en español.',
+    offerGo: 'Leer en español',
+    offerNever: 'No volver a mostrar',
+    offerClose: 'Cerrar',
   },
   fr: {
     newVersion: 'Une nouvelle version de cette page est disponible.',
@@ -74,6 +101,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, fait avec {heart}',
     love: 'amour',
     pause: 'Mettre en pause l’animation du cœur',
+    offer: 'Cette page existe aussi en français.',
+    offerGo: 'Lire en français',
+    offerNever: 'Ne plus afficher',
+    offerClose: 'Fermer',
   },
   pl: {
     newVersion: 'Jest nowa wersja tej strony.',
@@ -81,6 +112,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, zrobione z {heart}',
     love: 'miłością',
     pause: 'Zatrzymaj animację serca',
+    offer: 'Ta strona jest też po polsku.',
+    offerGo: 'Czytaj po polsku',
+    offerNever: 'Nie pokazuj więcej',
+    offerClose: 'Zamknij',
   },
   vi: {
     newVersion: 'Đã có phiên bản mới của trang này.',
@@ -88,6 +123,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, làm bằng cả {heart}',
     love: 'tình yêu',
     pause: 'Tạm dừng hiệu ứng trái tim',
+    offer: 'Trang này cũng có bằng tiếng Việt.',
+    offerGo: 'Đọc bằng tiếng Việt',
+    offerNever: 'Không hiện lại',
+    offerClose: 'Đóng',
   },
   sv: {
     newVersion: 'Det finns en ny version av den här sidan.',
@@ -95,6 +134,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, gjort med {heart}',
     love: 'kärlek',
     pause: 'Pausa hjärtanimationen',
+    offer: 'Den här sidan finns också på svenska.',
+    offerGo: 'Läs på svenska',
+    offerNever: 'Visa inte igen',
+    offerClose: 'Stäng',
   },
   ko: {
     newVersion: '이 페이지의 새 버전이 나왔습니다.',
@@ -102,6 +145,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, {heart}을 담아 만듦',
     love: '사랑',
     pause: '하트 애니메이션 일시정지',
+    offer: '이 페이지는 한국어로도 볼 수 있습니다.',
+    offerGo: '한국어로 보기',
+    offerNever: '다시 표시하지 않기',
+    offerClose: '닫기',
   },
   ja: {
     newVersion: 'このページの新しいバージョンがあります。',
@@ -109,6 +156,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events、{heart}を込めて',
     love: '愛',
     pause: 'ハートのアニメーションを一時停止',
+    offer: 'このページは日本語でも読めます。',
+    offerGo: '日本語で読む',
+    offerNever: '今後表示しない',
+    offerClose: '閉じる',
   },
   zh: {
     newVersion: '本页面有新版本。',
@@ -116,6 +167,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events，用{heart}制作',
     love: '爱',
     pause: '暂停爱心动画',
+    offer: '本页也有简体中文版。',
+    offerGo: '阅读中文版',
+    offerNever: '不再显示',
+    offerClose: '关闭',
   },
   ru: {
     newVersion: 'Вышла новая версия этой страницы.',
@@ -123,6 +178,10 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, сделано с {heart}',
     love: 'любовью',
     pause: 'Остановить анимацию сердца',
+    offer: 'Эта страница есть и на русском.',
+    offerGo: 'Читать на русском',
+    offerNever: 'Больше не показывать',
+    offerClose: 'Закрыть',
   },
 };
 

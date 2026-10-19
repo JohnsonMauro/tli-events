@@ -13,6 +13,8 @@ export interface EventInfo {
   /** ISO date (YYYY-MM-DD). */
   launched: string;
   summary: string;
+  /** The card in other languages (guide frontmatter `i18n`); English when a language is missing. */
+  i18n?: Partial<Record<Lang, { mechanic: string; summary: string }>>;
   /** Official key art (events/<Dir>/banner.*): event card background and share image. */
   banner?: ImageMetadata;
   /** Whether the event has a play sheet (src/pages/<slug>/index.astro); the list links only these. */
@@ -51,6 +53,17 @@ export async function getEvent(slug: string): Promise<EventInfo> {
 
 /** Prefix an internal path with the deploy base (GitHub Pages project path). */
 export const url = (path = '') => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
+/** Path of the home page (the event list) in a language: / for English, /<lang>/ otherwise. */
+export const homeUrl = (lang: Lang = DEFAULT_LANG) => url(lang === DEFAULT_LANG ? '' : `${lang}/`);
+
+/** Language switcher entries for the home page (also drives its hreflang links and the sitemap). */
+export const homeLangs = (current: Lang = DEFAULT_LANG) =>
+  LANGS.map((l) => ({ ...l, href: homeUrl(l.code), current: l.code === current }));
+
+/** An event's card text in a language, falling back to English. */
+export const eventCard = (event: Pick<EventInfo, 'mechanic' | 'summary' | 'i18n'>, lang: Lang = DEFAULT_LANG) =>
+  event.i18n?.[lang] ?? { mechanic: event.mechanic, summary: event.summary };
 
 /** Path of an event page in a language: /<slug>/ for English, /<slug>/<lang>/ otherwise. */
 export const eventUrl = (event: Pick<EventInfo, 'slug'>, lang: Lang = DEFAULT_LANG) =>

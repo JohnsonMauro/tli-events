@@ -6,6 +6,11 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- The whole site is now in all 12 languages, not only the SS14 sheet: the home page (`/pt-br/`, `/vi/`…) with its event cards and launch dates written the reader's way, the language switcher on every page, the logo and "All events" leading back to the home page in your language, and the "page not found" page answering in your language. In English the card date now reads "Oct 15, 2026".
+- Pages with translations now offer the one your browser's language asks for, in that language — "Read in Português" — without ever redirecting. It asks once: "Don't show again" is for good, × closes it until the tab closes, and choosing a language (there or in the switcher) counts as your answer.
+
 ## [1.16.0] - 2026-10-18
 
 ### Added

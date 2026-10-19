@@ -1,7 +1,7 @@
 # TLI Events — Torchlight: Infinite event research base
 
 The team's strategy base for Torchlight: Infinite (XD Games) seasonal events, published as an Astro site on GitHub Pages (public repo `JohnsonMauro/tli-events`). **Everything is in English** — the team plays the English client, so mechanic/item names match the game exactly; Chinese terms stay in parentheses where useful.
-Exception: the SS14 play sheet (`/ss14/`) is also published in pt-BR, es, de, fr, pl, sv, ko, ja, zh, ru and vi for other players — texts in `src/sheets/ss14/i18n/`; game names (instruments, incidents, actions, rarities) stay in English there too.
+Exception: the site itself is published in pt-BR, es, de, fr, pl, sv, ko, ja, zh, ru and vi for other players — the home page at `/<lang>/` (`src/components/home.i18n.ts`, each card's text in its guide's frontmatter `i18n`), the 404 (rewritten in the browser), and the SS14 play sheet at `/ss14/<lang>/` (`src/sheets/ss14/i18n/`). Pages with translations offer the reader's browser language once (`src/lib/lang-offer.ts`). Game names (instruments, incidents, actions, rarities) stay in English everywhere.
 
 **Supreme law: accessibility.** The site serves the public, so accessibility outranks every other call — looks, brevity, convenience, deadlines (owner, 2026-10-18). WCAG 2.2 AA is the floor, not the goal: anything a reader can't perceive, operate or understand is a bug, whatever the tests say. Each translation reads as a native speaker would write it (generic words in the reader's language; only what the EN client shows stays in English).
 
@@ -24,10 +24,11 @@ src/                          Astro 7 site — publishes the event list and each
     project.ts                repo and Discussions URLs
     build.ts                  BUILD_ID (git HEAD) → <meta name="tli-build"> on every page
     update-check.ts           "new version" toast: compares that meta with the live page's
+    lang-offer.ts             offers the translation the browser asks for (never redirects; asked once)
   layouts/Base.astro          head (fonts, canonical, hreflang, OG, manifest, SW) + sticky header + footer
-  components/                 Art (optimized <img>), BackLink (top of an event page's content), EventInfo ("Method & credits" dialog), Flag
+  components/                 Art (optimized <img>), BackLink (top of an event page's content), EventInfo ("Method & credits" dialog), Flag, HomePage (the event list in one language) + home.i18n.ts (its texts and the 404's)
   sheets/<slug>/              one play sheet per event, colocated: PlaySheet.astro, i18n/ (one file per language), play.ts (client), play.css
-  pages/                      index (event list), 404, sitemap.xml, manifest.webmanifest, <slug>/index + [lang] → sheets/<slug>
+  pages/                      index + [lang]/index (event list → components/HomePage), 404, sitemap.xml, manifest.webmanifest, <slug>/index + [lang] → sheets/<slug>
   assets/fonts/               self-hosted font files not on Google's API (astro.config.mjs `fonts`)
 public/sw.js                  service worker: /_astro/* cache-first, pages network-first revalidated with `no-cache` (works around Pages' 10-min cache)
 .github/workflows/deploy.yml  push → lint (eslint, prettier, astro check) → build/deploy; every 6h → run events/*/scripts/update_data.py, commit if changed, deploy

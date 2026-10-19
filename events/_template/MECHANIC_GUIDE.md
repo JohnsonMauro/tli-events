@@ -8,6 +8,11 @@ nameCn: 中文名          # optional
 mechanic: "Mechanic name — one-line description"
 launched: 2026-01-01    # global launch date (YYYY-MM-DD)
 summary: "One sentence: what you do in the mechanic and what it pays."
+# Optional: the card in other languages (pt-br, es, de, fr, pl, sv, ko, ja, zh, ru, vi); a missing one shows English.
+# i18n:
+#   pt-br:
+#     mechanic: "Nome da mecânica — descrição de uma linha"
+#     summary: "Uma frase: o que se faz na mecânica e o que ela paga."
 ---
 
 # SSNN Name (中文名) — event map, odds and strategy

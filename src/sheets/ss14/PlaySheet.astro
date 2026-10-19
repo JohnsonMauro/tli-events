@@ -5,7 +5,7 @@ import EventInfo, { type Credit } from '../../components/EventInfo.astro';
 import BackLink from '../../components/BackLink.astro';
 import { FIND_MAX } from './find';
 import { packPairs, packValues, type Pair, type Values } from './pack';
-import { getEvent, eventLangs, url } from '../../lib/events';
+import { getEvent, eventLangs, homeUrl } from '../../lib/events';
 import { artSet } from '../../lib/images';
 import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
 import { DICT } from './i18n';
@@ -297,7 +297,7 @@ const ladder = [
 >
   <EventInfo slot="nav" lang={lang} method={t.method} credits={credits as Credit[]} />
   <div class="sheet-top">
-    <BackLink href={url()} label={t.back} />
+    <BackLink href={homeUrl(lang)} label={t.back} />
     {/* clears Your run and the instruments held (./play.ts) */}
     <span class="reset-wrap">
       <button type="button" id="resetRun" class="reset" aria-label={t.resetLabel} title={t.resetLabel}>

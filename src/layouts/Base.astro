@@ -1,10 +1,10 @@
 ---
 import { Font, fontData, getImage } from 'astro:assets';
 import '../styles/site.css';
-import { url } from '../lib/events';
+import { homeUrl, url } from '../lib/events';
 import Flag from '../components/Flag.astro';
 import { BUILD_ID } from '../lib/build';
-import { SITE_TEXT, langOfTag } from '../lib/i18n';
+import { SITE_TEXT, langOfTag, type Lang } from '../lib/i18n';
 // The heading face comes in two files (Latin, then latin-ext: astro.config.mjs); preload only the Latin one. The
 // `preload` filter can't tell them apart (a local font has no subset), so the link is written here.
 const displayLatin = fontData['--font-display']?.[0]?.src[0]?.url;
@@ -40,6 +40,25 @@ const canonical = abs(Astro.url.pathname);
 const og = image ? await getImage({ src: image, width: 1200, format: 'jpg', quality: 80 }) : null;
 const site = SITE_TEXT[langOfTag(lang)];
 const [footBefore, footAfter = ''] = site.madeWith.split('{heart}');
+// The translation offer (../lib/lang-offer.ts): every translation of this page, each worded in its own language.
+const offerJson =
+  langs.length > 1
+    ? JSON.stringify({
+        current: (langs.find((l) => l.current) ?? langs[0]).code,
+        offers: langs.map((l) => {
+          const t = SITE_TEXT[l.code as Lang];
+          return {
+            code: l.code,
+            hreflang: l.hreflang,
+            href: l.href,
+            text: t.offer,
+            go: t.offerGo,
+            never: t.offerNever,
+            close: t.offerClose,
+          };
+        }),
+      }).replace(/</g, '\\u003c')
+    : '';
 ---
 
 <!doctype html>
@@ -98,7 +117,7 @@ const [footBefore, footAfter = ''] = site.madeWith.split('{heart}');
     <nav>
       <div class="in">
         <div class="links">
-          <a class="brand" href={url()}>
+          <a class="brand" href={homeUrl(langOfTag(lang))}>
             TLI <span>Events</span>
           </a>
         </div>
@@ -119,6 +138,7 @@ const [footBefore, footAfter = ''] = site.madeWith.split('{heart}');
                       <li>
                         <a
                           href={l.href}
+                          data-lang={l.code}
                           hreflang={l.hreflang}
                           lang={l.hreflang}
                           aria-current={l.current ? 'page' : undefined}
@@ -178,9 +198,20 @@ const [footBefore, footAfter = ''] = site.madeWith.split('{heart}');
         });
       })();
     </script>
-    <div class="update-toast" id="update-toast" role="status" hidden>
-      <span>{site.newVersion}</span>
-      <button type="button">{site.reload}</button>
+    {/* Bottom notices share one fixed stack, so two never cover each other: the translation offer above, the
+        "new version" notice (it matters more) at the edge. */}
+    <div class="notices">
+      {offerJson && (
+        <>
+          {/* Filled and shown by ../lib/lang-offer.ts, in the language it offers; never shown twice once answered. */}
+          <div class="lang-offer" id="lang-offer" hidden></div>
+          <script type="application/json" id="lang-offer-data" set:html={offerJson} />
+        </>
+      )}
+      <div class="update-toast" id="update-toast" role="status" hidden>
+        <span>{site.newVersion}</span>
+        <button type="button">{site.reload}</button>
+      </div>
     </div>
     <script is:inline>
       const langSel = document.querySelector('.lang-select');
@@ -204,8 +235,10 @@ const [footBefore, footAfter = ''] = site.madeWith.split('{heart}');
       });
     </script>
     <script>
+      import { offerLanguage } from '../lib/lang-offer';
       import { watchForUpdates } from '../lib/update-check';
       watchForUpdates();
+      offerLanguage();
     </script>
     {import.meta.env.PROD && (
       // Page-view counts (GoatCounter: no cookies, no personal data). Async, off the critical path.

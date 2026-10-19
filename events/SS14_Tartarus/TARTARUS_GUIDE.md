@@ -7,6 +7,41 @@ nameCn: 塔罗斯的困兽
 mechanic: "Warden's Duty — a 16-cell prison"
 launched: 2026-10-15
 summary: "20 days to raise inmates to Rainbow; the riot turns the board into Warden's Caches."
+# The card on the home page in the other languages; "Warden's Duty", Rainbow and Warden's Caches stay as the game shows.
+i18n:
+  pt-br:
+    mechanic: "Warden's Duty — uma prisão de 16 celas"
+    summary: "20 dias para levar prisioneiros a Rainbow; o motim transforma o tabuleiro em Warden's Caches."
+  es:
+    mechanic: "Warden's Duty — una prisión de 16 celdas"
+    summary: "20 días para llevar presos a Rainbow; el motín convierte el tablero en Warden's Caches."
+  de:
+    mechanic: "Warden's Duty — ein Gefängnis mit 16 Zellen"
+    summary: "20 Tage, um Insassen auf Rainbow zu bringen; der Aufstand verwandelt das Board in Warden's Caches."
+  fr:
+    mechanic: "Warden's Duty — une prison de 16 cellules"
+    summary: "20 jours pour amener des détenus jusqu'à Rainbow ; l'émeute transforme le plateau en Warden's Caches."
+  pl:
+    mechanic: "Warden's Duty — więzienie z 16 celami"
+    summary: "20 dni, by doprowadzić więźniów do Rainbow; bunt zamienia planszę w Warden's Caches."
+  sv:
+    mechanic: "Warden's Duty — ett fängelse med 16 celler"
+    summary: "20 dagar att få interner till Rainbow; upploppet gör brädet till Warden's Caches."
+  ko:
+    mechanic: "Warden's Duty — 16칸짜리 감옥"
+    summary: "20일 동안 죄수를 Rainbow까지 키우세요; 폭동이 일어나면 보드가 Warden's Cache로 바뀝니다."
+  ja:
+    mechanic: "Warden's Duty — 16マスの監獄"
+    summary: "20日間で囚人をRainbowまで育てる。暴動で盤面はWarden's Cacheに変わる。"
+  zh:
+    mechanic: "Warden's Duty — 16 格的监狱"
+    summary: "20 天内把囚犯养到 Rainbow；暴动会把棋盘变成 Warden's Cache。"
+  ru:
+    mechanic: "Warden's Duty — тюрьма на 16 клеток"
+    summary: "20 дней, чтобы довести заключённых до Rainbow; бунт превращает поле в Warden's Caches."
+  vi:
+    mechanic: "Warden's Duty — nhà tù 16 ô"
+    summary: "20 ngày để đưa tù nhân lên Rainbow; cuộc bạo loạn biến bàn thành Warden's Cache."
 ---
 
 # SS14 Tartarus (塔罗斯的困兽) — event map, odds and strategy

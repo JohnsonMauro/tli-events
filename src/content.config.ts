@@ -2,6 +2,8 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+import { DEFAULT_LANG, LANGS } from './lib/i18n';
+
 // Every folder under events/ is a self-contained event. The site discovers
 // events from their guide (`events/<Dir>/<MECHANIC>_GUIDE.md`) and reads the
 // event card from its frontmatter. Folders starting with "_" (the template)
@@ -21,6 +23,14 @@ const guides = defineCollection({
     mechanic: z.string(),
     launched: z.coerce.date(),
     summary: z.string(),
+    // The card in other languages (the home page in each language); a missing language shows the English card.
+    // `name` stays English: it is the game's name for the season.
+    i18n: z
+      .partialRecord(
+        z.enum(LANGS.filter((l) => l.code !== DEFAULT_LANG).map((l) => l.code) as [string, ...string[]]),
+        z.object({ mechanic: z.string(), summary: z.string() }),
+      )
+      .optional(),
   }),
 });
 

@@ -15,6 +15,12 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}`,
     channel: 'chrome',
+    // The browser runs in en-US, so every translated page would offer English (src/lib/lang-offer.ts) in a fixed box
+    // over what the tests click. Start as a reader who said "Don't show again"; e2e/lang-offer.spec.ts starts clean.
+    storageState: {
+      cookies: [],
+      origins: [{ origin: `http://localhost:${PORT}`, localStorage: [{ name: 'tli-lang', value: 'never' }] }],
+    },
   },
   webServer: {
     // --ignore-lock: runs in the foreground (Playwright stops it) and never touches a preview already running.

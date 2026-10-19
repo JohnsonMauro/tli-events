@@ -1,30 +1,112 @@
 ---
-// GitHub Pages serves this for any missing path under the project site. Links go through url(),
-// so they work from any depth.
+// GitHub Pages serves this one file for any missing path under the project site, so it can't be built per
+// language: it ships in English and the script below rewrites it for the reader — the language in the path
+// (/pt-br/…), else their saved choice (../lib/lang-offer.ts), else their browser's. Links go through url(), so they
+// work from any depth.
 import Base from '../layouts/Base.astro';
-import { getEvents, eventUrl, url } from '../lib/events';
+import { eventCard, eventUrl, getEvents, homeUrl, url } from '../lib/events';
+import { LANGS } from '../lib/i18n';
+import { HOME_TEXT } from '../components/home.i18n';
 
 const events = (await getEvents()).filter((e) => e.hasPage);
+const t = HOME_TEXT.en;
+const [leadBefore, leadAfter = ''] = t.nfLead.split('{link}');
+// Every language's wording and links, for the script.
+const data = JSON.stringify({
+  base: url(),
+  langs: LANGS.map((l) => {
+    const h = HOME_TEXT[l.code];
+    const [before, after = ''] = h.nfLead.split('{link}');
+    return {
+      code: l.code,
+      hreflang: l.hreflang,
+      home: homeUrl(l.code),
+      title: h.nfTitle,
+      desc: h.nfDesc,
+      tagline: h.nfTagline,
+      before,
+      link: h.nfLink,
+      after,
+      events: events.map((e) => ({ href: eventUrl(e, l.code), mechanic: eventCard(e, l.code).mechanic })),
+    };
+  }),
+}).replace(/</g, '\\u003c');
 ---
 
-<Base title="Page not found · TLI Events" description="This page doesn't exist." noindex>
+<Base title={t.nfTitle} description={t.nfDesc} noindex>
   <header class="hero brand-hero">
     <h1 class="wordmark">404</h1>
-    <p class="tagline">This cell is empty.</p>
-    <p class="lead">
-      The page moved or never existed. Pick an event below, or go back to the <a href={url()}>event list</a>.
+    <p class="tagline" id="nf-tagline">
+      {t.nfTagline}
+    </p>
+    <p class="lead" id="nf-lead">
+      {leadBefore}
+      <a href={url()}>{t.nfLink}</a>
+      {leadAfter}
     </p>
   </header>
-  <ul class="nf-list">
+  <ul class="nf-list" id="nf-list">
     {events.map((e) => (
       <li>
         <a href={eventUrl(e)}>
           <b>
             {e.code} {e.name}
           </b>{' '}
-          — {e.mechanic}
+          — <span data-mechanic>{e.mechanic}</span>
         </a>
       </li>
     ))}
   </ul>
+  <script type="application/json" id="nf-data" set:html={data} />
 </Base>
+<script>
+  import { CHOICE_KEY, pickLang } from '../lib/lang-offer';
+
+  interface NfLang {
+    code: string;
+    hreflang: string;
+    home: string;
+    title: string;
+    desc: string;
+    tagline: string;
+    before: string;
+    link: string;
+    after: string;
+    events: { href: string; mechanic: string }[];
+  }
+  const el = document.getElementById('nf-data');
+  if (el) {
+    const { base, langs } = JSON.parse(el.textContent || '{}') as { base: string; langs: NfLang[] };
+    const seg = location.pathname.startsWith(base) ? location.pathname.slice(base.length).split('/')[0] : '';
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem(CHOICE_KEY);
+    } catch {}
+    const byCode = (code: string | null) => langs.find((l) => l.code === code);
+    const lang =
+      byCode(seg) ??
+      byCode(saved) ??
+      pickLang(navigator.languages?.length ? navigator.languages : [navigator.language], langs) ??
+      langs[0];
+    if (lang.code !== langs[0].code) {
+      document.documentElement.lang = lang.hreflang;
+      document.title = lang.title;
+      document.querySelector('meta[name="description"]')?.setAttribute('content', lang.desc);
+      const tagline = document.getElementById('nf-tagline');
+      if (tagline) tagline.textContent = lang.tagline;
+      const home = document.createElement('a');
+      home.href = lang.home;
+      home.textContent = lang.link;
+      document.getElementById('nf-lead')?.replaceChildren(lang.before, home, lang.after);
+      document.querySelector<HTMLAnchorElement>('a.brand')?.setAttribute('href', lang.home);
+      document.querySelectorAll<HTMLLIElement>('#nf-list li').forEach((li, i) => {
+        const e = lang.events[i];
+        const a = li.querySelector('a');
+        const mechanic = li.querySelector('[data-mechanic]');
+        if (!e || !a || !mechanic) return;
+        a.href = e.href;
+        mechanic.textContent = e.mechanic;
+      });
+    }
+  }
+</script>
