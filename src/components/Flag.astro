@@ -106,6 +106,13 @@ const EN_FLAG = `<path fill="#fff" d="M0 0h2000v1298H0z"/><path fill="#00214a" d
       <rect y="8" width="30" height="4" fill="#fecc02" />
     </>
   )}
+  {code === 'vi' && (
+    // Red with a yellow star whose radius is 1/5 of the flag's length.
+    <>
+      <rect width="30" height="20" fill="#da251d" />
+      <polygon points={star(15, 10, 6)} fill="#ff0" />
+    </>
+  )}
   {code === 'ru' && (
     <>
       <rect width="30" height="20" fill="#fff" />

@@ -13,6 +13,7 @@ export const LANGS = [
   { code: 'ja', label: '日', name: '日本語', hreflang: 'ja' },
   { code: 'zh', label: '中', name: '简体中文', hreflang: 'zh-Hans' },
   { code: 'ru', label: 'RU', name: 'Русский', hreflang: 'ru' },
+  { code: 'vi', label: 'VI', name: 'Tiếng Việt', hreflang: 'vi' },
 ] as const;
 export type Lang = (typeof LANGS)[number]['code'];
 
@@ -80,6 +81,13 @@ export const SITE_TEXT: Record<
     madeWith: 'TLI Events, zrobione z {heart}',
     love: 'miłością',
     pause: 'Zatrzymaj animację serca',
+  },
+  vi: {
+    newVersion: 'Đã có phiên bản mới của trang này.',
+    reload: 'Tải lại',
+    madeWith: 'TLI Events, làm bằng cả {heart}',
+    love: 'tình yêu',
+    pause: 'Tạm dừng hiệu ứng trái tim',
   },
   sv: {
     newVersion: 'Det finns en ny version av den här sidan.',

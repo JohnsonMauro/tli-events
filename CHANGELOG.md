@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet in **Vietnamese** (Tiếng Việt), with its own fonts for Vietnamese letters — it reached its goal among our readers. Game names stay in English, as the client shows them.
+
 ## [1.15.2] - 2026-10-18
 
 ### Changed

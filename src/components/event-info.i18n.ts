@@ -162,6 +162,23 @@ export const INFO: Record<Lang, InfoLabels> = {
     feedbackBtn: 'Otwórz GitHub Discussions',
     close: 'Zamknij',
   },
+  vi: {
+    btn: 'Phương pháp & ghi công',
+    title: 'Trang này được làm như thế nào',
+    methodH: 'Phương pháp',
+    thanksH: 'Cảm ơn các nhà sáng tạo',
+    thanksLead: 'Trang này dựa trên công sức của họ — hãy ghé kênh của họ và ủng hộ họ:',
+    roles: {
+      sim: 'trình mô phỏng và công cụ',
+      video: 'video mùa giải',
+      interview: 'phỏng vấn nhà phát triển',
+      official: 'giới thiệu chính thức',
+    },
+    feedbackH: 'Cùng làm trang tốt hơn',
+    feedbackP: 'Bạn thấy chỗ sai, combo mới hay lỗi trong game? Chia sẻ với chúng tôi trên GitHub Discussions.',
+    feedbackBtn: 'Mở GitHub Discussions',
+    close: 'Đóng',
+  },
   sv: {
     btn: 'Metod och tack',
     title: 'Så gjordes den här sidan',
