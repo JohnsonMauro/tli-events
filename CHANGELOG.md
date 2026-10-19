@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.18.0] - 2026-10-19
+
 ### Added
 
 - SS14 play sheet: the instrument you hold opens its card from its name in Holding — hover, keyboard focus or a tap — since its row leaves the list once taken. Removing it is now its own ✕ button, so a tap on the name never drops it.
@@ -343,7 +345,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.17.1...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.0...HEAD
+[1.18.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.17.1...v1.18.0
 [1.17.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.17.0...v1.17.1
 [1.17.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.16.0...v1.17.0
 [1.16.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.2...v1.16.0
