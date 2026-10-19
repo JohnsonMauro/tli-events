@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.16.0] - 2026-10-18
+
 ### Added
 
 - SS14 play sheet in **Vietnamese** (Tiếng Việt), with its own fonts for Vietnamese letters — it reached its goal among our readers. Game names stay in English, as the client shows them.
@@ -324,7 +326,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.2...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.16.0...HEAD
+[1.16.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.2...v1.16.0
 [1.15.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.1...v1.15.2
 [1.15.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.0...v1.15.1
 [1.15.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.14.0...v1.15.0
