@@ -105,6 +105,7 @@ CROPS = [
     ("card-ironlaw", "46_live_start_card_iron_law.webp", (1174, 208, 199, 199), "Iron Law"),
     ("card-cagefight", "95_live_start_card_cage_fight.webp", (271, 58, 145, 145), "Cage Fight"),
     ("card-tyranny", "106_live_start_card_tyranny.webp", (1174, 208, 199, 199), "Tyranny"),
+    ("card-opulence", "142_live_start_card_opulence.webp", (272, 68, 152, 152), "Opulence"),
 ]
 
 

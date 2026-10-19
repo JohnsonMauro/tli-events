@@ -286,3 +286,7 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - New engine parameter: `eventMorningChance` = 5
 - New engine parameter: `eventStartChance` = 72
 - New engine parameter: `eventWalkChance` = 9
+
+## 2026-10-19 — Opulence card printed (LIVE)
+
+- **Opulence** first print of ours (`images/142`, the owner's screenshot): "You can make 2 additional choices when obtaining Warden's Treasure" — word for word the text quoted from a player's print on 2026-10-17, which the engine already follows; no number changes. The card's text is now LIVE from our own print; its reading (3 picks in a row rather than a wider offer) still rests on that player's log (7 Rainbows, 21 picks). The sheet shows its card art, like the other three start cards.

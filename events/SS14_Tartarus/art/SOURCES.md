@@ -76,3 +76,4 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `card-ironlaw` | Iron Law | [46_live_start_card_iron_law.webp](../images/46_live_start_card_iron_law.webp) | 1174,208 199×199 |
 | `card-cagefight` | Cage Fight | [95_live_start_card_cage_fight.webp](../images/95_live_start_card_cage_fight.webp) | 271,58 145×145 |
 | `card-tyranny` | Tyranny | [106_live_start_card_tyranny.webp](../images/106_live_start_card_tyranny.webp) | 1174,208 199×199 |
+| `card-opulence` | Opulence | [142_live_start_card_opulence.webp](../images/142_live_start_card_opulence.webp) | 272,68 152×152 |

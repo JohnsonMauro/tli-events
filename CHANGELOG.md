@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet: the Opulence start card shows its card art, now that we have our own print of it.
+
 ## [1.18.1] - 2026-10-19
 
 ### Changed

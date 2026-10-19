@@ -234,7 +234,7 @@ Typical run (optimal strategy, with rewards): ~21 doors, ~9 Replaces, ~5 consume
 
 **No skip [LIVE + VOD]:** every incident card seen (8, plus Archenemy on 2026-10-17) has only *Confirm* — the decision columns above come from the simulator. In the game, decide before stepping on a "!" cell.
 
-**Pre-run cards [LIVE]:** *Cage Fight* (eats prey of rarity ≤ its own, without re-rolling the beast — very strong for chains), *Iron Law* (30-day run), *Tyranny* (office triggers Instigate + Bestow 3× extra).
+**Pre-run cards [LIVE]:** *Cage Fight* (eats prey of rarity ≤ its own, without re-rolling the beast — very strong for chains), *Iron Law* (30-day run), *Tyranny* (office triggers Instigate + Bestow 3× extra), *Opulence* ("2 additional choices when obtaining Warden's Treasure", `images/142`; read as 3 picks in a row per Treasure — that reading comes from one player's run log (7 Rainbows, 21 picks) quoted by the community simulator; the card doesn't settle it).
 
 **Run objectives [LIVE]** (completing one = pick 1 of 3 instruments): King of the Caged (1 prisoner at Supreme), Prison Walk (walk 18 cells), Survival of the Fittest (consume 4×), Undercurrents (trigger 2 incidents).
 

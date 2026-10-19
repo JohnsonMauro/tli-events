@@ -166,7 +166,7 @@ A rule no source settles yet is a **parameter**, not code: when a new screenshot
 | `instigate_count` | 1 | in-game rules text (community sim uses 2) |
 | `incident_respawn` | true | the team's play (2026-10-17, prints 92-94): a run starts with at least one incident, and a triggered incident is replaced by a new one elsewhere. The community simulator's telemetry (2026-10-17: 28% of first boards with none, new ones at random ~1 every 8 days) is not used: it is read from the game log by a third-party tool whose completeness nobody can check, while the rule above is what the owner saw in play (owner's call, 2026-10-18) |
 | `can_skip_incidents` | false | live cards have only Confirm |
-| `treasures` | false (true for `byStart`) | Warden's Treasures without the instrument picks: the export's start-card numbers include them, since **Opulence** acts only through them. Opulence (start card): each Treasure is 3 picks in a row — text from a player's print quoted by the community simulator (2026-10-17), not printed by us; used on the owner's call (2026-10-18) |
+| `treasures` | false (true for `byStart`) | Warden's Treasures without the instrument picks: the export's start-card numbers include them, since **Opulence** acts only through them. Opulence (start card): each Treasure is 3 picks in a row — the card's text is printed by us (print 142, 2026-10-19: "2 additional choices when obtaining Warden's Treasure"); reading it as picks rather than a wider offer rests on a player's log quoted by the community simulator (7 Rainbows, 21 picks), used on the owner's call (2026-10-18) |
 | `rainbow_cap` | 10 | confirmed in play (2026-10-17); one run in ~70 reaches it |
 | `execution_same_tier` | false | card: lower-tier prey |
 
