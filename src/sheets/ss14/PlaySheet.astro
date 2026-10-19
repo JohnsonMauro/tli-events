@@ -597,21 +597,23 @@ const ladder = [
       </div>
       <p class="meta">{t.tierMeta}</p>
       <p class="meta">{t.comboMeta}</p>
-      <p class="doubt-note">
-        <span class="doubt" aria-hidden="true">
-          !
-        </span>
-        <span>
-          {t.doubtNote}{' '}
-          <a href={ISSUES_URL} target="_blank" rel="noopener noreferrer">
-            {t.doubtIssue}
-          </a>{' '}
-          ·{' '}
-          <a href={REDDIT_URL} target="_blank" rel="noopener noreferrer">
-            {t.doubtReddit}
-          </a>
-        </span>
-      </p>
+      {DOUBT.size > 0 && (
+        <p class="doubt-note">
+          <span class="doubt" aria-hidden="true">
+            !
+          </span>
+          <span>
+            {t.doubtNote}{' '}
+            <a href={ISSUES_URL} target="_blank" rel="noopener noreferrer">
+              {t.doubtIssue}
+            </a>{' '}
+            ·{' '}
+            <a href={REDDIT_URL} target="_blank" rel="noopener noreferrer">
+              {t.doubtReddit}
+            </a>
+          </span>
+        </p>
+      )}
     </section>
 
     <aside class="pane side" aria-label={`${t.treasureH} · ${t.incH}`}>

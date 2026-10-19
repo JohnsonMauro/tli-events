@@ -1,11 +1,7 @@
 // Instruments whose rule is not fully confirmed in the game (cut card, card never seen, or a number
 // the card leaves open), so their value may move: the sheet marks them with "!" and asks players for
 // prints. Remove an id once a card settles it (images/INDEX.md, engine/README.md → "Open rules").
-export const DOUBT: ReadonlySet<string> = new Set([
-  // Filthy Claws: the card (print 110) only adds Scratch Marks; who may eat through that door is the Scratch Marks
-  // tooltip, seen only on tlidb (beta data) — never confirmed in play.
-  'claws',
-]);
+export const DOUBT: ReadonlySet<string> = new Set([]);
 
 // One-line English summaries shown next to each instrument's card text (other languages: `tool` in ./i18n/).
 export const TOOL_TEXT = {

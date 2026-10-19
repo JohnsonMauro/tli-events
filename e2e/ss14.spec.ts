@@ -439,6 +439,12 @@ test('no "no instrument" baseline anywhere: a run always holds one', async ({ pa
   expect(said).not.toMatch(/no instrument/i);
 });
 
+test('the "!" note shows only while some instrument is marked "!"', async ({ page }) => {
+  await page.goto(SHEET);
+  const marked = await page.locator('[data-doubt]').count();
+  await expect(page.locator('.doubt-note')).toHaveCount(marked > 0 ? 1 : 0);
+});
+
 test('your run: start cards and objectives open a card (what it does; best first picks)', async ({ page }) => {
   await page.goto(SHEET);
   const pop = page.locator('#pop');
