@@ -1,7 +1,7 @@
 # TLI Events — Torchlight: Infinite event research base
 
 The team's strategy base for Torchlight: Infinite (XD Games) seasonal events, published as an Astro site on GitHub Pages (public repo `JohnsonMauro/tli-events`). **Everything is in English** — the team plays the English client, so mechanic/item names match the game exactly; Chinese terms stay in parentheses where useful.
-Exception: the SS14 play sheet (`/ss14/`) is also published in pt-BR, es, de, fr, pl, sv, ko, ja, zh, ru and vi for other players — texts in `src/sheets/ss14/i18n.ts`; game names (instruments, incidents, actions, rarities) stay in English there too.
+Exception: the SS14 play sheet (`/ss14/`) is also published in pt-BR, es, de, fr, pl, sv, ko, ja, zh, ru and vi for other players — texts in `src/sheets/ss14/i18n/`; game names (instruments, incidents, actions, rarities) stay in English there too.
 
 **Supreme law: accessibility.** The site serves the public, so accessibility outranks every other call — looks, brevity, convenience, deadlines (owner, 2026-10-18). WCAG 2.2 AA is the floor, not the goal: anything a reader can't perceive, operate or understand is a bug, whatever the tests say. Each translation reads as a native speaker would write it (generic words in the reader's language; only what the EN client shows stays in English).
 
@@ -26,7 +26,7 @@ src/                          Astro 7 site — publishes the event list and each
     update-check.ts           "new version" toast: compares that meta with the live page's
   layouts/Base.astro          head (fonts, canonical, hreflang, OG, manifest, SW) + sticky header + footer
   components/                 Art (optimized <img>), BackLink (top of an event page's content), EventInfo ("Method & credits" dialog), Flag
-  sheets/<slug>/              one play sheet per event, colocated: PlaySheet.astro, i18n.ts, play.ts (client), play.css
+  sheets/<slug>/              one play sheet per event, colocated: PlaySheet.astro, i18n/ (one file per language), play.ts (client), play.css
   pages/                      index (event list), 404, sitemap.xml, manifest.webmanifest, <slug>/index + [lang] → sheets/<slug>
   assets/fonts/               self-hosted font files not on Google's API (astro.config.mjs `fonts`)
 public/sw.js                  service worker: /_astro/* cache-first, pages network-first revalidated with `no-cache` (works around Pages' 10-min cache)

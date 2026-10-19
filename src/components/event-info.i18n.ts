@@ -1,5 +1,5 @@
 // Labels of the "Method & credits" dialog shown on every event page (src/components/EventInfo.astro).
-// The methodology itself is per event (e.g. `method` in src/sheets/ss14/i18n.ts).
+// The methodology itself is per event (e.g. `method` in src/sheets/ss14/i18n/).
 import type { Lang } from '../lib/i18n';
 
 export type Role = 'sim' | 'video' | 'interview' | 'official';

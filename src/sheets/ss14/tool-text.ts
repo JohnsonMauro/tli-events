@@ -7,7 +7,7 @@ export const DOUBT: ReadonlySet<string> = new Set([
   'claws',
 ]);
 
-// One-line English summaries shown next to each instrument's card text (other languages: `tool` in ./i18n.ts).
+// One-line English summaries shown next to each instrument's card text (other languages: `tool` in ./i18n/).
 export const TOOL_TEXT = {
   crown: 'Lions eat any inmate of the same rarity; +2 extra tiers per bite (3 in total).',
   rope: 'Replace never brings Normal/Magic → every Replace is an upgrade.',
@@ -47,7 +47,7 @@ export const TOOL_TEXT = {
   ironbox: 'Each morning a cell becomes a rat nest (Rare Rat in 2 days). Bad alone; great with Skewer/Coin.',
 };
 
-// What a strong pair does together, in English (other languages: `pair` in ./i18n.ts). Keyed by the two ids
+// What a strong pair does together, in English (other languages: `pair` in ./i18n/). Keyed by the two ids
 // sorted and joined with "+"; a pair with no line here shows each instrument's line instead. The mechanics
 // come from the engine's rules (events/SS14_Tartarus/engine/src/rules.rs); "no direct link" = the pair is
 // worth about what both solos add up to (pair − (soloA + soloB − base) < 0.5 Rainbow/run at the 2026-10-18 export).

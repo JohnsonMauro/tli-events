@@ -1,4 +1,4 @@
-// Site-wide languages and string helpers. Each play sheet keeps its own texts (e.g. src/sheets/ss14/i18n.ts);
+// Site-wide languages and string helpers. Each play sheet keeps its own texts (e.g. src/sheets/ss14/i18n/);
 // game names stay in English everywhere: they are what the EN client shows.
 
 export const LANGS = [

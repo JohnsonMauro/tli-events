@@ -1,6 +1,6 @@
 /* Client script for /ss14/ (all languages) — your run's choices, the instrument pick and the info popover. */
 // Data is embedded by the page as <script type="application/json" id="play-data">: our engine's numbers
-// (default, per start card, per objective), the tier thresholds, live offer counts and `ui` strings (./i18n.ts).
+// (default, per start card, per objective), the tier thresholds, live offer counts and `ui` strings (./i18n/).
 
 import { matches, parseFind } from './find';
 import { unpackPairs, unpackValues, type Packed, type Pair, type Values } from './pack';
