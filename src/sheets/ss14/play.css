@@ -37,10 +37,7 @@ main.wide {
 .reset svg {
   width: 15px;
   height: 15px;
-  fill: none;
-  stroke: currentColor;
   stroke-width: 2.4;
-  stroke-linecap: round;
   stroke-linejoin: round;
 }
 .reset:focus-visible {
@@ -628,10 +625,7 @@ main.wide {
   width: 14px;
   height: 14px;
   translate: 0 -50%;
-  fill: none;
-  stroke: currentColor;
   stroke-width: 2;
-  stroke-linecap: round;
   pointer-events: none;
 }
 .find input {
@@ -690,10 +684,7 @@ main.wide {
   width: 15px;
   height: 15px;
   flex: none;
-  fill: none;
-  stroke: currentColor;
   stroke-width: 2;
-  stroke-linecap: round;
 }
 .tier-info:focus-visible {
   color: var(--ink);
@@ -878,10 +869,7 @@ main.wide {
 .tool-dlg .dlg-x svg {
   width: 20px;
   height: 20px;
-  fill: none;
-  stroke: currentColor;
   stroke-width: 2.4;
-  stroke-linecap: round;
 }
 .tool-dlg .dlg-x:focus-visible {
   outline: 2px solid var(--accent);

@@ -301,7 +301,7 @@ const ladder = [
     {/* clears Your run and the instruments held (./play.ts) */}
     <span class="reset-wrap">
       <button type="button" id="resetRun" class="reset" aria-label={t.resetLabel} title={t.resetLabel}>
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4 12a8 8 0 1 0 2.3-5.7" />
           <path d="M4 4v4h4" />
         </svg>
@@ -532,7 +532,7 @@ const ladder = [
         <div class="tool-head">
           {/* narrows the list by name (./play.ts); the names are the English client's, in every language */}
           <search class="find">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="10.5" cy="10.5" r="6.5" />
               <path d="m15.5 15.5 5 5" />
             </svg>
@@ -549,7 +549,7 @@ const ladder = [
           </search>
           <span>{t.perRun}</span>
           <button type="button" class="tier-info" data-tip="tiers" aria-label={t.tipBtn} aria-describedby="pop">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="12" r="9.5" />
               <path d="M12 11v6M12 7.5v.5" />
             </svg>
@@ -763,7 +763,7 @@ const ladder = [
       page under it can't be tapped by mistake (./play.ts). Mouse and keyboard keep the tooltip above. */}
   <dialog class="tool-dlg" id="popdlg">
     <button type="button" class="dlg-x" data-close aria-label={INFO[lang].close}>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M6 6l12 12M18 6L6 18" />
       </svg>
     </button>

@@ -81,7 +81,7 @@ export function offerLanguage() {
   close.className = 'lang-offer-x';
   close.setAttribute('aria-label', want.close);
   close.title = want.close;
-  close.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  close.innerHTML = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   box.replaceChildren(text, acts, close);
 
   // Closing removes the focused button: hand focus to the switcher, where the language can still be changed.

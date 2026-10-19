@@ -52,6 +52,13 @@ main {
 a {
   color: var(--accent);
 }
+/* stroke icons (24×24 line art, aria-hidden): each rule that places one sets only its size, stroke-width and,
+   where its corners are rounded, stroke-linejoin */
+.ico {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+}
 nav {
   position: sticky;
   top: 0;
@@ -123,10 +130,7 @@ nav button {
 #theme svg {
   width: 18px;
   height: 18px;
-  fill: none;
-  stroke: currentColor;
   stroke-width: 2;
-  stroke-linecap: round;
   stroke-linejoin: round;
 }
 #theme .ico-sun {
@@ -322,10 +326,7 @@ a.back {
 a.back svg {
   width: 16px;
   height: 16px;
-  fill: none;
-  stroke: currentColor;
   stroke-width: 2.4;
-  stroke-linecap: round;
   stroke-linejoin: round;
 }
 
@@ -468,10 +469,7 @@ a.back svg {
 .lang-offer-x svg {
   width: 18px;
   height: 18px;
-  fill: none;
-  stroke: currentColor;
   stroke-width: 2.4;
-  stroke-linecap: round;
 }
 .lang-offer a:focus-visible,
 .lang-offer button:focus-visible {
@@ -701,10 +699,7 @@ nav .info-btn {
 .info-btn svg {
   width: 18px;
   height: 18px;
-  fill: none;
-  stroke: currentColor;
   stroke-width: 2;
-  stroke-linecap: round;
 }
 @media (max-width: 620px) {
   nav .info-btn span {
@@ -829,10 +824,8 @@ nav .info-btn {
 .credits .ext {
   width: 16px;
   height: 16px;
-  fill: none;
   stroke: var(--ink2);
   stroke-width: 2;
-  stroke-linecap: round;
   stroke-linejoin: round;
 }
 .feedback {
