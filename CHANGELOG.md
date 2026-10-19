@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.15.0] - 2026-10-18
+
 ### Added
 
 - SS14 play sheet: **Transfer of Convicts**, a new incident seen in the game — it copies the inmate you stand on into a locked cell, which opens. Worth −0.26 Rainbows per run per "!" in our simulation.
@@ -302,7 +304,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.14.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.0...HEAD
+[1.15.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.14.0...v1.15.0
 [1.14.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.13.0...v1.14.0
 [1.13.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.11.0...v1.12.0
