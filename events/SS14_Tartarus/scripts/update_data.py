@@ -202,7 +202,9 @@ def diff(old, new):
 
 
 def latest_snapshot():
-    snaps = sorted(glob.glob(os.path.join(SNAP, "sim_*.json")), key=os.path.getmtime)
+    # By name (sim_<YYYYMMDD-HHMM>_<ver>), not mtime: a fresh CI checkout gives every file the same mtime, and on
+    # 2026-10-19 that made the run diff against an old snapshot and log the same changes twice.
+    snaps = sorted(glob.glob(os.path.join(SNAP, "sim_*.json")))
     if not snaps:
         return None
     with open(snaps[-1]) as f:
