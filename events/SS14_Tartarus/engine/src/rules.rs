@@ -804,7 +804,7 @@ fn add_incident(st: &mut State, except: Option<usize>) {
 
 /// A random incident from the pool (uniform: no live rate per incident yet).
 pub fn roll_incident(st: &mut State) -> Incident {
-    let mut pool = [Incident::ChainReaction; 13];
+    let mut pool = [Incident::ChainReaction; 14];
     let base = [
         Incident::ChainReaction,
         Incident::Execution,
@@ -818,14 +818,15 @@ pub fn roll_incident(st: &mut State) -> Incident {
         Incident::SharedFortune,
         Incident::Archenemy,
         Incident::ExtraPortion,
+        Incident::TransferOfConvicts,
     ];
-    pool[..12].copy_from_slice(&base);
+    pool[..13].copy_from_slice(&base);
     // Only Usurpation I is ever drawn: once it fires, II-IV come as the next incidents triggered (`incident`).
     let n = if st.usurp_stage == 1 {
-        pool[12] = Incident::Usurpation(1);
-        13
+        pool[13] = Incident::Usurpation(1);
+        14
     } else {
-        12
+        13
     };
     pool[st.rng.below(n)]
 }
@@ -971,6 +972,15 @@ pub fn incident(
             }
         }
         Incident::ExtraPortion => raise_random(st, p, 3, 1),
+        // Same beast and rarity in a random locked cell, which opens (print 133: the copy sat open in a cell that
+        // was locked; nothing else fired there), as the Searing Branding Iron's copy does.
+        Incident::TransferOfConvicts => {
+            if let Some(me) = cur {
+                if let Some(c) = random_sealed(st) {
+                    open_with(st, p, c, me);
+                }
+            }
+        }
         Incident::Archenemy => {
             if let Some(me) = cur {
                 let mask = eats_same_tier(st, p, me);
@@ -1177,6 +1187,38 @@ mod tests {
         incident(&mut st, &p, Incident::ExtraPortion, None);
         let raised = (2..7).filter(|&n| st.cells[n].inmate.tier == 1).count();
         assert_eq!(raised, 3);
+    }
+
+    #[test]
+    fn transfer_of_convicts_copies_the_inmate_into_a_locked_cell_that_opens() {
+        let (mut st, mut p) = board(&[]);
+        p.incident_respawn = false;
+        put(&mut st, 5, MAMMOTH, SUPREME);
+        st.warden = 5;
+        let (open, sealed) = (st.open_count(), st.sealed_count());
+        assert!(sealed > 0);
+        incident(&mut st, &p, Incident::TransferOfConvicts, None);
+        // Print 133: an Ultimate Mammoth on the warden's cell and now also in a cell that was locked.
+        assert_eq!(st.sealed_count(), sealed - 1);
+        assert_eq!(st.open_count(), open + 1);
+        let copies = (1..CELLS)
+            .filter(|&c| {
+                c != 5
+                    && st.inmate_at(c)
+                        == Some(Inmate {
+                            beast: MAMMOTH,
+                            tier: SUPREME,
+                        })
+            })
+            .count();
+        assert!(copies >= 1);
+        assert_eq!(
+            st.inmate_at(5),
+            Some(Inmate {
+                beast: MAMMOTH,
+                tier: SUPREME
+            })
+        );
     }
 
     #[test]

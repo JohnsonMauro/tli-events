@@ -101,7 +101,7 @@ cargo build --release
 ./target/release/tartarus eval  --tool rope,maiden              # a set held from day 1
 ./target/release/tartarus eval  --start cagefight --objective walk  # a start card and a fixed objective
 ./target/release/tartarus eval  --set muzzle_max=3 --set oppress_base=0.9   # try another reading of a rule
-./target/release/tartarus export                                # everything the play sheet reads → ../data/engine_results.json (~35 min at 12 threads)
+./target/release/tartarus export                                # everything the play sheet reads → ../data/engine_results.json (~35–60 min at 12 threads; 60 min on 2026-10-19)
 cargo test --release                                            # rules tests
 ```
 
@@ -170,7 +170,7 @@ A rule no source settles yet is a **parameter**, not code: when a new screenshot
 | `rainbow_cap` | 10 | confirmed in play (2026-10-17); one run in ~70 reaches it |
 | `execution_same_tier` | false | card: lower-tier prey |
 
-Settled by prints and built in (no parameter): **Usurpation** is a chain — once I fires, the next incidents triggered are II, III and IV in turn, and II is +2 tiers to one inmate (prints 102–105, 2026-10-18).
+Settled by prints and built in (no parameter): **Usurpation** is a chain — once I fires, the next incidents triggered are II, III and IV in turn, and II is +2 tiers to one inmate (prints 102–105, 2026-10-18). **Transfer of Convicts** (new incident) copies the warden's inmate — same beast and rarity — into a random locked cell, which opens, as the Searing Branding Iron's copy does (prints 132–133, 2026-10-18); it joins the uniform incident draw.
 
 Not modelled yet: Tartarus Rumors, the riot itself, the contract challenge, events in open cells appearing on their own. Incidents are drawn uniformly (no live rate per incident). Morning effects run in a fixed order (prey, nests, Iron Box, Tongs, Claws, Coin, Ravenous Chains); the game's order isn't documented.
 
@@ -193,13 +193,14 @@ Simple and explicit: a board value (`w_tier` per rarity, `w_rainbow`, `w_event`,
 
 ## Results
 
-<sub>2026-10-18 · 100,000 runs per test (2,659 tests) · seed `LAB` · `export`</sub>
+<sub>2026-10-19 · 100,000 runs per test (2,660 tests) · seed `LAB` · `export`</sub>
 
-- No instrument **1.486** Rainbows/run (rewards off); full run with rewards **3.30** (median 3, zero in 3.6%); live runs (n=114, before most of these rules were known) mean 2.04, median 2.
-- Best solos: **Elephant-Foot Maul 3.23**, Filthy Claws 3.14, Iron Crown 3.13, Iron Tongs 3.12, Severed Iron Maiden 2.87. Best pair: Hangman's Noose + Severed Iron Maiden 9.63. (Maul and Crown are rare in live offers.)
-- Start cards (`byStart`, rewards off, Warden's Treasures on): **Cage Fight** base 4.75, top Raging Beast's Agonizing Muzzle 7.41, Iron Crown of the Prison King 6.99, Lost Ring of Keys 6.92; **Iron Law** base 3.50, top Iron Tongs of Lust 8.05, Elephant-Foot Maul 7.31, Iron Crown of the Prison King 6.49; **Tyranny** base 5.93, top Elephant-Foot Maul 7.73, Iron Tongs of Lust 7.56, Hangman's Noose 7.48; **Opulence** base 2.98, top Elephant-Foot Maul 7.89, Iron Tongs of Lust 7.55, Kin's Coin of Fate 6.89. Against no start card with Treasures (1.81, `eval --rewards off --set treasures=true`): Opulence +1.16, Iron Law +1.69, Cage Fight +2.94, Tyranny +4.12 — Opulence is the weakest start card here.
-- Objectives (`byObjective`, rewards on): base 3.06 (Survival of the Fittest) to 3.52 (Prison Walk); Maul, Claws, Crown and Tongs lead in every one — an objective moves the values, barely the order.
-- Incidents (one "!" against an ordinary one): **Usurpation +1.49** (its chain I→IV), Behind Closed Doors +0.19, Extra Portion +0.17, High-Risk Convict +0.04, Ravenous Appetite +0.01; the rest cost a little — Taste of Freedom −0.07, Shared Fortune −0.18, Chain Reaction −0.20, Archenemy −0.23, Sewer Ratway −0.25, Execution Efficiency −0.29, Crow Whispers −0.37, "Treasure" Hunt −0.41 (they show or move, they don't raise).
+- No instrument **1.436** Rainbows/run (rewards off); full run with rewards **3.25** (median 3, zero in 3.8%); live runs (n=114, before most of these rules were known) mean 2.04, median 2.
+- Best solos: **Elephant-Foot Maul 3.20**, Filthy Claws 3.10, Iron Crown 3.09, Iron Tongs 3.07, Severed Iron Maiden 2.82. Best pair: Hangman's Noose + Severed Iron Maiden 9.57. (Maul and Crown are rare in live offers.)
+- Start cards (`byStart`, rewards off, Warden's Treasures on): **Cage Fight** base 4.72, top Raging Beast's Agonizing Muzzle 7.38, Iron Crown of the Prison King 6.97, Lost Ring of Keys 6.89; **Iron Law** base 3.41, top Iron Tongs of Lust 8.03, Elephant-Foot Maul 7.27, Iron Crown of the Prison King 6.45; **Tyranny** base 5.80, top Elephant-Foot Maul 7.64, Iron Tongs of Lust 7.48, Hangman's Noose 7.37; **Opulence** base 2.90, top Elephant-Foot Maul 7.87, Iron Tongs of Lust 7.52, Kin's Coin of Fate 6.87. Against no start card with Treasures (1.76, `eval --rewards off --set treasures=true`): Opulence +1.14, Iron Law +1.66, Cage Fight +2.97, Tyranny +4.04 — Opulence is the weakest start card here.
+- Objectives (`byObjective`, rewards on): base 3.01 (Survival of the Fittest) to 3.47 (Prison Walk); Maul, Claws, Crown and Tongs lead in every one — an objective moves the values, barely the order.
+- Incidents (one "!" against an ordinary one): **Usurpation +1.56** (its chain I→IV), Behind Closed Doors +0.24, Extra Portion +0.18, High-Risk Convict +0.04, Ravenous Appetite +0.03; the rest cost a little — Taste of Freedom −0.07, Shared Fortune −0.15, Chain Reaction −0.19, Sewer Ratway −0.23, Archenemy −0.23, Transfer of Convicts −0.26, Execution Efficiency −0.27, Crow Whispers −0.35, "Treasure" Hunt −0.37 (they show or move, they don't raise).
+- What moved on 2026-10-19: **Transfer of Convicts** joined the uniform incident draw (1 in 13, worth −0.26 — close to Archenemy's −0.23, the other incident that opens a cell with a set inmate), so the base fell 1.486 → 1.436, the full run 3.30 → 3.25 and every solo by 0.02–0.07; the order on top is unchanged.
 - What moved later on 2026-10-18: the Barbed Collar's +1 only on bites in succession (Chinese card 連吃, print 112) dropped it 2.82 → 1.77 (#6 → #19) and its pairs up to −1.77; the full run 3.51 → 3.30 (it shows up in 13% of offers). Start cards now count Treasures; Opulence added. Every other solo value unchanged (same seed).
 - What moved on 2026-10-18: second meals at every rarity (players' boards) lifted Maul 2.49 → 3.23 (#11 → #1), Muzzle 1.99 → 2.41, Collar 2.59 → 2.82, Blood-Stained Trap 2.02 → 2.34; Usurpation as a chain with II = +2 to one inmate.
 - Card readings this engine follows where the community sim differs: Skewer +2, Oppress, Instigate 1, the incident refill, Shared Fortune, Archenemy, Extra Portion, Usurpation's chain, second meals at every rarity. Earlier rule changes moved Muzzle (≤4 inmates: Cage Fight 5.13 → 5.71), Maiden (after a Replace only: 4.19 → 2.79) and Tongs (Tusk stays: 1.88 → 3.05).

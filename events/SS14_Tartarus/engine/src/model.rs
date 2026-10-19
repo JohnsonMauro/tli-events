@@ -135,6 +135,9 @@ pub enum Incident {
     Archenemy,
     /// Extra Portion (live card, print 93): up to 3 random inmates +1.
     ExtraPortion,
+    /// Transfer of Convicts (live card, print 132): the warden's inmate copied into a random locked cell, which
+    /// opens (print 133).
+    TransferOfConvicts,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

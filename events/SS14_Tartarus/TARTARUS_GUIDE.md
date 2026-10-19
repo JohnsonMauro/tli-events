@@ -193,6 +193,7 @@ Typical run (optimal strategy, with rewards): ~21 doors, ~9 Replaces, ~5 consume
 | **Shared Fortune** [LIVE, not in the sim] | +1 tier to the current prisoner per prisoner with the same beast | Good with many of the same beast |
 | **Archenemy** [LIVE, not in the sim] | opens 1 random cell whose prisoner is guaranteed to be a Consumable target for the current prisoner | Accept (a sure meal; best on your strongest eater) |
 | **Extra Portion** [LIVE, not in the sim] | up to 3 random prisoners +1 tier (print 93) | Accept (free tiers) |
+| **Transfer of Convicts** [LIVE, not in the sim] | copies the current prisoner (same beast and rarity) into a random locked cell, which opens (prints 132–133) | Better on a high prisoner |
 
 **The board always holds at least one incident:** a run starts with one, and a triggered incident is replaced by a new one on another cell (prints 92 → 94) [LIVE, owner's play 2026-10-17]. Instigate adds 1 on top of that. The sim has no such refill (it adds 2 on Instigate when the board has none, a case that doesn't happen).
 

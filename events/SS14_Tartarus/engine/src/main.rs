@@ -330,7 +330,7 @@ fn values(tools: &[(Tool, Summary)]) -> serde_json::Value {
 /// through them). `byObjective`: with
 /// rewards on (an objective only matters through its reward), per objective.
 /// Incidents by the play sheet's ids (`EVENTS` in src/sheets/ss14/PlaySheet.astro).
-const INCIDENTS: [(&str, Incident); 13] = [
+const INCIDENTS: [(&str, Incident); 14] = [
     ("usurp", Incident::Usurpation(1)),
     ("trickster", Incident::BehindClosedDoors),
     ("convict", Incident::HighRiskConvict),
@@ -339,6 +339,7 @@ const INCIDENTS: [(&str, Incident); 13] = [
     ("shared", Incident::SharedFortune),
     ("freedom", Incident::TasteOfFreedom),
     ("portion", Incident::ExtraPortion),
+    ("transfer", Incident::TransferOfConvicts),
     ("ratway", Incident::SewerRatway),
     ("hunt", Incident::TreasureHunt),
     ("crow", Incident::CrowWhispers),

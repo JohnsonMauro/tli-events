@@ -230,3 +230,10 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 ## 2026-10-18 — Transfer of Convicts: the copy opens its cell (LIVE)
 
 - **Board right after it** (`images/133`, the owner's run, 0 days to the Riot): the warden's cell 5 held an Ultimate Mammoth; cell 8, locked and empty before (owner), is now **open with an Ultimate Mammoth** — the copy keeps beast and rarity and opens the cell it lands in, as the Searing Branding Iron's does (print 101). Nothing else fired there. Still open: its share of the incident pool. Engine and sheet not updated yet.
+
+## 2026-10-18 (night) — Transfer of Convicts modelled; Iron Tongs card and Tusk tooltip printed (LIVE + ENGINE)
+
+- **Transfer of Convicts in our engine** (prints 132–133): the warden's inmate, same beast and rarity, copied into a random locked cell, which opens — the Searing Branding Iron's copy path. It joins the uniform incident draw (1 in 13; no live rate per incident). Test `transfer_of_convicts_copies_the_inmate_into_a_locked_cell_that_opens`.
+- **Re-export** (2,660 tests × 100,000 runs, seed LAB, stamped 2026-10-19 UTC; 60 min at 12 threads): Transfer of Convicts is worth **−0.26** per "!" (Archenemy −0.23). Being below average, it lowers everything a little: no instrument 1.486 → 1.436, full run 3.30 → 3.25, solos −0.02 to −0.07, start cards −0.03 to −0.13; the top order is unchanged (Maul 3.20, Claws 3.10, Crown 3.09, Tongs 3.07; best pair Noose + Maiden 9.57).
+- **Iron Tongs** live card (`images/134`): same text as the preview VOD; it doesn't say whether a Mammoth that already has a Tusk can be drawn again (engine: a repeat is wasted). **Tusk** tooltip (`images/135`): +1 to 4 random inmates when replacing it; it goes when the cell has no inmate — matches the engine (`tusk_count` 4, `tusk_persists`).
+- A player's report that a Replace on a Tusk cell turns it into a Mammoth and spreads the mark was **not used**: second-hand and contradictory (owner's call).
