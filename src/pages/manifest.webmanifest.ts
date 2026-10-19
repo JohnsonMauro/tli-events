@@ -14,7 +14,13 @@ export const GET: APIRoute = () =>
       display: 'standalone',
       background_color: '#111214',
       theme_color: '#111214',
-      icons: [{ src: url('favicon.svg'), sizes: 'any', type: 'image/svg+xml', purpose: 'any' }],
+      // built from public/favicon.svg by `pnpm icons`
+      icons: [
+        { src: url('favicon.svg'), sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
+        { src: url('icon-192.png'), sizes: '192x192', type: 'image/png', purpose: 'any' },
+        { src: url('icon-512.png'), sizes: '512x512', type: 'image/png', purpose: 'any' },
+        { src: url('icon-maskable-512.png'), sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      ],
     }),
     { headers: { 'Content-Type': 'application/manifest+json' } },
   );

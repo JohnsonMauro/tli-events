@@ -31,6 +31,7 @@ src/                          Astro 7 site — publishes the event list and each
   pages/                      index + [lang]/index (event list → components/HomePage), 404, sitemap.xml, manifest.webmanifest, <slug>/index + [lang] → sheets/<slug>
   styles/                     theme.css (palette for both themes, shadows, shared measures) + site.css (site-wide components)
   assets/fonts/               self-hosted font files not on Google's API (astro.config.mjs `fonts`)
+public/favicon.svg            the site icon, source of every raster icon (favicon.ico, apple-touch-icon, manifest PNGs): edit it, then `pnpm icons` (scripts/icons.mjs) and commit the output
 public/sw.js                  service worker: /_astro/* cache-first, pages network-first revalidated with `no-cache` (works around Pages' 10-min cache)
 .github/workflows/deploy.yml  push → lint (eslint, prettier, astro check) → build/deploy; every 6h → run events/*/scripts/update_data.py, commit if changed, deploy
 ```

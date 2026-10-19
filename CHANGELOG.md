@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- New site icon: a lantern in the site's colours, in the browser tab and on the home screen. Adding the site to an iPhone or Android home screen now shows it too (before, a blank or generic tile).
+
 ## [1.18.0] - 2026-10-19
 
 ### Added

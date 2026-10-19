@@ -23,9 +23,9 @@ export default defineConfig([
   { files: ['**/*.{ts,astro}'], rules: { 'no-undef': 'off' } },
   // .astro components (frontmatter + template), with the a11y checks for their markup.
   { files: ['**/*.astro'], extends: [astro.configs['flat/recommended'], astro.configs['flat/jsx-a11y-recommended']] },
-  // Build-time code: astro.config.mjs and the endpoints/content config run in Node.
+  // Build-time code: astro.config.mjs, the endpoints/content config and scripts/ run in Node.
   {
-    files: ['astro.config.mjs', 'src/pages/**/*.ts', 'src/content.config.ts'],
+    files: ['astro.config.mjs', 'src/pages/**/*.ts', 'src/content.config.ts', 'scripts/**/*.mjs'],
     languageOptions: { globals: globals.node },
   },
   // Client scripts run in the browser; the service worker in its own scope.

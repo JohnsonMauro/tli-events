@@ -74,7 +74,10 @@ const offerJson =
       <link rel="alternate" hreflang={l.hreflang} href={abs(l.href)} />
     ))}
     {langs.length > 0 && <link rel="alternate" hreflang="x-default" href={abs(langs[0].href)} />}
+    {/* sizes="32x32" on the .ico keeps browsers that read the SVG on the SVG; all built by `pnpm icons` */}
+    <link rel="icon" href={url('favicon.ico')} sizes="32x32" />
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={url('apple-touch-icon.png')} />
     <link rel="manifest" href={url('manifest.webmanifest')} />
     <meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)" />
