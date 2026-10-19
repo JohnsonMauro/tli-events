@@ -1155,6 +1155,23 @@ main.wide {
   .play {
     grid-template-columns: minmax(0, 1fr);
   }
+  /* no room to center Reset beside a long back link (French: 201 + 143 px of 366, wider with the fallback font):
+     back link left, Reset right, and Reset takes the next line when both don't fit */
+  .sheet-top {
+    height: auto;
+    min-height: 38px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 6px;
+  }
+  /* Reset sits at the right edge: "Cleared." goes under it, not past the screen */
+  .reset-out {
+    top: calc(100% + 2px);
+    bottom: auto;
+    left: auto;
+    right: 0;
+  }
   .tool-grid {
     grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
   }

@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Fixed
+
+- SS14 play sheet on phones: the Reset button no longer pushes the page sideways in languages with a long "All events" link (French) — it moves to the right, or to the next line when both don't fit, and its "Cleared." note stays on screen.
+
 ## [1.15.0] - 2026-10-18
 
 ### Added

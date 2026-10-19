@@ -271,18 +271,31 @@ test('reset: clears Your run and the instruments held, and says so', async ({ pa
   await expect(page.locator('#run [data-start=""]')).toHaveAttribute('aria-pressed', 'true');
 });
 
-for (const width of [1440, 390]) {
-  test(`reset: centered on the page, clear of the back link (${width}px)`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 });
-    await page.goto(SHEET);
-    const [back, reset] = [
-      await page.locator('.sheet-top .back').boundingBox(),
-      await page.locator('#resetRun').boundingBox(),
-    ];
-    if (!back || !reset) throw new Error('missing');
-    expect(reset.x).toBeGreaterThanOrEqual(back.x + back.width);
-    if (width > 760) expect(Math.abs(reset.x + reset.width / 2 - width / 2)).toBeLessThanOrEqual(12);
-  });
+// Desktop: centered. Phones: back link left, Reset right or on the next line — never overlapping, never past the
+// screen, "Cleared." included. 320 px forces the wrap in French even with our fonts (CI's fallback is wider: 401 px
+// at 390 in v1.14.0).
+for (const lang of ['', 'pt-br/', 'es/', 'de/', 'fr/', 'pl/', 'sv/', 'ko/', 'ja/', 'zh/', 'ru/']) {
+  for (const width of [1440, 320]) {
+    test(`reset: clear of the back link, inside the screen (${lang || 'en/'}, ${width}px)`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(SHEET + lang);
+      const [back, reset] = [
+        await page.locator('.sheet-top .back').boundingBox(),
+        await page.locator('#resetRun').boundingBox(),
+      ];
+      if (!back || !reset) throw new Error('missing');
+      const apart =
+        reset.x >= back.x + back.width || reset.y >= back.y + back.height || back.x >= reset.x + reset.width;
+      expect(apart).toBe(true);
+      expect(reset.x + reset.width).toBeLessThanOrEqual(width);
+      if (width > 760) expect(Math.abs(reset.x + reset.width / 2 - width / 2)).toBeLessThanOrEqual(12);
+      await page.locator('#resetRun').click();
+      await expect(page.locator('#resetOut')).not.toHaveText('');
+      const out = await page.locator('#resetOut').boundingBox();
+      expect(out && out.x >= 0 && out.x + out.width <= width).toBe(true);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    });
+  }
 }
 
 // A run holds 2 instruments: a tap on a row takes it as the second; a tap on another replaces it, never a third.
