@@ -1,0 +1,86 @@
+/* The site's theme: the palette (both themes), shadows and shared measures; site.css and the play sheets read them.
+   A colour used by one component only (the wordmark's gold, the tier badges' white text) stays with that component.
+   The dark palette is written twice on purpose: once for readers whose system is dark (and who haven't picked a
+   theme), once for the header's toggle (data-theme, Base.astro). light-dark() would say it once, but it isn't a
+   widely available baseline feature yet (eslint css/use-baseline, Oct 2026). Change one block, change the other. */
+:root {
+  --bg: #f3efe6;
+  --surface: #fbf8f2;
+  --surface2: #ece6d9;
+  --ink: #1d1b18;
+  --ink2: #5b554b;
+  --line: #d6cdbb;
+  --accent: #a64218;
+  --accent2: #7a2e10;
+  --ok: #2f6b3a;
+  --warn: #855b00;
+  --bad: #9b2226;
+  --mammoth: #7c5a3a;
+  --lion: #c08a1b;
+  --wolf: #4b6f8f;
+  --rat: #6d5b7b;
+  --t0: #8a8a8a;
+  --t1: #3f7fd1;
+  --t2: #8e44c9;
+  --t3: #d9731a;
+  --t4: #c62828;
+  --t5: linear-gradient(90deg, #e0463b, #e8a33c, #5fb85a, #3d8fe0, #9b5de5);
+  /* game art sits on the same dark box in both themes; --art-ph is the letter shown when an item has no art */
+  --art-bg: #1b1916;
+  --art-ph: #5b554b;
+  --radius: 6px;
+  --shadow-menu: 0 10px 28px rgb(0 0 0 / 35%);
+  --shadow-pop: 0 10px 28px rgb(0 0 0 / 40%);
+  --shadow-toast: 0 8px 32px rgb(0 0 0 / 35%);
+  --shadow-lift: 0 12px 30px rgb(0 0 0 / 30%);
+  --shadow-dialog: 0 20px 60px rgb(0 0 0 / 50%);
+  --mono: var(--font-mono);
+  --sans: var(--font-sans);
+  --display: var(--font-display);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #111214;
+    --surface: #191b1e;
+    --surface2: #22252a;
+    --ink: #ece6d8;
+    --ink2: #a29a8a;
+    --line: #33373d;
+    --accent: #f0773e;
+    --accent2: #ffb27f;
+    --ok: #6fbf7a;
+    --warn: #e3b341;
+    --bad: #ef6b6f;
+    --mammoth: #b38b64;
+    --lion: #e2b13f;
+    --wolf: #7fa6c9;
+    --rat: #a991bd;
+    --t0: #9a9a9a;
+    --t1: #6aa6f2;
+    --t2: #b57cf0;
+    --t3: #f08443;
+    --t4: #ef5350;
+  }
+}
+:root[data-theme='dark'] {
+  --bg: #111214;
+  --surface: #191b1e;
+  --surface2: #22252a;
+  --ink: #ece6d8;
+  --ink2: #a29a8a;
+  --line: #33373d;
+  --accent: #f0773e;
+  --accent2: #ffb27f;
+  --ok: #6fbf7a;
+  --warn: #e3b341;
+  --bad: #ef6b6f;
+  --mammoth: #b38b64;
+  --lion: #e2b13f;
+  --wolf: #7fa6c9;
+  --rat: #a991bd;
+  --t0: #9a9a9a;
+  --t1: #6aa6f2;
+  --t2: #b57cf0;
+  --t3: #f08443;
+  --t4: #ef5350;
+}

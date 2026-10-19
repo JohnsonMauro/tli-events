@@ -287,11 +287,8 @@ main.wide {
   align-items: center;
   background: var(--surface2);
   border-radius: var(--radius);
-  padding: 8px;
+  padding: 18px 8px 8px;
   position: relative;
-}
-.pat > li {
-  padding-top: 18px;
 }
 .pat > li::before {
   content: var(--step) ' ' counter(p);
@@ -372,12 +369,12 @@ main.wide {
   height: 38px;
   object-fit: cover;
   border-radius: 4px;
-  background: #1b1916;
+  background: var(--art-bg);
 }
 .exc .ph {
   display: grid;
   place-items: center;
-  color: #5b554b;
+  color: var(--art-ph);
   font-weight: 700;
 }
 .exc b {
@@ -404,15 +401,6 @@ main.wide {
 .no {
   font-weight: 700;
   color: var(--bad);
-}
-.rules-mini {
-  margin: 4px 0 0;
-  padding-left: 16px;
-  font-size: 14px;
-  color: var(--ink2);
-}
-.rules-mini li {
-  margin: 1px 0;
 }
 /* destination priority ladder */
 .pat > li.wide-li {
@@ -711,16 +699,14 @@ main.wide {
   color: var(--ink);
   border-color: var(--line);
 }
+.tier-info:focus-visible .meta {
+  color: var(--ink);
+}
 @media (hover: hover) and (pointer: fine) {
   .tier-info:hover {
     color: var(--ink);
     border-color: var(--line);
   }
-}
-.tier-info:focus-visible .meta {
-  color: var(--ink);
-}
-@media (hover: hover) and (pointer: fine) {
   .tier-info:hover .meta {
     color: var(--ink);
   }
@@ -748,7 +734,7 @@ main.wide {
   align-self: stretch;
   width: 83px; /* square, like the art: game_art.py cuts every instrument square, focused on the object */
   min-height: 83px;
-  background: #1b1916;
+  background: var(--art-bg);
 }
 .tool img {
   position: absolute;
@@ -763,7 +749,7 @@ main.wide {
   place-items: center;
   height: 100%;
   font: 700 18px var(--display);
-  color: #5b554b;
+  color: var(--art-ph);
 }
 .tool .nm {
   display: grid;
@@ -851,7 +837,7 @@ main.wide {
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-pop);
   padding: 10px 12px;
   font-size: 14px;
   pointer-events: none;
@@ -867,7 +853,7 @@ main.wide {
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-pop);
   font-size: 14px;
 }
 .tool-dlg::backdrop {
@@ -912,7 +898,7 @@ main.wide {
   height: 84px;
   object-fit: cover;
   border-radius: 6px;
-  background: #1b1916;
+  background: var(--art-bg);
 }
 .tp-head > div > b {
   font-size: 18px;
@@ -1038,12 +1024,12 @@ main.wide {
   height: 30px;
   object-fit: cover;
   border-radius: 3px;
-  background: #1b1916;
+  background: var(--art-bg);
 }
 .tp-pairs .ph {
   display: grid;
   place-items: center;
-  color: #5b554b;
+  color: var(--art-ph);
   font-weight: 700;
 }
 .tp-pairs .pn {
@@ -1092,7 +1078,7 @@ main.wide {
   flex: none;
   align-self: stretch;
   width: 88px;
-  background: #1b1916;
+  background: var(--art-bg);
 }
 .list.gifts .pic {
   width: 97px;
@@ -1157,15 +1143,13 @@ main.wide {
   padding: 0 8px;
 }
 .ev:focus-visible {
+  outline: 2px solid var(--accent);
   background: color-mix(in srgb, var(--accent) 10%, var(--surface2));
 }
 @media (hover: hover) and (pointer: fine) {
   .ev:hover {
     background: color-mix(in srgb, var(--accent) 10%, var(--surface2));
   }
-}
-.ev:focus-visible {
-  outline: 2px solid var(--accent);
 }
 
 @media (max-width: 1100px) {
@@ -1205,9 +1189,4 @@ main.wide {
     left: auto;
     right: 0;
   }
-  .tool-grid {
-    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
-  }
 }
-
-/* link to the simulator the tiers come from */

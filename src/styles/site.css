@@ -1,81 +1,7 @@
-:root {
-  --bg: #f3efe6;
-  --surface: #fbf8f2;
-  --surface2: #ece6d9;
-  --ink: #1d1b18;
-  --ink2: #5b554b;
-  --line: #d6cdbb;
-  --accent: #a64218;
-  --accent2: #7a2e10;
-  --ok: #2f6b3a;
-  --warn: #855b00;
-  --bad: #9b2226;
-  --mammoth: #7c5a3a;
-  --lion: #c08a1b;
-  --wolf: #4b6f8f;
-  --rat: #6d5b7b;
-  --t0: #8a8a8a;
-  --t1: #3f7fd1;
-  --t2: #8e44c9;
-  --t3: #d9731a;
-  --t4: #c62828;
-  --t5: linear-gradient(90deg, #e0463b, #e8a33c, #5fb85a, #3d8fe0, #9b5de5);
-  --radius: 6px;
-  --mono: var(--font-mono);
-  --sans: var(--font-sans);
-  --display: var(--font-display);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --bg: #111214;
-    --surface: #191b1e;
-    --surface2: #22252a;
-    --ink: #ece6d8;
-    --ink2: #a29a8a;
-    --line: #33373d;
-    --accent: #f0773e;
-    --accent2: #ffb27f;
-    --ok: #6fbf7a;
-    --warn: #e3b341;
-    --bad: #ef6b6f;
-    --mammoth: #b38b64;
-    --lion: #e2b13f;
-    --wolf: #7fa6c9;
-    --rat: #a991bd;
-    --t0: #9a9a9a;
-    --t1: #6aa6f2;
-    --t2: #b57cf0;
-    --t3: #f08443;
-    --t4: #ef5350;
-  }
-}
-:root[data-theme='dark'] {
-  --bg: #111214;
-  --surface: #191b1e;
-  --surface2: #22252a;
-  --ink: #ece6d8;
-  --ink2: #a29a8a;
-  --line: #33373d;
-  --accent: #f0773e;
-  --accent2: #ffb27f;
-  --ok: #6fbf7a;
-  --warn: #e3b341;
-  --bad: #ef6b6f;
-  --mammoth: #b38b64;
-  --lion: #e2b13f;
-  --wolf: #7fa6c9;
-  --rat: #a991bd;
-  --t0: #9a9a9a;
-  --t1: #6aa6f2;
-  --t2: #b57cf0;
-  --t3: #f08443;
-  --t4: #ef5350;
-}
+/* The palette, shadows and shared measures come from theme.css (imported before this file in Base.astro). */
 * {
   box-sizing: border-box;
-}
-/* scrollbars in the site's palette: thin track on the surface, accent thumb */
-* {
+  /* scrollbars in the site's palette: thin track on the surface, accent thumb */
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--accent) 55%, var(--line)) transparent;
 }
@@ -88,7 +14,7 @@
 }
 ::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--accent) 55%, var(--line));
-  border-radius: 6px;
+  border-radius: var(--radius);
   border: 2px solid var(--surface);
 }
 @media (hover: hover) and (pointer: fine) {
@@ -119,6 +45,9 @@ body {
 main {
   flex: 1 0 auto;
   width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
 }
 a {
   color: var(--accent);
@@ -168,6 +97,7 @@ nav a {
   }
 }
 nav .nav-end {
+  flex: none;
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -215,9 +145,6 @@ nav button {
 }
 :root[data-theme='dark'] #theme .ico-moon {
   display: none;
-}
-nav .nav-end {
-  flex: none;
 }
 .lang-select {
   position: relative;
@@ -267,7 +194,7 @@ nav .nav-end {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-menu);
 }
 .lang-select li a {
   display: flex;
@@ -302,34 +229,12 @@ nav .nav-end {
     display: none;
   }
 }
-main {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 16px 32px;
-}
-header.hero {
-  padding: 48px 0 24px;
-  border-bottom: 3px double var(--line);
-}
-.kicker {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--accent);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
 h1 {
   font-family: var(--display);
   font-size: clamp(44px, 8vw, 96px);
   line-height: 0.9;
   margin: 8px 0 12px;
   letter-spacing: 0.01em;
-}
-h1 small {
-  display: block;
-  font-size: 0.32em;
-  color: var(--ink2);
-  letter-spacing: 0.08em;
 }
 h2 {
   font-family: var(--display);
@@ -382,15 +287,16 @@ p.lead {
   background: #222;
   border: 1px solid var(--bad);
 }
-/* ---- site chrome (Astro) ---- */
+/* ---- brand ---- */
 nav a.brand {
   font-family: var(--display);
   font-size: 20px;
   letter-spacing: 0.04em;
   color: var(--accent);
 }
-
-/* ---- seasons index ---- */
+nav a.brand span {
+  color: var(--ink);
+}
 
 /* ---- back to the event list ---- */
 a.back {
@@ -452,7 +358,7 @@ a.back svg {
   border: 1px solid var(--accent);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: 0 8px 32px rgb(0 0 0 / 35%);
+  box-shadow: var(--shadow-toast);
   font: 600 15px/1.4 var(--sans);
   color: var(--ink);
   text-align: center;
@@ -506,7 +412,7 @@ a.back svg {
   border: 1px solid var(--accent);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: 0 8px 32px rgb(0 0 0 / 35%);
+  box-shadow: var(--shadow-toast);
   font: 600 15px/1.4 var(--sans);
   color: var(--ink);
 }
@@ -639,16 +545,10 @@ a.back svg {
   }
 }
 
-/* ---- brand ---- */
-nav a.brand span {
-  color: var(--ink);
-}
-
 /* ---- home hero ---- */
 header.brand-hero {
   position: relative;
   padding: 48px 0 28px;
-  border-bottom: none;
   isolation: isolate;
 }
 .brand-hero::before {
@@ -770,10 +670,8 @@ header.brand-hero {
   a.season-card:hover {
     transform: translateY(-2px);
     border-color: var(--accent);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-lift);
   }
-}
-@media (hover: hover) and (pointer: fine) {
   a.season-card:hover .bg {
     opacity: 0.55;
     transform: scale(1.03);
@@ -822,7 +720,7 @@ nav .info-btn {
   border-radius: 10px;
   background: var(--surface);
   color: var(--ink);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--shadow-dialog);
 }
 .info-dlg::backdrop {
   background: rgba(0, 0, 0, 0.6);

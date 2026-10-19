@@ -37,7 +37,7 @@ export default defineConfig([
     language: 'css/css',
     extends: ['css/recommended'],
     rules: {
-      // Tokens come from site.css (play.css reads them across files) and from Astro's <Font cssVariable>.
+      // Tokens come from theme.css (site.css and play.css read them across files) and from Astro's <Font cssVariable>.
       'css/no-invalid-properties': ['error', { allowUnknownVariables: true }],
       // --sans/--display/--mono already end in a generic family: Astro builds them from `fallbacks` in astro.config.mjs.
       'css/font-family-fallbacks': 'off',
