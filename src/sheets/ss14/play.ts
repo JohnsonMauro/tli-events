@@ -2,12 +2,13 @@
 // Data is embedded by the page as <script type="application/json" id="play-data">: our engine's numbers
 // (default, per start card, per objective), the tier thresholds, live offer counts and `ui` strings (./i18n.ts).
 
+import { matches, parseFind } from './find';
+import { unpackPairs, unpackValues, type Packed, type Pair, type Values } from './pack';
+
 interface Tool {
   name: string;
   value: number;
 }
-type Pair = [string, string, number];
-type Values = Record<string, number>;
 interface PlayData {
   tools: Record<string, Tool>;
   pairs: Pair[];
@@ -39,6 +40,7 @@ interface PlayData {
     | 'noCombo'
     | 'findCount'
     | 'findNone'
+    | 'findHeavy'
     | 'resetDone',
     string
   > & {
@@ -96,8 +98,30 @@ function showLocalTime(at: HTMLTimeElement) {
   at.textContent = text;
 }
 
+/** The page's data as embedded: pairs and per-card values packed by the sorted ids (./pack.ts). */
+type Embedded = Omit<PlayData, 'pairs' | 'byStart' | 'byObjective'> & {
+  ids: string[];
+  pairs: Packed;
+  byStart: Record<string, { base: number; tools: Packed; pairs: Packed }>;
+  byObjective: Record<string, { base: number; tools: Packed }>;
+};
+const unpack = (e: Embedded): PlayData => ({
+  ...e,
+  pairs: unpackPairs(e.ids, e.pairs),
+  byStart: Object.fromEntries(
+    Object.entries(e.byStart).map(([id, s]) => [
+      id,
+      { base: s.base, tools: unpackValues(e.ids, s.tools), pairs: unpackPairs(e.ids, s.pairs) },
+    ]),
+  ),
+  byObjective: Object.fromEntries(
+    Object.entries(e.byObjective).map(([id, o]) => [id, { base: o.base, tools: unpackValues(e.ids, o.tools) }]),
+  ),
+});
+
 const el = document.getElementById('play-data');
-const D: PlayData | null = el ? JSON.parse(el.textContent || 'null') : null;
+const raw: Embedded | null = el ? JSON.parse(el.textContent || 'null') : null;
+const D: PlayData | null = raw ? unpack(raw) : null;
 const grid = document.getElementById('tools');
 const out = document.getElementById('pickOut');
 const heldEl = document.getElementById('held');
@@ -231,30 +255,9 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   // ---------- search: hides the rows whose name doesn't match; the ranking stays as it is ----------
   const findEl = document.querySelector<HTMLInputElement>('#toolFind');
   const findOut = document.getElementById('findOut');
-  /** No accents or apostrophes, lower case: "kins" finds "Kin's". */
-  const plain = (s: string) => s.normalize('NFD').replace(/[̀-ͯ'’]/gu, '').toLowerCase();
-  /** Words only: "kins coin" finds "Kin's Coin of Fate". */
-  const norm = (s: string) => plain(s).replace(/[^\p{L}\p{N}]+/gu, ' ');
-  /** The field as a regex (case-insensitive) when it has regex syntax and compiles, so "tongs|maul" finds both
-   * and "^iron" only names that start with Iron; null for plain words or a regex still being typed. */
-  const toRegex = (q: string) => {
-    if (!/[\\^$.|?*+()[\]{}]/.test(q)) return null;
-    try {
-      return new RegExp(q, 'iu');
-    } catch {
-      return null;
-    }
-  };
-  /** A regex matches the name (also without accents and apostrophes); plain words must all be in it, any order. */
-  const matches = (id: string, words: string[], re: RegExp | null) => {
-    const name = toolName(id);
-    if (re) return re.test(name) || re.test(plain(name));
-    return words.length > 0 && words.every((w) => norm(name).includes(w));
-  };
   function applyFind() {
-    const q = (findEl?.value ?? '').trim();
-    const words = norm(q).split(' ').filter(Boolean),
-      re = toRegex(q);
+    // Words, or a regex refused when it could hang the page (./find.ts); the text never reaches the HTML.
+    const { q, words, re, heavy } = parseFind(findEl?.value ?? '');
     let shown = 0,
       total = 0;
     for (const b of grid.querySelectorAll<HTMLElement>('.tool')) {
@@ -262,12 +265,14 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
         li = b.parentElement;
       // The first instrument is in Holding; its row leaves the list of candidates for the second.
       const candidate = id !== S.held[0],
-        hit = candidate && (!q || matches(id, words, re));
+        hit = candidate && (!q || matches(toolName(id), words, re));
       if (li) li.hidden = !hit;
       if (candidate) total++;
       if (hit) shown++;
     }
-    if (findOut) findOut.textContent = !q ? '' : shown ? fmt(T.findCount, { n: shown, total }) : T.findNone;
+    if (!findOut) return;
+    const result = shown ? fmt(T.findCount, { n: shown, total }) : T.findNone;
+    findOut.textContent = !q ? '' : heavy ? `${T.findHeavy} ${result}` : result;
   }
   findEl?.addEventListener('input', applyFind);
   findEl?.addEventListener('keydown', (e) => {

@@ -116,14 +116,12 @@ test('instrument pick: with one held, the list ranks the second by the pair with
   const values = (await candidates(page).locator('.val').allTextContents()).map(Number);
   expect(values).toEqual([...values].sort((a, b) => b - a));
   // Casket + Beastcage under Cage Fight: the pair's value from the engine export, not the Casket alone.
-  const pair = await page.evaluate(() => {
-    const d = JSON.parse(document.getElementById('play-data')?.textContent ?? '{}');
-    const row = d.byStart.cagefight.pairs.find(
-      (p: [string, string, number]) => p.includes('cage') && p.includes('revenge'),
-    );
-    return row[2].toFixed(2);
-  });
-  await expect(page.locator('#tools .tool[data-tool="revenge"] .val')).toHaveText(pair);
+  // Read from the export itself, not the page's packed copy (./src/sheets/ss14/pack.ts).
+  const e = JSON.parse(readFileSync('events/SS14_Tartarus/data/engine_results.json', 'utf8'));
+  const row = e.byStart.cagefight.pairs.find(
+    (p: [string, string, number]) => p.includes('cage') && p.includes('revenge'),
+  );
+  await expect(page.locator('#tools .tool[data-tool="revenge"] .val')).toHaveText(row[2].toFixed(2));
 });
 
 // The card ignores the pointer (it never scrolls), so whatever passes the screen is lost. Russian runs longest.
@@ -217,6 +215,16 @@ test('instrument search: narrows the list by name, Esc brings every row back', a
   await find.fill('maul (');
   expect(await shown()).toEqual(['maul']);
   expect(errors).toEqual([]);
+  // A regex that backtracks for minutes (it hung Node over 2 min on these names) is refused before it runs: words
+  // instead, and the page says so. Without the guard this hangs the page and the test times out.
+  await find.fill('(.*)*maul');
+  expect(await shown()).toEqual(['maul']);
+  await expect(page.locator('#findOut')).toHaveText(
+    'Regex too heavy to run — searching the words instead. Showing 1 of 31',
+  );
+  // The field takes 60 characters at most.
+  await find.fill('x'.repeat(100));
+  expect((await find.inputValue()).length).toBe(60);
   await find.fill('zzz');
   expect(await shown()).toEqual([]);
   await expect(page.locator('#findOut')).toHaveText('No instrument by that name.');

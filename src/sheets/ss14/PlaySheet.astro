@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import Art from '../../components/Art.astro';
 import EventInfo, { type Credit } from '../../components/EventInfo.astro';
 import BackLink from '../../components/BackLink.astro';
+import { FIND_MAX } from './find';
+import { packPairs, packValues, type Pair, type Values } from './pack';
 import { getEvent, eventLangs, url } from '../../lib/events';
 import { artSet } from '../../lib/images';
 import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
@@ -41,8 +43,6 @@ const A = artSet(
 );
 
 // ---- instruments: our value → tier (vs. a run with no instrument), grouped by tier ----
-type Pair = [string, string, number];
-type Values = Record<string, number>;
 interface Engine {
   base: number;
   tools: Record<string, { name: string; value: number }>;
@@ -252,16 +252,27 @@ const ui = {
   noCombo: t.noCombo,
   findCount: t.findCount,
   findNone: t.findNone,
+  findHeavy: t.findHeavy,
   resetDone: t.resetDone,
   link: t.link,
   clashWhy: t.clashWhy,
 };
+// Pairs and per-card values go packed by the sorted ids (./pack.ts; ./play.ts unpacks them).
+const IDS = Object.keys(E.tools).sort();
 const json = JSON.stringify({
-  tools: E.tools,
-  pairs: E.pairs,
+  ids: IDS,
+  tools: Object.fromEntries(Object.entries(E.tools).map(([id, x]) => [id, { name: x.name, value: x.value }])),
+  pairs: packPairs(IDS, E.pairs),
   base,
-  byStart: E.byStart ?? {},
-  byObjective: E.byObjective ?? {},
+  byStart: Object.fromEntries(
+    Object.entries(E.byStart ?? {}).map(([id, s]) => [
+      id,
+      { base: s.base, tools: packValues(IDS, s.tools), pairs: packPairs(IDS, s.pairs) },
+    ]),
+  ),
+  byObjective: Object.fromEntries(
+    Object.entries(E.byObjective ?? {}).map(([id, o]) => [id, { base: o.base, tools: packValues(IDS, o.tools) }]),
+  ),
   tiers: TIERS,
   offers,
   links: TOOL_LINKS,
@@ -531,6 +542,7 @@ const ladder = [
               aria-label={t.find}
               placeholder={t.findHint}
               aria-controls="toolList"
+              maxlength={FIND_MAX}
               autocomplete="off"
               spellcheck="false"
             />

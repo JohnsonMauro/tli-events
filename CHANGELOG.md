@@ -6,6 +6,14 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet loads lighter: its embedded numbers are packed, so the page goes from 45 to 38 KB compressed (207 to 161 KB raw), same numbers on screen.
+
+### Security
+
+- SS14 play sheet: the instrument search refuses a regex that could freeze the page (such as `(.*)*`) and searches its words instead, saying so; the field takes 60 characters at most.
+
 ## [1.15.1] - 2026-10-18
 
 ### Fixed
