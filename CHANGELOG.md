@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.15.2] - 2026-10-18
+
 ### Changed
 
 - SS14 play sheet loads lighter: its embedded numbers are packed, so the page goes from 45 to 38 KB compressed (207 to 161 KB raw), same numbers on screen.
@@ -318,7 +320,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.1...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.2...HEAD
+[1.15.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.1...v1.15.2
 [1.15.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.0...v1.15.1
 [1.15.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.14.0...v1.15.0
 [1.14.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.13.0...v1.14.0
