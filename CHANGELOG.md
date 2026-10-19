@@ -6,6 +6,14 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: **Transfer of Convicts**, a new incident seen in the game — it copies the inmate you stand on into a locked cell, which opens. Worth −0.26 Rainbows per run per "!" in our simulation.
+
+### Changed
+
+- SS14 play sheet: every number re-simulated with the new incident in the mix — values down by 0.02–0.07 for instruments, same order on top.
+
 ## [1.14.0] - 2026-10-18
 
 ### Added

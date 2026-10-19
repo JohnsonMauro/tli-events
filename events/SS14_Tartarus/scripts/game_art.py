@@ -91,6 +91,7 @@ CROPS = [
     ("event-portion", "93_live_incident_extra_portion.webp", (240, 128, 1118, 1118), "Extra Portion"),
     ("event-crow", "97_live_incident_crow_whispers.webp", (240, 128, 1118, 1118), "Crow Whispers"),
     ("event-usurp", "102_live_incident_usurpation_1.webp", (240, 128, 1118, 1118), "Usurpation I-III (IV shows Liliah and Lilim)"),
+    ("event-transfer", "132_live_incident_transfer_of_convicts.webp", (200, 200, 1000, 1000), "Transfer of Convicts (same art as Usurpation I-III; box lowered: a game toast covers the top)"),
     ("event-ratway", "62_live_incident_sewer_ratway.webp", (240, 128, 1118, 1118), "Sewer Ratway"),
     ("event-convict", "64_live_incident_high_risk_convict.webp", (240, 128, 1118, 1118), "High-Risk Convict (same art as Taste of Freedom)"),
     ("event-appetite", "68_live_incident_ravenous_appetite.webp", (240, 128, 1118, 1118), "Ravenous Appetite"),

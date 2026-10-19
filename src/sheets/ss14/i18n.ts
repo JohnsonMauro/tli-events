@@ -7,6 +7,7 @@ import { PAIR_TEXT, TOOL_TEXT } from './tool-text';
 type IncidentId =
   | 'trickster'
   | 'convict'
+  | 'transfer'
   | 'archenemy'
   | 'appetite'
   | 'shared'
@@ -188,6 +189,12 @@ const en = {
       does: 'Opens 1 random locked cell with a **Legendary or better** inmate inside (triggers nothing else).',
       good: 'Always — a free high inmate, food for your Legendary/Ultimate eaters.',
       bad: 'Nothing.',
+    },
+    transfer: {
+      short: 'Copies the inmate here into a locked cell, which opens.',
+      does: 'Copies the inmate in the current cell — **same beast and rarity** — into a random locked cell, which **opens** (triggers nothing else).',
+      good: 'On a high inmate — the copy is just as high. It also makes a pair of identical inmates.',
+      bad: 'On a low inmate the copy is just as low.',
     },
     archenemy: {
       short: 'Opens 1 cell with an inmate the current one can consume.',
@@ -421,6 +428,12 @@ const ptbr: Dict = {
       does: 'Abre 1 cela trancada aleatória com um prisioneiro **Legendary ou melhor** (não dispara mais nada).',
       good: 'Sempre — um prisioneiro raro de graça, comida para seus Legendary/Ultimate.',
       bad: 'Nada.',
+    },
+    transfer: {
+      short: 'Copia o prisioneiro daqui para uma cela trancada, que abre.',
+      does: 'Copia o prisioneiro da cela atual — **mesma fera e raridade** — para uma cela trancada aleatória, que **abre** (não dispara mais nada).',
+      good: 'Num prisioneiro alto — a cópia é tão alta quanto ele. Também forma um par de prisioneiros idênticos.',
+      bad: 'Num prisioneiro baixo, a cópia também é baixa.',
     },
     archenemy: {
       short: 'Abre 1 cela com um prisioneiro que o atual pode consumir.',
@@ -728,6 +741,12 @@ const ko: Dict = {
       good: '항상 — 공짜 고급 죄수, Legendary/Ultimate 포식자의 먹이.',
       bad: '없음.',
     },
+    transfer: {
+      short: '이 칸의 죄수를 잠긴 칸에 복제하고 그 칸을 엶.',
+      does: '현재 칸의 죄수를 **같은 짐승·같은 등급** 그대로 무작위 잠긴 칸에 복제하고, 그 칸을 **엽니다** (다른 효과 없음).',
+      good: '높은 죄수 위라면 복제본도 똑같이 높습니다. 똑같은 죄수 한 쌍도 생깁니다.',
+      bad: '낮은 죄수라면 복제본도 낮습니다.',
+    },
     archenemy: {
       short: '현재 죄수가 먹을 수 있는 죄수가 든 칸 1개를 엶.',
       does: '무작위 잠긴 칸 1개를 열고, 안의 죄수는 현재 칸 죄수의 **Consumable 대상이 확정**입니다.',
@@ -1020,6 +1039,12 @@ const ja: Dict = {
       good: '常に——無料の高ティア囚人、Legendary/Ultimate捕食者の餌。',
       bad: 'なし。',
     },
+    transfer: {
+      short: 'このマスの囚人を施錠マスに複製し、そのマスを開ける。',
+      does: '現在のマスの囚人を**同じ獣・同じレア度**のままランダムな施錠マスに複製し、そのマスを**開ける**（他の効果なし）。',
+      good: '高い囚人の上なら、複製も同じく高い。同一の囚人のペアもできる。',
+      bad: '低い囚人なら、複製も低い。',
+    },
     archenemy: {
       short: '現在の囚人が捕食できる囚人入りのマスを1つ開ける。',
       does: 'ランダムな施錠マスを1つ開け、中の囚人は現在のマスの囚人にとって**確実にConsumable対象**になる。',
@@ -1306,6 +1331,12 @@ const zh: Dict = {
       does: '随机打开1个锁着的格子，里面是**Legendary或更高**的囚犯（不触发其他效果）。',
       good: '总是——白送一个高档囚犯，给你的Legendary/Ultimate当食物。',
       bad: '无。',
+    },
+    transfer: {
+      short: '把这格的囚犯复制到一个锁着的格子，并打开它。',
+      does: '把当前格的囚犯（**同种野兽、同稀有度**）复制到随机一个锁着的格子，并**打开**该格（不触发其他效果）。',
+      good: '站在高档囚犯上时，复制品一样高。还会凑出一对相同的囚犯。',
+      bad: '囚犯档次低，复制品也低。',
     },
     archenemy: {
       short: '打开1格，里面的囚犯当前囚犯一定能吃。',
@@ -1594,6 +1625,12 @@ const ru: Dict = {
       does: 'Открывает 1 случайную запертую клетку с заключённым **Legendary или выше** (больше ничего не запускает).',
       good: 'Всегда — бесплатный сильный заключённый, еда для ваших Legendary/Ultimate.',
       bad: 'Ничего.',
+    },
+    transfer: {
+      short: 'Копирует заключённого отсюда в запертую клетку и открывает её.',
+      does: 'Копирует заключённого в текущей клетке — **тот же зверь и редкость** — в случайную запертую клетку и **открывает** её (больше ничего не запускает).',
+      good: 'На сильном заключённом — копия такая же сильная. Заодно получается пара одинаковых заключённых.',
+      bad: 'На слабом заключённом и копия слабая.',
     },
     archenemy: {
       short: 'Открывает 1 клетку с заключённым, которого текущий может съесть.',
@@ -1899,6 +1936,12 @@ const de: Dict = {
       does: 'Öffnet 1 zufällige verschlossene Zelle mit einem Insassen **ab Legendary** (löst sonst nichts aus).',
       good: 'Immer — ein hoher Insasse gratis, Futter für deine Legendary/Ultimate-Fresser.',
       bad: 'Nichts.',
+    },
+    transfer: {
+      short: 'Kopiert den Insassen hier in eine verschlossene Zelle, die sich öffnet.',
+      does: 'Kopiert den Insassen der aktuellen Zelle — **gleiches Tier, gleiche Seltenheit** — in eine zufällige verschlossene Zelle, die sich **öffnet** (löst sonst nichts aus).',
+      good: 'Auf einem hohen Insassen — die Kopie ist genauso hoch. Dazu entsteht ein Paar identischer Insassen.',
+      bad: 'Auf einem niedrigen Insassen ist auch die Kopie niedrig.',
     },
     archenemy: {
       short: 'Öffnet 1 Zelle mit einem Insassen, den der aktuelle fressen kann.',
@@ -2207,6 +2250,12 @@ const fr: Dict = {
       does: "Ouvre 1 cellule fermée au hasard avec un détenu **Legendary ou mieux** à l'intérieur (ne déclenche rien d'autre).",
       good: 'Toujours — un détenu haut gratuit, de la nourriture pour vos mangeurs Legendary/Ultimate.',
       bad: 'Rien.',
+    },
+    transfer: {
+      short: "Copie le détenu d'ici dans une cellule fermée, qui s'ouvre.",
+      does: "Copie le détenu de la cellule actuelle — **même bête, même rareté** — dans une cellule fermée au hasard, qui **s'ouvre** (ne déclenche rien d'autre).",
+      good: "Sur un détenu haut, la copie l'est tout autant. Et cela fait une paire de détenus identiques.",
+      bad: 'Sur un détenu bas, la copie est basse aussi.',
     },
     archenemy: {
       short: "Ouvre 1 cellule avec un détenu que l'actuel peut manger.",
@@ -2521,6 +2570,12 @@ const pl: Dict = {
       good: 'Zawsze — darmowy wysoki więzień, jedzenie dla twoich zjadaczy Legendary/Ultimate.',
       bad: 'Nic.',
     },
+    transfer: {
+      short: 'Kopiuje stąd więźnia do zamkniętej celi, która się otwiera.',
+      does: 'Kopiuje więźnia z obecnej celi — **ta sama bestia i rzadkość** — do losowej zamkniętej celi, która się **otwiera** (nic więcej nie wyzwala).',
+      good: 'Na wysokim więźniu — kopia jest równie wysoka. Do tego para identycznych więźniów.',
+      bad: 'Na niskim więźniu kopia też jest niska.',
+    },
     archenemy: {
       short: 'Otwiera 1 celę z więźniem, którego obecny może zjeść.',
       does: 'Otwiera 1 losową zamkniętą celę; więzień w środku jest **na pewno celem Consumable** dla więźnia w obecnej celi.',
@@ -2826,6 +2881,12 @@ const sv: Dict = {
       does: 'Öppnar 1 slumpad låst cell med en intern på **Legendary eller bättre** (utlöser inget annat).',
       good: 'Alltid — en hög intern gratis, mat åt dina Legendary/Ultimate-ätare.',
       bad: 'Inget.',
+    },
+    transfer: {
+      short: 'Kopierar internen här till en låst cell, som öppnas.',
+      does: 'Kopierar internen i nuvarande cell — **samma best och sällsynthet** — till en slumpad låst cell, som **öppnas** (utlöser inget annat).',
+      good: 'På en hög intern blir kopian lika hög. Dessutom ett par identiska interner.',
+      bad: 'På en låg intern blir kopian också låg.',
     },
     archenemy: {
       short: 'Öppnar 1 cell med en intern som den nuvarande kan äta.',
@@ -3133,6 +3194,12 @@ const es: Dict = {
       does: 'Abre 1 celda cerrada aleatoria con un preso **Legendary o mejor** dentro (no activa nada más).',
       good: 'Siempre — un preso de rareza alta gratis, comida para tus devoradores Legendary/Ultimate.',
       bad: 'Nada.',
+    },
+    transfer: {
+      short: 'Copia el preso de aquí en una celda cerrada, que se abre.',
+      does: 'Copia el preso de la celda actual — **misma bestia y rareza** — en una celda cerrada aleatoria, que se **abre** (no activa nada más).',
+      good: 'Sobre un preso alto, la copia es igual de alta. Además forma una pareja de presos idénticos.',
+      bad: 'Sobre un preso bajo, la copia también es baja.',
     },
     archenemy: {
       short: 'Abre 1 celda con un preso que el actual puede consumir.',

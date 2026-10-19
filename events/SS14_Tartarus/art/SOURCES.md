@@ -63,6 +63,7 @@ Each piece is a rectangle cut from an image indexed in [images/INDEX.md](../imag
 | `event-portion` | Extra Portion | [93_live_incident_extra_portion.webp](../images/93_live_incident_extra_portion.webp) | 240,128 1118×1118 |
 | `event-crow` | Crow Whispers | [97_live_incident_crow_whispers.webp](../images/97_live_incident_crow_whispers.webp) | 240,128 1118×1118 |
 | `event-usurp` | Usurpation I-III (IV shows Liliah and Lilim) | [102_live_incident_usurpation_1.webp](../images/102_live_incident_usurpation_1.webp) | 240,128 1118×1118 |
+| `event-transfer` | Transfer of Convicts (same art as Usurpation I-III; box lowered: a game toast covers the top) | [132_live_incident_transfer_of_convicts.webp](../images/132_live_incident_transfer_of_convicts.webp) | 200,200 1000×1000 |
 | `event-ratway` | Sewer Ratway | [62_live_incident_sewer_ratway.webp](../images/62_live_incident_sewer_ratway.webp) | 240,128 1118×1118 |
 | `event-convict` | High-Risk Convict (same art as Taste of Freedom) | [64_live_incident_high_risk_convict.webp](../images/64_live_incident_high_risk_convict.webp) | 240,128 1118×1118 |
 | `event-appetite` | Ravenous Appetite | [68_live_incident_ravenous_appetite.webp](../images/68_live_incident_ravenous_appetite.webp) | 240,128 1118×1118 |
