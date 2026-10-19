@@ -245,9 +245,6 @@ main.wide {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-.run .run-note {
-  margin: 4px 0 0;
-}
 .run-facts {
   list-style: none;
   margin: 8px 0 0;

@@ -19,7 +19,6 @@ export const pl: Dict = {
   runObjective: 'Cel',
   runNone: 'brak',
   runAny: 'dowolny',
-  viktor: 'Karty startowe dostajesz od Viktora, bossa mapy.',
   eats: 'zjada',
   s1t: 'Jedz każdego dnia, kiedy się da',
   s1p: 'na portrecie = **ma ofiarę**. Każdy kęs: **+1 poziom**, bestia losuje się od nowa; jeśli nowa bestia ma jedzenie na nowym poziomie, **zjada znowu**.',

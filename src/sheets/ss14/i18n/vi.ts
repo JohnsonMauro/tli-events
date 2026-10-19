@@ -19,7 +19,6 @@ export const vi: Dict = {
   runObjective: 'Mục tiêu',
   runNone: 'không có',
   runAny: 'bất kỳ',
-  viktor: 'Thẻ khởi đầu đến từ Viktor, boss của bản đồ.',
   eats: 'ăn',
   s1t: 'Có thể ăn thì ăn mỗi ngày',
   s1p: 'trên chân dung = **nó có con mồi**. Mỗi lần ăn: **+1 bậc**, loài thú được tung lại; nếu loài mới có mồi ở bậc mới, **nó ăn tiếp**.',

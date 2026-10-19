@@ -19,7 +19,6 @@ export const es: Dict = {
   runObjective: 'Objetivo',
   runNone: 'ninguna',
   runAny: 'cualquiera',
-  viktor: 'Las cartas iniciales vienen de Viktor, el jefe del mapa.',
   eats: 'come',
   s1t: 'Come cada día que puedas',
   s1p: 'en un retrato = **tiene presa**. Cada mordida: **+1 tier**, la bestia se vuelve a sortear; si la nueva bestia tiene comida en el nuevo tier, **vuelve a comer**.',

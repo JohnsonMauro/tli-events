@@ -19,7 +19,6 @@ export const ptbr: Dict = {
   runObjective: 'Objetivo',
   runNone: 'nenhuma',
   runAny: 'qualquer',
-  viktor: 'As cartas de início vêm do Viktor, o chefe do mapa.',
   eats: 'come',
   s1t: 'Coma todo dia que puder',
   s1p: 'no retrato = **ele tem presa**. Cada mordida: **+1 tier**, a fera é sorteada de novo; se a nova fera tiver comida no novo tier, **ela come de novo**.',

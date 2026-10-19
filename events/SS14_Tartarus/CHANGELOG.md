@@ -334,3 +334,7 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - New engine parameter: `eventMorningChance` = 5
 - New engine parameter: `eventStartChance` = 72
 - New engine parameter: `eventWalkChance` = 9
+
+## 2026-10-19 — correction: start cards are not Viktor's (LIVE)
+
+- **Start cards** (Cage Fight, Iron Law, Tyranny, Opulence): the 2026-10-17 entry said they come from **Viktor**, a boss met on the maps (owner). Corrected by the owner: as we understand it now, they show up **at random**. The play sheet drops its "Start cards come from Viktor, the map boss" line in every language; `images/INDEX.md` entry 95 notes the correction. How a start card is drawn (odds, when) — no data.

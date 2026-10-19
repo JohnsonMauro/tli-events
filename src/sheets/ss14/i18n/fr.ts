@@ -19,7 +19,6 @@ export const fr: Dict = {
   runObjective: 'Objectif',
   runNone: 'aucune',
   runAny: "n'importe lequel",
-  viktor: 'Les cartes de départ viennent de Viktor, le boss des cartes.',
   eats: 'mange',
   s1t: "Mangez chaque jour où c'est possible",
   s1p: 'sur un portrait = **il a une proie**. Chaque bouchée : **+1 tier**, la bête est retirée au sort ; si la nouvelle bête a de quoi manger au nouveau tier, **elle mange encore**.',

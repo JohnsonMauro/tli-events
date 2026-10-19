@@ -20,7 +20,6 @@ export const de: Dict = {
   runObjective: 'Ziel',
   runNone: 'keine',
   runAny: 'beliebig',
-  viktor: 'Startkarten gibt es von Viktor, dem Map-Boss.',
   eats: 'frisst',
   s1t: 'Friss an jedem Tag, an dem es geht',
   s1p: 'auf einem Porträt = **es hat Beute**. Jeder Biss: **+1 Stufe**, die Bestie wird neu gewürfelt; hat die neue Bestie auf der neuen Stufe Futter, **frisst sie erneut**.',

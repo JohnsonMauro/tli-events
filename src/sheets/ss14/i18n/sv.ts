@@ -19,7 +19,6 @@ export const sv: Dict = {
   runObjective: 'Mål',
   runNone: 'inget',
   runAny: 'valfritt',
-  viktor: 'Startkort får du från Viktor, kartans boss.',
   eats: 'äter',
   s1t: 'Ät varje dag du kan',
   s1p: 'på ett porträtt = **den har ett byte**. Varje bett: **+1 nivå**, besten slumpas om; har den nya besten mat på den nya nivån **äter den igen**.',

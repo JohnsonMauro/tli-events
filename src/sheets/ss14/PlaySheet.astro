@@ -121,7 +121,7 @@ const tools = Object.entries(E.tools)
     doubt: DOUBT.has(id),
   }));
 
-// ---- your run: start card (from Viktor, changes the rules) and objective; the numbers follow ----
+// ---- your run: start card (changes the rules) and objective; the numbers follow ----
 const STARTS = [
   ['', t.runNone, null],
   ['cagefight', 'Cage Fight', A('card-cagefight')],
@@ -333,7 +333,6 @@ const ladder = [
             </button>
           ))}
         </div>
-        <p class="meta run-note">{t.viktor}</p>
         <div class="run-row" role="group" aria-label={t.runObjective}>
           <span class="run-l">{t.runObjective}</span>
           {OBJECTIVES.map(([id, name]) => (

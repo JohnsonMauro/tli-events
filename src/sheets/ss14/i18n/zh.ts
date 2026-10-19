@@ -19,7 +19,6 @@ export const zh: Dict = {
   runObjective: '目标',
   runNone: '无',
   runAny: '任意',
-  viktor: '开局卡来自地图Boss Viktor。',
   eats: '吃',
   s1t: '能吃就每天吃',
   s1p: '头像上 = **有可吃的目标**。每吃一口**+1档稀有度**，兽种重新随机；新兽种在新档位有食物就**继续吃**。',

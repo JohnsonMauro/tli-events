@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- SS14 play sheet: dropped "Start cards come from Viktor, the map boss" in every language — as we now understand it, start cards show up at random.
+
 ## [1.18.2] - 2026-10-19
 
 ### Changed

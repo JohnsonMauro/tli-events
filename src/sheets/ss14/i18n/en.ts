@@ -47,7 +47,6 @@ export const en = {
   runObjective: 'Objective',
   runNone: 'none',
   runAny: 'any',
-  viktor: 'Start cards come from Viktor, the map boss.',
   eats: 'eats',
   s1t: 'Eat every day you can',
   s1p: 'on a portrait = **it has prey**. Each bite: **+1 tier**, the beast re-rolls; if the new beast has food at the new tier, **it eats again**.',
