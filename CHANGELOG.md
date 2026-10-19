@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.15.1] - 2026-10-18
+
 ### Fixed
 
 - SS14 play sheet on phones: the Reset button no longer pushes the page sideways in languages with a long "All events" link (French) — it moves to the right, or to the next line when both don't fit, and its "Cleared." note stays on screen.
@@ -308,7 +310,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.1...HEAD
+[1.15.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.0...v1.15.1
 [1.15.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.14.0...v1.15.0
 [1.14.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.13.0...v1.14.0
 [1.13.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.12.0...v1.13.0
