@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.17.0] - 2026-10-19
+
 ### Added
 
 - The whole site is now in all 12 languages, not only the SS14 sheet: the home page (`/pt-br/`, `/vi/`…) with its event cards and launch dates written the reader's way, the language switcher on every page, the logo and "All events" leading back to the home page in your language, and the "page not found" page answering in your language. In English the card date now reads "Oct 15, 2026".
@@ -331,7 +333,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.16.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.17.0...HEAD
+[1.17.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.16.0...v1.17.0
 [1.16.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.2...v1.16.0
 [1.15.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.1...v1.15.2
 [1.15.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.0...v1.15.1
