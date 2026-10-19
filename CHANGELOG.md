@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.17.1] - 2026-10-19
+
 ### Fixed
 
 - SS14 play sheet: Filthy Claws is no longer marked "!" — the live Scratch Marks tooltip confirms a Wolf eats any inmate of its rarity through the marked door, for +3, as the sheet already said. With no instrument left unconfirmed, the note explaining "!" under the list goes away too.
@@ -337,7 +339,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.17.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.17.1...HEAD
+[1.17.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.17.0...v1.17.1
 [1.17.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.16.0...v1.17.0
 [1.16.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.2...v1.16.0
 [1.15.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.15.1...v1.15.2
