@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "test:e2e": "astro build && playwright test",
     "icons": "node scripts/icons.mjs",
+    "readme-shots": "node scripts/readme-shots.mjs",
     "data": "for s in events/*/scripts/update_data.py; do python3 -I \"$s\" || exit 1; done",
     "prepare": "husky"
   },
