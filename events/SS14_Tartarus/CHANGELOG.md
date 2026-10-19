@@ -226,3 +226,7 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 ## 2026-10-18 — new incident: Transfer of Convicts (LIVE)
 
 - **Transfer of Convicts** (`images/132`, the owner's run): "Replicate the Inmate in the current cell into a random unopened cell". **New** — not in our engine, our sheet, the community simulator or tlidb. Same wording as the Searing Branding Iron's effect (print 100) but without its "(does not trigger other effects)". Open: whether the copy's cell opens (the Branding Iron's does, print 101), whether that cell's effects fire, and its share of the incident pool. Engine and sheet not updated yet.
+
+## 2026-10-18 — Transfer of Convicts: the copy opens its cell (LIVE)
+
+- **Board right after it** (`images/133`, the owner's run, 0 days to the Riot): the warden's cell 5 held an Ultimate Mammoth; cell 8, locked and empty before (owner), is now **open with an Ultimate Mammoth** — the copy keeps beast and rarity and opens the cell it lands in, as the Searing Branding Iron's does (print 101). Nothing else fired there. Still open: its share of the incident pool. Engine and sheet not updated yet.
