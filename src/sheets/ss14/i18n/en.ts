@@ -245,9 +245,10 @@ export const en = {
       bad: 'Information only.',
     },
     usurp: {
-      short: 'A chain: once I fires, your next 3 incidents are II, III and IV — IV raises the whole board.',
-      does: 'I: +1 tier to 1 inmate · II: +2 to 1 · III: +2 to 2 · IV: +2 to all. Once I fires, the next incidents you trigger are II, III and IV in turn.',
-      good: 'Always — and it scales: IV raises the whole board.',
+      short:
+        'Four stages: each one that fires puts the next into the incident draw — it comes on a later “!”, not always the next one. IV raises the whole board.',
+      does: 'I: +1 tier to 1 inmate · II: +2 to 1 · III: +2 to 2 · IV: +2 to all. Each one that fires puts the next into what a “!” can draw: II, III and IV come in order, but not necessarily right away.',
+      good: 'Always — it costs nothing, and each stage puts the next into the draw.',
       bad: 'Nothing.',
     },
     chain: {

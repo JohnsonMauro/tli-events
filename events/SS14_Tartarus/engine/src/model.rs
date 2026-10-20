@@ -269,8 +269,7 @@ pub struct State {
     pub replaced_today: bool,
     /// Chain Reaction: the next patrol opens every sealed door on its way.
     pub chain_next: bool,
-    /// The next Usurpation stage: 1 = I can be drawn; 2..=4 = the next incident triggered is that stage;
-    /// 5 = all used.
+    /// The Usurpation stage in the incident draw: 1..=4 = that one can be drawn; 5 = all used.
     pub usurp_stage: u8,
     /// `Params::first_incident`, used up by the first incident triggered.
     pub first_incident: Option<Incident>,

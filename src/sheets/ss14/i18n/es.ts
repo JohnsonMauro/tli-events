@@ -216,9 +216,10 @@ export const es: Dict = {
       bad: 'Solo información.',
     },
     usurp: {
-      short: 'Una cadena: tras el I, tus próximos 3 incidentes son II, III y IV — el IV sube todo el tablero.',
-      does: 'I: +1 tier a 1 preso · II: +2 a 1 · III: +2 a 2 · IV: +2 a todos. Tras el I, los próximos incidentes que actives son II, III y IV, en orden.',
-      good: 'Siempre — y escala: el IV sube todo el tablero.',
+      short:
+        'Cuatro etapas: cada una que se activa mete la siguiente en el sorteo de incidentes — llega en un “!” posterior, no siempre en el siguiente. El IV sube todo el tablero.',
+      does: 'I: +1 tier a 1 preso · II: +2 a 1 · III: +2 a 2 · IV: +2 a todos. Cada una que se activa mete la siguiente en el sorteo de los “!”: II, III y IV llegan en orden, pero no necesariamente justo después.',
+      good: 'Siempre — no cuesta nada, y cada etapa mete la siguiente en el sorteo.',
       bad: 'Nada.',
     },
     chain: {

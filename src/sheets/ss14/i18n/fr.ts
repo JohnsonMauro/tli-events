@@ -218,9 +218,10 @@ export const fr: Dict = {
       bad: 'Information seulement.',
     },
     usurp: {
-      short: 'Une chaîne : après I, vos 3 incidents suivants sont II, III et IV — IV élève tout le plateau.',
-      does: "I : +1 tier à 1 détenu · II : +2 à 1 · III : +2 à 2 · IV : +2 à tous. Après I, les incidents que vous déclenchez ensuite sont II, III et IV, dans l'ordre.",
-      good: 'Toujours — et ça monte : IV fait progresser tout le plateau.',
+      short:
+        'Quatre étapes : chacune qui se déclenche ajoute la suivante au tirage des incidents — elle arrive sur un « ! » plus tard, pas forcément le suivant. IV élève tout le plateau.',
+      does: "I : +1 tier à 1 détenu · II : +2 à 1 · III : +2 à 2 · IV : +2 à tous. Chaque étape déclenchée ajoute la suivante au tirage des « ! » : II, III et IV arrivent dans l'ordre, mais pas forcément tout de suite.",
+      good: 'Toujours — ça ne coûte rien, et chaque étape ajoute la suivante au tirage.',
       bad: 'Rien.',
     },
     chain: {

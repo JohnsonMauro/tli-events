@@ -448,7 +448,6 @@ test('incidents: best first, each with its worth against an average "!"', async 
   const ids = await rows.evaluateAll((b) => b.map((x) => (x as HTMLElement).dataset.ev ?? ''));
   const worths = ids.map((id) => e.incidents[id] as number);
   expect(worths).toEqual([...worths].sort((a, b) => b - a));
-  expect(ids[0]).toBe('usurp');
   const shown = await rows.locator('strong').allTextContents();
   expect(shown).toEqual(worths.map((w) => (w > 0 ? '+' : '') + w.toFixed(2)));
   await expect(page.locator('.list:has(.ev)')).not.toContainText(/\bdepends\b/i);

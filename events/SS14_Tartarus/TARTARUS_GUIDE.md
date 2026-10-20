@@ -220,7 +220,7 @@ Typical run (optimal strategy, with rewards): ~21 doors, ~9 Replaces, ~5 consume
 | **High-Risk Convict** | gain at no cost | Accept |
 | **Crow Whispers** | reveals the rarity of 4 locked cells | Accept |
 | **Taste of Freedom** | opens 3 random locked cells | Accept |
-| **Usurpation I→IV** | I: 1 prisoner +1 · II: 2 prisoners +1 · III: 2 prisoners +2 · IV: **all +2**. Each one swaps in the next one in the pool | Always accept (it scales) |
+| **Usurpation I→IV** | I: 1 prisoner +1 · II: **1 prisoner +2** · III: 2 prisoners +2 · IV: **all +2** [LIVE, prints 102–105]. Each one that fires swaps the next into the incident pool — it comes when a "!" draws it, not as the next incident (owner, 2026-10-19: I, then another incident). Reports of II or III as a run's first Usurpation: no data | Always accept (it scales) |
 | **"Treasure" Hunt** | reveals all locked cells below Rare → the dark ones are Rare+ | Just confirm |
 | **Sewer Ratway** | moves to any cell (except the office) and triggers its contents | Use it to reach the best cell |
 | **Chain Reaction** | opens all doors along the path | Close call — floods the block but uses up doors |

@@ -410,7 +410,7 @@ fn export(o: &Opts, data: &str, mut p: Params, w: &Weights, setup: Setup) -> Res
     }
 
     // What one "!" of each kind is worth: the full run with its first incident forced to that kind, against the
-    // full run (same seeds). Usurpation I starts its chain, so II-IV follow as the next incidents.
+    // full run (same seeds). Usurpation I puts II into the draw (II-IV come only if drawn).
     let mut incidents = serde_json::Map::new();
     for (id, inc) in INCIDENTS {
         let q = Params {

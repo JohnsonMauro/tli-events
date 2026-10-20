@@ -219,9 +219,10 @@ export const de: Dict = {
       bad: 'Nur Information.',
     },
     usurp: {
-      short: 'Eine Kette: nach I sind deine nächsten 3 Incidents II, III und IV — IV hebt das ganze Board.',
-      does: 'I: +1 Stufe für 1 Insassen · II: +2 für 1 · III: +2 für 2 · IV: +2 für alle. Nach I sind die nächsten Incidents, die du auslöst, der Reihe nach II, III und IV.',
-      good: 'Immer — und es skaliert: IV hebt das ganze Board.',
+      short:
+        'Vier Phasen: Jede ausgelöste Phase bringt die nächste in die Incident-Auslosung — sie kommt bei einem späteren „!“, nicht unbedingt beim nächsten. IV hebt das ganze Board.',
+      does: 'I: +1 Stufe für 1 Insassen · II: +2 für 1 · III: +2 für 2 · IV: +2 für alle. Jede ausgelöste Phase bringt die nächste in die Auslosung der „!“: II, III und IV kommen der Reihe nach, aber nicht unbedingt direkt danach.',
+      good: 'Immer — kostet nichts, und jede Phase bringt die nächste in die Auslosung.',
       bad: 'Nichts.',
     },
     chain: {

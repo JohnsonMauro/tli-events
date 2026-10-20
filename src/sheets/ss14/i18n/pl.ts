@@ -216,9 +216,10 @@ export const pl: Dict = {
       bad: 'Tylko informacja.',
     },
     usurp: {
-      short: 'Łańcuch: gdy odpali I, twoje następne 3 incydenty to II, III i IV — IV podnosi całą planszę.',
-      does: 'I: +1 poziom dla 1 więźnia · II: +2 dla 1 · III: +2 dla 2 · IV: +2 dla wszystkich. Gdy odpali I, następne incydenty, które wywołasz, to po kolei II, III i IV.',
-      good: 'Zawsze — i się skaluje: IV podnosi całą planszę.',
+      short:
+        'Cztery etapy: każdy, który odpali, dodaje następny do losowania incydentów — przyjdzie przy późniejszym „!”, niekoniecznie najbliższym. IV podnosi całą planszę.',
+      does: 'I: +1 poziom dla 1 więźnia · II: +2 dla 1 · III: +2 dla 2 · IV: +2 dla wszystkich. Każdy etap, który odpali, dodaje następny do losowania „!”: II, III i IV przychodzą po kolei, ale niekoniecznie od razu.',
+      good: 'Zawsze — nic nie kosztuje, a każdy etap dodaje następny do losowania.',
       bad: 'Nic.',
     },
     chain: {

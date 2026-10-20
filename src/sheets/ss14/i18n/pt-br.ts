@@ -216,9 +216,10 @@ export const ptbr: Dict = {
       bad: 'Só informação.',
     },
     usurp: {
-      short: 'Uma cadeia: depois do I, os próximos 3 incidentes são II, III e IV — o IV sobe o tabuleiro inteiro.',
-      does: 'I: +1 tier em 1 prisioneiro · II: +2 em 1 · III: +2 em 2 · IV: +2 em todos. Depois do I, os próximos incidentes que você aciona são II, III e IV, em ordem.',
-      good: 'Sempre — e escala: o IV sobe o tabuleiro inteiro.',
+      short:
+        'Quatro estágios: cada um que dispara põe o próximo no sorteio dos incidentes — ele vem num “!” mais adiante, nem sempre no seguinte. O IV sobe o tabuleiro inteiro.',
+      does: 'I: +1 tier em 1 prisioneiro · II: +2 em 1 · III: +2 em 2 · IV: +2 em todos. Cada um que dispara põe o próximo no sorteio dos “!”: II, III e IV vêm em ordem, mas não necessariamente logo em seguida.',
+      good: 'Sempre — não custa nada, e cada estágio põe o próximo no sorteio.',
       bad: 'Nada.',
     },
     chain: {

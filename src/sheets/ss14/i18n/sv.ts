@@ -216,9 +216,10 @@ export const sv: Dict = {
       bad: 'Bara information.',
     },
     usurp: {
-      short: 'En kedja: när I har triggat blir dina nästa 3 incidenter II, III och IV — IV höjer hela brädet.',
-      does: 'I: +1 nivå till 1 intern · II: +2 till 1 · III: +2 till 2 · IV: +2 till alla. När I har triggat blir nästa incidenter du utlöser II, III och IV i tur och ordning.',
-      good: 'Alltid — och den skalar: IV höjer hela brädet.',
+      short:
+        'Fyra steg: varje steg som triggar lägger nästa i lottningen av incidenter — det kommer vid ett senare ”!”, inte alltid nästa. IV höjer hela brädet.',
+      does: 'I: +1 nivå till 1 intern · II: +2 till 1 · III: +2 till 2 · IV: +2 till alla. Varje steg som triggar lägger nästa i lottningen av ”!”: II, III och IV kommer i tur och ordning, men inte nödvändigtvis direkt.',
+      good: 'Alltid — det kostar inget, och varje steg lägger nästa i lottningen.',
       bad: 'Inget.',
     },
     chain: {

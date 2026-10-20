@@ -821,9 +821,10 @@ pub fn roll_incident(st: &mut State) -> Incident {
         Incident::TransferOfConvicts,
     ];
     pool[..13].copy_from_slice(&base);
-    // Only Usurpation I is ever drawn: once it fires, II-IV come as the next incidents triggered (`incident`).
-    let n = if st.usurp_stage == 1 {
-        pool[13] = Incident::Usurpation(1);
+    // The current Usurpation stage is one of the incidents: each stage that fires swaps the next one in (cards
+    // 102-105: "Add [Usurpation II] to Prison Incidents and remove [Usurpation I]"); none after IV.
+    let n = if (1..=4).contains(&st.usurp_stage) {
+        pool[13] = Incident::Usurpation(st.usurp_stage);
         14
     } else {
         13
@@ -831,14 +832,14 @@ pub fn roll_incident(st: &mut State) -> Incident {
     pool[st.rng.below(n)]
 }
 
-/// The incident a "!" really sets off. Once Usurpation I fires, the next incidents triggered are II, III and IV
-/// in turn, whatever the "!" held (live cards 102-105: four in a row, day 14 to day 6); a stale Usurpation after
-/// IV draws again. `Params::first_incident` replaces the run's first one. Calling it twice changes nothing.
+/// The incident a "!" really sets off: what it held, except a Usurpation stage that already fired (its card
+/// removed it from the incidents), which draws again. The next stage comes only when the draw brings it — not
+/// as the next incident triggered (owner, 2026-10-19: Usurpation I, then another incident; the chain I-IV of
+/// prints 102-105 came by draw). `Params::first_incident` replaces the run's first one.
 pub fn fires(st: &mut State, inc: Incident) -> Incident {
     let inc = st.first_incident.take().unwrap_or(inc);
-    match st.usurp_stage {
-        2..=4 => Incident::Usurpation(st.usurp_stage),
-        5 if matches!(inc, Incident::Usurpation(_)) => roll_incident(st),
+    match inc {
+        Incident::Usurpation(stage) if stage != st.usurp_stage => roll_incident(st),
         _ => inc,
     }
 }
@@ -941,7 +942,7 @@ pub fn incident(
                     }
                 }
             }
-            // The card swaps the next stage into the incidents: it is the next one triggered (see above).
+            // The card swaps the next stage into the incidents (`roll_incident`); after IV there is none.
             st.usurp_stage = stage + 1;
         }
         Incident::SewerRatway => {
@@ -1222,28 +1223,48 @@ mod tests {
     }
 
     #[test]
-    fn usurpation_stages_follow_in_turn_and_ii_gives_two_tiers_to_one() {
+    fn usurpation_swaps_the_next_stage_into_the_draw_and_ii_gives_two_tiers_to_one() {
         let (mut st, mut p) = board(&[]);
         p.incident_respawn = false;
         for n in 2..7 {
             put(&mut st, n, LION, 0);
         }
         st.warden = 2;
+        let drawn = |st: &mut State| (0..2000).map(|_| roll_incident(st)).collect::<Vec<_>>();
+        assert!(drawn(&mut st).contains(&Incident::Usurpation(1)));
         incident(&mut st, &p, Incident::Usurpation(1), None);
         assert_eq!(st.usurp_stage, 2);
-        // The next incident triggered is II, whatever the "!" held: +2 tiers to one inmate (print 103).
+        // II joins the draw, I leaves it; the next incident triggered is whatever its "!" held.
+        let pool = drawn(&mut st);
+        assert!(pool.contains(&Incident::Usurpation(2)));
+        assert!(!pool.contains(&Incident::Usurpation(1)));
+        assert_eq!(
+            fires(&mut st, Incident::ExtraPortion),
+            Incident::ExtraPortion
+        );
+        // A "!" still holding I (drawn before I fired) draws again: never I a second time.
+        for _ in 0..200 {
+            assert_ne!(
+                fires(&mut st, Incident::Usurpation(1)),
+                Incident::Usurpation(1)
+            );
+        }
+        // II: +2 tiers to one inmate (print 103).
         let before: Vec<u8> = (2..7).map(|n| st.cells[n].inmate.tier).collect();
-        incident(&mut st, &p, Incident::ExtraPortion, None);
+        incident(&mut st, &p, Incident::Usurpation(2), None);
         let gains: Vec<u8> = (2..7)
             .zip(&before)
             .map(|(n, b)| st.cells[n].inmate.tier - b)
             .collect();
         assert_eq!(gains.iter().filter(|&&g| g != 0).collect::<Vec<_>>(), [&2]);
         assert_eq!(st.usurp_stage, 3);
-        // The chain is under way: no Usurpation is drawn any more.
-        for _ in 0..200 {
-            assert!(!matches!(roll_incident(&mut st), Incident::Usurpation(_)));
-        }
+        // After IV no Usurpation is drawn any more.
+        st.usurp_stage = 5;
+        assert!(
+            !drawn(&mut st)
+                .iter()
+                .any(|i| matches!(i, Incident::Usurpation(_)))
+        );
     }
 
     #[test]

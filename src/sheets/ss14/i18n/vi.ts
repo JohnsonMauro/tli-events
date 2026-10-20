@@ -217,9 +217,10 @@ export const vi: Dict = {
       bad: 'Chỉ là thông tin.',
     },
     usurp: {
-      short: 'Một chuỗi: khi I kích hoạt, 3 sự kiện tiếp theo là II, III và IV — IV nâng cả bàn.',
-      does: 'I: +1 bậc cho 1 tù nhân · II: +2 cho 1 · III: +2 cho 2 · IV: +2 cho tất cả. Khi I kích hoạt, các sự kiện tiếp theo bạn kích hoạt lần lượt là II, III và IV.',
-      good: 'Luôn tốt — và càng về sau càng mạnh: IV nâng cả bàn.',
+      short:
+        'Bốn giai đoạn: mỗi giai đoạn kích hoạt sẽ đưa giai đoạn tiếp theo vào lượt rút sự kiện — nó đến ở một “!” sau đó, không nhất thiết là cái kế tiếp. IV nâng cả bàn.',
+      does: 'I: +1 bậc cho 1 tù nhân · II: +2 cho 1 · III: +2 cho 2 · IV: +2 cho tất cả. Mỗi giai đoạn kích hoạt sẽ đưa giai đoạn tiếp theo vào lượt rút của các “!”: II, III và IV đến theo thứ tự, nhưng không nhất thiết ngay sau đó.',
+      good: 'Luôn nhận — không mất gì, và mỗi giai đoạn đưa giai đoạn tiếp theo vào lượt rút.',
       bad: 'Không có.',
     },
     chain: {
