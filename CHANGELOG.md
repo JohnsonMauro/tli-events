@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.18.4] - 2026-10-19
+
 ### Fixed
 
 - SS14 play sheet: Usurpation is no longer described as a chain. Each stage puts the next one into the incident draw — it doesn't have to be the next incident you trigger. One Usurpation "!" is now worth +0.00 instead of +1.56, so it leaves the top of the incident list; Rainbows per run drop for every instrument (about −0.25, same top five) and for the start cards, Tyranny most.
@@ -367,7 +369,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.3...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.4...HEAD
+[1.18.4]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.3...v1.18.4
 [1.18.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.2...v1.18.3
 [1.18.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.1...v1.18.2
 [1.18.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.0...v1.18.1
