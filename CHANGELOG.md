@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.19.0] - 2026-10-19
+
 ### Added
 
 - Every page: a **Feedback** button in the header. Write what to fix or add, in your language; it opens GitHub in a new tab with your text, the page and its language already filled in, ready to post as an issue (a GitHub account is needed; posts are public).
@@ -378,7 +380,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.4...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.19.0...HEAD
+[1.19.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.4...v1.19.0
 [1.18.4]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.3...v1.18.4
 [1.18.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.2...v1.18.3
 [1.18.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.1...v1.18.2
