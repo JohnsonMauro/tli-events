@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.20.0] - 2026-10-20
+
 ### Added
 
 - SS14 play sheet: **A− / A+** next to Reset set the text size, from 100% up to 200% in steps of 25%; the size is kept in this browser. While the text is enlarged, an instrument, incident or run card opens in a window you can scroll and close (click or Enter), since it no longer fits a tooltip.
@@ -392,7 +394,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.19.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.0...HEAD
+[1.20.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.19.0...v1.20.0
 [1.19.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.4...v1.19.0
 [1.18.4]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.3...v1.18.4
 [1.18.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.2...v1.18.3
