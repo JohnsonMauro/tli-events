@@ -349,3 +349,11 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - **Telemetry checked** (the community board analyzer's raw boards, 2026-10-13 to 16, `beta/data/raw`): 78 incidents named, 14 of them Usurpation (I 6, II 5, III 2, IV 1) from 8 players; each record is a single board with no incident history, so it can't tell the order. One player shows II → III → IV on days 15, 17 and 19 within 7 minutes; others show II with no I logged before it (an unshared board may hold it). Players also report **II or III as a run's first Usurpation** — no print, and nothing says a stage carries over between runs: no data; the engine starts every run at I.
 - **Re-export** (2,660 tests × 100,000 runs): one Usurpation "!" **+1.56 → +0.00** (from the best incident to the middle); no instrument 1.436 → 1.133, full run 3.25 → 2.99 (live: mean 2.04), every solo −0.22 to −0.27 with the top five unchanged (Maul 2.97, Claws 2.87, Crown 2.87, Tongs 2.82, Maiden 2.55); start cards Tyranny 5.80 → 4.58, Cage Fight 4.72 → 4.56, Iron Law 3.41 → 2.80, Opulence 2.90 → 2.52. Best incident now Behind Closed Doors +0.34.
 - Also fixed in the guide: Usurpation II is +2 tiers to **one** inmate (print 103), not +1 to two.
+
+## 2026-10-20 — simulator 20261018p → 20261019b (automatic)
+
+- Rule changed — Severed Iron Maiden: "After a Replace, if as many inmates on the block are above the new inmate’s rarity as below it, it gains +3 tiers." → "A Replace of an inmate with as many inmates on the block above its rarity as below it brings the new inmate in +3 tiers."
+- Value Severed Iron Maiden: 2.735 → 2.964 Rainbows/run
+- Value Scapegoat's Guillotine: 2.689 → 2.615 Rainbows/run
+- Rainbows/run (tuned strategy): 4.6625 → 4.0345
+- New engine parameter: `beastToolOdds` = 12
