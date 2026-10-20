@@ -69,6 +69,9 @@ export const es: Dict = {
   reset: 'Reiniciar',
   resetLabel: 'Reiniciar: carta inicial, objetivo e instrumentos',
   resetDone: 'Reiniciado.',
+  textSize: 'Tamaño del texto',
+  textSmaller: 'Reducir el texto',
+  textLarger: 'Ampliar el texto',
   tierMeta:
     'Tier = cuánto se acerca el instrumento al mejor de la lista (S = el máximo); con uno en mano, cuánto se acerca el par al mejor par. Pasa el cursor (o toca) por una fila para ver qué hace y el mejor segundo. Crown y Maul casi nunca aparecen en vivo.',
   doubt:

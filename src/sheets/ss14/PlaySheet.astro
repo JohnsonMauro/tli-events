@@ -12,6 +12,7 @@ import { DICT } from './i18n';
 import { DOUBT, PAIR_LINKED, TOOL_LINKS } from './tool-text';
 import { INFO } from '../../components/event-info.i18n';
 import { SIM_TIME } from './sim-time';
+import { TEXT_KEY, TEXT_SIZES } from './text-size';
 import { ISSUES_URL, REPO_URL } from '../../lib/project';
 // Live odds only (offer counts measured by the community analyzer, frozen at 2026-10-16).
 import data from '../../../events/SS14_Tartarus/data/tartarus_data.json';
@@ -78,6 +79,7 @@ const simRuns =
   objectives.reduce((n, x) => n + G * (1 + Object.keys(x.tools).length), 0) +
   G * nIncidents;
 const num = new Intl.NumberFormat(hreflang(lang));
+const pct = new Intl.NumberFormat(hreflang(lang), { style: 'percent' });
 const simOurs = fmt(t.simOurs, {
   tests: num.format(simTests),
   runs: new Intl.NumberFormat(hreflang(lang), { notation: 'compact', maximumFractionDigits: 0 }).format(simRuns),
@@ -129,13 +131,14 @@ const STARTS = [
   ['tyranny', 'Tyranny', A('card-tyranny')],
   ['opulence', 'Opulence', A('card-opulence')],
 ] as const;
+// "any" first, then A–Z (owner, 2026-10-20)
 const OBJECTIVES = [
   ['', t.runAny],
+  ['doors', 'Behind Cell Doors'],
   ['king', 'King of the Caged'],
   ['walk', 'Prison Walk'],
   ['consume', 'Survival of the Fittest'],
   ['undercurrents', 'Undercurrents'],
-  ['doors', 'Behind Cell Doors'],
 ] as const;
 
 // ---- exceptions to "same rarity only" (card texts in images/INDEX.md) ----
@@ -308,7 +311,35 @@ const ladder = [
       </button>
       <span id="resetOut" class="reset-out" role="status"></span>
     </span>
+    {/* text size, kept in this browser (./text-size.ts) */}
+    <span class="text-size" role="group" aria-label={t.textSize}>
+      <button type="button" id="textDown" class="ts-btn" aria-label={t.textSmaller} title={t.textSmaller}>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M2 20 9 5l7 15M4.8 14.5h8.4M17 8h6" />
+        </svg>
+      </button>
+      <span id="textOut" class="ts-out" role="status">
+        {pct.format(1)}
+      </span>
+      <button type="button" id="textUp" class="ts-btn up" aria-label={t.textLarger} title={t.textLarger}>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M2 20 9 5l7 15M4.8 14.5h8.4M17 8h6M20 5v6" />
+        </svg>
+      </button>
+    </span>
   </div>
+  <script is:inline define:vars={{ sizes: TEXT_SIZES, key: TEXT_KEY }}>
+    // The saved text size before paint (per-viewer convenience only); ./play.ts does the rest.
+    try {
+      const v = Number(localStorage.getItem(key));
+      if (sizes.includes(v)) {
+        document.documentElement.style.setProperty('--fs', String(v));
+        document.getElementById('textOut').textContent = new Intl.NumberFormat(document.documentElement.lang, {
+          style: 'percent',
+        }).format(v);
+      }
+    } catch {}
+  </script>
   <div class="play">
     <section class="pane patterns" aria-labelledby="pat-h">
       {/* Each part folds (accordion); ./play.ts remembers which ones the viewer closed. */}
@@ -758,7 +789,8 @@ const ladder = [
   </template>
   <div class="tool-pop" id="pop" role="tooltip" hidden></div>
   {/* Touch: the same content as a modal dialog — a close button, Esc, a tap outside closes it, it scrolls, and the
-      page under it can't be tapped by mistake (./play.ts). Mouse and keyboard keep the tooltip above. */}
+      page under it can't be tapped by mistake (./play.ts). Mouse and keyboard keep the tooltip above, unless the text
+      is enlarged (A+). */}
   <dialog class="tool-dlg" id="popdlg">
     <button type="button" class="dlg-x" data-close aria-label={INFO[lang].close}>
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">

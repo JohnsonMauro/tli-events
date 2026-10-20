@@ -70,6 +70,9 @@ export const de: Dict = {
   reset: 'Zurücksetzen',
   resetLabel: 'Zurücksetzen: Startkarte, Ziel und Instrumente leeren',
   resetDone: 'Zurückgesetzt.',
+  textSize: 'Textgröße',
+  textSmaller: 'Text verkleinern',
+  textLarger: 'Text vergrößern',
   tierMeta:
     'Stufe = wie nah das Instrument an das beste der Liste herankommt (S = die Spitze); hältst du eins, wie nah das Paar an das beste Paar herankommt. Hover (oder tippen) auf eine Zeile zeigt den Effekt und das beste zweite. Crown und Maul tauchen live fast nie auf.',
   doubt:

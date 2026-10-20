@@ -60,7 +60,72 @@ main.wide {
   color: var(--ink2);
   white-space: nowrap;
 }
+/* text size: A− 100% A+ at the right edge (./text-size.ts) */
+.text-size {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+/* an "A" with − / + (line art, no text: the name is the aria-label) */
+.ts-btn {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  min-height: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0 6px;
+  background: none;
+  color: var(--ink2);
+  cursor: pointer;
+}
+.ts-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+}
+.ts-btn.up svg {
+  width: 21px;
+  height: 21px;
+  stroke-width: 2;
+}
+.ts-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ts-btn:not([aria-disabled='true']):hover {
+    color: var(--ink);
+    border-color: var(--ink2);
+  }
+}
+/* at either end: still focusable, dimmed */
+.ts-btn[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: default;
+}
+.ts-out {
+  min-width: 4.5ch;
+  text-align: center;
+  font: 600 12px var(--mono);
+  color: var(--ink2);
+}
+/* text size (Reset bar's A−/A+, ./play.ts): every font below is its designed size × --fs, 1 to 2 */
+:root {
+  --fs: 1;
+}
+/* enlarged text in a narrow column: a word wider than its line breaks rather than pushing the pane sideways (at 100%
+   no word is, so nothing changes there) */
+.play,
+.tool-pop,
+.tool-dlg {
+  overflow-wrap: anywhere;
+}
 .play {
+  font-size: calc(16px * var(--fs));
   display: grid;
   grid-template-columns: minmax(300px, 1.1fr) minmax(0, 1.3fr) minmax(280px, 1fr);
   gap: 12px;
@@ -77,9 +142,18 @@ main.wide {
   min-height: 0;
   min-width: 0;
 }
+/* site-wide classes (site.css), at the sheet's text size */
+.play .meta {
+  font-size: calc(12px * var(--fs));
+}
+.play .tier,
+.tool-pop .tier,
+.tool-dlg .tier {
+  font-size: calc(16px * var(--fs));
+}
 .pane-h {
   font-family: var(--display);
-  font-size: 26px;
+  font-size: calc(26px * var(--fs));
   margin: 0 0 8px;
   letter-spacing: 0.02em;
 }
@@ -105,11 +179,14 @@ main.wide {
   background: color-mix(in srgb, var(--accent) 14%, var(--surface));
   color: var(--ink);
   font: 700 12px var(--sans);
+  font-size: calc(12px * var(--fs));
   letter-spacing: 0.02em;
 }
-/* the time wraps as one piece on narrow screens ("GMT-" / "3" otherwise) */
+/* the time wraps as one piece on narrow screens ("GMT-" / "3" otherwise); only enlarged text wider than the line
+   breaks inside it */
 .sim-date time {
-  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
 }
 
 /* the community simulator to practice on, and why its numbers differ */
@@ -118,7 +195,7 @@ main.wide {
   padding: 8px 10px;
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--accent) 10%, var(--surface2));
-  font-size: 14px;
+  font-size: calc(14px * var(--fs));
 }
 /* --accent on its own tint falls to 4.33:1 in the light theme; --accent2 holds 6.6:1 (light) and 7.6:1 (dark) */
 .sim-cta a {
@@ -128,7 +205,7 @@ main.wide {
 .sim-diff {
   display: block;
   margin-top: 4px;
-  font-size: 12.5px;
+  font-size: calc(12.5px * var(--fs));
   color: var(--ink2);
 }
 
@@ -197,6 +274,7 @@ main.wide {
 .run-h {
   margin: 0;
   font: 600 13px var(--sans);
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -213,7 +291,7 @@ main.wide {
 }
 .run-l {
   flex: 0 0 100%;
-  font-size: 12px;
+  font-size: calc(12px * var(--fs));
   font-weight: 700;
   color: var(--ink);
 }
@@ -228,6 +306,7 @@ main.wide {
   background: var(--surface);
   color: var(--ink2);
   font: 600 12px var(--sans);
+  font-size: calc(12px * var(--fs));
   cursor: pointer;
 }
 @media (hover: hover) and (pointer: fine) {
@@ -252,7 +331,7 @@ main.wide {
   border-top: 1px solid var(--line);
   display: grid;
   gap: 3px;
-  font-size: 12px;
+  font-size: calc(12px * var(--fs));
   color: var(--ink2);
 }
 .run-facts b {
@@ -269,7 +348,7 @@ main.wide {
   counter-reset: p;
   padding: 0;
   /* room for the first step's badge under the fold heading */
-  margin: 14px 0 0;
+  margin: calc(14px * var(--fs)) 0 0;
   display: grid;
   gap: 8px;
 }
@@ -281,29 +360,31 @@ main.wide {
   align-items: center;
   background: var(--surface2);
   border-radius: var(--radius);
-  padding: 18px 8px 8px;
+  padding: calc(18px * var(--fs)) 8px 8px;
   position: relative;
 }
 .pat > li::before {
   content: var(--step) ' ' counter(p);
   position: absolute;
   left: 8px;
-  top: -7px;
+  top: calc(-7px * var(--fs));
   padding: 0 8px;
-  height: 20px;
-  border-radius: 10px;
+  height: calc(20px * var(--fs));
+  border-radius: calc(10px * var(--fs));
   background: var(--accent);
   color: #fff;
   font: 700 11px/20px var(--mono);
+  font-size: calc(11px * var(--fs));
+  line-height: calc(20px * var(--fs));
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 .pat b {
-  font-size: 16px;
+  font-size: calc(16px * var(--fs));
 }
 .pat p {
   margin: 2px 0 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--fs));
   color: var(--ink2);
 }
 .pat-art {
@@ -338,6 +419,7 @@ main.wide {
 .eats-grid i {
   flex: none;
   font: 600 11px var(--mono);
+  font-size: calc(11px * var(--fs));
   color: var(--ink2);
   font-style: normal;
   white-space: nowrap;
@@ -354,7 +436,7 @@ main.wide {
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 8px;
   align-items: center;
-  font-size: 14px;
+  font-size: calc(14px * var(--fs));
   color: var(--ink2);
 }
 .exc img,
@@ -434,6 +516,7 @@ main.wide {
   left: 4px;
   top: 3px;
   font: 700 13px var(--mono);
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
 }
 .ladder li:not(:last-child)::after {
@@ -442,6 +525,7 @@ main.wide {
   right: -8px;
   top: 38%;
   font: 700 18px var(--sans);
+  font-size: calc(18px * var(--fs));
   color: var(--ink2);
   z-index: 1;
 }
@@ -463,20 +547,20 @@ main.wide {
   border-radius: 3px;
 }
 .ladder b {
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   line-height: 1.1;
   display: block;
 }
 .ladder em {
   font-style: normal;
-  font-size: 11px;
+  font-size: calc(11px * var(--fs));
   color: var(--ink2);
   display: block;
   line-height: 1.15;
 }
 .tip {
   margin: 8px 0 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--fs));
   color: var(--ink2);
 }
 /* instrument pick — what you hold and what to tap next: one callout, not loose text */
@@ -493,6 +577,7 @@ main.wide {
 .pick-out > .meta {
   margin: 0;
   font: 600 13px/1.4 var(--sans);
+  font-size: calc(13px * var(--fs));
   color: var(--ink);
 }
 .held-row {
@@ -503,6 +588,7 @@ main.wide {
 }
 .held-row > .meta {
   font: 700 11px var(--sans);
+  font-size: calc(11px * var(--fs));
   text-transform: uppercase;
   letter-spacing: 0.06em;
   /* toward --ink: plain --accent is 4.43:1 on the box's tint in the light theme */
@@ -510,6 +596,7 @@ main.wide {
 }
 #held > .meta {
   font: italic 13px var(--sans);
+  font-size: calc(13px * var(--fs));
 }
 /* what a tier means: an info note under the grid */
 #tierMeta {
@@ -519,6 +606,7 @@ main.wide {
   border-radius: 0 var(--radius) var(--radius) 0;
   background: var(--surface2);
   font: 13px/1.4 var(--sans);
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
 }
 #tierMeta::before {
@@ -548,6 +636,7 @@ main.wide {
   background: none;
   color: inherit;
   font: 600 12px var(--sans);
+  font-size: calc(12px * var(--fs));
   cursor: pointer;
 }
 .chip-name {
@@ -604,6 +693,7 @@ main.wide {
   /* the same gap above (to the hint) and below (to the list) */
   margin: 10px 0;
   font: 600 11px var(--mono);
+  font-size: calc(11px * var(--fs));
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--ink2);
@@ -628,7 +718,7 @@ main.wide {
 .find input {
   box-sizing: border-box;
   width: 100%;
-  height: 31px;
+  height: calc(31px * var(--fs));
   padding: 0 8px 0 28px;
   /* --ink2, not --line: a field's edge needs 3:1 against the pane (WCAG 1.4.11) */
   border: 1px solid var(--ink2);
@@ -637,6 +727,7 @@ main.wide {
   color: var(--ink);
   /* 16px: iOS zooms the page into any smaller field */
   font: 16px var(--sans);
+  font-size: calc(16px * var(--fs));
   text-transform: none;
   letter-spacing: normal;
 }
@@ -652,6 +743,7 @@ main.wide {
 .find-out {
   margin: 0 0 4px;
   font: 600 13px var(--sans);
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
 }
 .find-out:empty {
@@ -737,6 +829,7 @@ main.wide {
   place-items: center;
   height: 100%;
   font: 700 18px var(--display);
+  font-size: calc(18px * var(--fs));
   color: var(--art-ph);
 }
 .tool .nm {
@@ -749,15 +842,18 @@ main.wide {
   align-items: center;
   gap: 6px;
   font: 600 14px/1.2 var(--sans);
+  font-size: calc(14px * var(--fs));
 }
 /* once one is held: what this one does with it */
 .tool .why {
   font: 400 12px/1.3 var(--sans);
+  font-size: calc(12px * var(--fs));
   color: var(--ink2);
 }
 /* the verdict: combo (green), clash (red), no combo (plain) */
 .tool .why strong {
   font: 700 12px var(--mono);
+  font-size: calc(12px * var(--fs));
   color: var(--ink);
 }
 .tool .why strong.up {
@@ -768,6 +864,7 @@ main.wide {
 }
 .tool .val {
   font: 600 14px var(--mono);
+  font-size: calc(14px * var(--fs));
   color: var(--accent);
 }
 @media (hover: hover) and (pointer: fine) {
@@ -785,12 +882,13 @@ main.wide {
   display: inline-grid;
   place-items: center;
   flex: none;
-  width: 18px;
-  height: 18px;
+  width: calc(18px * var(--fs));
+  height: calc(18px * var(--fs));
   border-radius: 50%;
   background: var(--warn);
   color: var(--bg);
   font: 800 13px/1 var(--sans);
+  font-size: calc(13px * var(--fs));
 }
 .doubt-note,
 .tp-doubt {
@@ -800,7 +898,7 @@ main.wide {
 }
 .doubt-note {
   margin: 8px 0 0;
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
 }
 .doubt-note a {
@@ -811,14 +909,14 @@ main.wide {
   padding: 6px 8px;
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--warn) 14%, var(--surface2));
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
 }
 
 /* instrument info popover (fixed: escapes the pane's scroll clipping) */
 .tool-pop {
   position: fixed;
   z-index: 30;
-  width: min(420px, calc(100vw - 16px));
+  width: min(calc(420px * var(--fs)), calc(100vw - 16px));
   max-height: calc(100dvh - 16px);
   overflow: auto;
   background: var(--surface);
@@ -827,12 +925,12 @@ main.wide {
   border-radius: var(--radius);
   box-shadow: var(--shadow-pop);
   padding: 10px 12px;
-  font-size: 14px;
+  font-size: calc(14px * var(--fs));
   pointer-events: none;
 }
 /* touch: the popover's content in a modal dialog */
 .tool-dlg {
-  width: min(420px, calc(100vw - 24px));
+  width: min(calc(420px * var(--fs)), calc(100vw - 24px));
   max-height: 85dvh;
   overflow: auto;
   margin: auto;
@@ -842,7 +940,7 @@ main.wide {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-pop);
-  font-size: 14px;
+  font-size: calc(14px * var(--fs));
 }
 .tool-dlg::backdrop {
   background: rgba(0, 0, 0, 0.55);
@@ -886,17 +984,17 @@ main.wide {
   background: var(--art-bg);
 }
 .tp-head > div > b {
-  font-size: 18px;
+  font-size: calc(18px * var(--fs));
   line-height: 1.15;
   display: block;
 }
 .tp-stats {
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
   margin-top: 2px;
 }
 .tp-stats .tier {
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   min-width: 20px;
   padding: 0 4px;
 }
@@ -915,23 +1013,24 @@ main.wide {
 }
 .tp-rank small {
   display: block;
-  font-size: 12px;
+  font-size: calc(12px * var(--fs));
   color: var(--ink2);
 }
 .tp-rank .tier {
   flex: none;
-  min-width: 40px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 24px;
+  min-width: calc(40px * var(--fs));
+  height: calc(40px * var(--fs));
+  line-height: calc(40px * var(--fs));
+  font-size: calc(24px * var(--fs));
   border-radius: 6px;
 }
 .tp-rank b {
   font: 700 18px var(--mono);
+  font-size: calc(18px * var(--fs));
   color: var(--ink);
 }
 .tip-h {
-  font-size: 17px;
+  font-size: calc(17px * var(--fs));
   display: block;
 }
 .tip-p {
@@ -940,7 +1039,7 @@ main.wide {
 .tip-tiers {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
 }
 .tip-tiers td {
@@ -952,7 +1051,7 @@ main.wide {
   padding-left: 0;
 }
 .tip-tiers .tier {
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   min-width: 20px;
   padding: 0 4px;
 }
@@ -964,21 +1063,22 @@ main.wide {
 .tp-what {
   margin: 10px 0 4px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: calc(15px * var(--fs));
 }
 .tp-sub {
   margin: 8px 0 0;
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
 }
 .tp-sub > small {
   display: block;
-  font-size: 12px;
+  font-size: calc(12px * var(--fs));
   color: var(--ink2);
 }
 /* the best second instrument: what decides the run, so the loudest section */
 .tp-sub.tp-second > span:first-child {
   font: 700 14px var(--sans);
+  font-size: calc(14px * var(--fs));
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -1018,21 +1118,23 @@ main.wide {
   font-weight: 700;
 }
 .tp-pairs .pn {
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   line-height: 1.15;
 }
 .tp-pairs b {
   font: 600 13px var(--mono);
+  font-size: calc(13px * var(--fs));
   color: var(--accent);
 }
 .tp-pairs .tier {
   min-width: 22px;
-  font-size: 14px;
+  font-size: calc(14px * var(--fs));
   padding: 0 4px;
 }
 .tp-sub > span:first-child {
   display: block;
   font: 600 11px var(--mono);
+  font-size: calc(11px * var(--fs));
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--accent);
@@ -1055,7 +1157,7 @@ main.wide {
   overflow: hidden; /* the card's corners clip the art */
   border-radius: var(--radius);
   background: var(--surface2);
-  font-size: 14px;
+  font-size: calc(14px * var(--fs));
 }
 /* the whole art, never cropped: a box in the art's own shape (incidents square, treasures 1.1:1), 88 px tall; a
    row taller than that (long text) shows dark bands above and below rather than cutting the picture */
@@ -1080,7 +1182,7 @@ main.wide {
   padding: 6px 0;
 }
 .list .txt > span {
-  font-size: 13px;
+  font-size: calc(13px * var(--fs));
   color: var(--ink2);
 }
 .list.gifts li .does {
@@ -1098,6 +1200,7 @@ main.wide {
 .list li strong,
 .tp-stats strong {
   font: 700 12px var(--mono);
+  font-size: calc(12px * var(--fs));
   margin-left: 4px;
 }
 .list li strong.up,

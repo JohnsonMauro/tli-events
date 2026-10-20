@@ -69,6 +69,9 @@ export const fr: Dict = {
   reset: 'Réinitialiser',
   resetLabel: 'Réinitialiser : carte de départ, objectif et instruments',
   resetDone: 'Réinitialisé.',
+  textSize: 'Taille du texte',
+  textSmaller: 'Réduire le texte',
+  textLarger: 'Agrandir le texte',
   tierMeta:
     "Tier = à quel point l'instrument approche le meilleur de la liste (S = le sommet) ; une fois l'un en main, à quel point la paire approche la meilleure paire. Survolez (ou touchez) une ligne pour voir ce qu'elle fait et le meilleur second. Crown et Maul ne sortent presque jamais en direct.",
   doubt:

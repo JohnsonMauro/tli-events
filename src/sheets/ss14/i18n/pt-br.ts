@@ -69,6 +69,9 @@ export const ptbr: Dict = {
   reset: 'Limpar',
   resetLabel: 'Limpar: carta de início, objetivo e instrumentos',
   resetDone: 'Tudo limpo.',
+  textSize: 'Tamanho do texto',
+  textSmaller: 'Diminuir o texto',
+  textLarger: 'Aumentar o texto',
   tierMeta:
     'Tier = o quanto o instrumento chega perto do melhor da lista (S = o topo); com um na mão, o quanto o par chega perto do melhor par. Passe o mouse (ou toque) numa linha para ver o que faz e o melhor segundo. Crown e Maul quase nunca aparecem ao vivo.',
   doubt:

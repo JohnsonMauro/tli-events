@@ -4,6 +4,7 @@
 
 import { matches, parseFind } from './find';
 import { unpackPairs, unpackValues, type Packed, type Pair, type Values } from './pack';
+import { TEXT_KEY, TEXT_SIZES } from './text-size';
 
 interface Tool {
   name: string;
@@ -136,6 +137,9 @@ if (D && grid && out && heldEl && pop) init(D, grid, out, heldEl, pop);
 
 function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElement, pop: HTMLElement) {
   const T = D.ui;
+  // Text size: what the page's inline script applied from this browser's choice (./text-size.ts).
+  const applied = Number(document.documentElement.style.getPropertyValue('--fs'));
+  let fs = TEXT_SIZES.includes(applied) ? applied : TEXT_SIZES[0];
 
   // Per-viewer convenience only: what this player holds, kept in this browser.
   const KEY = 'ss14-pick-v1';
@@ -453,9 +457,12 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   // Touch (and pen): a tooltip that covers the screen can't be scrolled or closed, and a tap beside it lands on the
   // row underneath. There the same card opens as a modal dialog: close button, Esc, a tap outside closes it, it
   // scrolls, the page under it is inert, and focus returns to the row on close (native <dialog>).
+  // Enlarged text (A+) does the same for mouse and keyboard: the card no longer fits a tooltip — on a click or
+  // Enter, never on hover or focus.
   const dlg = document.getElementById('popdlg') as HTMLDialogElement | null;
   const dlgBody = dlg?.querySelector<HTMLElement>('.dlg-body') ?? null;
   let touch = false;
+  const modal = () => touch || fs > 1;
   // The row that opened it: a pick re-sorts the list, and moving a node drops its focus, so the dialog can't
   // restore it by itself.
   let opener: HTMLElement | null = null;
@@ -494,7 +501,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   // Hover (mouse), focus (keyboard) and tap (touch) all open the same popover.
   document.addEventListener('pointerover', (e) => {
     const a = target(e);
-    if (a && e.pointerType === 'mouse') showPop(a);
+    if (a && e.pointerType === 'mouse' && fs === 1) showPop(a);
   });
   document.addEventListener('pointerout', (e) => {
     const a = target(e);
@@ -503,7 +510,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   document.addEventListener('focusin', (e) => {
     const a = target(e);
     // A tap focuses the button first: the dialog opens on its click instead.
-    if (a && !touch && !dlg?.contains(a)) showPop(a);
+    if (a && !modal() && !dlg?.contains(a)) showPop(a);
   });
   document.addEventListener('focusout', (e) => {
     if (target(e)) hidePop();
@@ -528,7 +535,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   document.addEventListener('click', (e) => {
     if (dlg?.contains(e.target as Node)) return;
     const a = target(e);
-    if (a && touch && (a.dataset.ev || a.dataset.tip)) {
+    if (a && modal() && (a.dataset.ev || a.dataset.tip)) {
       openDialog(a);
       return;
     }
@@ -569,14 +576,14 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     // The first pick re-sorts the whole list; after it, the row stays under the pointer.
     if (S.held.length) keepInPlace(`#tools [data-tool="${CSS.escape(id)}"]`, take);
     else take();
-    if (touch) openDialog(b);
+    if (modal()) openDialog(b);
     else showPop(b);
   });
   heldEl.addEventListener('click', (e) => {
     // The name: its card, as a dialog on touch (a mouse already has it from hover, a keyboard from focus).
     const name = (e.target as Element).closest<HTMLElement>('.chip-name');
     if (name) {
-      if (touch) openDialog(name);
+      if (modal()) openDialog(name);
       else showPop(name);
       return;
     }
@@ -638,6 +645,32 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       resetOut.textContent = '';
     }, 3000);
   });
+
+  // ---------- text size: A− / A+ step through TEXT_SIZES (./text-size.ts) ----------
+  const textOut = document.getElementById('textOut');
+  const textDown = document.getElementById('textDown');
+  const textUp = document.getElementById('textUp');
+  const pct = new Intl.NumberFormat(document.documentElement.lang, { style: 'percent' });
+  function showTextSize() {
+    document.documentElement.style.setProperty('--fs', String(fs));
+    if (textOut) textOut.textContent = pct.format(fs);
+    // aria-disabled, not disabled: the button keeps focus at either end
+    textDown?.setAttribute('aria-disabled', String(fs === TEXT_SIZES[0]));
+    textUp?.setAttribute('aria-disabled', String(fs === TEXT_SIZES[TEXT_SIZES.length - 1]));
+  }
+  const stepText = (by: number) => {
+    const next = TEXT_SIZES[TEXT_SIZES.indexOf(fs) + by];
+    if (next == null) return;
+    fs = next;
+    try {
+      localStorage.setItem(TEXT_KEY, String(fs));
+    } catch {}
+    hidePop();
+    showTextSize();
+  };
+  textDown?.addEventListener('click', () => stepText(-1));
+  textUp?.addEventListener('click', () => stepText(1));
+  showTextSize();
   showRun();
   render();
 }

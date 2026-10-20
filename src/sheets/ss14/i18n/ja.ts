@@ -68,6 +68,9 @@ export const ja: Dict = {
   reset: 'リセット',
   resetLabel: 'リセット：開始カード・目標・拷問具の選択を解除',
   resetDone: 'リセットしました。',
+  textSize: '文字サイズ',
+  textSmaller: '文字を小さく',
+  textLarger: '文字を大きく',
   tierMeta:
     'ティア = リスト内の最上位の刑具にどれだけ近いか（S = 最上位）；1つ持つと、最高のペアにどれだけ近いか。行にホバー（またはタップ）で効果と最高の2つ目。CrownとMaulは実戦ではほぼ出ない。',
   doubt:

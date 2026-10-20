@@ -69,6 +69,9 @@ export const sv: Dict = {
   reset: 'Återställ',
   resetLabel: 'Återställ: startkort, mål och instrument',
   resetDone: 'Återställt.',
+  textSize: 'Textstorlek',
+  textSmaller: 'Mindre text',
+  textLarger: 'Större text',
   tierMeta:
     'Tier = hur nära instrumentet kommer det bästa i listan (S = toppen); när du har ett, hur nära paret kommer det bästa paret. Hovra (eller tryck) på en rad för vad det gör och det bästa andra. Crown och Maul dyker nästan aldrig upp live.',
   doubt:

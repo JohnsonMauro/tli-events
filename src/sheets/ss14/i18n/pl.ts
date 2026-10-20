@@ -69,6 +69,9 @@ export const pl: Dict = {
   reset: 'Wyczyść',
   resetLabel: 'Wyczyść: karta startowa, cel i instrumenty',
   resetDone: 'Wyczyszczono.',
+  textSize: 'Rozmiar tekstu',
+  textSmaller: 'Zmniejsz tekst',
+  textLarger: 'Powiększ tekst',
   tierMeta:
     'Tier = jak blisko instrument jest najlepszego z listy (S = szczyt); gdy już jakiś masz, jak blisko para jest najlepszej pary. Najedź (lub stuknij) na wiersz, by zobaczyć, co robi, i najlepszy drugi. Crown i Maul prawie nigdy nie pojawiają się na żywo.',
   doubt:

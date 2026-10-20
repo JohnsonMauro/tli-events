@@ -69,6 +69,9 @@ export const vi: Dict = {
   reset: 'Làm lại',
   resetLabel: 'Làm lại: xóa thẻ khởi đầu, mục tiêu và dụng cụ',
   resetDone: 'Đã xóa.',
+  textSize: 'Cỡ chữ',
+  textSmaller: 'Thu nhỏ chữ',
+  textLarger: 'Phóng to chữ',
   tierMeta:
     'Bậc = dụng cụ gần dụng cụ tốt nhất trong danh sách đến mức nào (S = cao nhất); khi đã giữ một dụng cụ, là cặp gần cặp tốt nhất đến mức nào. Rê chuột (hoặc chạm) vào một dòng để xem nó làm gì và dụng cụ thứ hai tốt nhất. Crown và Maul gần như không bao giờ xuất hiện trong game.',
   doubt:

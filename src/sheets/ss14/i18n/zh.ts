@@ -68,6 +68,9 @@ export const zh: Dict = {
   reset: '重置',
   resetLabel: '重置：清除开局卡、目标和刑具',
   resetDone: '已重置。',
+  textSize: '文字大小',
+  textSmaller: '缩小文字',
+  textLarger: '放大文字',
   tierMeta:
     '档位 = 与列表中最好的刑具有多接近（S = 最高）；持有一个后，与最佳组合有多接近。悬停（或点按）一行查看效果和最佳第二个。Crown和Maul实战中几乎不出现。',
   doubt: '游戏中尚未完全确认（卡牌被截断或规则未定）：数值可能变动。我们一直在实战确认。',

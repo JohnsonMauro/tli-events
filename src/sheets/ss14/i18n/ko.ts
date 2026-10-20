@@ -68,6 +68,9 @@ export const ko: Dict = {
   reset: '초기화',
   resetLabel: '초기화: 시작 카드, 목표, 도구 선택 해제',
   resetDone: '초기화했습니다.',
+  textSize: '글자 크기',
+  textSmaller: '글자 작게',
+  textLarger: '글자 크게',
   tierMeta:
     '티어 = 목록에서 최고 도구에 얼마나 가까운지 (S = 최상위); 도구를 하나 가지면 최고 조합에 얼마나 가까운지. 줄에 마우스를 올리거나 탭하면 효과와 최고의 두 번째 도구 표시. Crown과 Maul은 실전에서 거의 안 나옴.',
   doubt:

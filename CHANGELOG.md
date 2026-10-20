@@ -6,6 +6,18 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- SS14 play sheet: **A− / A+** next to Reset set the text size, from 100% up to 200% in steps of 25%; the size is kept in this browser. While the text is enlarged, an instrument, incident or run card opens in a window you can scroll and close (click or Enter), since it no longer fits a tooltip.
+
+### Changed
+
+- SS14 play sheet: the objectives under Your run are in alphabetical order, after "any".
+
+### Fixed
+
+- SS14 play sheet: on a 320 px phone, "Executioner's Blacklist" was cut off at the edge of its row; a name too long for its row now wraps.
+
 ## [1.19.0] - 2026-10-19
 
 ### Added

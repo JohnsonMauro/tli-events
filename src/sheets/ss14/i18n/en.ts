@@ -97,6 +97,9 @@ export const en = {
   reset: 'Reset',
   resetLabel: 'Reset: clear the start card, objective and instruments',
   resetDone: 'Cleared.',
+  textSize: 'Text size',
+  textSmaller: 'Smaller text',
+  textLarger: 'Larger text',
   tierMeta:
     'Tier = how close the instrument comes to the best one in the list (S = the top); once you hold one, how close the pair comes to the best pair. Hover (or tap) a row for what it does and the best second one. Crown and Maul almost never show up live.',
   doubt:
