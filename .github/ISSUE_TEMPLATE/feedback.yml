@@ -1,0 +1,24 @@
+# Feedback from the site: the header's Feedback button (src/lib/feedback.ts) opens this form with the fields
+# below filled from the page (`?template=feedback.yml&feedback=…&page=…&language=…`). Field ids are that contract.
+name: Feedback
+description: Something on the site to fix, add or explain better.
+title: 'Feedback: '
+labels: ['feedback']
+body:
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback
+      description: What should we fix, add or explain better? Any language is fine.
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The page you were on (filled by the site).
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: The page's language (filled by the site).

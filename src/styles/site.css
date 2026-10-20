@@ -687,8 +687,10 @@ header.brand-hero {
   }
 }
 
-/* ---- event info: header button + dialog (src/components/EventInfo.astro) ---- */
-nav .info-btn {
+/* ---- event info: header button + dialog (src/components/EventInfo.astro); the Feedback button and dialog
+   (layouts/Base.astro, src/lib/feedback.ts) share its look ---- */
+nav .info-btn,
+nav .fb-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -696,13 +698,16 @@ nav .info-btn {
   padding: 5px 9px 5px 7px;
   color: var(--ink2);
 }
-.info-btn svg {
+.info-btn svg,
+.fb-btn svg {
   width: 18px;
   height: 18px;
   stroke-width: 2;
+  stroke-linejoin: round;
 }
 @media (max-width: 620px) {
-  nav .info-btn span {
+  nav .info-btn span,
+  nav .fb-btn span {
     display: none;
   }
 }
@@ -892,5 +897,76 @@ nav .info-btn {
 @media (hover: hover) and (pointer: fine) {
   .nf-list a:hover {
     border-color: var(--accent);
+  }
+}
+
+/* ---- feedback dialog (layouts/Base.astro) ---- */
+.fb-dlg form {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+.fb-dlg label {
+  font-weight: 600;
+}
+.fb-dlg textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 9em;
+  padding: 8px 10px;
+  /* --ink2, not --line: a field's edge needs 3:1 against the dialog (WCAG 1.4.11) */
+  border: 1px solid var(--ink2);
+  border-radius: var(--radius);
+  background: var(--surface2);
+  color: var(--ink);
+  /* 16px: iOS zooms the page into any smaller field */
+  font: 16px/1.45 var(--sans);
+}
+.fb-dlg textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+.fb-dlg textarea[aria-invalid='true'] {
+  border-color: var(--bad);
+}
+.fb-err {
+  margin: 0;
+  font-weight: 700;
+  color: var(--bad);
+}
+.fb-hint {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink2);
+}
+.fb-send {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  /* --surface on --accent: the same pair as the Reload button (5.9:1 light, 6.1:1 dark) */
+  color: var(--surface);
+  font: 700 15px var(--sans);
+  cursor: pointer;
+}
+.fb-send svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+}
+.fb-send:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .fb-send:hover {
+    filter: brightness(1.1);
   }
 }

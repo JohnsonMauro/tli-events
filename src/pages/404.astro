@@ -5,7 +5,7 @@
 // work from any depth.
 import Base from '../layouts/Base.astro';
 import { eventCard, eventUrl, getEvents, homeUrl, url } from '../lib/events';
-import { LANGS } from '../lib/i18n';
+import { LANGS, SITE_TEXT } from '../lib/i18n';
 import { HOME_TEXT } from '../components/home.i18n';
 
 const events = (await getEvents()).filter((e) => e.hasPage);
@@ -28,6 +28,7 @@ const data = JSON.stringify({
       link: h.nfLink,
       after,
       events: events.map((e) => ({ href: eventUrl(e, l.code), mechanic: eventCard(e, l.code).mechanic })),
+      site: SITE_TEXT[l.code],
     };
   }),
 }).replace(/</g, '\\u003c');
@@ -60,7 +61,9 @@ const data = JSON.stringify({
   <script type="application/json" id="nf-data" set:html={data} />
 </Base>
 <script>
+  import type { SiteText } from '../lib/i18n';
   import { CHOICE_KEY, pickLang } from '../lib/lang-offer';
+  import { applySiteText } from '../lib/site-text';
 
   interface NfLang {
     code: string;
@@ -73,6 +76,7 @@ const data = JSON.stringify({
     link: string;
     after: string;
     events: { href: string; mechanic: string }[];
+    site: SiteText;
   }
   const el = document.getElementById('nf-data');
   if (el) {
@@ -90,6 +94,8 @@ const data = JSON.stringify({
       langs[0];
     if (lang.code !== langs[0].code) {
       document.documentElement.lang = lang.hreflang;
+      // The header and footer too, or they stay English inside a page that now says it is in this language.
+      applySiteText(lang.site, lang.code);
       document.title = lang.title;
       document.querySelector('meta[name="description"]')?.setAttribute('content', lang.desc);
       const tagline = document.getElementById('nf-tagline');

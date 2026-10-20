@@ -25,6 +25,8 @@ src/                          Astro 7 site — publishes the event list and each
     build.ts                  BUILD_ID (git HEAD) → <meta name="tli-build"> on every page
     update-check.ts           "new version" toast: compares that meta with the live page's
     lang-offer.ts             offers the translation the browser asks for (never redirects; asked once)
+    site-text.ts              applySiteText(): the 404 rewrites the header/footer texts Base.astro marks (data-site, data-site-label)
+    feedback.ts               header Feedback button → dialog → a filled GitHub issue (.github/ISSUE_TEMPLATE/feedback.yml; no token in the page)
   layouts/Base.astro          head (fonts, canonical, hreflang, OG, manifest, SW) + sticky header + footer
   components/                 Art (optimized <img>), BackLink (top of an event page's content), EventInfo ("Method & credits" dialog), Flag, HomePage (the event list in one language) + home.i18n.ts (its texts and the 404's)
   sheets/<slug>/              one play sheet per event, colocated: PlaySheet.astro, i18n/ (one file per language), play.ts (client), play.css

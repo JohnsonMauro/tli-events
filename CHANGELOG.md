@@ -6,6 +6,15 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Added
+
+- Every page: a **Feedback** button in the header. Write what to fix or add, in your language; it opens GitHub in a new tab with your text, the page and its language already filled in, ready to post as an issue (a GitHub account is needed; posts are public).
+
+### Fixed
+
+- Every page: the light/dark switch is named in the page's language for screen readers and in its tooltip (it said "Toggle light/dark theme" in English everywhere).
+- The "page not found" page: its header and footer now switch to your language with the rest of it — screen readers read them in English before, inside a page set to your language — and feedback sent from it carries your language.
+
 ## [1.18.4] - 2026-10-19
 
 ### Fixed

@@ -79,7 +79,7 @@ flowchart LR
 
 **Credits.** Each event page has a *Method & credits* dialog linking the YouTube and Bilibili channels whose work it builds on (twelve for SS14).
 
-Spotted something wrong, or have live data? Open a **[Discussion](https://github.com/JohnsonMauro/tli-events/discussions)**.
+Spotted something wrong, or have live data? Use the **Feedback** button in the site's header — it opens a GitHub issue with your text and the page already filled in — or open a **[Discussion](https://github.com/JohnsonMauro/tli-events/discussions)**.
 
 ---
 

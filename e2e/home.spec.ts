@@ -3,6 +3,7 @@
 import { readFileSync } from 'node:fs';
 
 import { expect, test } from '@playwright/test';
+import { SITE_TEXT } from '../src/lib/i18n';
 
 test('the home page in Portuguese: its texts, the card, links that stay in Portuguese', async ({ page }) => {
   await page.goto('/pt-br/');
@@ -42,6 +43,18 @@ test.describe('404', () => {
     await expect(page.locator('#nf-list a').first()).toHaveAttribute('href', '/ss14/pt-br/');
     await expect(page.locator('a.brand')).toHaveAttribute('href', '/pt-br/');
     await expect(page).toHaveTitle('Página não encontrada · TLI Events');
+    // The header and footer follow (src/lib/site-text.ts): no English left inside a page that says it is pt-BR.
+    const t = SITE_TEXT['pt-br'];
+    await expect(page.locator('#theme')).toHaveAttribute('aria-label', t.theme);
+    await expect(page.locator('#theme')).toHaveAttribute('title', t.theme);
+    await expect(page.locator('.site-foot')).toContainText('feito com');
+    await expect(page.locator('#heart')).toHaveAttribute('aria-label', t.pause);
+    await page.getByRole('button', { name: t.fbBtn, exact: true }).click();
+    await expect(page.getByRole('dialog', { name: t.fbTitle })).toBeVisible();
+    await expect(page.getByRole('textbox', { name: t.fbLabel })).toBeVisible();
+    await page.getByRole('button', { name: t.fbSend }).click();
+    await expect(page.getByRole('alert')).toHaveText(t.fbEmpty);
+    await expect(page.locator('#fbDlg')).toHaveAttribute('data-lang', 'pt-br');
   });
 
   test.describe('a Vietnamese browser', () => {

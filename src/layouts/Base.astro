@@ -3,6 +3,7 @@ import { Font, fontData, getImage } from 'astro:assets';
 import '../styles/theme.css';
 import '../styles/site.css';
 import { homeUrl, url } from '../lib/events';
+import { ISSUES_URL } from '../lib/project';
 import Flag from '../components/Flag.astro';
 import { BUILD_ID } from '../lib/build';
 import { SITE_TEXT, langOfTag, type Lang } from '../lib/i18n';
@@ -127,6 +128,20 @@ const offerJson =
         </div>
         <div class="nav-end">
           <slot name="nav" />
+          <button
+            type="button"
+            class="fb-btn"
+            id="fbBtn"
+            aria-haspopup="dialog"
+            aria-controls="fbDlg"
+            aria-label={site.fbBtn}
+            data-site-label="fbBtn"
+          >
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 4.5h16v11H10l-4.5 4v-4H4z" />
+            </svg>
+            <span data-site="fbBtn">{site.fbBtn}</span>
+          </button>
           {langs.length > 0 &&
             (() => {
               const cur = langs.find((l) => l.current) ?? langs[0];
@@ -156,7 +171,7 @@ const offerJson =
                 </details>
               );
             })()}
-          <button id="theme" type="button" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">
+          <button id="theme" type="button" aria-label={site.theme} title={site.theme} data-site-label="theme">
             <svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
             </svg>
@@ -171,16 +186,52 @@ const offerJson =
     <main class:list={[{ wide }]}>
       <slot />
     </main>
+    {/* data-site / data-site-label: texts ../lib/site-text.ts rewrites when the 404 switches language */}
     <footer class="site-foot">
-      {footBefore}
+      <span data-site="madeBefore">{footBefore}</span>
       {/* Beats for as long as the page is open, so it is its own pause button (WCAG 2.2.2) */}
-      <button type="button" class="heart" id="heart" aria-label={site.pause} title={site.pause}>
+      <button type="button" class="heart" id="heart" aria-label={site.pause} title={site.pause} data-site-label="pause">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.2 5.2 3.1 1.6-1.9 3.1-3.1 5.2-3.1 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z" />
         </svg>
       </button>
-      {footAfter}
+      <span data-site="madeAfter">{footAfter}</span>
     </footer>
+    {/* The header's Feedback button opens this; ../lib/feedback.ts turns it into a filled GitHub issue */}
+    <dialog
+      class="info-dlg fb-dlg"
+      id="fbDlg"
+      aria-labelledby="fbTitle"
+      data-issues={ISSUES_URL}
+      data-lang={langOfTag(lang)}
+      data-empty={site.fbEmpty}
+      data-long={site.fbLong}
+    >
+      <div class="info-head">
+        <h2 id="fbTitle" data-site="fbTitle">
+          {site.fbTitle}
+        </h2>
+        <button type="button" class="info-x" data-close aria-label={site.offerClose} data-site-label="offerClose">
+          ✕
+        </button>
+      </div>
+      <form id="fbForm" novalidate>
+        <label for="fbText" data-site="fbLabel">
+          {site.fbLabel}
+        </label>
+        <textarea id="fbText" name="feedback" rows="6" aria-describedby="fbErr fbHint"></textarea>
+        <p id="fbErr" class="fb-err" role="alert" hidden></p>
+        <p id="fbHint" class="fb-hint" data-site="fbHint">
+          {site.fbHint}
+        </p>
+        <button type="submit" class="fb-send">
+          <span data-site="fbSend">{site.fbSend}</span>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+          </svg>
+        </button>
+      </form>
+    </dialog>
     <script is:inline>
       // The heart beats only once this runs (no script = no pause control = no motion). Paused stays paused in this
       // browser; reduced motion starts paused.
@@ -213,8 +264,10 @@ const offerJson =
         </>
       )}
       <div class="update-toast" id="update-toast" role="status" hidden>
-        <span>{site.newVersion}</span>
-        <button type="button">{site.reload}</button>
+        <span data-site="newVersion">{site.newVersion}</span>
+        <button type="button" data-site="reload">
+          {site.reload}
+        </button>
       </div>
     </div>
     <script is:inline>
@@ -239,10 +292,12 @@ const offerJson =
       });
     </script>
     <script>
+      import { setupFeedback } from '../lib/feedback';
       import { offerLanguage } from '../lib/lang-offer';
       import { watchForUpdates } from '../lib/update-check';
       watchForUpdates();
       offerLanguage();
+      setupFeedback();
     </script>
     {import.meta.env.PROD && (
       // Page-view counts (GoatCounter: no cookies, no personal data). Async, off the critical path.

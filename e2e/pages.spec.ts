@@ -2,6 +2,7 @@
 // words glued together by `compressHTML` (see .claude/skills/astro-site → Markup).
 import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
+import { SITE_TEXT } from '../src/lib/i18n';
 import { pages } from './site-pages';
 
 const WIDTHS = [390, 1440];
@@ -51,7 +52,8 @@ for (const { file, path } of pages) {
   });
 }
 
-// The footer follows the page language (SITE_TEXT in src/lib/i18n.ts), the heart's pause button included.
+// The footer follows the page language (SITE_TEXT in src/lib/i18n.ts), the heart's pause button included, and so
+// does the header's theme switch (its name was English on every page until 2026-10-19).
 for (const [path, text, pause] of [
   ['/', 'made with', 'Pause the heart animation'],
   ['/ss14/fr/', 'fait avec', 'Mettre en pause l’animation du cœur'],
@@ -61,5 +63,7 @@ for (const [path, text, pause] of [
     await page.goto(path);
     await expect(page.locator('.site-foot')).toContainText(text);
     await expect(page.locator('.site-foot .heart')).toHaveAttribute('aria-label', pause);
+    const lang = path === '/' ? 'en' : path.split('/')[2];
+    await expect(page.locator('#theme')).toHaveAttribute('aria-label', SITE_TEXT[lang as keyof typeof SITE_TEXT].theme);
   });
 }
