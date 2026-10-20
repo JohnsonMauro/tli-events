@@ -1,8 +1,9 @@
 rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
-9.122,5.16,rope,Hangman's Noose,maiden,Severed Iron Maiden
-6.093,3.45,maiden,Severed Iron Maiden,scapegoat,Scapegoat's Guillotine
+8.928,5.05,rope,Hangman's Noose,maiden,Severed Iron Maiden
 5.015,2.84,rope,Hangman's Noose,trap,Blood-Stained Trap: Berserk Lion
+4.978,2.82,maiden,Severed Iron Maiden,scapegoat,Scapegoat's Guillotine
 4.976,2.82,rope,Hangman's Noose,maul,Elephant-Foot Maul: Mammoth
+4.798,2.72,maiden,Severed Iron Maiden,maul,Elephant-Foot Maul: Mammoth
 4.718,2.67,maul,Elephant-Foot Maul: Mammoth,claws,Filthy Claws: Alpha Wolf
 4.695,2.66,crown,Iron Crown of the Prison King: Berserk Lion,claws,Filthy Claws: Alpha Wolf
 4.667,2.64,rope,Hangman's Noose,crown,Iron Crown of the Prison King: Berserk Lion
@@ -20,11 +21,12 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 4.376,2.48,keys,Lost Ring of Keys,maul,Elephant-Foot Maul: Mammoth
 4.372,2.47,muzzle,Raging Beast's Agonizing Muzzle,crown,Iron Crown of the Prison King: Berserk Lion
 4.37,2.47,muzzle,Raging Beast's Agonizing Muzzle,claws,Filthy Claws: Alpha Wolf
+4.368,2.47,maiden,Severed Iron Maiden,trap,Blood-Stained Trap: Berserk Lion
 4.345,2.46,shackles,Long-Chained Shackles,maul,Elephant-Foot Maul: Mammoth
-4.288,2.43,maiden,Severed Iron Maiden,maul,Elephant-Foot Maul: Mammoth
+4.311,2.44,maiden,Severed Iron Maiden,crown,Iron Crown of the Prison King: Berserk Lion
 4.28,2.42,shackles,Long-Chained Shackles,crown,Iron Crown of the Prison King: Berserk Lion
 4.247,2.4,shackles,Long-Chained Shackles,trap,Blood-Stained Trap: Berserk Lion
-4.162,2.36,maiden,Severed Iron Maiden,stake,Burning Stake
+4.171,2.36,maiden,Severed Iron Maiden,claws,Filthy Claws: Alpha Wolf
 4.128,2.34,revenge,Avenger's Casket,crown,Iron Crown of the Prison King: Berserk Lion
 4.106,2.32,coin,Kin's Coin of Fate,maul,Elephant-Foot Maul: Mammoth
 4.101,2.32,coin,Kin's Coin of Fate,trap,Blood-Stained Trap: Berserk Lion
@@ -35,32 +37,33 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 4.057,2.3,muzzle,Raging Beast's Agonizing Muzzle,rope,Hangman's Noose
 4.047,2.29,stake,Burning Stake,maul,Elephant-Foot Maul: Mammoth
 4.043,2.29,revenge,Avenger's Casket,claws,Filthy Claws: Alpha Wolf
-4.008,2.27,maiden,Severed Iron Maiden,crown,Iron Crown of the Prison King: Berserk Lion
+4.033,2.28,shackles,Long-Chained Shackles,maiden,Severed Iron Maiden
 4.003,2.27,blacklist,Executioner's Blacklist,trap,Blood-Stained Trap: Berserk Lion
 4.002,2.26,coin,Kin's Coin of Fate,crown,Iron Crown of the Prison King: Berserk Lion
 3.983,2.25,hook,Sorting Hook,trap,Blood-Stained Trap: Berserk Lion
 3.954,2.24,skewer,Skewered Rat Heads: Colossal Rat,maul,Elephant-Foot Maul: Mammoth
+3.949,2.23,maiden,Severed Iron Maiden,coin,Kin's Coin of Fate
 3.937,2.23,coin,Kin's Coin of Fate,claws,Filthy Claws: Alpha Wolf
 3.929,2.22,hook,Sorting Hook,maul,Elephant-Foot Maul: Mammoth
 3.906,2.21,hook,Sorting Hook,crown,Iron Crown of the Prison King: Berserk Lion
 3.897,2.21,fire,Searing Branding Iron,crown,Iron Crown of the Prison King: Berserk Lion
 3.866,2.19,dogtag,Felon's Dog Tag,trap,Blood-Stained Trap: Berserk Lion
-3.852,2.18,maiden,Severed Iron Maiden,trap,Blood-Stained Trap: Berserk Lion
 3.848,2.18,skewer,Skewered Rat Heads: Colossal Rat,crown,Iron Crown of the Prison King: Berserk Lion
 3.82,2.16,saw,Rusty Saw,maul,Elephant-Foot Maul: Mammoth
 3.816,2.16,rope,Hangman's Noose,skewer,Skewered Rat Heads: Colossal Rat
 3.813,2.16,tongs,Iron Tongs of Lust: Mammoth,trap,Blood-Stained Trap: Berserk Lion
 3.811,2.16,fire,Searing Branding Iron,trap,Blood-Stained Trap: Berserk Lion
+3.811,2.16,maiden,Severed Iron Maiden,stake,Burning Stake
 3.797,2.15,axe,Gaoler's Execution Axe,trap,Blood-Stained Trap: Berserk Lion
 3.797,2.15,cage,Crowded Beastcage,crown,Iron Crown of the Prison King: Berserk Lion
 3.795,2.15,cage,Crowded Beastcage,maul,Elephant-Foot Maul: Mammoth
-3.792,2.15,scapegoat,Scapegoat's Guillotine,claws,Filthy Claws: Alpha Wolf
 3.789,2.14,revenge,Avenger's Casket,rope,Hangman's Noose
 3.783,2.14,saw,Rusty Saw,crown,Iron Crown of the Prison King: Berserk Lion
 3.776,2.14,muzzle,Raging Beast's Agonizing Muzzle,trap,Blood-Stained Trap: Berserk Lion
 3.758,2.13,dogtag,Felon's Dog Tag,maul,Elephant-Foot Maul: Mammoth
 3.74,2.12,axe,Gaoler's Execution Axe,crown,Iron Crown of the Prison King: Berserk Lion
 3.735,2.11,collar,Maddened Beast's Barbed Collar,crown,Iron Crown of the Prison King: Berserk Lion
+3.733,2.11,scapegoat,Scapegoat's Guillotine,claws,Filthy Claws: Alpha Wolf
 3.725,2.11,collar,Maddened Beast's Barbed Collar,maul,Elephant-Foot Maul: Mammoth
 3.722,2.11,guillotine,Fanged Guillotine: Alpha Wolf,trap,Blood-Stained Trap: Berserk Lion
 3.72,2.11,ravenous,Ferocious Beast's Ravenous Chains,maul,Elephant-Foot Maul: Mammoth
@@ -70,18 +73,16 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 3.702,2.1,stake,Burning Stake,trap,Blood-Stained Trap: Berserk Lion
 3.697,2.09,fire,Searing Branding Iron,maul,Elephant-Foot Maul: Mammoth
 3.697,2.09,cage,Crowded Beastcage,trap,Blood-Stained Trap: Berserk Lion
-3.681,2.08,maiden,Severed Iron Maiden,claws,Filthy Claws: Alpha Wolf
+3.684,2.08,scapegoat,Scapegoat's Guillotine,maul,Elephant-Foot Maul: Mammoth
 3.673,2.08,shortchain,Short-Chained Shackles,maul,Elephant-Foot Maul: Mammoth
 3.67,2.08,rope,Hangman's Noose,collar,Maddened Beast's Barbed Collar
 3.666,2.07,guillotine,Fanged Guillotine: Alpha Wolf,maul,Elephant-Foot Maul: Mammoth
 3.665,2.07,saw,Rusty Saw,claws,Filthy Claws: Alpha Wolf
-3.665,2.07,scapegoat,Scapegoat's Guillotine,maul,Elephant-Foot Maul: Mammoth
 3.657,2.07,skewer,Skewered Rat Heads: Colossal Rat,claws,Filthy Claws: Alpha Wolf
 3.655,2.07,guillotine,Fanged Guillotine: Alpha Wolf,crown,Iron Crown of the Prison King: Berserk Lion
 3.649,2.07,keys,Lost Ring of Keys,coin,Kin's Coin of Fate
 3.639,2.06,muzzle,Raging Beast's Agonizing Muzzle,coin,Kin's Coin of Fate
 3.636,2.06,saw,Rusty Saw,rope,Hangman's Noose
-3.631,2.05,shackles,Long-Chained Shackles,maiden,Severed Iron Maiden
 3.631,2.05,collar,Maddened Beast's Barbed Collar,claws,Filthy Claws: Alpha Wolf
 3.628,2.05,shackles,Long-Chained Shackles,coin,Kin's Coin of Fate
 3.62,2.05,shortchain,Short-Chained Shackles,crown,Iron Crown of the Prison King: Berserk Lion
@@ -98,6 +99,7 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 3.576,2.02,scales,Warden's Scales,maul,Elephant-Foot Maul: Mammoth
 3.574,2.02,forged,Forged Key,maul,Elephant-Foot Maul: Mammoth
 3.564,2.02,maul,Elephant-Foot Maul: Mammoth,,
+3.557,2.01,maiden,Severed Iron Maiden,ravenous,Ferocious Beast's Ravenous Chains
 3.553,2.01,stake,Burning Stake,coin,Kin's Coin of Fate
 3.55,2.01,tongs,Iron Tongs of Lust: Mammoth,maul,Elephant-Foot Maul: Mammoth
 3.55,2.01,whip,Barbed Whip,maul,Elephant-Foot Maul: Mammoth
@@ -105,13 +107,15 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 3.526,2.0,collar,Maddened Beast's Barbed Collar,trap,Blood-Stained Trap: Berserk Lion
 3.512,1.99,scales,Warden's Scales,crown,Iron Crown of the Prison King: Berserk Lion
 3.505,1.98,ravenous,Ferocious Beast's Ravenous Chains,claws,Filthy Claws: Alpha Wolf
-3.498,1.98,shackles,Long-Chained Shackles,scapegoat,Scapegoat's Guillotine
+3.502,1.98,muzzle,Raging Beast's Agonizing Muzzle,maiden,Severed Iron Maiden
 3.492,1.98,forged,Forged Key,trap,Blood-Stained Trap: Berserk Lion
+3.49,1.98,hook,Sorting Hook,maiden,Severed Iron Maiden
 3.477,1.97,ravenous,Ferocious Beast's Ravenous Chains,trap,Blood-Stained Trap: Berserk Lion
 3.472,1.96,rope,Hangman's Noose,tongs,Iron Tongs of Lust: Mammoth
 3.468,1.96,blacklist,Executioner's Blacklist,crown,Iron Crown of the Prison King: Berserk Lion
-3.465,1.96,maiden,Severed Iron Maiden,coin,Kin's Coin of Fate
+3.457,1.96,revenge,Avenger's Casket,maiden,Severed Iron Maiden
 3.452,1.95,revenge,Avenger's Casket,trap,Blood-Stained Trap: Berserk Lion
+3.451,1.95,shackles,Long-Chained Shackles,scapegoat,Scapegoat's Guillotine
 3.45,1.95,crown,Iron Crown of the Prison King: Berserk Lion,,
 3.439,1.95,rope,Hangman's Noose,guillotine,Fanged Guillotine: Alpha Wolf
 3.434,1.94,rope,Hangman's Noose,hook,Sorting Hook
@@ -119,43 +123,45 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 3.424,1.94,tongs,Iron Tongs of Lust: Mammoth,crown,Iron Crown of the Prison King: Berserk Lion
 3.419,1.93,pestle,Iron Pestle,maul,Elephant-Foot Maul: Mammoth
 3.414,1.93,stake,Burning Stake,crown,Iron Crown of the Prison King: Berserk Lion
-3.389,1.92,tongs,Iron Tongs of Lust: Mammoth,maiden,Severed Iron Maiden
+3.403,1.93,scapegoat,Scapegoat's Guillotine,crown,Iron Crown of the Prison King: Berserk Lion
 3.387,1.92,guillotine,Fanged Guillotine: Alpha Wolf,claws,Filthy Claws: Alpha Wolf
-3.378,1.91,scapegoat,Scapegoat's Guillotine,crown,Iron Crown of the Prison King: Berserk Lion
 3.377,1.91,rope,Hangman's Noose,blacklist,Executioner's Blacklist
-3.374,1.91,muzzle,Raging Beast's Agonizing Muzzle,scapegoat,Scapegoat's Guillotine
+3.372,1.91,skewer,Skewered Rat Heads: Colossal Rat,maiden,Severed Iron Maiden
 3.365,1.9,pestle,Iron Pestle,crown,Iron Crown of the Prison King: Berserk Lion
-3.353,1.9,maiden,Severed Iron Maiden,ravenous,Ferocious Beast's Ravenous Chains
+3.363,1.9,muzzle,Raging Beast's Agonizing Muzzle,scapegoat,Scapegoat's Guillotine
 3.351,1.9,rope,Hangman's Noose,dogtag,Felon's Dog Tag
 3.349,1.9,hook,Sorting Hook,shackles,Long-Chained Shackles
 3.311,1.87,blacklist,Executioner's Blacklist,claws,Filthy Claws: Alpha Wolf
-3.298,1.87,muzzle,Raging Beast's Agonizing Muzzle,maiden,Severed Iron Maiden
+3.301,1.87,saw,Rusty Saw,maiden,Severed Iron Maiden
 3.287,1.86,keys,Lost Ring of Keys,blacklist,Executioner's Blacklist
+3.283,1.86,scapegoat,Scapegoat's Guillotine,trap,Blood-Stained Trap: Berserk Lion
 3.279,1.86,dogtag,Felon's Dog Tag,claws,Filthy Claws: Alpha Wolf
 3.267,1.85,rope,Hangman's Noose,,
 3.267,1.85,rope,Hangman's Noose,whip,Barbed Whip
 3.266,1.85,revenge,Avenger's Casket,shackles,Long-Chained Shackles
-3.253,1.84,scapegoat,Scapegoat's Guillotine,trap,Blood-Stained Trap: Berserk Lion
+3.266,1.85,collar,Maddened Beast's Barbed Collar,maiden,Severed Iron Maiden
+3.246,1.84,tongs,Iron Tongs of Lust: Mammoth,maiden,Severed Iron Maiden
+3.238,1.83,blacklist,Executioner's Blacklist,maiden,Severed Iron Maiden
 3.236,1.83,revenge,Avenger's Casket,muzzle,Raging Beast's Agonizing Muzzle
 3.236,1.83,tongs,Iron Tongs of Lust: Mammoth,claws,Filthy Claws: Alpha Wolf
-3.229,1.83,keys,Lost Ring of Keys,scapegoat,Scapegoat's Guillotine
 3.228,1.83,rope,Hangman's Noose,pestle,Iron Pestle
 3.228,1.83,hook,Sorting Hook,coin,Kin's Coin of Fate
 3.224,1.82,cage,Crowded Beastcage,claws,Filthy Claws: Alpha Wolf
 3.221,1.82,rope,Hangman's Noose,scales,Warden's Scales
+3.209,1.82,dogtag,Felon's Dog Tag,maiden,Severed Iron Maiden
 3.204,1.81,fire,Searing Branding Iron,coin,Kin's Coin of Fate
-3.188,1.8,revenge,Avenger's Casket,maiden,Severed Iron Maiden
 3.188,1.8,rope,Hangman's Noose,cage,Crowded Beastcage
 3.188,1.8,shackles,Long-Chained Shackles,ravenous,Ferocious Beast's Ravenous Chains
+3.179,1.8,guillotine,Fanged Guillotine: Alpha Wolf,maiden,Severed Iron Maiden
 3.163,1.79,skewer,Skewered Rat Heads: Colossal Rat,shackles,Long-Chained Shackles
 3.125,1.77,revenge,Avenger's Casket,coin,Kin's Coin of Fate
-3.117,1.76,skewer,Skewered Rat Heads: Colossal Rat,maiden,Severed Iron Maiden
 3.112,1.76,saw,Rusty Saw,shackles,Long-Chained Shackles
 3.099,1.75,whip,Barbed Whip,trap,Blood-Stained Trap: Berserk Lion
 3.097,1.75,muzzle,Raging Beast's Agonizing Muzzle,skewer,Skewered Rat Heads: Colossal Rat
+3.083,1.74,keys,Lost Ring of Keys,scapegoat,Scapegoat's Guillotine
 3.08,1.74,shackles,Long-Chained Shackles,collar,Maddened Beast's Barbed Collar
 3.076,1.74,muzzle,Raging Beast's Agonizing Muzzle,ravenous,Ferocious Beast's Ravenous Chains
-3.072,1.74,hook,Sorting Hook,scapegoat,Scapegoat's Guillotine
+3.071,1.74,hook,Sorting Hook,scapegoat,Scapegoat's Guillotine
 3.063,1.73,collar,Maddened Beast's Barbed Collar,coin,Kin's Coin of Fate
 3.06,1.73,stake,Burning Stake,claws,Filthy Claws: Alpha Wolf
 3.055,1.73,dogtag,Felon's Dog Tag,coin,Kin's Coin of Fate
@@ -163,25 +169,23 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 3.051,1.73,tongs,Iron Tongs of Lust: Mammoth,shackles,Long-Chained Shackles
 3.05,1.73,claws,Filthy Claws: Alpha Wolf,,
 3.047,1.72,revenge,Avenger's Casket,collar,Maddened Beast's Barbed Collar
+3.042,1.72,scales,Warden's Scales,maiden,Severed Iron Maiden
 3.037,1.72,rope,Hangman's Noose,shortchain,Short-Chained Shackles
 3.034,1.72,shackles,Long-Chained Shackles,dogtag,Felon's Dog Tag
 3.03,1.71,scales,Warden's Scales,claws,Filthy Claws: Alpha Wolf
-3.027,1.71,rope,Hangman's Noose,scapegoat,Scapegoat's Guillotine
 3.019,1.71,revenge,Avenger's Casket,keys,Lost Ring of Keys
 3.018,1.71,keys,Lost Ring of Keys,ravenous,Ferocious Beast's Ravenous Chains
-3.018,1.71,collar,Maddened Beast's Barbed Collar,maiden,Severed Iron Maiden
-3.015,1.71,saw,Rusty Saw,maiden,Severed Iron Maiden
-3.015,1.71,blacklist,Executioner's Blacklist,maiden,Severed Iron Maiden
 3.013,1.71,keys,Lost Ring of Keys,claws,Filthy Claws: Alpha Wolf
 3.011,1.7,revenge,Avenger's Casket,skewer,Skewered Rat Heads: Colossal Rat
 3.009,1.7,saw,Rusty Saw,coin,Kin's Coin of Fate
 3.009,1.7,fire,Searing Branding Iron,claws,Filthy Claws: Alpha Wolf
-2.998,1.7,hook,Sorting Hook,maiden,Severed Iron Maiden
+2.997,1.7,cage,Crowded Beastcage,maiden,Severed Iron Maiden
 2.991,1.69,axe,Gaoler's Execution Axe,coin,Kin's Coin of Fate
 2.981,1.69,guillotine,Fanged Guillotine: Alpha Wolf,shackles,Long-Chained Shackles
 2.978,1.69,cage,Crowded Beastcage,coin,Kin's Coin of Fate
-2.969,1.68,guillotine,Fanged Guillotine: Alpha Wolf,maiden,Severed Iron Maiden
+2.964,1.68,maiden,Severed Iron Maiden,,
 2.958,1.67,rope,Hangman's Noose,fire,Searing Branding Iron
+2.942,1.66,rope,Hangman's Noose,scapegoat,Scapegoat's Guillotine
 2.94,1.66,guillotine,Fanged Guillotine: Alpha Wolf,coin,Kin's Coin of Fate
 2.939,1.66,pestle,Iron Pestle,claws,Filthy Claws: Alpha Wolf
 2.935,1.66,shackles,Long-Chained Shackles,stake,Burning Stake
@@ -189,60 +193,54 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.921,1.65,muzzle,Raging Beast's Agonizing Muzzle,hook,Sorting Hook
 2.921,1.65,shortchain,Short-Chained Shackles,coin,Kin's Coin of Fate
 2.92,1.65,shortchain,Short-Chained Shackles,claws,Filthy Claws: Alpha Wolf
+2.916,1.65,pestle,Iron Pestle,maiden,Severed Iron Maiden
 2.913,1.65,shackles,Long-Chained Shackles,blacklist,Executioner's Blacklist
-2.913,1.65,dogtag,Felon's Dog Tag,maiden,Severed Iron Maiden
 2.883,1.63,muzzle,Raging Beast's Agonizing Muzzle,saw,Rusty Saw
-2.88,1.63,scapegoat,Scapegoat's Guillotine,coin,Kin's Coin of Fate
-2.872,1.63,dogtag,Felon's Dog Tag,scapegoat,Scapegoat's Guillotine
+2.871,1.62,scapegoat,Scapegoat's Guillotine,coin,Kin's Coin of Fate
 2.868,1.62,revenge,Avenger's Casket,hook,Sorting Hook
 2.867,1.62,ravenous,Ferocious Beast's Ravenous Chains,coin,Kin's Coin of Fate
 2.862,1.62,tongs,Iron Tongs of Lust: Mammoth,coin,Kin's Coin of Fate
+2.861,1.62,maiden,Severed Iron Maiden,whip,Barbed Whip
 2.857,1.62,revenge,Avenger's Casket,saw,Rusty Saw
 2.855,1.62,muzzle,Raging Beast's Agonizing Muzzle,guillotine,Fanged Guillotine: Alpha Wolf
 2.85,1.61,keys,Lost Ring of Keys,rope,Hangman's Noose
 2.837,1.61,keys,Lost Ring of Keys,collar,Maddened Beast's Barbed Collar
+2.833,1.6,dogtag,Felon's Dog Tag,scapegoat,Scapegoat's Guillotine
 2.817,1.59,keys,Lost Ring of Keys,hook,Sorting Hook
 2.814,1.59,forged,Forged Key,coin,Kin's Coin of Fate
-2.808,1.59,skewer,Skewered Rat Heads: Colossal Rat,scapegoat,Scapegoat's Guillotine
 2.807,1.59,muzzle,Raging Beast's Agonizing Muzzle,collar,Maddened Beast's Barbed Collar
-2.805,1.59,revenge,Avenger's Casket,scapegoat,Scapegoat's Guillotine
 2.794,1.58,scales,Warden's Scales,coin,Kin's Coin of Fate
-2.793,1.58,ravenous,Ferocious Beast's Ravenous Chains,scapegoat,Scapegoat's Guillotine
-2.785,1.58,fire,Searing Branding Iron,scapegoat,Scapegoat's Guillotine
+2.791,1.58,revenge,Avenger's Casket,scapegoat,Scapegoat's Guillotine
+2.788,1.58,fire,Searing Branding Iron,maiden,Severed Iron Maiden
+2.781,1.57,skewer,Skewered Rat Heads: Colossal Rat,scapegoat,Scapegoat's Guillotine
 2.778,1.57,blacklist,Executioner's Blacklist,coin,Kin's Coin of Fate
 2.774,1.57,skewer,Skewered Rat Heads: Colossal Rat,hook,Sorting Hook
 2.772,1.57,coin,Kin's Coin of Fate,,
-2.765,1.56,scales,Warden's Scales,scapegoat,Scapegoat's Guillotine
-2.764,1.56,scales,Warden's Scales,maiden,Severed Iron Maiden
 2.762,1.56,keys,Lost Ring of Keys,skewer,Skewered Rat Heads: Colossal Rat
 2.762,1.56,shackles,Long-Chained Shackles,cage,Crowded Beastcage
 2.758,1.56,whip,Barbed Whip,coin,Kin's Coin of Fate
 2.757,1.56,ironbox,Squirming Iron Box: Colossal Rat,ravenous,Ferocious Beast's Ravenous Chains
-2.75,1.56,maiden,Severed Iron Maiden,whip,Barbed Whip
-2.748,1.56,tongs,Iron Tongs of Lust: Mammoth,scapegoat,Scapegoat's Guillotine
-2.747,1.55,cage,Crowded Beastcage,maiden,Severed Iron Maiden
+2.746,1.55,shortchain,Short-Chained Shackles,maiden,Severed Iron Maiden
 2.741,1.55,revenge,Avenger's Casket,guillotine,Fanged Guillotine: Alpha Wolf
 2.74,1.55,muzzle,Raging Beast's Agonizing Muzzle,blacklist,Executioner's Blacklist
-2.74,1.55,saw,Rusty Saw,scapegoat,Scapegoat's Guillotine
 2.739,1.55,hook,Sorting Hook,ravenous,Ferocious Beast's Ravenous Chains
-2.735,1.55,maiden,Severed Iron Maiden,,
 2.733,1.55,pestle,Iron Pestle,coin,Kin's Coin of Fate
 2.731,1.55,hook,Sorting Hook,dogtag,Felon's Dog Tag
 2.73,1.54,ironbox,Squirming Iron Box: Colossal Rat,trap,Blood-Stained Trap: Berserk Lion
-2.723,1.54,shortchain,Short-Chained Shackles,scapegoat,Scapegoat's Guillotine
+2.725,1.54,fire,Searing Branding Iron,scapegoat,Scapegoat's Guillotine
+2.722,1.54,ravenous,Ferocious Beast's Ravenous Chains,scapegoat,Scapegoat's Guillotine
 2.72,1.54,revenge,Avenger's Casket,ravenous,Ferocious Beast's Ravenous Chains
 2.72,1.54,muzzle,Raging Beast's Agonizing Muzzle,dogtag,Felon's Dog Tag
-2.716,1.54,guillotine,Fanged Guillotine: Alpha Wolf,scapegoat,Scapegoat's Guillotine
+2.72,1.54,tongs,Iron Tongs of Lust: Mammoth,scapegoat,Scapegoat's Guillotine
+2.715,1.54,scales,Warden's Scales,scapegoat,Scapegoat's Guillotine
 2.708,1.53,pestle,Iron Pestle,shackles,Long-Chained Shackles
 2.706,1.53,skewer,Skewered Rat Heads: Colossal Rat,collar,Maddened Beast's Barbed Collar
-2.705,1.53,pestle,Iron Pestle,maiden,Severed Iron Maiden
-2.704,1.53,collar,Maddened Beast's Barbed Collar,scapegoat,Scapegoat's Guillotine
-2.703,1.53,cage,Crowded Beastcage,scapegoat,Scapegoat's Guillotine
 2.7,1.53,shackles,Long-Chained Shackles,,
 2.7,1.53,scales,Warden's Scales,shackles,Long-Chained Shackles
-2.689,1.52,scapegoat,Scapegoat's Guillotine,,
+2.691,1.52,saw,Rusty Saw,scapegoat,Scapegoat's Guillotine
 2.689,1.52,saw,Rusty Saw,skewer,Skewered Rat Heads: Colossal Rat
 2.684,1.52,revenge,Avenger's Casket,whip,Barbed Whip
+2.683,1.52,collar,Maddened Beast's Barbed Collar,scapegoat,Scapegoat's Guillotine
 2.682,1.52,axe,Gaoler's Execution Axe,claws,Filthy Claws: Alpha Wolf
 2.682,1.52,shackles,Long-Chained Shackles,whip,Barbed Whip
 2.679,1.52,fire,Searing Branding Iron,blacklist,Executioner's Blacklist
@@ -250,16 +248,20 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.676,1.51,revenge,Avenger's Casket,cage,Crowded Beastcage
 2.675,1.51,revenge,Avenger's Casket,dogtag,Felon's Dog Tag
 2.667,1.51,saw,Rusty Saw,hook,Sorting Hook
+2.661,1.51,guillotine,Fanged Guillotine: Alpha Wolf,scapegoat,Scapegoat's Guillotine
 2.659,1.5,hook,Sorting Hook,collar,Maddened Beast's Barbed Collar
-2.656,1.5,pestle,Iron Pestle,scapegoat,Scapegoat's Guillotine
 2.653,1.5,keys,Lost Ring of Keys,shackles,Long-Chained Shackles
 2.645,1.5,shackles,Long-Chained Shackles,shortchain,Short-Chained Shackles
-2.64,1.49,blacklist,Executioner's Blacklist,scapegoat,Scapegoat's Guillotine
+2.642,1.5,cage,Crowded Beastcage,scapegoat,Scapegoat's Guillotine
 2.639,1.49,skewer,Skewered Rat Heads: Colossal Rat,ravenous,Ferocious Beast's Ravenous Chains
+2.639,1.49,shortchain,Short-Chained Shackles,scapegoat,Scapegoat's Guillotine
+2.615,1.48,scapegoat,Scapegoat's Guillotine,,
 2.614,1.48,forged,Forged Key,claws,Filthy Claws: Alpha Wolf
+2.613,1.48,pestle,Iron Pestle,scapegoat,Scapegoat's Guillotine
 2.61,1.48,saw,Rusty Saw,keys,Lost Ring of Keys
 2.607,1.48,fire,Searing Branding Iron,shackles,Long-Chained Shackles
-2.592,1.47,ironbox,Squirming Iron Box: Colossal Rat,scapegoat,Scapegoat's Guillotine
+2.586,1.46,blacklist,Executioner's Blacklist,scapegoat,Scapegoat's Guillotine
+2.573,1.46,axe,Gaoler's Execution Axe,maiden,Severed Iron Maiden
 2.567,1.45,fire,Searing Branding Iron,skewer,Skewered Rat Heads: Colossal Rat
 2.564,1.45,saw,Rusty Saw,ravenous,Ferocious Beast's Ravenous Chains
 2.563,1.45,muzzle,Raging Beast's Agonizing Muzzle,tongs,Iron Tongs of Lust: Mammoth
@@ -270,7 +272,6 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.552,1.44,collar,Maddened Beast's Barbed Collar,ravenous,Ferocious Beast's Ravenous Chains
 2.55,1.44,revenge,Avenger's Casket,blacklist,Executioner's Blacklist
 2.545,1.44,revenge,Avenger's Casket,fire,Searing Branding Iron
-2.545,1.44,shortchain,Short-Chained Shackles,maiden,Severed Iron Maiden
 2.543,1.44,rope,Hangman's Noose,axe,Gaoler's Execution Axe
 2.541,1.44,muzzle,Raging Beast's Agonizing Muzzle,scales,Warden's Scales
 2.539,1.44,fire,Searing Branding Iron,ravenous,Ferocious Beast's Ravenous Chains
@@ -281,6 +282,7 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.519,1.43,skewer,Skewered Rat Heads: Colossal Rat,guillotine,Fanged Guillotine: Alpha Wolf
 2.517,1.42,saw,Rusty Saw,collar,Maddened Beast's Barbed Collar
 2.514,1.42,guillotine,Fanged Guillotine: Alpha Wolf,ravenous,Ferocious Beast's Ravenous Chains
+2.514,1.42,keys,Lost Ring of Keys,maiden,Severed Iron Maiden
 2.509,1.42,revenge,Avenger's Casket,shortchain,Short-Chained Shackles
 2.509,1.42,skewer,Skewered Rat Heads: Colossal Rat,stake,Burning Stake
 2.507,1.42,revenge,Avenger's Casket,scales,Warden's Scales
@@ -292,11 +294,11 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.493,1.41,blacklist,Executioner's Blacklist,stake,Burning Stake
 2.485,1.41,saw,Rusty Saw,guillotine,Fanged Guillotine: Alpha Wolf
 2.483,1.41,skewer,Skewered Rat Heads: Colossal Rat,cage,Crowded Beastcage
-2.479,1.4,fire,Searing Branding Iron,maiden,Severed Iron Maiden
 2.478,1.4,skewer,Skewered Rat Heads: Colossal Rat,blacklist,Executioner's Blacklist
 2.474,1.4,cage,Crowded Beastcage,blacklist,Executioner's Blacklist
 2.452,1.39,hook,Sorting Hook,cage,Crowded Beastcage
 2.447,1.38,tongs,Iron Tongs of Lust: Mammoth,ravenous,Ferocious Beast's Ravenous Chains
+2.447,1.38,ironbox,Squirming Iron Box: Colossal Rat,scapegoat,Scapegoat's Guillotine
 2.443,1.38,muzzle,Raging Beast's Agonizing Muzzle,pestle,Iron Pestle
 2.443,1.38,tongs,Iron Tongs of Lust: Mammoth,stake,Burning Stake
 2.443,1.38,collar,Maddened Beast's Barbed Collar,blacklist,Executioner's Blacklist
@@ -305,7 +307,6 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.435,1.38,axe,Gaoler's Execution Axe,ravenous,Ferocious Beast's Ravenous Chains
 2.433,1.38,revenge,Avenger's Casket,,
 2.433,1.38,skewer,Skewered Rat Heads: Colossal Rat,whip,Barbed Whip
-2.433,1.38,axe,Gaoler's Execution Axe,scapegoat,Scapegoat's Guillotine
 2.421,1.37,keys,Lost Ring of Keys,whip,Barbed Whip
 2.421,1.37,shortchain,Short-Chained Shackles,ravenous,Ferocious Beast's Ravenous Chains
 2.42,1.37,guillotine,Fanged Guillotine: Alpha Wolf,blacklist,Executioner's Blacklist
@@ -323,20 +324,18 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.388,1.35,fire,Searing Branding Iron,collar,Maddened Beast's Barbed Collar
 2.387,1.35,skewer,Skewered Rat Heads: Colossal Rat,shortchain,Short-Chained Shackles
 2.381,1.35,axe,Gaoler's Execution Axe,shackles,Long-Chained Shackles
-2.376,1.34,axe,Gaoler's Execution Axe,maiden,Severed Iron Maiden
 2.368,1.34,axe,Gaoler's Execution Axe,collar,Maddened Beast's Barbed Collar
 2.364,1.34,saw,Rusty Saw,tongs,Iron Tongs of Lust: Mammoth
 2.364,1.34,saw,Rusty Saw,cage,Crowded Beastcage
 2.361,1.34,skewer,Skewered Rat Heads: Colossal Rat,,
 2.36,1.34,guillotine,Fanged Guillotine: Alpha Wolf,dogtag,Felon's Dog Tag
 2.357,1.33,fire,Searing Branding Iron,hook,Sorting Hook
-2.354,1.33,forged,Forged Key,scapegoat,Scapegoat's Guillotine
 2.344,1.33,muzzle,Raging Beast's Agonizing Muzzle,cage,Crowded Beastcage
 2.341,1.32,collar,Maddened Beast's Barbed Collar,shortchain,Short-Chained Shackles
 2.34,1.32,saw,Rusty Saw,blacklist,Executioner's Blacklist
 2.34,1.32,keys,Lost Ring of Keys,tongs,Iron Tongs of Lust: Mammoth
 2.338,1.32,hook,Sorting Hook,whip,Barbed Whip
-2.337,1.32,whip,Barbed Whip,scapegoat,Scapegoat's Guillotine
+2.331,1.32,axe,Gaoler's Execution Axe,scapegoat,Scapegoat's Guillotine
 2.326,1.32,hook,Sorting Hook,shortchain,Short-Chained Shackles
 2.326,1.32,scales,Warden's Scales,ravenous,Ferocious Beast's Ravenous Chains
 2.325,1.32,collar,Maddened Beast's Barbed Collar,,
@@ -344,19 +343,19 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.325,1.32,tongs,Iron Tongs of Lust: Mammoth,blacklist,Executioner's Blacklist
 2.316,1.31,ravenous,Ferocious Beast's Ravenous Chains,,
 2.311,1.31,guillotine,Fanged Guillotine: Alpha Wolf,stake,Burning Stake
-2.309,1.31,keys,Lost Ring of Keys,maiden,Severed Iron Maiden
 2.307,1.31,hook,Sorting Hook,,
 2.305,1.3,tongs,Iron Tongs of Lust: Mammoth,collar,Maddened Beast's Barbed Collar
 2.304,1.3,collar,Maddened Beast's Barbed Collar,stake,Burning Stake
+2.304,1.3,whip,Barbed Whip,scapegoat,Scapegoat's Guillotine
 2.297,1.3,tongs,Iron Tongs of Lust: Mammoth,guillotine,Fanged Guillotine: Alpha Wolf
 2.296,1.3,guillotine,Fanged Guillotine: Alpha Wolf,cage,Crowded Beastcage
+2.296,1.3,forged,Forged Key,scapegoat,Scapegoat's Guillotine
 2.291,1.3,saw,Rusty Saw,,
 2.289,1.3,hook,Sorting Hook,scales,Warden's Scales
 2.288,1.29,pestle,Iron Pestle,ravenous,Ferocious Beast's Ravenous Chains
 2.285,1.29,skewer,Skewered Rat Heads: Colossal Rat,axe,Gaoler's Execution Axe
 2.283,1.29,saw,Rusty Saw,whip,Barbed Whip
 2.279,1.29,saw,Rusty Saw,fire,Searing Branding Iron
-2.275,1.29,scapegoat,Scapegoat's Guillotine,stake,Burning Stake
 2.272,1.29,scales,Warden's Scales,collar,Maddened Beast's Barbed Collar
 2.271,1.29,forged,Forged Key,blacklist,Executioner's Blacklist
 2.261,1.28,skewer,Skewered Rat Heads: Colossal Rat,pestle,Iron Pestle
@@ -371,6 +370,7 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.229,1.26,saw,Rusty Saw,pestle,Iron Pestle
 2.228,1.26,muzzle,Raging Beast's Agonizing Muzzle,shortchain,Short-Chained Shackles
 2.223,1.26,saw,Rusty Saw,shortchain,Short-Chained Shackles
+2.22,1.26,scapegoat,Scapegoat's Guillotine,stake,Burning Stake
 2.216,1.25,hook,Sorting Hook,pestle,Iron Pestle
 2.214,1.25,saw,Rusty Saw,axe,Gaoler's Execution Axe
 2.207,1.25,guillotine,Fanged Guillotine: Alpha Wolf,whip,Barbed Whip
@@ -379,8 +379,10 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.165,1.23,dogtag,Felon's Dog Tag,whip,Barbed Whip
 2.163,1.22,fire,Searing Branding Iron,guillotine,Fanged Guillotine: Alpha Wolf
 2.163,1.22,pestle,Iron Pestle,blacklist,Executioner's Blacklist
+2.155,1.22,ironbox,Squirming Iron Box: Colossal Rat,maiden,Severed Iron Maiden
 2.154,1.22,tongs,Iron Tongs of Lust: Mammoth,axe,Gaoler's Execution Axe
 2.15,1.22,hook,Sorting Hook,axe,Gaoler's Execution Axe
+2.143,1.21,forged,Forged Key,maiden,Severed Iron Maiden
 2.135,1.21,dogtag,Felon's Dog Tag,cage,Crowded Beastcage
 2.134,1.21,fire,Searing Branding Iron,dogtag,Felon's Dog Tag
 2.133,1.21,scales,Warden's Scales,dogtag,Felon's Dog Tag
@@ -414,7 +416,6 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.026,1.15,fire,Searing Branding Iron,whip,Barbed Whip
 2.024,1.15,scales,Warden's Scales,tongs,Iron Tongs of Lust: Mammoth
 2.021,1.14,axe,Gaoler's Execution Axe,whip,Barbed Whip
-2.021,1.14,forged,Forged Key,maiden,Severed Iron Maiden
 2.017,1.14,tongs,Iron Tongs of Lust: Mammoth,shortchain,Short-Chained Shackles
 1.998,1.13,cage,Crowded Beastcage,,
 1.992,1.13,ironbox,Squirming Iron Box: Colossal Rat,maul,Elephant-Foot Maul: Mammoth
@@ -443,7 +444,6 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 1.843,1.04,keys,Lost Ring of Keys,fire,Searing Branding Iron
 1.837,1.04,pestle,Iron Pestle,scales,Warden's Scales
 1.825,1.03,axe,Gaoler's Execution Axe,dogtag,Felon's Dog Tag
-1.814,1.03,ironbox,Squirming Iron Box: Colossal Rat,maiden,Severed Iron Maiden
 1.804,1.02,pestle,Iron Pestle,,
 1.802,1.02,scales,Warden's Scales,shortchain,Short-Chained Shackles
 1.799,1.02,ironbox,Squirming Iron Box: Colossal Rat,blacklist,Executioner's Blacklist
