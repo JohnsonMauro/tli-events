@@ -357,3 +357,7 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - Value Scapegoat's Guillotine: 2.689 → 2.615 Rainbows/run
 - Rainbows/run (tuned strategy): 4.6625 → 4.0345
 - New engine parameter: `beastToolOdds` = 12
+
+## 2026-10-20 — Iron Tongs: a repeat Tusk is wasted (LIVE)
+
+- **Iron Tongs**: the card (`images/134`) doesn't say whether the morning's Tusk can land on a Mammoth that already has one. Confirmed by the owner in game: **as the engine** — the draw takes any Mammoth on the block, marked or not, a repeat adds nothing (Tusks don't stack: a Replace on it still raises 4 inmates), and with 2+ Mammoths a morning can mark nothing new while one is unmarked. No change to the engine, the export or the sheet.
