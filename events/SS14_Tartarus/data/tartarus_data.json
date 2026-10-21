@@ -1,5 +1,5 @@
 {
- "simVersion": "20261019b",
+ "simVersion": "20261020a",
  "live": {
   "latest": "2026-10-16",
   "boards": 38011,
@@ -105,7 +105,7 @@
    }
   }
  },
- "fetched": "2026-10-20",
+ "fetched": "2026-10-21",
  "source": "https://blahdot3h.github.io/tartarus-simulator/",
  "tiers": [
   "Normal",
@@ -339,7 +339,7 @@
   "trap": {
    "name": "Blood-Stained Trap: Berserk Lion",
    "text": "With the warden on a Lion's cell, Hunt joins the day's choices: the Lion puts a Prey mark on one inmate it can consume, and each morning both rise a tier, for 3 mornings. A day has a Consume, a Replace or a Hunt.",
-   "value": 3.603
+   "value": 3.651
   }
  },
  "baseNoTools": 1.767,
@@ -352,7 +352,7 @@
   [
    "rope",
    "trap",
-   5.015
+   5.079
   ],
   [
    "maiden",
@@ -376,6 +376,16 @@
   ],
   [
    "crown",
+   "trap",
+   4.715
+  ],
+  [
+   "claws",
+   "trap",
+   4.7
+  ],
+  [
+   "crown",
    "claws",
    4.695
   ],
@@ -390,19 +400,9 @@
    4.652
   ],
   [
-   "claws",
-   "trap",
-   4.637
-  ],
-  [
    "rope",
    "coin",
    4.628
-  ],
-  [
-   "crown",
-   "trap",
-   4.556
   ],
   [
    "ironbox",
@@ -425,9 +425,14 @@
    4.495
   ],
   [
+   "keys",
+   "trap",
+   4.492
+  ],
+  [
    "maul",
    "trap",
-   4.435
+   4.473
   ],
   [
    "muzzle",
@@ -435,9 +440,9 @@
    4.431
   ],
   [
-   "keys",
+   "maiden",
    "trap",
-   4.42
+   4.423
   ],
   [
    "keys",
@@ -455,11 +460,6 @@
    4.37
   ],
   [
-   "maiden",
-   "trap",
-   4.368
-  ],
-  [
    "shackles",
    "maul",
    4.345
@@ -471,18 +471,23 @@
   ],
   [
    "shackles",
-   "crown",
-   4.28
+   "trap",
+   4.301
   ],
   [
    "shackles",
-   "trap",
-   4.247
+   "crown",
+   4.28
   ],
   [
    "maiden",
    "claws",
    4.171
+  ],
+  [
+   "coin",
+   "trap",
+   4.134
   ],
   [
    "revenge",
@@ -493,11 +498,6 @@
    "coin",
    "maul",
    4.106
-  ],
-  [
-   "coin",
-   "trap",
-   4.101
   ],
   [
    "hook",
@@ -513,6 +513,11 @@
    "revenge",
    "maul",
    4.064
+  ],
+  [
+   "blacklist",
+   "trap",
+   4.061
   ],
   [
    "rope",
@@ -535,24 +540,19 @@
    4.043
   ],
   [
+   "hook",
+   "trap",
+   4.035
+  ],
+  [
    "shackles",
    "maiden",
    4.033
   ],
   [
-   "blacklist",
-   "trap",
-   4.003
-  ],
-  [
    "coin",
    "crown",
    4.002
-  ],
-  [
-   "hook",
-   "trap",
-   3.983
   ],
   [
    "skewer",
@@ -575,6 +575,11 @@
    3.929
   ],
   [
+   "dogtag",
+   "trap",
+   3.929
+  ],
+  [
    "hook",
    "crown",
    3.906
@@ -585,14 +590,29 @@
    3.897
   ],
   [
-   "dogtag",
+   "fire",
    "trap",
-   3.866
+   3.884
+  ],
+  [
+   "tongs",
+   "trap",
+   3.869
+  ],
+  [
+   "axe",
+   "trap",
+   3.857
   ],
   [
    "skewer",
    "crown",
    3.848
+  ],
+  [
+   "muzzle",
+   "trap",
+   3.846
   ],
   [
    "saw",
@@ -605,24 +625,9 @@
    3.816
   ],
   [
-   "tongs",
-   "trap",
-   3.813
-  ],
-  [
-   "fire",
-   "trap",
-   3.811
-  ],
-  [
    "maiden",
    "stake",
    3.811
-  ],
-  [
-   "axe",
-   "trap",
-   3.797
   ],
   [
    "cage",
@@ -645,14 +650,34 @@
    3.783
   ],
   [
-   "muzzle",
+   "guillotine",
    "trap",
-   3.776
+   3.782
+  ],
+  [
+   "shortchain",
+   "trap",
+   3.773
+  ],
+  [
+   "skewer",
+   "trap",
+   3.772
+  ],
+  [
+   "stake",
+   "trap",
+   3.772
   ],
   [
    "dogtag",
    "maul",
    3.758
+  ],
+  [
+   "cage",
+   "trap",
+   3.753
   ],
   [
    "axe",
@@ -675,19 +700,9 @@
    3.725
   ],
   [
-   "guillotine",
-   "trap",
-   3.722
-  ],
-  [
    "ravenous",
    "maul",
    3.72
-  ],
-  [
-   "skewer",
-   "trap",
-   3.713
   ],
   [
    "dogtag",
@@ -695,23 +710,8 @@
    3.713
   ],
   [
-   "shortchain",
-   "trap",
-   3.711
-  ],
-  [
-   "stake",
-   "trap",
-   3.702
-  ],
-  [
    "fire",
    "maul",
-   3.697
-  ],
-  [
-   "cage",
-   "trap",
    3.697
   ],
   [
@@ -723,6 +723,11 @@
    "shortchain",
    "maul",
    3.673
+  ],
+  [
+   "pestle",
+   "trap",
+   3.671
   ],
   [
    "rope",
@@ -738,6 +743,16 @@
    "saw",
    "claws",
    3.665
+  ],
+  [
+   "saw",
+   "trap",
+   3.663
+  ],
+  [
+   "scales",
+   "trap",
+   3.658
   ],
   [
    "skewer",
@@ -785,21 +800,6 @@
    3.619
   ],
   [
-   "pestle",
-   "trap",
-   3.614
-  ],
-  [
-   "saw",
-   "trap",
-   3.613
-  ],
-  [
-   "scales",
-   "trap",
-   3.608
-  ],
-  [
    "axe",
    "maul",
    3.608
@@ -820,6 +820,11 @@
    3.592
   ],
   [
+   "collar",
+   "trap",
+   3.59
+  ],
+  [
    "ravenous",
    "crown",
    3.583
@@ -833,6 +838,11 @@
    "forged",
    "maul",
    3.574
+  ],
+  [
+   "forged",
+   "trap",
+   3.562
   ],
   [
    "maiden",
@@ -860,14 +870,19 @@
    3.549
   ],
   [
-   "collar",
-   "trap",
-   3.526
-  ],
-  [
    "scales",
    "crown",
    3.512
+  ],
+  [
+   "ravenous",
+   "trap",
+   3.51
+  ],
+  [
+   "revenge",
+   "trap",
+   3.509
   ],
   [
    "ravenous",
@@ -880,19 +895,9 @@
    3.502
   ],
   [
-   "forged",
-   "trap",
-   3.492
-  ],
-  [
    "hook",
    "maiden",
    3.49
-  ],
-  [
-   "ravenous",
-   "trap",
-   3.477
   ],
   [
    "rope",
@@ -908,11 +913,6 @@
    "revenge",
    "maiden",
    3.457
-  ],
-  [
-   "revenge",
-   "trap",
-   3.452
   ],
   [
    "shackles",
@@ -1000,14 +1000,14 @@
    3.301
   ],
   [
+   "scapegoat",
+   "trap",
+   3.3
+  ],
+  [
    "keys",
    "blacklist",
    3.287
-  ],
-  [
-   "scapegoat",
-   "trap",
-   3.283
   ],
   [
    "dogtag",
@@ -1100,6 +1100,11 @@
    3.163
   ],
   [
+   "whip",
+   "trap",
+   3.155
+  ],
+  [
    "revenge",
    "coin",
    3.125
@@ -1108,11 +1113,6 @@
    "saw",
    "shackles",
    3.112
-  ],
-  [
-   "whip",
-   "trap",
-   3.099
   ],
   [
    "muzzle",
@@ -1405,6 +1405,11 @@
    2.762
   ],
   [
+   "ironbox",
+   "trap",
+   2.762
+  ],
+  [
    "whip",
    "coin",
    2.758
@@ -1443,11 +1448,6 @@
    "hook",
    "dogtag",
    2.731
-  ],
-  [
-   "ironbox",
-   "trap",
-   2.73
   ],
   [
    "fire",
@@ -2762,57 +2762,57 @@
   "wine": {
    "name": "Crimson Vintage",
    "text": "Every inmate below Legendary rises one tier.",
-   "value": 4.005
+   "value": 4.011
   },
   "horn": {
    "name": "Brass Horn of Strife",
    "text": "Every inmate with a target consumes one at random, in turn.",
-   "value": 3.58
+   "value": 3.579
   },
   "ring": {
    "name": "Three-Headed Thumb Ring",
    "text": "Open up to 3 random sealed cells. They trigger nothing else.",
-   "value": 3.546
+   "value": 3.55
   },
   "brand": {
    "name": "Brand of Original Sin",
    "text": "Up to 4 inmates with no meal change beast so they have a same-rarity target.",
-   "value": 3.414
+   "value": 3.416
   }
  },
  "headline": {
   "games": 2000,
-  "rainbowsPerRun": 4.0345,
-  "ci95": 0.0894,
+  "rainbowsPerRun": 4.04,
+  "ci95": 0.0895,
   "runsWithRainbow": 0.9915,
   "rainbowCounts": [
    0.0085,
-   0.06,
-   0.155,
-   0.2255,
+   0.059,
+   0.1555,
+   0.2245,
    0.215,
-   0.336
+   0.3375
   ],
-  "devoursPerRun": 5.55,
-  "bitesPerDevour": 1.449,
-  "chainStopsPerRun": 0.006,
+  "devoursPerRun": 5.56,
+  "bitesPerDevour": 1.45,
+  "chainStopsPerRun": 0.007,
   "chainLengths": [
    0.6653,
-   0.244,
+   0.2439,
    0.07,
-   0.0175,
+   0.0176,
    0.0032,
    0
   ],
   "rainbowSources": {
-   "chain": 1634,
-   "singleDevour": 1571,
-   "other": 4864
+   "chain": 1638,
+   "singleDevour": 1577,
+   "other": 4865
   },
   "firstRainbowDay": 8.69,
   "swapsPerRun": 8.74,
   "executionsPerRun": 0.063,
-  "doorsPerRun": 22.71
+  "doorsPerRun": 22.72
  },
  "habits": [
   {
@@ -2907,27 +2907,27 @@
  "stairs": [
   {
    "key": "3:1",
-   "n": 1525,
-   "rainbow": 0.4203,
+   "n": 1528,
+   "rainbow": 0.4202,
    "bites": 1.366
   },
   {
    "key": "4:",
-   "n": 1203,
+   "n": 1207,
    "rainbow": 1,
    "bites": 1
   },
   {
    "key": "3:0",
-   "n": 898,
-   "rainbow": 0.1403,
+   "n": 899,
+   "rainbow": 0.1413,
    "bites": 1.042
   },
   {
    "key": "2:11",
-   "n": 510,
-   "rainbow": 0.2373,
-   "bites": 1.533
+   "n": 512,
+   "rainbow": 0.2383,
+   "bites": 1.537
   },
   {
    "key": "1:111",
@@ -2938,7 +2938,7 @@
   {
    "key": "2:10",
    "n": 356,
-   "rainbow": 0.1713,
+   "rainbow": 0.1742,
    "bites": 1.396
   },
   {
@@ -2949,14 +2949,14 @@
   },
   {
    "key": "3:2",
-   "n": 297,
-   "rainbow": 0.6296,
-   "bites": 1.609
+   "n": 298,
+   "rainbow": 0.6309,
+   "bites": 1.611
   },
   {
    "key": "2:21",
-   "n": 275,
-   "rainbow": 0.3745,
+   "n": 276,
+   "rainbow": 0.3732,
    "bites": 1.891
   },
   {
@@ -2967,9 +2967,9 @@
   },
   {
    "key": "2:20",
-   "n": 208,
-   "rainbow": 0.1587,
-   "bites": 1.659
+   "n": 209,
+   "rainbow": 0.1579,
+   "bites": 1.656
   },
   {
    "key": "1:011",
@@ -2979,14 +2979,14 @@
   },
   {
    "key": "1:101",
-   "n": 187,
-   "rainbow": 0.0695,
-   "bites": 1.428
+   "n": 188,
+   "rainbow": 0.0691,
+   "bites": 1.426
   },
   {
    "key": "1:000",
-   "n": 160,
-   "rainbow": 0.0063,
+   "n": 161,
+   "rainbow": 0.0062,
    "bites": 1.031
   },
   {
@@ -3002,16 +3002,16 @@
    "bites": 1.059
   },
   {
+   "key": "1:121",
+   "n": 151,
+   "rainbow": 0.1523,
+   "bites": 1.722
+  },
+  {
    "key": "2:01",
    "n": 150,
    "rainbow": 0.14,
    "bites": 1.073
-  },
-  {
-   "key": "1:121",
-   "n": 150,
-   "rainbow": 0.1533,
-   "bites": 1.727
   },
   {
    "key": "1:001",
@@ -3021,15 +3021,15 @@
   },
   {
    "key": "1:210",
-   "n": 140,
-   "rainbow": 0.1071,
-   "bites": 1.936
+   "n": 141,
+   "rainbow": 0.1064,
+   "bites": 1.929
   },
   {
    "key": "1:211",
-   "n": 137,
-   "rainbow": 0.1971,
-   "bites": 2.036
+   "n": 138,
+   "rainbow": 0.1957,
+   "bites": 2.029
   },
   {
    "key": "1:120",
@@ -3226,37 +3226,37 @@
    },
    "tuned": {
     "games": 2000,
-    "rainbowsPerRun": 4.0345,
-    "ci95": 0.0894,
+    "rainbowsPerRun": 4.04,
+    "ci95": 0.0895,
     "runsWithRainbow": 0.9915,
     "rainbowCounts": [
      0.0085,
-     0.06,
-     0.155,
-     0.2255,
+     0.059,
+     0.1555,
+     0.2245,
      0.215,
-     0.336
+     0.3375
     ],
-    "devoursPerRun": 5.55,
-    "bitesPerDevour": 1.449,
-    "chainStopsPerRun": 0.006,
+    "devoursPerRun": 5.56,
+    "bitesPerDevour": 1.45,
+    "chainStopsPerRun": 0.007,
     "chainLengths": [
      0.6653,
-     0.244,
+     0.2439,
      0.07,
-     0.0175,
+     0.0176,
      0.0032,
      0
     ],
     "rainbowSources": {
-     "chain": 1634,
-     "singleDevour": 1571,
-     "other": 4864
+     "chain": 1638,
+     "singleDevour": 1577,
+     "other": 4865
     },
     "firstRainbowDay": 8.69,
     "swapsPerRun": 8.74,
     "executionsPerRun": 0.063,
-    "doorsPerRun": 22.71
+    "doorsPerRun": 22.72
    }
   }
  }

@@ -1,85 +1,89 @@
 rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 8.928,5.05,rope,Hangman's Noose,maiden,Severed Iron Maiden
-5.015,2.84,rope,Hangman's Noose,trap,Blood-Stained Trap: Berserk Lion
+5.079,2.87,rope,Hangman's Noose,trap,Blood-Stained Trap: Berserk Lion
 4.978,2.82,maiden,Severed Iron Maiden,scapegoat,Scapegoat's Guillotine
 4.976,2.82,rope,Hangman's Noose,maul,Elephant-Foot Maul: Mammoth
 4.798,2.72,maiden,Severed Iron Maiden,maul,Elephant-Foot Maul: Mammoth
 4.718,2.67,maul,Elephant-Foot Maul: Mammoth,claws,Filthy Claws: Alpha Wolf
+4.715,2.67,crown,Iron Crown of the Prison King: Berserk Lion,trap,Blood-Stained Trap: Berserk Lion
+4.7,2.66,claws,Filthy Claws: Alpha Wolf,trap,Blood-Stained Trap: Berserk Lion
 4.695,2.66,crown,Iron Crown of the Prison King: Berserk Lion,claws,Filthy Claws: Alpha Wolf
 4.667,2.64,rope,Hangman's Noose,crown,Iron Crown of the Prison King: Berserk Lion
 4.652,2.63,keys,Lost Ring of Keys,crown,Iron Crown of the Prison King: Berserk Lion
-4.637,2.62,claws,Filthy Claws: Alpha Wolf,trap,Blood-Stained Trap: Berserk Lion
 4.628,2.62,rope,Hangman's Noose,coin,Kin's Coin of Fate
-4.556,2.58,crown,Iron Crown of the Prison King: Berserk Lion,trap,Blood-Stained Trap: Berserk Lion
 4.504,2.55,ironbox,Squirming Iron Box: Colossal Rat,coin,Kin's Coin of Fate
 4.501,2.55,crown,Iron Crown of the Prison King: Berserk Lion,maul,Elephant-Foot Maul: Mammoth
 4.497,2.54,ironbox,Squirming Iron Box: Colossal Rat,skewer,Skewered Rat Heads: Colossal Rat
 4.495,2.54,rope,Hangman's Noose,shackles,Long-Chained Shackles
-4.435,2.51,maul,Elephant-Foot Maul: Mammoth,trap,Blood-Stained Trap: Berserk Lion
+4.492,2.54,keys,Lost Ring of Keys,trap,Blood-Stained Trap: Berserk Lion
+4.473,2.53,maul,Elephant-Foot Maul: Mammoth,trap,Blood-Stained Trap: Berserk Lion
 4.431,2.51,muzzle,Raging Beast's Agonizing Muzzle,maul,Elephant-Foot Maul: Mammoth
-4.42,2.5,keys,Lost Ring of Keys,trap,Blood-Stained Trap: Berserk Lion
+4.423,2.5,maiden,Severed Iron Maiden,trap,Blood-Stained Trap: Berserk Lion
 4.376,2.48,keys,Lost Ring of Keys,maul,Elephant-Foot Maul: Mammoth
 4.372,2.47,muzzle,Raging Beast's Agonizing Muzzle,crown,Iron Crown of the Prison King: Berserk Lion
 4.37,2.47,muzzle,Raging Beast's Agonizing Muzzle,claws,Filthy Claws: Alpha Wolf
-4.368,2.47,maiden,Severed Iron Maiden,trap,Blood-Stained Trap: Berserk Lion
 4.345,2.46,shackles,Long-Chained Shackles,maul,Elephant-Foot Maul: Mammoth
 4.311,2.44,maiden,Severed Iron Maiden,crown,Iron Crown of the Prison King: Berserk Lion
+4.301,2.43,shackles,Long-Chained Shackles,trap,Blood-Stained Trap: Berserk Lion
 4.28,2.42,shackles,Long-Chained Shackles,crown,Iron Crown of the Prison King: Berserk Lion
-4.247,2.4,shackles,Long-Chained Shackles,trap,Blood-Stained Trap: Berserk Lion
 4.171,2.36,maiden,Severed Iron Maiden,claws,Filthy Claws: Alpha Wolf
+4.134,2.34,coin,Kin's Coin of Fate,trap,Blood-Stained Trap: Berserk Lion
 4.128,2.34,revenge,Avenger's Casket,crown,Iron Crown of the Prison King: Berserk Lion
 4.106,2.32,coin,Kin's Coin of Fate,maul,Elephant-Foot Maul: Mammoth
-4.101,2.32,coin,Kin's Coin of Fate,trap,Blood-Stained Trap: Berserk Lion
 4.098,2.32,hook,Sorting Hook,claws,Filthy Claws: Alpha Wolf
 4.083,2.31,shackles,Long-Chained Shackles,claws,Filthy Claws: Alpha Wolf
 4.064,2.3,revenge,Avenger's Casket,maul,Elephant-Foot Maul: Mammoth
+4.061,2.3,blacklist,Executioner's Blacklist,trap,Blood-Stained Trap: Berserk Lion
 4.058,2.3,rope,Hangman's Noose,claws,Filthy Claws: Alpha Wolf
 4.057,2.3,muzzle,Raging Beast's Agonizing Muzzle,rope,Hangman's Noose
 4.047,2.29,stake,Burning Stake,maul,Elephant-Foot Maul: Mammoth
 4.043,2.29,revenge,Avenger's Casket,claws,Filthy Claws: Alpha Wolf
+4.035,2.28,hook,Sorting Hook,trap,Blood-Stained Trap: Berserk Lion
 4.033,2.28,shackles,Long-Chained Shackles,maiden,Severed Iron Maiden
-4.003,2.27,blacklist,Executioner's Blacklist,trap,Blood-Stained Trap: Berserk Lion
 4.002,2.26,coin,Kin's Coin of Fate,crown,Iron Crown of the Prison King: Berserk Lion
-3.983,2.25,hook,Sorting Hook,trap,Blood-Stained Trap: Berserk Lion
 3.954,2.24,skewer,Skewered Rat Heads: Colossal Rat,maul,Elephant-Foot Maul: Mammoth
 3.949,2.23,maiden,Severed Iron Maiden,coin,Kin's Coin of Fate
 3.937,2.23,coin,Kin's Coin of Fate,claws,Filthy Claws: Alpha Wolf
 3.929,2.22,hook,Sorting Hook,maul,Elephant-Foot Maul: Mammoth
+3.929,2.22,dogtag,Felon's Dog Tag,trap,Blood-Stained Trap: Berserk Lion
 3.906,2.21,hook,Sorting Hook,crown,Iron Crown of the Prison King: Berserk Lion
 3.897,2.21,fire,Searing Branding Iron,crown,Iron Crown of the Prison King: Berserk Lion
-3.866,2.19,dogtag,Felon's Dog Tag,trap,Blood-Stained Trap: Berserk Lion
+3.884,2.2,fire,Searing Branding Iron,trap,Blood-Stained Trap: Berserk Lion
+3.869,2.19,tongs,Iron Tongs of Lust: Mammoth,trap,Blood-Stained Trap: Berserk Lion
+3.857,2.18,axe,Gaoler's Execution Axe,trap,Blood-Stained Trap: Berserk Lion
 3.848,2.18,skewer,Skewered Rat Heads: Colossal Rat,crown,Iron Crown of the Prison King: Berserk Lion
+3.846,2.18,muzzle,Raging Beast's Agonizing Muzzle,trap,Blood-Stained Trap: Berserk Lion
 3.82,2.16,saw,Rusty Saw,maul,Elephant-Foot Maul: Mammoth
 3.816,2.16,rope,Hangman's Noose,skewer,Skewered Rat Heads: Colossal Rat
-3.813,2.16,tongs,Iron Tongs of Lust: Mammoth,trap,Blood-Stained Trap: Berserk Lion
-3.811,2.16,fire,Searing Branding Iron,trap,Blood-Stained Trap: Berserk Lion
 3.811,2.16,maiden,Severed Iron Maiden,stake,Burning Stake
-3.797,2.15,axe,Gaoler's Execution Axe,trap,Blood-Stained Trap: Berserk Lion
 3.797,2.15,cage,Crowded Beastcage,crown,Iron Crown of the Prison King: Berserk Lion
 3.795,2.15,cage,Crowded Beastcage,maul,Elephant-Foot Maul: Mammoth
 3.789,2.14,revenge,Avenger's Casket,rope,Hangman's Noose
 3.783,2.14,saw,Rusty Saw,crown,Iron Crown of the Prison King: Berserk Lion
-3.776,2.14,muzzle,Raging Beast's Agonizing Muzzle,trap,Blood-Stained Trap: Berserk Lion
+3.782,2.14,guillotine,Fanged Guillotine: Alpha Wolf,trap,Blood-Stained Trap: Berserk Lion
+3.773,2.14,shortchain,Short-Chained Shackles,trap,Blood-Stained Trap: Berserk Lion
+3.772,2.13,skewer,Skewered Rat Heads: Colossal Rat,trap,Blood-Stained Trap: Berserk Lion
+3.772,2.13,stake,Burning Stake,trap,Blood-Stained Trap: Berserk Lion
 3.758,2.13,dogtag,Felon's Dog Tag,maul,Elephant-Foot Maul: Mammoth
+3.753,2.12,cage,Crowded Beastcage,trap,Blood-Stained Trap: Berserk Lion
 3.74,2.12,axe,Gaoler's Execution Axe,crown,Iron Crown of the Prison King: Berserk Lion
 3.735,2.11,collar,Maddened Beast's Barbed Collar,crown,Iron Crown of the Prison King: Berserk Lion
 3.733,2.11,scapegoat,Scapegoat's Guillotine,claws,Filthy Claws: Alpha Wolf
 3.725,2.11,collar,Maddened Beast's Barbed Collar,maul,Elephant-Foot Maul: Mammoth
-3.722,2.11,guillotine,Fanged Guillotine: Alpha Wolf,trap,Blood-Stained Trap: Berserk Lion
 3.72,2.11,ravenous,Ferocious Beast's Ravenous Chains,maul,Elephant-Foot Maul: Mammoth
-3.713,2.1,skewer,Skewered Rat Heads: Colossal Rat,trap,Blood-Stained Trap: Berserk Lion
 3.713,2.1,dogtag,Felon's Dog Tag,crown,Iron Crown of the Prison King: Berserk Lion
-3.711,2.1,shortchain,Short-Chained Shackles,trap,Blood-Stained Trap: Berserk Lion
-3.702,2.1,stake,Burning Stake,trap,Blood-Stained Trap: Berserk Lion
 3.697,2.09,fire,Searing Branding Iron,maul,Elephant-Foot Maul: Mammoth
-3.697,2.09,cage,Crowded Beastcage,trap,Blood-Stained Trap: Berserk Lion
 3.684,2.08,scapegoat,Scapegoat's Guillotine,maul,Elephant-Foot Maul: Mammoth
 3.673,2.08,shortchain,Short-Chained Shackles,maul,Elephant-Foot Maul: Mammoth
+3.671,2.08,pestle,Iron Pestle,trap,Blood-Stained Trap: Berserk Lion
 3.67,2.08,rope,Hangman's Noose,collar,Maddened Beast's Barbed Collar
 3.666,2.07,guillotine,Fanged Guillotine: Alpha Wolf,maul,Elephant-Foot Maul: Mammoth
 3.665,2.07,saw,Rusty Saw,claws,Filthy Claws: Alpha Wolf
+3.663,2.07,saw,Rusty Saw,trap,Blood-Stained Trap: Berserk Lion
+3.658,2.07,scales,Warden's Scales,trap,Blood-Stained Trap: Berserk Lion
 3.657,2.07,skewer,Skewered Rat Heads: Colossal Rat,claws,Filthy Claws: Alpha Wolf
 3.655,2.07,guillotine,Fanged Guillotine: Alpha Wolf,crown,Iron Crown of the Prison King: Berserk Lion
+3.651,2.07,trap,Blood-Stained Trap: Berserk Lion,,
 3.649,2.07,keys,Lost Ring of Keys,coin,Kin's Coin of Fate
 3.639,2.06,muzzle,Raging Beast's Agonizing Muzzle,coin,Kin's Coin of Fate
 3.636,2.06,saw,Rusty Saw,rope,Hangman's Noose
@@ -87,34 +91,30 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 3.628,2.05,shackles,Long-Chained Shackles,coin,Kin's Coin of Fate
 3.62,2.05,shortchain,Short-Chained Shackles,crown,Iron Crown of the Prison King: Berserk Lion
 3.619,2.05,forged,Forged Key,crown,Iron Crown of the Prison King: Berserk Lion
-3.614,2.05,pestle,Iron Pestle,trap,Blood-Stained Trap: Berserk Lion
-3.613,2.04,saw,Rusty Saw,trap,Blood-Stained Trap: Berserk Lion
-3.608,2.04,scales,Warden's Scales,trap,Blood-Stained Trap: Berserk Lion
 3.608,2.04,axe,Gaoler's Execution Axe,maul,Elephant-Foot Maul: Mammoth
-3.603,2.04,trap,Blood-Stained Trap: Berserk Lion,,
 3.601,2.04,blacklist,Executioner's Blacklist,maul,Elephant-Foot Maul: Mammoth
 3.598,2.04,rope,Hangman's Noose,ravenous,Ferocious Beast's Ravenous Chains
 3.592,2.03,whip,Barbed Whip,claws,Filthy Claws: Alpha Wolf
+3.59,2.03,collar,Maddened Beast's Barbed Collar,trap,Blood-Stained Trap: Berserk Lion
 3.583,2.03,ravenous,Ferocious Beast's Ravenous Chains,crown,Iron Crown of the Prison King: Berserk Lion
 3.576,2.02,scales,Warden's Scales,maul,Elephant-Foot Maul: Mammoth
 3.574,2.02,forged,Forged Key,maul,Elephant-Foot Maul: Mammoth
 3.564,2.02,maul,Elephant-Foot Maul: Mammoth,,
+3.562,2.02,forged,Forged Key,trap,Blood-Stained Trap: Berserk Lion
 3.557,2.01,maiden,Severed Iron Maiden,ravenous,Ferocious Beast's Ravenous Chains
 3.553,2.01,stake,Burning Stake,coin,Kin's Coin of Fate
 3.55,2.01,tongs,Iron Tongs of Lust: Mammoth,maul,Elephant-Foot Maul: Mammoth
 3.55,2.01,whip,Barbed Whip,maul,Elephant-Foot Maul: Mammoth
 3.549,2.01,whip,Barbed Whip,crown,Iron Crown of the Prison King: Berserk Lion
-3.526,2.0,collar,Maddened Beast's Barbed Collar,trap,Blood-Stained Trap: Berserk Lion
 3.512,1.99,scales,Warden's Scales,crown,Iron Crown of the Prison King: Berserk Lion
+3.51,1.99,ravenous,Ferocious Beast's Ravenous Chains,trap,Blood-Stained Trap: Berserk Lion
+3.509,1.99,revenge,Avenger's Casket,trap,Blood-Stained Trap: Berserk Lion
 3.505,1.98,ravenous,Ferocious Beast's Ravenous Chains,claws,Filthy Claws: Alpha Wolf
 3.502,1.98,muzzle,Raging Beast's Agonizing Muzzle,maiden,Severed Iron Maiden
-3.492,1.98,forged,Forged Key,trap,Blood-Stained Trap: Berserk Lion
 3.49,1.98,hook,Sorting Hook,maiden,Severed Iron Maiden
-3.477,1.97,ravenous,Ferocious Beast's Ravenous Chains,trap,Blood-Stained Trap: Berserk Lion
 3.472,1.96,rope,Hangman's Noose,tongs,Iron Tongs of Lust: Mammoth
 3.468,1.96,blacklist,Executioner's Blacklist,crown,Iron Crown of the Prison King: Berserk Lion
 3.457,1.96,revenge,Avenger's Casket,maiden,Severed Iron Maiden
-3.452,1.95,revenge,Avenger's Casket,trap,Blood-Stained Trap: Berserk Lion
 3.451,1.95,shackles,Long-Chained Shackles,scapegoat,Scapegoat's Guillotine
 3.45,1.95,crown,Iron Crown of the Prison King: Berserk Lion,,
 3.439,1.95,rope,Hangman's Noose,guillotine,Fanged Guillotine: Alpha Wolf
@@ -133,8 +133,8 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 3.349,1.9,hook,Sorting Hook,shackles,Long-Chained Shackles
 3.311,1.87,blacklist,Executioner's Blacklist,claws,Filthy Claws: Alpha Wolf
 3.301,1.87,saw,Rusty Saw,maiden,Severed Iron Maiden
+3.3,1.87,scapegoat,Scapegoat's Guillotine,trap,Blood-Stained Trap: Berserk Lion
 3.287,1.86,keys,Lost Ring of Keys,blacklist,Executioner's Blacklist
-3.283,1.86,scapegoat,Scapegoat's Guillotine,trap,Blood-Stained Trap: Berserk Lion
 3.279,1.86,dogtag,Felon's Dog Tag,claws,Filthy Claws: Alpha Wolf
 3.267,1.85,rope,Hangman's Noose,,
 3.267,1.85,rope,Hangman's Noose,whip,Barbed Whip
@@ -154,9 +154,9 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 3.188,1.8,shackles,Long-Chained Shackles,ravenous,Ferocious Beast's Ravenous Chains
 3.179,1.8,guillotine,Fanged Guillotine: Alpha Wolf,maiden,Severed Iron Maiden
 3.163,1.79,skewer,Skewered Rat Heads: Colossal Rat,shackles,Long-Chained Shackles
+3.155,1.79,whip,Barbed Whip,trap,Blood-Stained Trap: Berserk Lion
 3.125,1.77,revenge,Avenger's Casket,coin,Kin's Coin of Fate
 3.112,1.76,saw,Rusty Saw,shackles,Long-Chained Shackles
-3.099,1.75,whip,Barbed Whip,trap,Blood-Stained Trap: Berserk Lion
 3.097,1.75,muzzle,Raging Beast's Agonizing Muzzle,skewer,Skewered Rat Heads: Colossal Rat
 3.083,1.74,keys,Lost Ring of Keys,scapegoat,Scapegoat's Guillotine
 3.08,1.74,shackles,Long-Chained Shackles,collar,Maddened Beast's Barbed Collar
@@ -218,6 +218,7 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.772,1.57,coin,Kin's Coin of Fate,,
 2.762,1.56,keys,Lost Ring of Keys,skewer,Skewered Rat Heads: Colossal Rat
 2.762,1.56,shackles,Long-Chained Shackles,cage,Crowded Beastcage
+2.762,1.56,ironbox,Squirming Iron Box: Colossal Rat,trap,Blood-Stained Trap: Berserk Lion
 2.758,1.56,whip,Barbed Whip,coin,Kin's Coin of Fate
 2.757,1.56,ironbox,Squirming Iron Box: Colossal Rat,ravenous,Ferocious Beast's Ravenous Chains
 2.746,1.55,shortchain,Short-Chained Shackles,maiden,Severed Iron Maiden
@@ -226,7 +227,6 @@ rainbows_per_run,x_vs_no_instrument,id1,instrument1,id2,instrument2
 2.739,1.55,hook,Sorting Hook,ravenous,Ferocious Beast's Ravenous Chains
 2.733,1.55,pestle,Iron Pestle,coin,Kin's Coin of Fate
 2.731,1.55,hook,Sorting Hook,dogtag,Felon's Dog Tag
-2.73,1.54,ironbox,Squirming Iron Box: Colossal Rat,trap,Blood-Stained Trap: Berserk Lion
 2.725,1.54,fire,Searing Branding Iron,scapegoat,Scapegoat's Guillotine
 2.722,1.54,ravenous,Ferocious Beast's Ravenous Chains,scapegoat,Scapegoat's Guillotine
 2.72,1.54,revenge,Avenger's Casket,ravenous,Ferocious Beast's Ravenous Chains
