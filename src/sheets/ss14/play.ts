@@ -432,9 +432,15 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
       td.textContent = `≤${sc.base.toFixed(2)} ${T.perRun}`;
     });
   }
-  function showPop(anchor: HTMLElement) {
+  /** Shows `anchor`'s card as the tooltip if it fits: the tooltip ignores the pointer and never scrolls, so a card
+   * taller than the screen (enlarged text, a short window) would lose its end. Says whether it showed. */
+  function showPop(anchor: HTMLElement): boolean {
     fill(pop, anchor);
     pop.hidden = false;
+    if (pop.scrollHeight > pop.clientHeight + 1) {
+      hidePop();
+      return false;
+    }
     shownFor = anchor;
     const r = anchor.getBoundingClientRect(),
       pw = pop.offsetWidth,
@@ -448,6 +454,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     }
     pop.style.left = left + 'px';
     pop.style.top = top + 'px';
+    return true;
   }
   const hidePop = () => {
     pop.hidden = true;
@@ -457,12 +464,15 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   // Touch (and pen): a tooltip that covers the screen can't be scrolled or closed, and a tap beside it lands on the
   // row underneath. There the same card opens as a modal dialog: close button, Esc, a tap outside closes it, it
   // scrolls, the page under it is inert, and focus returns to the row on close (native <dialog>).
-  // Enlarged text (A+) does the same for mouse and keyboard: the card no longer fits a tooltip — on a click or
-  // Enter, never on hover or focus.
+  // A card taller than the screen does the same for mouse and keyboard — on a click or Enter, never on hover or
+  // focus. It depends on the screen, not on the text size alone: at 125% on a desktop most cards still fit.
   const dlg = document.getElementById('popdlg') as HTMLDialogElement | null;
   const dlgBody = dlg?.querySelector<HTMLElement>('.dlg-body') ?? null;
   let touch = false;
-  const modal = () => touch || fs > 1;
+  /** A card on a click or Enter: the tooltip when it fits, else (and always on touch) the dialog. */
+  const openCard = (anchor: HTMLElement) => {
+    if (touch || !showPop(anchor)) openDialog(anchor);
+  };
   // The row that opened it: a pick re-sorts the list, and moving a node drops its focus, so the dialog can't
   // restore it by itself.
   let opener: HTMLElement | null = null;
@@ -501,7 +511,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   // Hover (mouse), focus (keyboard) and tap (touch) all open the same popover.
   document.addEventListener('pointerover', (e) => {
     const a = target(e);
-    if (a && e.pointerType === 'mouse' && fs === 1) showPop(a);
+    if (a && e.pointerType === 'mouse') showPop(a);
   });
   document.addEventListener('pointerout', (e) => {
     const a = target(e);
@@ -510,7 +520,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   document.addEventListener('focusin', (e) => {
     const a = target(e);
     // A tap focuses the button first: the dialog opens on its click instead.
-    if (a && !modal() && !dlg?.contains(a)) showPop(a);
+    if (a && !touch && !dlg?.contains(a)) showPop(a);
   });
   document.addEventListener('focusout', (e) => {
     if (target(e)) hidePop();
@@ -535,7 +545,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
   document.addEventListener('click', (e) => {
     if (dlg?.contains(e.target as Node)) return;
     const a = target(e);
-    if (a && modal() && (a.dataset.ev || a.dataset.tip)) {
+    if (a && touch && (a.dataset.ev || a.dataset.tip)) {
       openDialog(a);
       return;
     }
@@ -545,7 +555,7 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     }
     if (a.dataset.ev || a.dataset.tip) {
       if (closeOnClick) hidePop();
-      else showPop(a);
+      else openCard(a);
     }
     closeOnClick = false;
   });
@@ -576,15 +586,13 @@ function init(D: PlayData, grid: HTMLElement, out: HTMLElement, heldEl: HTMLElem
     // The first pick re-sorts the whole list; after it, the row stays under the pointer.
     if (S.held.length) keepInPlace(`#tools [data-tool="${CSS.escape(id)}"]`, take);
     else take();
-    if (modal()) openDialog(b);
-    else showPop(b);
+    openCard(b);
   });
   heldEl.addEventListener('click', (e) => {
     // The name: its card, as a dialog on touch (a mouse already has it from hover, a keyboard from focus).
     const name = (e.target as Element).closest<HTMLElement>('.chip-name');
     if (name) {
-      if (modal()) openDialog(name);
-      else showPop(name);
+      openCard(name);
       return;
     }
     const x = (e.target as Element).closest<HTMLElement>('[data-drop]');

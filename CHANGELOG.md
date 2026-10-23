@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Fixed
+
+- SS14 play sheet: with the text enlarged, a card still shows on hover whenever it fits the screen, as at 100%. Only a card too tall for the screen opens in a window, on click or Enter.
+
 ### Security
 
 - The site is now built on Node.js 24.22.1, which fixes the October 2026 Node.js security flaws, with Astro 7.4.2. Nothing changes on the pages.

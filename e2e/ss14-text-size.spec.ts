@@ -54,9 +54,28 @@ test('text size: the readout follows the page language', async ({ page }) => {
   await expect(page.locator('#textOut')).toHaveText(/^125\s%$/);
 });
 
-// Enlarged, the card no longer fits a tooltip: a click opens it as the dialog, hover opens nothing.
-test('text size: enlarged, an instrument card opens as a dialog on click', async ({ page }) => {
+// The screen decides, not the text size: a card that fits stays a tooltip on hover, even enlarged.
+test('text size: enlarged on a desktop screen, a card that fits still opens on hover', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('ss14-text-v1', '1.25'));
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(SHEET);
+  const tile = page.locator('#tools .tool[data-tool="rope"]');
+  await tile.scrollIntoViewIfNeeded();
+  await tile.hover();
+  const pop = page.locator('#pop');
+  await expect(pop).toBeVisible();
+  const { scroll, client } = await pop.evaluate((p) => ({ scroll: p.scrollHeight, client: p.clientHeight }));
+  expect(scroll).toBeLessThanOrEqual(client + 1);
+  // A click takes it as the pick: still no dialog.
+  await tile.click();
+  await expect(page.locator('#popdlg')).toBeHidden();
+});
+
+// A card taller than the screen would be cut in the tooltip (it never scrolls): hover opens nothing, a click
+// opens it as the dialog.
+test('text size: a card taller than the screen opens as a dialog on click, not on hover', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('ss14-text-v1', '2'));
+  await page.setViewportSize({ width: 1366, height: 600 });
   await page.goto(SHEET);
   const tile = page.locator('#tools .tool[data-tool="rope"]');
   await tile.scrollIntoViewIfNeeded();
