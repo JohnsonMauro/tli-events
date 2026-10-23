@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Security
+
+- The site is now built on Node.js 24.22.1, which fixes the October 2026 Node.js security flaws, with Astro 7.4.2. Nothing changes on the pages.
+
 ## [1.20.0] - 2026-10-20
 
 ### Added

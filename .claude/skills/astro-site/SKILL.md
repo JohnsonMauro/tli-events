@@ -5,7 +5,7 @@ description: Verified pitfalls of this repo's Astro 7 site (TLI Events) — whit
 
 # Astro site — pitfalls verified in this repo
 
-Dated: Astro 7.4.0, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/astro-static-site` in global-context (adapted copy).
+Dated: Astro 7.4.2, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/astro-static-site` in global-context (adapted copy).
 
 ## Markup
 
@@ -56,7 +56,7 @@ Dated: Astro 7.4.0, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/a
 
 ## Tooling
 
-- **Lint and format** (Oct 2026: ESLint 10.12, typescript-eslint 8.71, eslint-plugin-astro 3.2, @eslint/css 2.0, Prettier 3.9 + prettier-plugin-astro 1.1). Every ESLint block is scoped by `files` (a rule set without it also runs on CSS and crashes). `eslint-plugin-jsx-a11y` doesn't accept ESLint 10; the Astro plugin's `flat/jsx-a11y-recommended` works with `eslint-plugin-jsx-a11y-x`. In CSS, `allowUnknownVariables` (tokens live in `src/styles/theme.css`, fonts come from Astro's `<Font cssVariable>`) and `font-family-fallbacks` off (Astro builds the var from `fallbacks`, which ends in a generic family).
+- **Lint and format** (Oct 2026: ESLint 10.13, typescript-eslint 8.72, eslint-plugin-astro 3.2, @eslint/css 2.0, Prettier 3.9 + prettier-plugin-astro 1.1). Every ESLint block is scoped by `files` (a rule set without it also runs on CSS and crashes). `eslint-plugin-jsx-a11y` doesn't accept ESLint 10; the Astro plugin's `flat/jsx-a11y-recommended` works with `eslint-plugin-jsx-a11y-x`. In CSS, `allowUnknownVariables` (tokens live in `src/styles/theme.css`, fonts come from Astro's `<Font cssVariable>`) and `font-family-fallbacks` off (Astro builds the var from `fallbacks`, which ends in a generic family).
 - **Formatting must not change the page:** `astroCompressHTML` defaults to `'jsx'`, same as Astro 7. The first full format (2026-10-17) was checked against the previous build: identical markup on every page, `/_astro/` unchanged, only whitespace inside `<script is:inline>`/`<style>`. Repeat that comparison after changing the Prettier config.
 - **Pre-commit:** `.husky/pre-commit` runs `lint-staged --hide-all --concurrent false` (hide untracked files too, so `astro check` sees only what is committed; one glob at a time, so Prettier never rewrites a file ESLint is reading).
 
@@ -68,7 +68,7 @@ Dated: Astro 7.4.0, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/a
 - **Translation offer (`src/lib/lang-offer.ts`, 2026-10-19):** a page with translations offers the one `navigator.languages` asks for, in a fixed box worded in that language — never a redirect (the client is English; crawlers). Answered once: "Don't show again" (`localStorage` `tli-lang` = `never`), a language followed or picked in the switcher (`tli-lang` = code), × or Esc for the tab (`sessionStorage`). Traditional Chinese tags skip our Simplified page. **The tests run in en-US, so every translated page would offer English over what they click: `playwright.config.ts` starts every spec with `tli-lang=never`**; `e2e/lang-offer.spec.ts` clears it (`test.use({ storageState: { cookies: [], origins: [] } })`) and sets `locale` per case.
 - **`<details>` saves its state on `toggle`, which fires a task after the click**: a test that reloads right after `click()` sees the old state. Poll the storage first (`expect.poll`).
 - **"Last simulation" comes from git** (`src/sheets/ss14/sim-time.ts`: the commit time of `engine_results.json`). The CI build job checks out with `fetch-depth: 0`; in a shallow clone `git log -- <file>` returns the one grafted commit's time for every file, so the module falls back to the export's UTC date (also when the export is uncommitted).
-- `astro build` doesn't type-check; the gate is `pnpm check`. **`astro check` rejects TypeScript 7** ("install TypeScript 6") → `typescript@6`. An endpoint using `node:fs` needs `@types/node`.
+- `astro build` doesn't type-check; the gate is `pnpm check`. **`astro check` rejects TypeScript 7** ("install TypeScript 6") → `typescript@6`. The TS 7 + TS 6 alias (`"typescript": "npm:@typescript/typescript6@…"`) passes `astro check` (measured 2026-10-23), but `tsc` 7 skips `.astro` and no gate here runs `tsc`, so the alias would gain nothing: stay on plain TS 6. An endpoint using `node:fs` needs `@types/node`.
 - **`astro dev` and `astro preview` run in the background in Astro 7** and return the prompt; stop with `pnpm astro preview stop` / `pnpm astro dev stop` (`status`, `logs`). Before testing a port, `ss -ltn` to see who is listening.
 - Playwright (MCP) blocks `file://`: always test through `pnpm preview`.
 - `astro preview` reads `astro.config.mjs` at start: to preview the Pages build, start it with the same env (`BASE_PATH=/tli-events/ SITE=https://johnsonmauro.github.io pnpm preview`), or assets 404 under the base.
