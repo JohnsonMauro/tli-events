@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.20.1] - 2026-10-23
+
 ### Fixed
 
 - SS14 play sheet: with the text enlarged, a card still shows on hover whenever it fits the screen, as at 100%. Only a card too tall for the screen opens in a window, on click or Enter.
@@ -402,7 +404,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.0...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.1...HEAD
+[1.20.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.0...v1.20.1
 [1.20.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.19.0...v1.20.0
 [1.19.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.4...v1.19.0
 [1.18.4]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.3...v1.18.4
