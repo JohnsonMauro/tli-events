@@ -36,7 +36,7 @@ src/                          Astro 7 site — publishes the event list and each
 public/favicon.svg            the site icon, source of every raster icon (favicon.ico, apple-touch-icon, manifest PNGs): edit it, then `pnpm icons` (scripts/icons.mjs) and commit the output
 scripts/                      icons.mjs (`pnpm icons`) and readme-shots.mjs (`pnpm readme-shots`: the README's screenshots in docs/readme/, after a build)
 public/sw.js                  service worker: /_astro/* cache-first, pages network-first revalidated with `no-cache` (works around Pages' 10-min cache)
-.github/workflows/deploy.yml  push → lint (eslint, prettier, astro check) → build/deploy; every 6h → run events/*/scripts/update_data.py, commit if changed, deploy
+.github/workflows/deploy.yml  push → lint (eslint, prettier, astro check) → build/deploy; every 6h → run events/*/scripts/update_data.py, commit if changed, deploy; Mondays → `pnpm update` within the `^` ranges, gates, commit the lockfile if changed
 ```
 
 ## Repo skills
@@ -62,8 +62,8 @@ The site follows [SemVer](https://semver.org/spec/v2.0.0.html). The version live
 |---|---|
 | MAJOR | links break or content goes away: URL/route changes, a page or language removed |
 | MINOR | something new: an event page, a language, a section or tool, the site updated for a game patch (new or changed instruments, incidents, rules) |
-| PATCH | corrections: texts and numbers, art for items already listed, layout and behavior fixes, dependency updates |
-| none | the 6-hourly data refresh (`chore(data)`), docs, tooling, refactors with no visible change |
+| PATCH | corrections: texts and numbers, art for items already listed, layout and behavior fixes, dependency updates made by hand (security, pnpm, a major) |
+| none | the 6-hourly data refresh (`chore(data)`), the weekly in-range dependency update (`chore(deps)`), docs, tooling, refactors with no visible change |
 
 - **Cutting a release:** move `Unreleased` into `## [X.Y.Z] - YYYY-MM-DD`, update the compare links at the bottom, bump `package.json`, commit `chore(release): vX.Y.Z`. Creating and pushing the tag `vX.Y.Z` only when the owner says so.
 
@@ -72,6 +72,7 @@ The site follows [SemVer](https://semver.org/spec/v2.0.0.html). The version live
 - Research method and source access live in `events/README.md`; event-specific context in `events/<Dir>/CLAUDE.md`.
 - Don't invent numbers: no source → write "no data" and list it under Gaps.
 - Generated files (`data/*.json`, `*.csv`, snapshots) only via the script — never edit by hand.
+- Dependencies use `^` ranges. The Monday `update-deps` job takes minor and patch releases (pnpm skips anything under a day old) once the gates pass. A major, pnpm itself and the Node version are manual changes, made after reading the release notes.
 - Code style is enforced, not described: ESLint (`eslint.config.js`) and Prettier (`prettier.config.js`) run on staged files in the pre-commit hook (husky + lint-staged, plus `astro check`, plus `pnpm test:e2e` when the commit touches the site); `pnpm install` activates the hook. Never skip it with `--no-verify`.
 - Before calling something done: `pnpm check`, `pnpm lint`, `pnpm format:check` and `pnpm test:e2e` (builds, then Playwright on every page at 390 and 1440 px: no sideways scroll, no console errors, no glued words, axe (WCAG 2.x A/AA) in light and dark — the SS14 sheet also with its folds and cards open —, the SS14 sheet's interactive parts — `e2e/`). A new interactive behavior gets its test in `e2e/` in the same change. Don't open a browser to re-check what the tests cover; the owner judges the look. Open one only to debug a failing test or when asked.
 - CHANGELOG is append-only with absolute dates; automatic and manual entries coexist.

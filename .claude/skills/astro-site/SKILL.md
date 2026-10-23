@@ -30,7 +30,8 @@ Dated: Astro 7.4.2, pnpm 12, Oct 2026. Original template: `stacks/astro/skills/a
 
 - Internal links always go through `url()` from `src/lib/events.ts` (uses `import.meta.env.BASE_URL`). Check: `BASE_PATH=/repo/ SITE=https://x.github.io pnpm build`, then grep for `href="/` without the prefix.
 - In the workflow, `github.event.repository` **does not exist on `schedule` events**: `BASE_PATH` comes from `${GITHUB_REPOSITORY#*/}`.
-- A push made with `GITHUB_TOKEN` doesn't trigger another workflow: data refresh and deploy live in the same file (`.github/workflows/deploy.yml`, jobs `update-data` + `lint` → `build` → `deploy`).
+- A push made with `GITHUB_TOKEN` doesn't trigger another workflow: data refresh, dependency update and deploy live in the same file (`.github/workflows/deploy.yml`, jobs `update-data` → `update-deps` (Mondays) + `lint` → `build` → `deploy`). `update-deps` commits only `pnpm-lock.yaml` and fails on any other change (e.g. pnpm writing a release-age exclusion).
+- **Node in CI is an exact version, in both jobs** (`setup-node` in `lint`, `withastro/action`'s `node-version` in `build`). A bare `24` takes the runner's cached 24.x: on 2026-10-23 the jobs ran 24.21.0, three days after the 24.22.1 security release (log line `Found in cache @ /opt/hostedtoolcache/node/<version>`). `withastro/action` has no `check-latest`, so the exact version is the only fix. Bump both on a Node security release, with `engines.node`.
 - Pushing files under `.github/workflows/` over **HTTPS with the gh OAuth token** needs the `workflow` scope (`gh auth refresh -s workflow`). This repo's remote is **SSH**, which isn't restricted.
 
 ## Delivery on GitHub Pages (measured 2026-10-17)

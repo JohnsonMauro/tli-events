@@ -6,6 +6,8 @@ on:
   schedule:
     # Every 6 hours: pull fresh simulator data + live telemetry during the season.
     - cron: '17 */6 * * *'
+    # Mondays: update dependencies within their package.json ranges (update-deps).
+    - cron: '43 6 * * 1'
   workflow_dispatch:
 
 concurrency:
@@ -38,6 +40,52 @@ jobs:
           git commit -m "chore(data): update season data"
           git push
 
+  update-deps:
+    # Minor and patch updates inside the "^" ranges, gated like a commit. Majors stay a manual call.
+    # pnpm's minimumReleaseAge (1 day by default) skips releases too new to trust.
+    needs: update-data
+    if: ${{ !failure() && !cancelled() && (github.event.schedule == '43 6 * * 1' || github.event_name == 'workflow_dispatch') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Latest commit, including one just pushed by update-data; full history for the e2e tests.
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.22.1 # exact, as in the lint job
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Update within ranges
+        id: update
+        run: |
+          pnpm update
+          changed="$(git status --porcelain)"
+          if [ -z "$changed" ]; then
+            echo "Nothing to update."
+            exit 0
+          fi
+          # Only the lockfile may change; anything else (a release-age exclusion, a manifest edit) needs a person.
+          if [ "$changed" != " M pnpm-lock.yaml" ]; then
+            echo "Unexpected changes:"
+            echo "$changed"
+            exit 1
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - if: steps.update.outputs.changed == 'true'
+        run: pnpm lint && pnpm format:check && pnpm check && pnpm test:e2e
+      - name: Commit
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(deps): update dependencies within their ranges" pnpm-lock.yaml
+          git push
+
   lint:
     # Same gate as the pre-commit hook (lint, format, types), for commits that never ran it.
     runs-on: ubuntu-latest
@@ -52,7 +100,7 @@ jobs:
       - uses: pnpm/action-setup@v6 # version from package.json "packageManager"
       - uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 24.22.1 # exact: a bare "24" takes the runner's cached 24.x, days behind security releases
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
@@ -62,8 +110,8 @@ jobs:
       - run: pnpm test:e2e
 
   build:
-    needs: [update-data, lint]
-    # Run after update-data, or on its own when that job was skipped (push).
+    needs: [update-data, update-deps, lint]
+    # Run after update-data and update-deps, or on its own when they were skipped (push).
     if: ${{ !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     permissions:
@@ -71,7 +119,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # Latest commit on the branch, including one just pushed by update-data.
+          # Latest commit on the branch, including one just pushed by update-data or update-deps.
           ref: ${{ github.ref }}
           # Full history: the SS14 play sheet dates "Last simulation" by the commit of engine_results.json.
           fetch-depth: 0
@@ -82,7 +130,8 @@ jobs:
           echo "BASE_PATH=/${GITHUB_REPOSITORY#*/}/" >> "$GITHUB_ENV"
       - uses: withastro/action@v6
         with:
-          package-manager: pnpm@12.11.2
+          package-manager: pnpm@12.15.0
+          node-version: 24.22.1 # exact, as in the lint job
 
   deploy:
     needs: build
