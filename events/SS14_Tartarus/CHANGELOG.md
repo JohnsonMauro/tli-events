@@ -361,3 +361,47 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 ## 2026-10-20 — Iron Tongs: a repeat Tusk is wasted (LIVE)
 
 - **Iron Tongs**: the card (`images/134`) doesn't say whether the morning's Tusk can land on a Mammoth that already has one. Confirmed by the owner in game: **as the engine** — the draw takes any Mammoth on the block, marked or not, a repeat adds nothing (Tusks don't stack: a Replace on it still raises 4 inmates), and with 2+ Mammoths a morning can mark nothing new while one is unmarked. No change to the engine, the export or the sheet.
+
+## 2026-10-23 — simulator 20261019b → 20261022c (automatic)
+
+- Odds `replace`: [52, 32, 9, 6, 1.5] → [42, 34, 11.5, 9.5, 2.5]
+- Value Gaoler's Execution Axe: 1.622 → 1.453 Rainbows/run
+- Value Executioner's Blacklist: 2.251 → 2.518 Rainbows/run
+- Value Crowded Beastcage: 1.998 → 1.835 Rainbows/run
+- Value Filthy Claws: Alpha Wolf: 3.05 → 2.781 Rainbows/run
+- Value Kin's Coin of Fate: 2.772 → 2.939 Rainbows/run
+- Value Maddened Beast's Barbed Collar: 2.325 → 2.251 Rainbows/run
+- Value Iron Crown of the Prison King: Berserk Lion: 3.45 → 3.655 Rainbows/run
+- Value Felon's Dog Tag: 2.089 → 1.801 Rainbows/run
+- Value Searing Branding Iron: 1.782 → 1.509 Rainbows/run
+- Value Forged Key: 1.347 → 1.169 Rainbows/run
+- Value Fanged Guillotine: Alpha Wolf: 2.126 → 1.998 Rainbows/run
+- Value Sorting Hook: 2.307 → 1.935 Rainbows/run
+- Value Squirming Iron Box: Colossal Rat: 1.111 → 1.228 Rainbows/run
+- Value Lost Ring of Keys: 1.866 → 1.629 Rainbows/run
+- Value Severed Iron Maiden: 2.964 → 2.314 Rainbows/run
+- Value Elephant-Foot Maul: Mammoth: 3.564 → 3.679 Rainbows/run
+- Value Raging Beast's Agonizing Muzzle: 2.404 → 2.126 Rainbows/run
+- Value Iron Pestle: 1.804 → 1.617 Rainbows/run
+- Value Ferocious Beast's Ravenous Chains: 2.316 → 2.232 Rainbows/run
+- Value Avenger's Casket: 2.433 → 2.36 Rainbows/run
+- Value Hangman's Noose: 3.267 → 2.775 Rainbows/run
+- Value Rusty Saw: 2.291 → 2.111 Rainbows/run
+- Value Warden's Scales: 1.873 → 1.585 Rainbows/run
+- Value Scapegoat's Guillotine: 2.615 → 2.537 Rainbows/run
+- Value Long-Chained Shackles: 2.7 → 2.371 Rainbows/run
+- Value Short-Chained Shackles: 1.752 → 1.608 Rainbows/run
+- Value Skewered Rat Heads: Colossal Rat: 2.361 → 2.269 Rainbows/run
+- Value Burning Stake: 2.035 → 1.728 Rainbows/run
+- Value Iron Tongs of Lust: Mammoth: 2.079 → 2.026 Rainbows/run
+- Value Blood-Stained Trap: Berserk Lion: 3.603 → 4.303 Rainbows/run
+- Best pair changed: ['rope', 'maiden', 8.928] → ['crown', 'trap', 5.391]
+- New engine parameter: `eventFollowChance` = 88
+- New engine parameter: `officeDoorOdds` = 37
+- New engine parameter: `startInmates` = 4
+- New engine parameter: `startInmatesFewer` = 5
+- New engine parameter: `startWeights` = [44.5, 35, 10.5, 8, 2]
+- New engine parameter: `swapNewBeast` = True
+- Parameter `eventActionChance`: 4 → 0
+- Parameter `eventMorningChance`: 5 → 0
+- Parameter `eventWalkChance`: 9 → 0
