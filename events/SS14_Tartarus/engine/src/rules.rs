@@ -206,6 +206,22 @@ pub fn new_run(p: &Params, seed: u64, tools: u64, start_card: StartCard) -> Stat
         add_incident(&mut st, None);
     }
     st.objective = st.rng.pick(&Objective::ALL);
+    // Inmates already out, after the objective: they count for "Open 10 cells" (print 45).
+    if p.start_inmates > 0 {
+        let fewer = st.rng.chance(p.start_fewer) as u8;
+        for _ in 0..p.start_inmates.saturating_sub(fewer) {
+            let mut free =
+                Cells::collect(st.sealed_cells().filter(|&c| st.cells[c].event.is_none()));
+            let Some(c) = free.take(&mut st.rng) else {
+                break;
+            };
+            let inmate = Inmate {
+                beast: roll_beast(&mut st.rng, p),
+                tier: roll_tier(&mut st.rng, &p.start_tiers),
+            };
+            open_with(&mut st, p, c, inmate);
+        }
+    }
     if p.rewards {
         st.pending_tools = p.start_picks;
     }
@@ -1091,6 +1107,7 @@ mod tests {
         let p = Params {
             rewards: false,
             event_chance: 0.0,
+            start_inmates: 0,
             ..Params::default()
         };
         let bits = tools.iter().fold(0, |b, t| b | t.bit());
@@ -1163,6 +1180,35 @@ mod tests {
             .collect();
         assert_eq!(after.len(), before + 1);
         assert!(!after.contains(&2));
+    }
+
+    #[test]
+    fn a_run_starts_with_inmates_out_that_count_as_opened() {
+        let p = Params {
+            rewards: false,
+            ..Params::default()
+        };
+        let (mut fours, mut threes) = (0, 0);
+        for seed in 0..400 {
+            let st = new_run(&p, seed, 0, StartCard::None);
+            let out: Vec<usize> = st.open_cells().collect();
+            match out.len() {
+                4 => fours += 1,
+                3 => threes += 1,
+                n => panic!("seed {seed}: {n} inmates out"),
+            }
+            assert!(
+                out.iter().all(|&c| st.cells[c].event.is_none()),
+                "seed {seed}"
+            );
+            if st.objective == Objective::Doors {
+                assert_eq!(st.objective_progress, out.len() as u16, "seed {seed}");
+            }
+        }
+        assert!(
+            threes > 0 && fours > threes * 10,
+            "{fours} with 4, {threes} with 3"
+        );
     }
 
     #[test]

@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Fixed
+
+- SS14 play sheet: the numbers now count the 4 inmates already out when a run starts, as in the game. Iron Tongs of Lust is now the best instrument and the Executioner's Blacklist moves up to 5th. Severed Iron Maiden drops from 5th to 15th: it used to get an easy +3 on the empty board the old simulation started with.
+
 ## [1.20.1] - 2026-10-23
 
 ### Fixed

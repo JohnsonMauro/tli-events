@@ -527,6 +527,7 @@ mod tests {
             rewards: false,
             event_chance: 0.0,
             incident_respawn: false,
+            start_inmates: 0,
             ..Params::default()
         };
         let mut st = rules::new_run(&p, 1, Tool::Tongs.bit(), StartCard::None);

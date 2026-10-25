@@ -405,3 +405,18 @@ Source: screenshots of a run played by the team on the live EN client (`images/4
 - Parameter `eventActionChance`: 4 → 0
 - Parameter `eventMorningChance`: 5 → 0
 - Parameter `eventWalkChance`: 9 → 0
+
+## 2026-10-25 — A run starts with 4 inmates out; community updates since 10-17 reviewed
+
+- **Start of a run**: 4 inmates are already out before the first move, not a sealed board. Our own print 45 (day 1 of an Iron Law run, the warden still in the office) shows 4 inmates out and *Open 10 cells* at 4/10, so they count as opened. The community simulator measured it on 10,950 first boards (upstream `tools/README.md`, 2026-10-22): 4 in 95% of runs, 3 in ~5%, on cells without an incident, any beast, rarities 44.5/35/10.5/8/2 (Normal → Supreme). The engine now does that (`start_inmates` 4, `start_fewer` 0.05, `start_tiers`); upstream says they don't count for the objective, print 45 says they do (the engine follows the print).
+- **Re-export** (2,660 tests × 100,000 runs): no instrument 1.133 → 1.216, full run 2.99 → 3.46. Iron Tongs 2.82 → 3.65 (#4 → #1), Executioner's Blacklist 2.13 → 2.83 (#10 → #5), Maul 2.97 → 3.33, Crown 2.87 → 3.31. **Severed Iron Maiden 2.55 → 1.78 (#5 → #15)**: on an empty block every early Replace met its balance (0 above = 0 below) for a free +3; Noose + Maiden 9.53 → 5.24. Best pair now Iron Box + Skewered Rat Heads 8.23. Start cards: Cage Fight 4.56 → 5.48, Tyranny 4.58 → 4.85, Opulence 2.52 → 3.13, Iron Law 2.80 → 3.08.
+- **The community data**: the public telemetry (`beta/data` in `blahdot3h/tartarus-simulator`) hasn't grown since 2026-10-16: its scheduled pull failed (HTTP 503) until 2026-10-20 and nothing was committed after. The rates of 2026-10-22 come from ~30,000 runs in its collector, behind a token; only the resulting numbers are public. Our `live` block stays the 10-16 sample.
+- **Gaps — the community sim differs, our engine unchanged** (sensitivity on our engine, 100,000 runs, full run, measured before the start rule):
+  - Replace odds 42/34/11.5/9.5/2.5 (30k runs; ours 42.2/33.3/14.5/7.3/2.3/0.3, n=696): +0.02.
+  - A Replace never brings the beast it replaced (30k runs: 0.3%; ours 25%): +0.01.
+  - Mornings with 2 doors: ours 16.9% (`fewer_doors`) **and** the office at a cell's odds; upstream reads the 2-door mornings as the office being the third option (office at 37% of a cell's odds, no fewer-door roll). `fewer_doors=0`: +0.06. Possibly counted twice in ours; not settled.
+  - Instrument offers: upstream 8,891 offers give the 8 beast instruments 0.12× the odds of any other, the rest even; ours are the 110-offer counts + 1. +0.11.
+  - Incidents: upstream 72% of runs start with one and 88% of triggered ones are followed by a new one; ours always ≥ 1 and always refilled (owner's call, 2026-10-18). −0.20.
+  - **Prey marks**: our engine holds one on the board at a time (a new Hunt replaces it); upstream lets several coexist (its reader sees inmates already wearing one). No print of two at once: no data. Could explain our low Blood-Stained Trap (#9).
+  - **Severed Iron Maiden**: upstream (2026-10-19) checks the balance of the inmate **replaced**, before the Replace, on one player's 20 recorded Replaces; ours checks the new inmate after it (print 88: "+3 … to the Inmate after this Replacement"). The card doesn't settle which inmate the condition reads.
+  - Agonizing Muzzle: upstream counts the block before the consume, its meal included (a player's word, no print) = our `muzzle_max=3`; ours keeps 4 after the consume (live card).

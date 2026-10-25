@@ -87,7 +87,7 @@ Practical tool: the simulator's **Board Analyzer** takes your real board (with i
                                                     ▼
                     ┌────────── WARDEN'S DUTY: 20 "days" (turns) ──────────┐
                     │  ring of 16 cells; 01 = office/Interrogation Room    │
-                    │  02–16 = prisoner cells (sealed at the start)        │
+                    │  02–16 = prisoner cells (4 open at the start)        │
                     │  Goal: raise prisoners to RAINBOW (Chromatic/绮彩)   │
                     └──────────────────────────────────────────────────────┘
                                                     │ end of day 20
@@ -112,6 +112,8 @@ Practical tool: the simulator's **Board Analyzer** takes your real board (with i
             11  10  09 (07,08)       next 6 cells ahead of the warden
 ```
 [SIM, rules confirmed by players on live]
+
+**The start:** a run opens with **4 prisoners already out** (3 in ~5% of runs) on random cells without an incident, any beast, rarities ~44.5/35/10.5/8/2% Normal→Supreme; the other 11 cells are sealed. They count for *Behind Cell Doors* ("Open 10 cells" reads 4/10 before the first move). [LIVE: print 45; rates from the community telemetry, 10,950 first boards, 2026-10-22]
 
 **Key point:** the spatial dimension matters little. There is no adjacency rule for consuming — any prisoner on the board can be a meal. Position matters for: (a) which cells you can reach (6 ahead), (b) Ravenous Chains (removes neighbors), (c) walking ≥4 cells (Long-Chained Shackles / Prison Walk).
 

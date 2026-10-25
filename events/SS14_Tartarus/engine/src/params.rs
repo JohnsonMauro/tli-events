@@ -22,6 +22,15 @@ pub struct Params {
     pub replace_tiers: [f64; 6],
     /// Beast odds for any new inmate (live doors).
     pub beasts: [f64; 4],
+    /// Inmates already out when a run starts, on random locked cells without an
+    /// incident. Print 45 (day 1, the warden still in the office): 4 out, and
+    /// "Open 10 cells" already at 4/10, so they count as opened. Community
+    /// telemetry, 10,950 first boards (2026-10-22): 4 in 95% of runs.
+    pub start_inmates: u8,
+    /// Chance a run starts with one of them fewer (same telemetry: 3 in ~5%).
+    pub start_fewer: f64,
+    /// Rarity odds for those inmates, Normal..Supreme (same telemetry).
+    pub start_tiers: [f64; 5],
     /// Chance a sealed cell hides an incident (live: 6.4% of day-1 doors).
     pub event_chance: f64,
     /// Incidents added by Instigate (in-game rules: 1).
@@ -95,6 +104,9 @@ impl Default for Params {
             door_tiers: [41.76, 35.91, 11.39, 9.15, 1.79],
             replace_tiers: [42.24, 33.33, 14.51, 7.33, 2.30, 0.29],
             beasts: [24.11, 23.21, 26.30, 26.38],
+            start_inmates: 4,
+            start_fewer: 0.05,
+            start_tiers: [44.5, 35.0, 10.5, 8.0, 2.0],
             event_chance: 0.064,
             instigate_count: 1,
             incident_respawn: true,
@@ -217,6 +229,9 @@ impl Params {
             "door_tiers" => self.door_tiers.copy_from_slice(&list(5)?),
             "replace_tiers" => self.replace_tiers.copy_from_slice(&list(6)?),
             "beasts" => self.beasts.copy_from_slice(&list(4)?),
+            "start_inmates" => self.start_inmates = f()? as u8,
+            "start_fewer" => self.start_fewer = f()?,
+            "start_tiers" => self.start_tiers.copy_from_slice(&list(5)?),
             "event_chance" => self.event_chance = f()?,
             "instigate_count" => self.instigate_count = f()? as u8,
             "incident_respawn" => self.incident_respawn = b()?,
