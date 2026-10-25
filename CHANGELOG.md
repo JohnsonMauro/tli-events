@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.20.2] - 2026-10-25
+
 ### Fixed
 
 - SS14 play sheet: the numbers now count the 4 inmates already out when a run starts, as in the game. Iron Tongs of Lust is now the best instrument and the Executioner's Blacklist moves up to 5th. Severed Iron Maiden drops from 5th to 15th: it used to get an easy +3 on the empty board the old simulation started with.
@@ -408,7 +410,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.1...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.2...HEAD
+[1.20.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.1...v1.20.2
 [1.20.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.0...v1.20.1
 [1.20.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.19.0...v1.20.0
 [1.19.0]: https://github.com/JohnsonMauro/tli-events/compare/v1.18.4...v1.19.0
