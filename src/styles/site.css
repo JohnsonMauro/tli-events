@@ -604,6 +604,8 @@ header.brand-hero {
 /* ---- event cards: official key art in the background ---- */
 .event-list {
   display: grid;
+  /* every card as tall as the tallest, whatever its summary's length */
+  grid-auto-rows: 1fr;
   gap: 16px;
   margin: 8px 0 40px;
 }

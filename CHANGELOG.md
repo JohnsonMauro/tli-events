@@ -10,6 +10,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 - Vorax play sheet (`/ss11/`, in all 12 languages): the SS11 mechanic as it runs in SS14 — how Surgical Preparation scores, every instrument ranked by our own Vorax simulator (first pick, second pick and the best pairs), every potion card with how often it is worth playing, the vial thresholds confirmed in-game, which Vorax Compass to run at each difficulty and what it pays now, Intern Shelley and Grafting in one look. Every line says where it comes from. The Vorax card on the event list now opens it.
 
+### Changed
+
+- Event list: every event card is the same height, whatever the length of its summary.
+
 ## [1.20.2] - 2026-10-25
 
 ### Fixed

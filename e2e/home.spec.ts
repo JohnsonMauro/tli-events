@@ -86,3 +86,16 @@ test('the sitemap lists the home page in every language, with alternates', async
     /<loc>[^<]*\/pt-br\/<\/loc>\n(\s*<xhtml:link[^>]*\/>\n)*\s*<xhtml:link rel="alternate" hreflang="vi"/,
   );
 });
+
+// Event cards line up: each one as tall as the tallest, whatever its summary's length (owner, 2026-10-28).
+for (const width of [390, 1440]) {
+  test(`every event card has the same height (${width}px, Russian: the longest summaries)`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/ru/');
+    const heights = await page
+      .locator('.season-card')
+      .evaluateAll((cards) => cards.map((c) => Math.round(c.getBoundingClientRect().height)));
+    expect(heights.length).toBeGreaterThan(1);
+    expect(new Set(heights).size, `heights ${heights.join(', ')}`).toBe(1);
+  });
+}
