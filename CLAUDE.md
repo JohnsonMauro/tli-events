@@ -14,6 +14,7 @@ events/                       one self-contained folder per event — the worksp
   README.md                   method, sources, how to add an event  ← read before researching
   _template/                  skeleton to copy for a new event (skipped by the site)
   SS14_Tartarus/              SS14 event (guide, changelog, data, images, scripts)
+  SS11_Vorax/                 SS11 mechanic, still in the game: rules from SS11, farm advice for the current season
 e2e/                          Playwright checks on the built site (playwright.config.ts; `pnpm test:e2e`)
 src/                          Astro 7 site — publishes the event list and each event's play sheet
   content.config.ts           `guides` (events/*/*_GUIDE.md, frontmatter = event card)

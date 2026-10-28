@@ -1,0 +1,1407 @@
+{
+  "base": {
+    "mean": 583299.0,
+    "rainbow": 0.2,
+    "se": 2948.0
+  },
+  "first": {
+    "chrysalis": {
+      "cn": "人蛹标本",
+      "name": "Chrysalis Specimen",
+      "stat": {
+        "mean": 565164.0,
+        "rainbow": 0.203,
+        "se": 2830.0
+      }
+    },
+    "claws": {
+      "cn": "挛缩指爪",
+      "name": "Contracted Claws",
+      "stat": {
+        "mean": 611063.0,
+        "rainbow": 0.207,
+        "se": 2796.0
+      }
+    },
+    "frontal": {
+      "cn": "增生前额叶",
+      "name": "Hyperplastic Frontal Lobe",
+      "stat": {
+        "mean": 513654.0,
+        "rainbow": 0.156,
+        "se": 2589.0
+      }
+    },
+    "liver": {
+      "cn": "斑斓肝脏",
+      "name": "Prismatic Liver",
+      "stat": {
+        "mean": 428062.0,
+        "rainbow": 0.07,
+        "se": 1772.0
+      }
+    },
+    "metatarsals": {
+      "cn": "粘连跖骨",
+      "name": "Adherent Metatarsals",
+      "stat": {
+        "mean": 402020.0,
+        "rainbow": 0.07,
+        "se": 2161.0
+      }
+    },
+    "pituitary": {
+      "cn": "肿大脑垂体",
+      "name": "Hypertrophic Pituitary",
+      "stat": {
+        "mean": 458906.0,
+        "rainbow": 0.099,
+        "se": 1928.0
+      }
+    },
+    "sac": {
+      "cn": "孵化囊",
+      "name": "Incubation Sac",
+      "stat": {
+        "mean": 662946.0,
+        "rainbow": 0.269,
+        "se": 3510.0
+      }
+    },
+    "sprout": {
+      "cn": "孽生肉芽",
+      "name": "Aberrant Sprout",
+      "stat": {
+        "mean": 509575.0,
+        "rainbow": 0.131,
+        "se": 2128.0
+      }
+    }
+  },
+  "games": 20000,
+  "generated": "2026-10-28",
+  "odds": {
+    "added": [
+      30.0,
+      40.0,
+      20.0,
+      10.0
+    ],
+    "start": [
+      26.0,
+      12.0,
+      6.0,
+      0.0
+    ],
+    "supreme": 0.01,
+    "tier": [
+      3.0,
+      2.0,
+      1.0
+    ]
+  },
+  "pairs": [
+    [
+      "chrysalis",
+      "eggs",
+      446675.0,
+      0.12
+    ],
+    [
+      "chrysalis",
+      "cortex",
+      364588.0,
+      0.053
+    ],
+    [
+      "chrysalis",
+      "garrote",
+      366911.0,
+      0.063
+    ],
+    [
+      "chrysalis",
+      "cord",
+      351891.0,
+      0.041
+    ],
+    [
+      "chrysalis",
+      "rawhide",
+      527254.0,
+      0.156
+    ],
+    [
+      "chrysalis",
+      "suture",
+      494829.0,
+      0.125
+    ],
+    [
+      "chrysalis",
+      "saw",
+      504822.0,
+      0.147
+    ],
+    [
+      "chrysalis",
+      "nail",
+      381468.0,
+      0.069
+    ],
+    [
+      "chrysalis",
+      "scraper",
+      529446.0,
+      0.174
+    ],
+    [
+      "chrysalis",
+      "file",
+      452934.0,
+      0.13
+    ],
+    [
+      "chrysalis",
+      "lady",
+      846921.0,
+      0.438
+    ],
+    [
+      "chrysalis",
+      "stinger",
+      221602.0,
+      0.006
+    ],
+    [
+      "chrysalis",
+      "tanned",
+      600008.0,
+      0.231
+    ],
+    [
+      "chrysalis",
+      "speculum",
+      437161.0,
+      0.089
+    ],
+    [
+      "chrysalis",
+      "beak",
+      402384.0,
+      0.088
+    ],
+    [
+      "chrysalis",
+      "nettle",
+      427615.0,
+      0.107
+    ],
+    [
+      "chrysalis",
+      "moth",
+      468306.0,
+      0.142
+    ],
+    [
+      "sac",
+      "eggs",
+      482039.0,
+      0.133
+    ],
+    [
+      "sac",
+      "cortex",
+      490820.0,
+      0.138
+    ],
+    [
+      "sac",
+      "garrote",
+      510496.0,
+      0.163
+    ],
+    [
+      "sac",
+      "cord",
+      461001.0,
+      0.111
+    ],
+    [
+      "sac",
+      "rawhide",
+      554253.0,
+      0.177
+    ],
+    [
+      "sac",
+      "suture",
+      720893.0,
+      0.305
+    ],
+    [
+      "sac",
+      "saw",
+      548273.0,
+      0.17
+    ],
+    [
+      "sac",
+      "nail",
+      391616.0,
+      0.065
+    ],
+    [
+      "sac",
+      "scraper",
+      580142.0,
+      0.195
+    ],
+    [
+      "sac",
+      "file",
+      487795.0,
+      0.146
+    ],
+    [
+      "sac",
+      "lady",
+      894503.0,
+      0.439
+    ],
+    [
+      "sac",
+      "stinger",
+      325223.0,
+      0.037
+    ],
+    [
+      "sac",
+      "tanned",
+      657701.0,
+      0.269
+    ],
+    [
+      "sac",
+      "speculum",
+      526866.0,
+      0.156
+    ],
+    [
+      "sac",
+      "beak",
+      713956.0,
+      0.321
+    ],
+    [
+      "sac",
+      "nettle",
+      437451.0,
+      0.1
+    ],
+    [
+      "sac",
+      "moth",
+      651557.0,
+      0.276
+    ],
+    [
+      "frontal",
+      "eggs",
+      367906.0,
+      0.064
+    ],
+    [
+      "frontal",
+      "cortex",
+      362437.0,
+      0.034
+    ],
+    [
+      "frontal",
+      "garrote",
+      360023.0,
+      0.054
+    ],
+    [
+      "frontal",
+      "cord",
+      373985.0,
+      0.058
+    ],
+    [
+      "frontal",
+      "rawhide",
+      703431.0,
+      0.336
+    ],
+    [
+      "frontal",
+      "suture",
+      406185.0,
+      0.054
+    ],
+    [
+      "frontal",
+      "saw",
+      500395.0,
+      0.135
+    ],
+    [
+      "frontal",
+      "nail",
+      357474.0,
+      0.055
+    ],
+    [
+      "frontal",
+      "scraper",
+      423282.0,
+      0.085
+    ],
+    [
+      "frontal",
+      "file",
+      564165.0,
+      0.201
+    ],
+    [
+      "frontal",
+      "lady",
+      534479.0,
+      0.128
+    ],
+    [
+      "frontal",
+      "stinger",
+      228439.0,
+      0.003
+    ],
+    [
+      "frontal",
+      "tanned",
+      452612.0,
+      0.109
+    ],
+    [
+      "frontal",
+      "speculum",
+      427906.0,
+      0.081
+    ],
+    [
+      "frontal",
+      "beak",
+      430508.0,
+      0.083
+    ],
+    [
+      "frontal",
+      "nettle",
+      409325.0,
+      0.101
+    ],
+    [
+      "frontal",
+      "moth",
+      372308.0,
+      0.062
+    ],
+    [
+      "pituitary",
+      "eggs",
+      327856.0,
+      0.029
+    ],
+    [
+      "pituitary",
+      "cortex",
+      412265.0,
+      0.057
+    ],
+    [
+      "pituitary",
+      "garrote",
+      353292.0,
+      0.031
+    ],
+    [
+      "pituitary",
+      "cord",
+      341566.0,
+      0.027
+    ],
+    [
+      "pituitary",
+      "rawhide",
+      441747.0,
+      0.078
+    ],
+    [
+      "pituitary",
+      "suture",
+      457006.0,
+      0.078
+    ],
+    [
+      "pituitary",
+      "saw",
+      465129.0,
+      0.101
+    ],
+    [
+      "pituitary",
+      "nail",
+      323142.0,
+      0.024
+    ],
+    [
+      "pituitary",
+      "scraper",
+      384637.0,
+      0.053
+    ],
+    [
+      "pituitary",
+      "file",
+      497930.0,
+      0.132
+    ],
+    [
+      "pituitary",
+      "lady",
+      565674.0,
+      0.164
+    ],
+    [
+      "pituitary",
+      "stinger",
+      232224.0,
+      0.004
+    ],
+    [
+      "pituitary",
+      "tanned",
+      397984.0,
+      0.046
+    ],
+    [
+      "pituitary",
+      "speculum",
+      388235.0,
+      0.044
+    ],
+    [
+      "pituitary",
+      "beak",
+      352998.0,
+      0.034
+    ],
+    [
+      "pituitary",
+      "nettle",
+      381306.0,
+      0.056
+    ],
+    [
+      "pituitary",
+      "moth",
+      356717.0,
+      0.04
+    ],
+    [
+      "metatarsals",
+      "eggs",
+      252034.0,
+      0.013
+    ],
+    [
+      "metatarsals",
+      "cortex",
+      286344.0,
+      0.021
+    ],
+    [
+      "metatarsals",
+      "garrote",
+      441882.0,
+      0.132
+    ],
+    [
+      "metatarsals",
+      "cord",
+      293860.0,
+      0.024
+    ],
+    [
+      "metatarsals",
+      "rawhide",
+      361722.0,
+      0.039
+    ],
+    [
+      "metatarsals",
+      "suture",
+      341724.0,
+      0.045
+    ],
+    [
+      "metatarsals",
+      "saw",
+      364038.0,
+      0.034
+    ],
+    [
+      "metatarsals",
+      "nail",
+      244303.0,
+      0.01
+    ],
+    [
+      "metatarsals",
+      "scraper",
+      355127.0,
+      0.037
+    ],
+    [
+      "metatarsals",
+      "file",
+      324257.0,
+      0.036
+    ],
+    [
+      "metatarsals",
+      "lady",
+      580018.0,
+      0.148
+    ],
+    [
+      "metatarsals",
+      "stinger",
+      220526.0,
+      0.004
+    ],
+    [
+      "metatarsals",
+      "tanned",
+      373206.0,
+      0.065
+    ],
+    [
+      "metatarsals",
+      "speculum",
+      317888.0,
+      0.029
+    ],
+    [
+      "metatarsals",
+      "beak",
+      364603.0,
+      0.061
+    ],
+    [
+      "metatarsals",
+      "nettle",
+      270331.0,
+      0.017
+    ],
+    [
+      "metatarsals",
+      "moth",
+      289618.0,
+      0.03
+    ],
+    [
+      "claws",
+      "eggs",
+      391835.0,
+      0.055
+    ],
+    [
+      "claws",
+      "cortex",
+      525565.0,
+      0.133
+    ],
+    [
+      "claws",
+      "garrote",
+      553647.0,
+      0.18
+    ],
+    [
+      "claws",
+      "cord",
+      498471.0,
+      0.121
+    ],
+    [
+      "claws",
+      "rawhide",
+      487508.0,
+      0.098
+    ],
+    [
+      "claws",
+      "suture",
+      682668.0,
+      0.269
+    ],
+    [
+      "claws",
+      "saw",
+      544476.0,
+      0.137
+    ],
+    [
+      "claws",
+      "nail",
+      377907.0,
+      0.041
+    ],
+    [
+      "claws",
+      "scraper",
+      571391.0,
+      0.15
+    ],
+    [
+      "claws",
+      "file",
+      476346.0,
+      0.116
+    ],
+    [
+      "claws",
+      "lady",
+      843511.0,
+      0.385
+    ],
+    [
+      "claws",
+      "stinger",
+      343954.0,
+      0.03
+    ],
+    [
+      "claws",
+      "tanned",
+      531596.0,
+      0.142
+    ],
+    [
+      "claws",
+      "speculum",
+      500996.0,
+      0.115
+    ],
+    [
+      "claws",
+      "beak",
+      520748.0,
+      0.147
+    ],
+    [
+      "claws",
+      "nettle",
+      396134.0,
+      0.051
+    ],
+    [
+      "claws",
+      "moth",
+      581967.0,
+      0.204
+    ],
+    [
+      "sprout",
+      "eggs",
+      335916.0,
+      0.024
+    ],
+    [
+      "sprout",
+      "cortex",
+      387048.0,
+      0.045
+    ],
+    [
+      "sprout",
+      "garrote",
+      355399.0,
+      0.033
+    ],
+    [
+      "sprout",
+      "cord",
+      543399.0,
+      0.146
+    ],
+    [
+      "sprout",
+      "rawhide",
+      540271.0,
+      0.156
+    ],
+    [
+      "sprout",
+      "suture",
+      485118.0,
+      0.11
+    ],
+    [
+      "sprout",
+      "saw",
+      488407.0,
+      0.098
+    ],
+    [
+      "sprout",
+      "nail",
+      319778.0,
+      0.015
+    ],
+    [
+      "sprout",
+      "scraper",
+      399865.0,
+      0.047
+    ],
+    [
+      "sprout",
+      "file",
+      513691.0,
+      0.144
+    ],
+    [
+      "sprout",
+      "lady",
+      599814.0,
+      0.175
+    ],
+    [
+      "sprout",
+      "stinger",
+      359875.0,
+      0.044
+    ],
+    [
+      "sprout",
+      "tanned",
+      441899.0,
+      0.093
+    ],
+    [
+      "sprout",
+      "speculum",
+      381993.0,
+      0.032
+    ],
+    [
+      "sprout",
+      "beak",
+      492531.0,
+      0.119
+    ],
+    [
+      "sprout",
+      "nettle",
+      450573.0,
+      0.125
+    ],
+    [
+      "sprout",
+      "moth",
+      362095.0,
+      0.039
+    ],
+    [
+      "liver",
+      "eggs",
+      285274.0,
+      0.01
+    ],
+    [
+      "liver",
+      "cortex",
+      315181.0,
+      0.017
+    ],
+    [
+      "liver",
+      "garrote",
+      293888.0,
+      0.015
+    ],
+    [
+      "liver",
+      "cord",
+      412695.0,
+      0.057
+    ],
+    [
+      "liver",
+      "rawhide",
+      467366.0,
+      0.098
+    ],
+    [
+      "liver",
+      "suture",
+      381031.0,
+      0.046
+    ],
+    [
+      "liver",
+      "saw",
+      417783.0,
+      0.051
+    ],
+    [
+      "liver",
+      "nail",
+      273554.0,
+      0.005
+    ],
+    [
+      "liver",
+      "scraper",
+      353141.0,
+      0.02
+    ],
+    [
+      "liver",
+      "file",
+      405231.0,
+      0.067
+    ],
+    [
+      "liver",
+      "lady",
+      539079.0,
+      0.119
+    ],
+    [
+      "liver",
+      "stinger",
+      329003.0,
+      0.036
+    ],
+    [
+      "liver",
+      "tanned",
+      386190.0,
+      0.059
+    ],
+    [
+      "liver",
+      "speculum",
+      329790.0,
+      0.012
+    ],
+    [
+      "liver",
+      "beak",
+      414431.0,
+      0.057
+    ],
+    [
+      "liver",
+      "nettle",
+      369486.0,
+      0.071
+    ],
+    [
+      "liver",
+      "moth",
+      307254.0,
+      0.019
+    ]
+  ],
+  "potions": [
+    {
+      "cn": "益生霉溶液",
+      "name": "Probiotic Enzyme Solution",
+      "played": 1157,
+      "rate": 0.106,
+      "shown": 10955,
+      "tier": "Rare"
+    },
+    {
+      "cn": "蜕生皮溶液",
+      "name": "Slough Solution",
+      "played": 5076,
+      "rate": 0.457,
+      "shown": 11106,
+      "tier": "Rare"
+    },
+    {
+      "cn": "软脑膜溶液",
+      "name": "Leptomeningeal Solution",
+      "played": 2213,
+      "rate": 0.204,
+      "shown": 10854,
+      "tier": "Rare"
+    },
+    {
+      "cn": "化骨油膏",
+      "name": "Osteolytic Ointment",
+      "played": 2328,
+      "rate": 0.216,
+      "shown": 10769,
+      "tier": "Rare"
+    },
+    {
+      "cn": "清疽油膏",
+      "name": "Cleansing Ointment",
+      "played": 2107,
+      "rate": 0.191,
+      "shown": 11051,
+      "tier": "Rare"
+    },
+    {
+      "cn": "鲜脊髓药粉",
+      "name": "Fresh Spinal Powder",
+      "played": 3248,
+      "rate": 0.297,
+      "shown": 10936,
+      "tier": "Rare"
+    },
+    {
+      "cn": "石化脊髓溶液",
+      "name": "Petrified Spinal Solution",
+      "played": 2739,
+      "rate": 0.249,
+      "shown": 10993,
+      "tier": "Rare"
+    },
+    {
+      "cn": "活性育卵激素",
+      "name": "Viviparous Hormone",
+      "played": 3385,
+      "rate": 0.157,
+      "shown": 21547,
+      "tier": "Magic"
+    },
+    {
+      "cn": "卵壳药粉",
+      "name": "Eggshell Powder",
+      "played": 2483,
+      "rate": 0.116,
+      "shown": 21398,
+      "tier": "Magic"
+    },
+    {
+      "cn": "脑雾酊剂",
+      "name": "Brain Fog Tincture",
+      "played": 3928,
+      "rate": 0.183,
+      "shown": 21468,
+      "tier": "Magic"
+    },
+    {
+      "cn": "生骨药粉",
+      "name": "Osteogenic Powder",
+      "played": 3414,
+      "rate": 0.158,
+      "shown": 21661,
+      "tier": "Magic"
+    },
+    {
+      "cn": "灰质脊髓溶液",
+      "name": "Gray Matter Spinal Solution",
+      "played": 4385,
+      "rate": 0.206,
+      "shown": 21301,
+      "tier": "Magic"
+    },
+    {
+      "cn": "空心脊髓溶液",
+      "name": "Hollow Spinal Solution",
+      "played": 5819,
+      "rate": 0.269,
+      "shown": 21608,
+      "tier": "Magic"
+    },
+    {
+      "cn": "青胆汁溶液",
+      "name": "Green Bile Solution",
+      "played": 9496,
+      "rate": 0.442,
+      "shown": 21483,
+      "tier": "Magic"
+    },
+    {
+      "cn": "混合活蛭溶液",
+      "name": "Compound Leech Solution",
+      "played": 5305,
+      "rate": 0.246,
+      "shown": 21575,
+      "tier": "Magic"
+    },
+    {
+      "cn": "消化酶溶液",
+      "name": "Digestive Enzyme Solution",
+      "played": 7614,
+      "rate": 0.355,
+      "shown": 21428,
+      "tier": "Magic"
+    },
+    {
+      "cn": "活殖药粉",
+      "name": "Vivigenic Powder",
+      "played": 3715,
+      "rate": 0.175,
+      "shown": 21208,
+      "tier": "Magic"
+    },
+    {
+      "cn": "强效祛异药粉",
+      "name": "Potent Xenopurge Powder",
+      "played": 9446,
+      "rate": 0.44,
+      "shown": 21487,
+      "tier": "Magic"
+    },
+    {
+      "cn": "祛异药粉",
+      "name": "Xenopurge Powder",
+      "played": 8620,
+      "rate": 0.396,
+      "shown": 21760,
+      "tier": "Magic"
+    },
+    {
+      "cn": "纯粹活蛭溶液",
+      "name": "Pure Leech Solution",
+      "played": 5165,
+      "rate": 0.239,
+      "shown": 21617,
+      "tier": "Magic"
+    },
+    {
+      "cn": "迷魂酊剂",
+      "name": "Bewitching Tincture",
+      "played": 10652,
+      "rate": 0.498,
+      "shown": 21404,
+      "tier": "Magic"
+    },
+    {
+      "cn": "诱变药粉",
+      "name": "Mutagenic Powder",
+      "played": 9736,
+      "rate": 0.453,
+      "shown": 21494,
+      "tier": "Magic"
+    },
+    {
+      "cn": "黏稠胆汁溶液",
+      "name": "Viscous Bile Solution",
+      "played": 6285,
+      "rate": 0.295,
+      "shown": 21298,
+      "tier": "Magic"
+    },
+    {
+      "cn": "细肢药粉-蛊虫",
+      "name": "Slender-Limb Powder - Pest",
+      "played": 5197,
+      "rate": 0.164,
+      "shown": 31785,
+      "tier": "Normal"
+    },
+    {
+      "cn": "孪生激素-蛊虫",
+      "name": "Twin Hormone - Pest",
+      "played": 6716,
+      "rate": 0.211,
+      "shown": 31859,
+      "tier": "Normal"
+    },
+    {
+      "cn": "脊髓溶液-觉醒者",
+      "name": "Spinal Solution - Agito",
+      "played": 3197,
+      "rate": 0.101,
+      "shown": 31772,
+      "tier": "Normal"
+    },
+    {
+      "cn": "麻药酊剂-觉醒者",
+      "name": "Anesthetic Tincture - Agito",
+      "played": 5714,
+      "rate": 0.179,
+      "shown": 31867,
+      "tier": "Normal"
+    },
+    {
+      "cn": "细肢药粉-骨卫兵",
+      "name": "Slender-Limb Powder - Bone Sentry",
+      "played": 4089,
+      "rate": 0.129,
+      "shown": 31658,
+      "tier": "Normal"
+    },
+    {
+      "cn": "孪生激素-骨卫兵",
+      "name": "Twin Hormone - Bone Sentry",
+      "played": 7901,
+      "rate": 0.251,
+      "shown": 31531,
+      "tier": "Normal"
+    },
+    {
+      "cn": "麻药酊剂-异魔",
+      "name": "Anesthetic Tincture - Aemberon",
+      "played": 3871,
+      "rate": 0.121,
+      "shown": 31957,
+      "tier": "Normal"
+    },
+    {
+      "cn": "脊髓溶液-异魔",
+      "name": "Spinal Solution - Aemberon",
+      "played": 2690,
+      "rate": 0.084,
+      "shown": 32084,
+      "tier": "Normal"
+    },
+    {
+      "cn": "异种激素",
+      "name": "Xeno-Hormone",
+      "played": 14575,
+      "rate": 0.46,
+      "shown": 31678,
+      "tier": "Normal"
+    },
+    {
+      "cn": "靶向异种激素",
+      "name": "Targeted Xeno-Hormone",
+      "played": 6001,
+      "rate": 0.19,
+      "shown": 31638,
+      "tier": "Normal"
+    },
+    {
+      "cn": "药剂箱（大）",
+      "name": "Potion Kit (Large)",
+      "played": 7470,
+      "rate": 0.686,
+      "shown": 10886,
+      "tier": "Rare"
+    },
+    {
+      "cn": "稀有药剂箱（小）",
+      "name": "Rare Potion Kit (Small)",
+      "played": 6179,
+      "rate": 0.569,
+      "shown": 10866,
+      "tier": "Rare"
+    },
+    {
+      "cn": "药剂箱（小）",
+      "name": "Potion Kit (Small)",
+      "played": 5886,
+      "rate": 0.537,
+      "shown": 10961,
+      "tier": "Rare"
+    },
+    {
+      "cn": "复方焕生丸剂",
+      "name": "Compound Revitalizing Pill",
+      "played": 366,
+      "rate": 0.232,
+      "shown": 1579,
+      "tier": "Supreme"
+    },
+    {
+      "cn": "速效强心剂",
+      "name": "速效强心剂",
+      "played": 457,
+      "rate": 0.285,
+      "shown": 1601,
+      "tier": "Supreme"
+    },
+    {
+      "cn": "疫区泥炭敷料",
+      "name": "Plague Quarter Peat Poultice",
+      "played": 330,
+      "rate": 0.212,
+      "shown": 1556,
+      "tier": "Supreme"
+    },
+    {
+      "cn": "诱虫剂",
+      "name": "Insect Attractant",
+      "played": 711,
+      "rate": 0.454,
+      "shown": 1565,
+      "tier": "Supreme"
+    },
+    {
+      "cn": "至纯圣水",
+      "name": "至纯圣水",
+      "played": 334,
+      "rate": 0.218,
+      "shown": 1532,
+      "tier": "Supreme"
+    }
+  ],
+  "rainbowBoard": 840000,
+  "second": {
+    "beak": {
+      "cn": "二度降生者之喙",
+      "name": "Beak of the Twice-Born",
+      "stat": {
+        "mean": 520299.0,
+        "rainbow": 0.157,
+        "se": 2803.0
+      }
+    },
+    "cord": {
+      "cn": "蠕动脊髓",
+      "name": "Vermicular Spinal Cord",
+      "stat": {
+        "mean": 452844.0,
+        "rainbow": 0.099,
+        "se": 2287.0
+      }
+    },
+    "cortex": {
+      "cn": "蜕生脑皮层",
+      "name": "Sloughed Cortex",
+      "stat": {
+        "mean": 442824.0,
+        "rainbow": 0.09,
+        "se": 2094.0
+      }
+    },
+    "eggs": {
+      "cn": "簇生虫卵",
+      "name": "Clustered Eggs",
+      "stat": {
+        "mean": 409140.0,
+        "rainbow": 0.082,
+        "se": 2248.0
+      }
+    },
+    "file": {
+      "cn": "犬牙锉刀",
+      "name": "Canine Teeth File",
+      "stat": {
+        "mean": 500759.0,
+        "rainbow": 0.15,
+        "se": 2500.0
+      }
+    },
+    "garrote": {
+      "cn": "兽筋绞肉索",
+      "name": "Sinew Garrote",
+      "stat": {
+        "mean": 455139.0,
+        "rainbow": 0.117,
+        "se": 2677.0
+      }
+    },
+    "lady": {
+      "cn": "疫区圣母像",
+      "name": "Lady of the Plague Quarter",
+      "stat": {
+        "mean": 758813.0,
+        "rainbow": 0.328,
+        "se": 3253.0
+      }
+    },
+    "moth": {
+      "cn": "抱卵蝶",
+      "name": "抱卵蝶",
+      "stat": {
+        "mean": 504131.0,
+        "rainbow": 0.152,
+        "se": 2963.0
+      }
+    },
+    "nail": {
+      "cn": "二寸颅骨钉",
+      "name": "Two-Inch Skull Nail",
+      "stat": {
+        "mean": 368618.0,
+        "rainbow": 0.051,
+        "se": 1740.0
+      }
+    },
+    "nettle": {
+      "cn": "荨麻绳扣",
+      "name": "Nettle Toggle",
+      "stat": {
+        "mean": 426980.0,
+        "rainbow": 0.097,
+        "se": 2110.0
+      }
+    },
+    "rawhide": {
+      "cn": "生皮革拘束带",
+      "name": "Rawhide Restraint",
+      "stat": {
+        "mean": 548525.0,
+        "rainbow": 0.167,
+        "se": 2525.0
+      }
+    },
+    "saw": {
+      "cn": "生铁骨锯",
+      "name": "Pig Iron Bone Saw",
+      "stat": {
+        "mean": 524900.0,
+        "rainbow": 0.145,
+        "se": 2397.0
+      }
+    },
+    "scraper": {
+      "cn": "脏污刮骨刀",
+      "name": "Fouled Scraper",
+      "stat": {
+        "mean": 511255.0,
+        "rainbow": 0.138,
+        "se": 2393.0
+      }
+    },
+    "speculum": {
+      "cn": "眼睑扩张器",
+      "name": "Eyelid Speculum",
+      "stat": {
+        "mean": 460208.0,
+        "rainbow": 0.098,
+        "se": 2171.0
+      }
+    },
+    "stinger": {
+      "cn": "异形蛰针",
+      "name": "Aberrant Stinger",
+      "stat": {
+        "mean": 305304.0,
+        "rainbow": 0.025,
+        "se": 1554.0
+      }
+    },
+    "suture": {
+      "cn": "黑山羊肠缝线",
+      "name": "Black Goat Gut Suture",
+      "stat": {
+        "mean": 576609.0,
+        "rainbow": 0.187,
+        "se": 3074.0
+      }
+    },
+    "tanned": {
+      "cn": "鞣制皮革拘束带",
+      "name": "Tanned Leather Restraint",
+      "stat": {
+        "mean": 543461.0,
+        "rainbow": 0.171,
+        "se": 2700.0
+      }
+    }
+  }
+}

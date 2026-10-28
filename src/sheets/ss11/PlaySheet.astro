@@ -1,0 +1,306 @@
+---
+import Base from '../../layouts/Base.astro';
+import EventInfo, { type Credit } from '../../components/EventInfo.astro';
+import BackLink from '../../components/BackLink.astro';
+import { getEvent, eventLangs, homeUrl } from '../../lib/events';
+import { fmt, hreflang, rich, type Lang } from '../../lib/i18n';
+import { DICT } from './i18n';
+import { ENGINE_TEXT } from './engine-text';
+import credits from '../../../events/SS11_Vorax/credits.json';
+// Every number on the instrument and potion panes: our own engine (events/SS11_Vorax/engine, `vorax export`).
+import engine from '../../../events/SS11_Vorax/data/engine_results.json';
+import './play.css';
+
+// Play sheet for Vorax (SS11's mechanic, still in the game) in one language: how a run scores, the instruments and
+// potions ranked by our engine, what the score buys, the compass for the current season and Grafting. Static: no
+// client script.
+// Pages: src/pages/ss11/index.astro (en) and src/pages/ss11/[lang].astro. Texts: ./i18n/ (one file per language).
+// Sources and confidence of every line: events/SS11_Vorax/VORAX_GUIDE.md.
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = DICT[lang];
+const e = ENGINE_TEXT[lang];
+const event = await getEvent('ss11');
+const langs = eventLangs(event, lang);
+const num = new Intl.NumberFormat(hreflang(lang));
+const n = (v: number) => num.format(v);
+const r = (s: string, vars: Record<string, number> = {}) =>
+  rich(fmt(s, Object.fromEntries(Object.entries(vars).map(([k, v]) => [k, n(v)]))));
+
+// The community solver (tidewarden/vorax-solver): where players can practise a board. Its numbers aren't ours.
+const SIMULATOR_URL = 'https://voraxlab.pages.dev/tli-vorax-simulator/';
+
+// Where a line comes from: o = in-game text / patch notes, p = players (measured or played), c = claim (nobody measured).
+type Tag = keyof typeof t.tags;
+
+const STEP_VARS: Record<string, number>[] = [{ a: 12, b: 48 }, {}, {}, {}];
+const STEP_TAGS: Tag[] = ['o', 'p', 'p', 'o'];
+const RULES: [keyof typeof t.rules, Tag, Record<string, number>?][] = [
+  ['rounds', 'p'],
+  ['instruments', 'p', { a: 8000, b: 28000 }],
+  ['refresh', 'p'],
+  ['abandon', 'p'],
+  ['risk', 'p'],
+];
+// ---- our engine's numbers ----
+interface Stat {
+  mean: number;
+  rainbow: number;
+}
+interface Engine {
+  games: number;
+  rainbowBoard: number;
+  first: Record<string, { name: string; stat: Stat }>;
+  second: Record<string, { name: string; stat: Stat }>;
+  pairs: [string, string, number, number][];
+  potions: { name: string; cn: string; tier: string; shown: number; rate: number }[];
+}
+const E = engine as unknown as Engine;
+const pct = new Intl.NumberFormat(hreflang(lang), { style: 'percent' });
+const compact = new Intl.NumberFormat(hreflang(lang), { notation: 'compact', maximumFractionDigits: 0 });
+const ranked = (o: Engine['first']) =>
+  Object.entries(o)
+    .map(([key, x]) => ({ key, name: x.name, ...x.stat }))
+    .sort((a, b) => b.mean - a.mean);
+const FIRST = ranked(E.first);
+const SECOND = ranked(E.second);
+const top = Math.max(...FIRST.map((x) => x.mean), ...SECOND.map((x) => x.mean));
+const bar = (v: number) => `--w: ${Math.round((100 * v) / top)}%`;
+const secondName = Object.fromEntries(SECOND.map((x) => [x.key, x.name]));
+// The three best second instruments with each first one (pairs: first, second, mean, rainbow share).
+const bestWith = (key: string) =>
+  E.pairs
+    .filter((x) => x[0] === key)
+    .sort((a, b) => b[2] - a[2])
+    .slice(0, 3)
+    .map((x) => secondName[x[1]] ?? x[1]);
+// A potion's verdict from how often our player plays it when a hand shows it.
+const verdict = (rate: number) => (rate >= 0.4 ? 'take' : rate >= 0.2 ? 'maybe' : 'pass');
+const POTIONS = [...E.potions]
+  .map((x) => ({ ...x, seen: !/[\u4e00-\u9fff]/.test(x.name) }))
+  .sort((a, b) => Number(b.seen) - Number(a.seen) || b.rate - a.rate);
+const PATTERNS: [keyof typeof t.patterns, Record<string, number>?][] = [
+  ['fuse'],
+  ['pests'],
+  ['tank'],
+  ['kit'],
+  ['xeno'],
+  ['aim', { a: 840000 }],
+];
+// Only the thresholds players confirmed in-game (the rest are estimates: see the guide).
+const VIALS: [string, keyof typeof t.vials, string][] = [
+  [n(38000), 'purple1', 'purple'],
+  [n(266000), 'red1', 'red'],
+  [[512000, 607000, 721000].map(n).join(' · '), 'red4', 'red'],
+  [n(1120000), 'rainbow', 'rainbow'],
+];
+const COMPASSES: [keyof typeof t.compass, string][] = [
+  ['blue', 'Vorax Compass'],
+  ['purple', 'Scavenger Vorax Compass'],
+  ['gold', 'Consultation Vorax Compass'],
+];
+const FARM: [keyof typeof t.farm, Tag][] = [
+  ['price', 'c'],
+  ['rainbow', 'c'],
+  ['stack', 'p'],
+  ['chimera', 'o'],
+];
+const GRAFT = Object.keys(t.graft) as (keyof typeof t.graft)[];
+---
+
+<Base title={`${t.title} · TLI Events`} description={t.desc} langs={langs} lang={hreflang(lang)} image={event.banner}>
+  <EventInfo
+    slot="nav"
+    lang={lang}
+    method={e.method.map((m) => fmt(m, { games: n(E.games) }))}
+    credits={credits as Credit[]}
+  />
+  <BackLink href={homeUrl(lang)} label={t.back} />
+  <header class="v-head">
+    <h1>
+      {t.h1}{' '}
+      <span class="v-code">
+        {event.code} · <span lang="zh-Hans">{event.nameCn}</span>
+      </span>
+    </h1>
+    <p class="v-lead" set:html={rich(t.lead)} />
+    <p class="v-legend">
+      <span class="meta">{t.tagsH}:</span>{' '}
+      {(Object.keys(t.tags) as Tag[]).map((k) => (
+        <>
+          <span class={`v-tag v-tag-${k}`}>{t.tags[k]}</span>{' '}
+        </>
+      ))}
+    </p>
+  </header>
+
+  <div class="v-grid">
+    <section class="v-pane" aria-labelledby="loop-h">
+      <h2 id="loop-h">{t.loopH}</h2>
+      <ol class="v-steps">
+        {t.steps.map((s, i) => (
+          <li>
+            <b>{s.h}</b> <span set:html={r(s.p, STEP_VARS[i])} />{' '}
+            <span class={`v-tag v-tag-${STEP_TAGS[i]}`}>{t.tags[STEP_TAGS[i]]}</span>
+          </li>
+        ))}
+      </ol>
+      <h3>{t.rulesH}</h3>
+      <ul class="v-list">
+        {RULES.map(([id, tag, vars]) => (
+          <li>
+            <span set:html={r(t.rules[id], vars)} /> <span class={`v-tag v-tag-${tag}`}>{t.tags[tag]}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="v-pane" aria-labelledby="win-h">
+      <h2 id="win-h">{t.winH}</h2>
+      <h3>{t.firstH}</h3>
+      <p class="meta">
+        {fmt(e.firstHint, { games: n(E.games), a: n(E.rainbowBoard) })} <span class="v-tag v-tag-p">{t.tags.p}</span>
+      </p>
+      <ol class="v-bars">
+        {FIRST.map((x) => (
+          <li>
+            <span class="v-bar-name">{x.name}</span>
+            <span class="v-bar" style={bar(x.mean)} aria-hidden="true" />
+            <span class="v-bar-val">
+              {compact.format(x.mean)} · {pct.format(x.rainbow)}
+            </span>
+            {bestWith(x.key).length > 0 && (
+              <span class="v-pair">
+                <span class="meta">{e.bestWith}:</span> {bestWith(x.key).join(' · ')}
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+      <h3>{fmt(e.secondH, { a: n(8000), b: n(28000) })}</h3>
+      <p class="meta">{e.secondHint}</p>
+      <ol class="v-bars v-bars-tight">
+        {SECOND.map((x) => (
+          <li>
+            <span class="v-bar-name">{x.name}</span>
+            <span class="v-bar" style={bar(x.mean)} aria-hidden="true" />
+            <span class="v-bar-val">
+              {compact.format(x.mean)} · {pct.format(x.rainbow)}
+            </span>
+          </li>
+        ))}
+      </ol>
+      <h3>{t.patternsH}</h3>
+      <ul class="v-list">
+        {PATTERNS.map(([id, vars]) => (
+          <li set:html={r(t.patterns[id], vars)} />
+        ))}
+      </ul>
+      <p>
+        <a class="v-ext" href={SIMULATOR_URL} target="_blank" rel="noopener noreferrer">
+          {t.practice}
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+          </svg>
+        </a>
+      </p>
+    </section>
+
+    <section class="v-pane v-span" aria-labelledby="pot-h">
+      <h2 id="pot-h">{e.potH}</h2>
+      <p class="meta">
+        {e.potHint} <span class="v-tag v-tag-p">{t.tags.p}</span>
+      </p>
+      <ul class="v-cards">
+        {POTIONS.map((x) => (
+          <li class={`v-card v-tier-${x.tier.toLowerCase()} v-${x.seen ? verdict(x.rate) : 'unseen'}`}>
+            <span class="v-card-tier">{x.tier}</span>
+            <b class="v-card-name" lang={x.seen ? undefined : 'zh-Hans'}>
+              {x.name}
+            </b>
+            {x.seen ? (
+              <>
+                <span class="v-meter" style={`--w: ${Math.round(100 * x.rate)}%`} aria-hidden="true" />
+                <span class="v-card-foot">
+                  <span class="v-verdict">{e.verdict[verdict(x.rate)]}</span>{' '}
+                  <span class="meta">{fmt(e.played, { p: pct.format(x.rate) })}</span>
+                </span>
+              </>
+            ) : (
+              <span class="meta">{e.unseen}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="v-pane" aria-labelledby="vials-h">
+      <h2 id="vials-h">{t.vialsH}</h2>
+      <table class="v-vials">
+        <thead>
+          <tr>
+            <th scope="col">{t.vialCols[0]}</th>
+            <th scope="col">{t.vialCols[1]}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {VIALS.map(([score, id, colour]) => (
+            <tr>
+              <td class="v-num">{score}</td>
+              <td>
+                <span class={`v-dot v-dot-${colour}`} aria-hidden="true" />
+                {t.vials[id]}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="meta">
+        {t.vialsNote} <span class="v-tag v-tag-p">{t.tags.p}</span>
+      </p>
+
+      <h2 id="farm-h" class="v-h2-next">
+        {t.farmH}
+      </h2>
+      <h3>{t.compassH}</h3>
+      <ul class="v-compass">
+        {COMPASSES.map(([id, name]) => (
+          <li>
+            <span class={`v-dot v-dot-${id}`} aria-hidden="true" />
+            <b>{name}</b> <span class="meta">({t.colours[id]})</span> — {t.compass[id]}{' '}
+            <span class="v-tag v-tag-o">{t.tags.o}</span>
+          </li>
+        ))}
+      </ul>
+      <p>
+        <span set:html={rich(t.tierP)} /> <span class="v-tag v-tag-p">{t.tags.p}</span>
+      </p>
+      <ul class="v-list">
+        {FARM.map(([id, tag]) => (
+          <li>
+            <span set:html={rich(t.farm[id])} /> <span class={`v-tag v-tag-${tag}`}>{t.tags[tag]}</span>
+          </li>
+        ))}
+      </ul>
+      <h3>{t.shelleyH}</h3>
+      <p>
+        <span set:html={rich(t.shelleyP)} /> <span class="v-tag v-tag-o">{t.tags.o}</span>
+      </p>
+    </section>
+
+    <section class="v-pane" aria-labelledby="graft-h">
+      <h2 id="graft-h">{t.graftH}</h2>
+      <ul class="v-list">
+        {GRAFT.map((id) => (
+          <li>
+            <span set:html={rich(t.graft[id])} /> <span class="v-tag v-tag-o">{t.tags.o}</span>
+          </li>
+        ))}
+      </ul>
+      <h3>{t.gapsH}</h3>
+      <p class="meta">{t.gapsP}</p>
+    </section>
+  </div>
+</Base>

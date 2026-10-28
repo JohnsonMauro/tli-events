@@ -1,0 +1,297 @@
+/* ---- /ss11/ play sheet (Vorax): a flowing grid of four panes, two columns on wide screens, one on phones ---- */
+.v-head h1 {
+  margin-bottom: 6px;
+}
+.v-code {
+  font-family: var(--mono);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--ink2);
+  vertical-align: middle;
+}
+.v-lead {
+  max-width: 70ch;
+  margin: 0 0 6px;
+}
+.v-legend {
+  margin: 0 0 12px;
+}
+.v-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+@media (min-width: 900px) {
+  .v-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.v-pane {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px 14px;
+  min-width: 0;
+}
+.v-pane h2 {
+  margin: 0 0 8px;
+  font-size: 30px;
+}
+.v-pane h2.v-h2-next {
+  margin-top: 22px;
+}
+.v-pane h3 {
+  font-size: 15px;
+  margin: 16px 0 6px;
+}
+.v-pane p {
+  margin: 6px 0;
+}
+.k {
+  font-weight: 700;
+  color: var(--accent);
+}
+.no {
+  font-weight: 700;
+  color: var(--bad);
+}
+
+/* where a line comes from */
+.v-tag {
+  display: inline-block;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: 600 11px var(--mono);
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: var(--ink2);
+  white-space: nowrap;
+  vertical-align: 0.1em;
+}
+.v-tag-o {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+.v-tag-p {
+  border-color: var(--t1);
+  color: var(--ink);
+}
+.v-tag-c {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+.v-steps,
+.v-first,
+.v-list,
+.v-compass {
+  margin: 0;
+  padding-left: 1.3em;
+}
+.v-steps li,
+.v-first li,
+.v-list li,
+.v-compass li {
+  margin: 0 0 8px;
+}
+.v-compass {
+  list-style: none;
+  padding-left: 0;
+}
+.v-first li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.v-name {
+  color: var(--accent);
+}
+.v-pair {
+  font-size: 14px;
+}
+
+/* colour swatches: vial and compass colours (decorative, the text says it) */
+.v-dot {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: -0.05em;
+}
+.v-dot-blue {
+  background: var(--t1);
+}
+.v-dot-purple {
+  background: var(--t2);
+}
+.v-dot-red {
+  background: var(--t4);
+}
+.v-dot-gold {
+  background: var(--lion);
+}
+.v-dot-rainbow {
+  background: var(--t5);
+}
+
+.v-vials {
+  width: 100%;
+  border-collapse: collapse;
+}
+.v-vials th,
+.v-vials td {
+  text-align: left;
+  padding: 5px 6px;
+  border-bottom: 1px solid var(--line);
+}
+.v-vials th {
+  font: 600 12px var(--mono);
+  color: var(--ink2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.v-num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.v-ext {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+}
+.v-ext .ico {
+  width: 15px;
+  height: 15px;
+}
+
+/* the potion pane spans both columns */
+.v-span {
+  grid-column: 1 / -1;
+}
+
+/* ranked instruments: name, bar (share of the best average board), value; partners under it */
+.v-bars {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+.v-bars li {
+  display: grid;
+  grid-template-columns: minmax(0, 11em) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2px 8px;
+  margin: 0 0 7px;
+}
+.v-bars-tight li {
+  margin-bottom: 4px;
+}
+.v-bar-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.v-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface2);
+  overflow: hidden;
+}
+.v-bar::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: var(--w);
+  border-radius: inherit;
+  background: var(--accent);
+}
+.v-bar-val {
+  font: 600 13px var(--mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.v-bars .v-pair {
+  grid-column: 1 / -1;
+}
+@media (max-width: 520px) {
+  .v-bars li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .v-bar {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* potion cards: frame colour = card rarity, meter = how often our player plays it */
+.v-cards {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  gap: 8px;
+}
+.v-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--t0);
+  border-radius: var(--radius);
+  background: var(--surface);
+  min-width: 0;
+}
+.v-tier-magic {
+  border-left-color: var(--t1);
+}
+.v-tier-rare {
+  border-left-color: var(--lion);
+}
+.v-tier-supreme {
+  border-left-color: var(--t4);
+}
+.v-card-tier {
+  font: 600 11px var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+.v-card-name {
+  overflow-wrap: anywhere;
+}
+.v-meter {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface2);
+  overflow: hidden;
+}
+.v-meter::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: var(--w);
+  border-radius: inherit;
+  background: var(--ink2);
+}
+.v-take .v-meter::before {
+  background: var(--ok);
+}
+.v-maybe .v-meter::before {
+  background: var(--warn);
+}
+.v-verdict {
+  font-weight: 700;
+}
+.v-take .v-verdict {
+  color: var(--ok);
+}
+.v-maybe .v-verdict {
+  color: var(--warn);
+}
+.v-pass .v-verdict {
+  color: var(--ink2);
+}

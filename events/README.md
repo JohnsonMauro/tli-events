@@ -5,6 +5,7 @@ One folder per seasonal event. Each folder is self-contained: guide, changelog, 
 | Event | Mechanic | Folder |
 |---|---|---|
 | SS14 Tartarus (塔罗斯的困兽) | Warden's Duty — a 16-cell prison | [SS14_Tartarus/](SS14_Tartarus/) |
+| SS11 Vorax (渴瘾症) | Surgical Preparation — still in the game; farm advice follows the current season | [SS11_Vorax/](SS11_Vorax/) |
 
 ## Adding a new event
 
