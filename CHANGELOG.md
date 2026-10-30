@@ -6,6 +6,8 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+## [1.20.4] - 2026-10-30
+
 ### Changed
 
 - The site's code is now checked against the Node.js 26 type definitions, matching the Node.js it is built on. Nothing changes on the pages.
@@ -420,7 +422,8 @@ First versioned release: the site as it stands when versioning started. Earlier 
 - Season numbers refreshed every 6 hours from the simulator and live telemetry.
 - Works offline after the first visit.
 
-[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.3...HEAD
+[Unreleased]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.4...HEAD
+[1.20.4]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.3...v1.20.4
 [1.20.3]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.2...v1.20.3
 [1.20.2]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.1...v1.20.2
 [1.20.1]: https://github.com/JohnsonMauro/tli-events/compare/v1.20.0...v1.20.1
