@@ -527,9 +527,9 @@ for (const width of [390, 1440]) {
     // The rows below the fold are lazy: load them first, or an unloaded image (natural size 0) proves nothing.
     await imgs.evaluateAll((list) =>
       Promise.all(
-        (list as HTMLImageElement[]).map((img) => {
+        (list as HTMLImageElement[]).map(async (img) => {
           img.loading = 'eager';
-          return img.decode().catch(() => undefined);
+          await img.decode().catch(() => undefined);
         }),
       ),
     );
