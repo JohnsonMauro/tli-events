@@ -57,13 +57,14 @@ jobs:
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
-          node-version: 24.22.1 # exact, as in the lint job
+          node-version: 26.13.0 # exact, as in the lint job
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - name: Update within ranges
         id: update
         run: |
-          pnpm update
+          # --no-save: pnpm 12 also rewrites the "^" ranges in package.json, which the check below rejects (2026-10-26 run).
+          pnpm update --no-save
           changed="$(git status --porcelain)"
           if [ -z "$changed" ]; then
             echo "Nothing to update."
@@ -100,7 +101,7 @@ jobs:
       - uses: pnpm/action-setup@v6 # version from package.json "packageManager"
       - uses: actions/setup-node@v7
         with:
-          node-version: 24.22.1 # exact: a bare "24" takes the runner's cached 24.x, days behind security releases
+          node-version: 26.13.0 # exact: a bare "26" takes the runner's cached 26.x, days behind security releases
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
@@ -131,7 +132,7 @@ jobs:
       - uses: withastro/action@v6
         with:
           package-manager: pnpm@12.15.0
-          node-version: 24.22.1 # exact, as in the lint job
+          node-version: 26.13.0 # exact, as in the lint job
 
   deploy:
     needs: build

@@ -13,6 +13,7 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 ### Changed
 
 - Event list: every event card is the same height, whatever the length of its summary.
+- The site is now built on Node.js 26.13.0, the new LTS line. Nothing changes on the pages.
 
 ## [1.20.2] - 2026-10-25
 
