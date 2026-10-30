@@ -6,6 +6,10 @@ What changed in the game itself (patches, odds, data) is logged per event in `ev
 
 ## [Unreleased]
 
+### Changed
+
+- The site's code is now checked against the Node.js 26 type definitions, matching the Node.js it is built on. Nothing changes on the pages.
+
 ## [1.20.3] - 2026-10-30
 
 ### Changed
